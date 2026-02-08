@@ -40,7 +40,7 @@ The ecosystem this proposal addresses has distinct actors with different authori
 | **OSS Project**                | Publishes source code and publiccode.yml. Has authority over its own description, classification, and which contributions it recognizes. | Drupal, Nextcloud, OpenDesk                 |
 | **Maintainer**                 | Maintains the project day-to-day. Authors and commits the publiccode.yml file. May be employed by a vendor or an agency.                 | An individual or team                       |
 | **Vendor / Service Provider**  | Contributes to projects and sells expertise to procurement offices. Wants to be discoverable as knowledgeable for specific software.     | Acme GmbH, CivicActions                     |
-| **Procurement Office**         | Searches for software that meets a need, evaluates vendor expertise, and makes buying decisions.                                         | A municipal IT department                   |
+| **Procurement Office**         | Searches for software that meets a need, evaluates vendor expertise, assesses security posture and licensing compliance, and makes buying decisions. | A municipal IT department                   |
 | **Deploying Organization**     | Runs the software in production. May or may not be the same as the procurement office. Wants to declare what it uses.                    | Stadt München, Comune di Roma               |
 | **Federal Authority / Funder** | Steers money toward supply chain security, identifies ecosystem gaps, sets policy.                                                       | Sovereign Tech Fund, CISA, ZenDiS           |
 | **Credit Registry**            | Tracks who contributes to which projects. Endorsed by projects.                                                                          | Drupal.org Marketplace, ecosyste.ms         |
@@ -238,6 +238,12 @@ supplyChain:
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field simply links to the canonical viewer URL. Crawlers can follow this to fetch the score programmatically via the [Scorecard API](https://api.scorecard.dev/).
 - **REUSE compliance** is already checked by openCode.de badges. Making it a first-class field in publiccode.yml formalizes what's already practiced.
+
+### What This Enables
+
+1. **Procurement security assessment.** Before adopting software, a procurement officer can check its OpenSSF Scorecard, review the vulnerability disclosure policy, and verify SBOM availability — all from a single metadata file, without hunting across multiple external sources.
+2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
+3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 
 ---
 

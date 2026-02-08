@@ -44,6 +44,13 @@ Phase 4: PROPOSAL DEVELOPMENT
   Method: AI-drafted schema extensions with human iterative direction
           (5 prompt-response cycles refining scope and structure)
   Output: Concrete schema proposal (PROPOSAL.md)
+
+Phase 5: REFINEMENT (2026-02-08)
+  Input:  Completed README.md and PROPOSAL.md from Phases 1–4
+  Method: Human-prompted gap analysis of the Goal section; AI identified
+          a missing goal, human approved, AI updated both documents
+  Output: New goal added (security and compliance assessment),
+          PROPOSAL.md updated to connect Extension 2 to the new goal
 ```
 
 ---
@@ -54,7 +61,7 @@ Phase 4: PROPOSAL DEVELOPMENT
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -156,6 +163,20 @@ Queries were issued in parallel batches to maximize efficiency. Below is the ful
 | `OpenSSF scorecard API URL format REST endpoint example` | Web search | Scorecard API URL patterns |
 | `publicode French open source calculation rules engine` | Web search | Disambiguation: publicode vs publiccode |
 
+### Phase 5: Refinement (2026-02-08)
+
+**Human input (prompt 1):**
+> Is there an additional goal not yet mentioned in the Goal section of the README.md that would make sense putting into the scope of this proposal?
+
+The AI analyzed the four existing goals against the full document (gap analysis, recommendation, complementary standards) and identified that "security and compliance assessment" was extensively discussed as infrastructure (Extension 2, OpenSSF Scorecard, SBOM, REUSE) but never stated as an explicit goal. The AI distinguished this from existing goal 3 (supply chain steering) by framing it as the demand-side procurement perspective rather than the supply-side funding authority perspective.
+
+**Human input (prompt 2):**
+> OK add this new goal. Is there anything in the proposal that needs to be changed to account for this new goal?
+
+The AI added goal 5 to README.md and identified two framing gaps in PROPOSAL.md where Extension 2's schema was already sufficient but the narrative didn't connect it to procurement assessment. No new schema extensions were needed — only the Procurement Office actor description and a new "What This Enables" section for Extension 2.
+
+No web searches were performed in this phase — the analysis was based entirely on the existing documents.
+
 ---
 
 ## Sources Evaluated
@@ -230,6 +251,8 @@ Key decisions made by the human during the process:
 6. **API outlines.** The Credit Registry API and Usage Registry API rough outlines were developed by the AI based on the Drupal Contribution Records system as a reference architecture, with human direction on scope boundaries.
 
 7. **Removal of `usageRegistries` from publiccode.yml.** The initial AI draft included a `usageRegistries` field in publiccode.yml, mirroring `creditRegistries`. The human identified a fundamental asymmetry: projects have authority over credit endorsement (they know who contributes) but no authority over usage tracking (they don't control who uses them). Listing usage registries in a project file creates false gatekeeping. The AI then redesigned the architecture: usage registries are now fully decentralized, discovered via a companion Registry Discovery Standard rather than listed per-project. Credit registries remain in publiccode.yml because project endorsement is meaningful there.
+
+8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both README.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
 
 ---
 

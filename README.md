@@ -10,6 +10,7 @@ Create a single format with a good chance of wide adoption from the open source 
 2. **Vendor/contributor credit metadata** — attach additional metadata (e.g., Drupal-style credit system) to provide procurement people insights about vendors knowledgeable with the software
 3. **Supply chain steering** — enable federal authorities to steer money to secure the supply chain or identify gaps
 4. **Usage declarations** — enable procurement offices to declare which software they use (inspired by [openCode.de badges](https://badges.opencode.de/en/))
+5. **Security and compliance assessment** — enable procurement offices to evaluate the security posture, dependency transparency, and licensing compliance of software before adoption (e.g., OpenSSF Scorecard, SBOM availability, REUSE compliance)
 
 ## Candidates Evaluated
 
