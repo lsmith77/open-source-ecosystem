@@ -31,7 +31,7 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 
 ## Actors and Relationships
 
-The ecosystem this proposal addresses has distinct actors with different authorities and information needs. Understanding who knows what — and who should assert what — drives the architecture.
+The ecosystem this proposal addresses has distinct actors with different authorities and information needs. Understanding who knows what — and who should assert what — drives the architecture. See [PITCH.md](PITCH.md) for what each actor gains economically and politically from this proposal.
 
 ### Actors
 

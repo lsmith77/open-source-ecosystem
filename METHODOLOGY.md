@@ -220,6 +220,16 @@ The user provided 6 URLs to sovereignty score initiatives: sovereigntyscore.io, 
 
 The AI concluded that sovereignty score initiatives operate at a different level (organization/provider/country) than publiccode.yml (individual projects), but are *consumers* of the metadata publiccode.yml provides. Specifically, the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, requiring open source) directly need the kind of data the proposed extensions produce. The AI recommended adding these as context in the README rather than proposing new schema extensions.
 
+**Human input (prompt 4):**
+> Add the findings into the README as relevant context. Also create a new document PITCH.md with a 300-500 characters pitch each of the stakeholders in PROPOSAL.md using bullet points as much as possible.
+
+The AI added the sovereignty score initiatives as a new "Digital Sovereignty Score Initiatives" subsection under "Other Relevant Standards and Initiatives" in README.md, with a table of 5 initiatives and framing text explaining why they are consumers of publiccode.yml metadata rather than competing standards. The AI also created PITCH.md with per-stakeholder pitches (one section per actor from the PROPOSAL.md Actors table). No web searches were performed — the analysis used previously retrieved research.
+
+**Human input (prompt 5):**
+> Make the pitch more based around economic and political goals. The current pitch focuses too much on the benefits around implementation without clarifying why implementation is even useful to them.
+
+The AI rewrote all 8 stakeholder pitches in PITCH.md to lead with economic and political motivations (market access, contract competitiveness, procurement risk reduction, digital sovereignty compliance, funding efficiency, evidence-based policy) rather than technical implementation benefits. No web searches were performed.
+
 ---
 
 ## Sources Evaluated

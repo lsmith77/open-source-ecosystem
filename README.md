@@ -222,6 +222,8 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 **See [PROPOSAL.md](PROPOSAL.md) for a concrete proposal** with schema extensions for faceted classification, supply chain references, credit registry discovery, a Registry Discovery Standard for usage declarations, and optional linked data representation.
 
+**See [PITCH.md](PITCH.md) for stakeholder pitches** — what each actor (maintainers, vendors, procurement offices, funders, registries) gains economically and politically from this proposal.
+
 **See [METHODOLOGY.md](METHODOLOGY.md) for research provenance** — full documentation of the AI-assisted research process, prompts, sources, editorial decisions, and limitations.
 
 ---
