@@ -152,6 +152,20 @@ See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/
 | [Canada Open Resource Exchange](https://github.com/canada-ca/ore-ero) | Canadian government open source catalog | Uses its own schema, but has discussed adopting publiccode.yml. |
 | [Drupal Credit System](https://www.drupal.org/drupalorg/contribution-credit) | Vendor contribution tracking and marketplace ranking | The most mature model for linking contributions to vendor credibility. Not a file format but a system design to learn from. |
 
+### Digital Sovereignty Score Initiatives
+
+A growing number of initiatives assess digital sovereignty at the organization, provider, or country level. These operate above the project metadata layer — they are **consumers** of the kind of data publiccode.yml provides, not competing standards. The EU Cloud Sovereignty Framework's SOV-5 (Supply Chain, 20% weight) and SOV-6 (Technology Sovereignty — requires open source components, open APIs, open protocols) directly need project-level metadata like SBOM references, license information, and open standard declarations.
+
+| Initiative | Scope | What it assesses |
+|---|---|---|
+| [EU Cloud Sovereignty Framework](https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en) | Cloud providers (EU) | 8 sovereignty objectives (SOV-1–SOV-8), SEAL 0–4 rating. Basis for a €180M EU procurement tender. SOV-6 explicitly requires open source. |
+| [Munich Digital Sovereignty Score](https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html) | Municipal IT services | Nutri-Score-style rating of vendor lock-in, jurisdiction risk, open standards. Applied to 194 services; integrated into procurement. |
+| [Bechtle Index für digitale Souveränität](https://www.bechtle.com/ueber-bechtle/presse/pressemeldungen/2025/bechtle-entwickelt-index-fuer-digitale-souveraenitaet) | Enterprise / public sector orgs | Data sovereignty, technological independence, design freedom. Software-based assessment launching Q1 2026. |
+| [Nextcloud Digital Sovereignty Index](https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/) | Countries | Self-hosted tool deployments per 100k citizens across ~60 countries. Measures adoption of 50 collaboration tools. |
+| [SUSE CSF Assessment](https://www.suse.com/cloud-sovereignty-framework-assessment/) | Organizations | Free self-assessment tool scoring against the EU Cloud Sovereignty Framework. Produces SEAL rating and gap analysis. |
+
+These frameworks strengthen the case for publiccode.yml extensions: sovereignty assessors need machine-readable project metadata (licenses, SBOMs, open standard compliance, dependency transparency) to automate their evaluations. The proposed `supplyChain` section and faceted `classification` directly feed this need.
+
 ---
 
 ## Gap Analysis by Use Case

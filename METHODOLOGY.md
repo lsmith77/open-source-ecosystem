@@ -177,6 +177,49 @@ The AI added goal 5 to README.md and identified two framing gaps in PROPOSAL.md 
 
 No web searches were performed in this phase — the analysis was based entirely on the existing documents.
 
+**Human input (prompt 3):**
+> There are various initiatives to create "digital sovereignty scores". Do those initiatives also fit into this proposal?
+
+The user provided 6 URLs to sovereignty score initiatives: sovereigntyscore.io, Munich SDS (Heise article), EU Cloud Sovereignty Framework (Commission PDF), SUSE CSF Assessment, Nextcloud DSI (Robert Freund blog), and Bechtle Index (press release PDF).
+
+#### Batch 6 — Digital sovereignty score initiatives (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `https://sovereigntyscore.io/` | Web fetch | Sovereignty score tool — returned only a title ("European Digital Sovereignty Analysis"), no content |
+| `https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html` | Web fetch | Munich Digital Sovereignty Score details |
+| `https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en` | Web fetch | EU Cloud Sovereignty Framework — PDF failed to parse |
+| `https://www.suse.com/cloud-sovereignty-framework-assessment/` | Web fetch | SUSE CSF self-assessment tool |
+| `https://www.robertfreund.de/blog/2025/08/15/digital-sovereignty-index-score/` | Web fetch | Nextcloud Digital Sovereignty Index |
+| `https://www.bechtle.com/dam/jcr:32fae9a6-40fe-4c92-ac69-ae61a2d018a6/pm-bechtle-index-fuer-digitale-souveraenitaet-29092025-en.pdf` | Web fetch | Bechtle Index — PDF returned minimal content |
+
+#### Batch 7 — Follow-up searches for sparse results (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `sovereigntyscore.io European digital sovereignty analysis tool` | Web search | No results found for this domain |
+| `Bechtle "index für digitale souveränität" digital sovereignty index 2025` | Web search | Bechtle Index dimensions: data sovereignty, tech independence, design freedom |
+| `EU Commission "cloud sovereignty" framework assessment criteria SEAL rating 2025` | Web search | EU CSF 8 objectives, SEAL 0–4 rating, €180M tender |
+
+#### Batch 8 — Detailed framework content (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `https://www.heise.de/en/news/Cloud-Sovereignty-Framework-How-the-EU-will-assess-cloud-sovereignty-10922224.html` | Web fetch | EU CSF details and open source role |
+| `https://www.connect-professional.de/netzwerke-it-infrastruktur/bechle-digital-souveraenitaet-403822.html` | Web fetch | Bechtle Index dimensions and open source connection |
+| `site:sovereigntyscore.io OR "sovereignty score" European software assessment open source` | Web search | sovereigntyscore.io still not indexed |
+
+#### Batch 9 — EU framework objectives and Nextcloud DSI (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/` | Web fetch | Full list of 8 SOV objectives; SOV-6 requires open source |
+| `https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/` | Web fetch | DSI methodology: 50 self-hosted tools, per-country deployment counts |
+| `https://www.infoq.com/news/2025/11/eu-seal-framework-governance/` | Web fetch | SEAL governance trade-offs |
+| `sovereigntyscore.io` | Web search | Final attempt — domain not found in any index |
+
+The AI concluded that sovereignty score initiatives operate at a different level (organization/provider/country) than publiccode.yml (individual projects), but are *consumers* of the metadata publiccode.yml provides. Specifically, the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, requiring open source) directly need the kind of data the proposed extensions produce. The AI recommended adding these as context in the README rather than proposing new schema extensions.
+
 ---
 
 ## Sources Evaluated
@@ -226,11 +269,21 @@ All sources that informed the analysis, grouped by role.
 30. ecosyste.ms funds #290 — https://github.com/ecosyste-ms/funds/issues/290
 31. ecosyste.ms funds #236 — https://github.com/ecosyste-ms/funds/issues/236
 
+### Digital sovereignty score initiatives (Phase 5)
+
+32. Munich Digital Sovereignty Score (Heise) — https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html
+33. EU Cloud Sovereignty Framework — https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en
+34. SUSE Cloud Sovereignty Framework Assessment — https://www.suse.com/cloud-sovereignty-framework-assessment/
+35. Nextcloud Digital Sovereignty Index — https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/
+36. Bechtle Index für digitale Souveränität — https://www.bechtle.com/ueber-bechtle/presse/pressemeldungen/2025/bechtle-entwickelt-index-fuer-digitale-souveraenitaet
+37. Safespring EU CSF analysis (SOV-1 through SOV-8) — https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/
+38. sovereigntyscore.io — https://sovereigntyscore.io/ (not indexed by search engines at time of research; only title "European Digital Sovereignty Analysis" retrieved)
+
 ### Sources consulted but not directly cited
 
-32. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
-33. publicodes (French rules engine, disambiguation) — https://publi.codes/
-34. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
+39. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
+40. publicodes (French rules engine, disambiguation) — https://publi.codes/
+41. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
 
 ---
 
@@ -253,6 +306,8 @@ Key decisions made by the human during the process:
 7. **Removal of `usageRegistries` from publiccode.yml.** The initial AI draft included a `usageRegistries` field in publiccode.yml, mirroring `creditRegistries`. The human identified a fundamental asymmetry: projects have authority over credit endorsement (they know who contributes) but no authority over usage tracking (they don't control who uses them). Listing usage registries in a project file creates false gatekeeping. The AI then redesigned the architecture: usage registries are now fully decentralized, discovered via a companion Registry Discovery Standard rather than listed per-project. Credit registries remain in publiccode.yml because project endorsement is meaningful there.
 
 8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both README.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
+
+9. **Digital sovereignty scores assessed as out-of-scope for schema extensions.** The human asked whether digital sovereignty score initiatives fit into the proposal, providing 6 URLs. The AI researched all six and concluded they operate at a different level (organization/provider/country) than publiccode.yml (individual projects). The AI identified them as *consumers* of publiccode.yml metadata rather than candidates for new schema fields — particularly the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, which requires open source). Decision on whether to add these to the README as contextual motivation is pending human direction.
 
 ---
 
