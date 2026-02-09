@@ -59,6 +59,17 @@ Phase 6: RISK ANALYSIS (2026-02-08)
           identification across 7 categories with likelihood/impact
           assessment and mitigations
   Output: RISK_ANALYSIS.md (28 risks, 5 critical)
+
+Phase 7: ROADMAP (2026-02-09)
+  Input:  All existing documents + human-provided information about
+          existing allies, relationships, and institutional connections
+  Method: Human described the coalition landscape (ZenDiS, BFH/CHopen,
+          OSBA, Schleswig-Holstein, Sovereign Tech Agency, Drupal/PHP
+          community, publiccode.yml maintainers, Andrew Nesbitt, CHAOSS).
+          AI synthesized a phased implementation plan sequenced around
+          these relationships. Multiple human correction cycles refined
+          ally descriptions and eliminated structural duplication.
+  Output: ROADMAP.md (6 phases over ~24 months, ally map, key players)
 ```
 
 ---
@@ -69,7 +80,7 @@ Phase 6: RISK ANALYSIS (2026-02-08)
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement) |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -243,6 +254,42 @@ The AI rewrote all 8 stakeholder pitches in PITCH.md to lead with economic and p
 
 The AI read all four existing documents (README.md, PROPOSAL.md, PITCH.md, METHODOLOGY.md) and produced a systematic risk analysis identifying 28 risks across 7 categories: adoption (5), technical (5), security/trust (5), governance (3), political/jurisdictional (3), economic/sustainability (4), and dependency/external (4). Each risk was assessed for likelihood and impact with proposed mitigations. The analysis highlighted 5 critical risks (high likelihood + high impact): branding deterring non-government adoption, chicken-and-egg bootstrapping for registries, registry API interoperability failures, credit gaming, and split governance blocking progress. No web searches were performed — the analysis was based entirely on close reading of the existing documents and domain knowledge.
 
+### Phase 7: Roadmap (2026-02-09)
+
+**Human input (prompt 1):**
+> While PROPOSAL contains the final solution and PITCH sells it to the stakeholders, there is the question on what steps to take in what order to reasonably achieve this vision. This obviously depends on which allies can be sold on the vision early on.
+
+The human then described the existing coalition landscape:
+- ZenDiS and Schleswig-Holstein (openCode.de) — likely willing to collaborate
+- Switzerland's close collaboration with ZenDiS
+- BFH owns ossdirectory.com, would benefit from the data sources
+- Schleswig-Holstein and the OSBA have approached BFH
+- Connections to the Sovereign Tech Agency
+- Close relationship with Drupal and the PHP community
+- Acquaintances with publiccode.yml maintainers
+
+The human asked two questions: (1) what could be a sensible plan toward the proposal, and (2) what other key players would be necessary.
+
+The AI read all existing documents (README.md, PROPOSAL.md, PITCH.md, RISK_ANALYSIS.md) and produced a phased implementation plan (ROADMAP.md) with 6 phases over ~24 months, sequenced to leverage existing relationships and address critical risks in order. The plan started with governance (the #1 risk from RISK_ANALYSIS.md), proceeded through schema-only extensions requiring no new infrastructure, then used Drupal's existing credit system to bootstrap the registry architecture, and deferred global scaling to the final phase. No web searches were performed.
+
+**Human correction 1:**
+The human corrected "BFH" to "BFH / CHopen" in the allies table, removed Switzerland as a separate ally (implicitly covered by ZenDiS connection), and trimmed some engagement pathway descriptions. These edits were made directly in the IDE.
+
+**Human input (prompt 2):**
+> There is a connection to Andrew Nesbitt and CHAOSS as well.
+
+The AI added Andrew Nesbitt / ecosyste.ms and CHAOSS to the allies table. Both had also appeared in the "Additional Key Players Needed" section further down the document.
+
+**Human input (prompt 3):**
+> "Confirmed or Likely Allies" content is somewhat duplicate of "Additional Key Players Needed" and vice versa.
+
+The AI restructured to eliminate duplication: the allies table became the single source for players with existing relationships (Andrew Nesbitt, CHAOSS, Drupal, publiccode.yml governance body), and "Additional Key Players Needed" was reduced to only players with no current relationship (Developers Italia, EU Commission, OpenSSF, Foundation for Public Code, and global-scale players).
+
+**Human correction 2:**
+The human simplified the CHAOSS description and adjusted the relationship status to "Direct contact." These edits were made directly in the IDE.
+
+No web searches were performed in this phase — the roadmap was synthesized entirely from the existing documents and the human-provided relationship information.
+
 ---
 
 ## Sources Evaluated
@@ -333,6 +380,12 @@ Key decisions made by the human during the process:
 9. **Digital sovereignty scores assessed as out-of-scope for schema extensions.** The human asked whether digital sovereignty score initiatives fit into the proposal, providing 6 URLs. The AI researched all six and concluded they operate at a different level (organization/provider/country) than publiccode.yml (individual projects). The AI identified them as *consumers* of publiccode.yml metadata rather than candidates for new schema fields — particularly the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, which requires open source). Decision on whether to add these to the README as contextual motivation is pending human direction.
 
 10. **Risk analysis as a separate document.** The human directed the AI to examine the proposal for risks and create a dedicated RISK_ANALYSIS.md. The AI chose to organize risks into 7 categories (adoption, technical, security/trust, governance, political, economic, dependency) with per-risk likelihood/impact assessment and mitigations — a structure not specified by the human but consistent with standard risk analysis practice. The AI identified 5 critical risks and flagged governance (split governance blocking progress) as the highest-priority prerequisite.
+
+11. **Roadmap sequencing driven by relationships, not technical complexity.** The human framed the roadmap question around existing allies rather than asking for a technically optimal sequence. The AI adopted this framing: phases are ordered by which allies can be activated and what they can deliver, not by logical dependency between extensions. For example, supply chain references (Extension 2) comes before faceted classification (Extension 1) because ZenDiS/openCode.de can implement it immediately with their existing badge system, even though classification is arguably more impactful.
+
+12. **Allies table as single source of truth for relationships.** The human identified duplication between the "Confirmed or Likely Allies" section and "Additional Key Players Needed." The AI restructured so that all players with existing relationships appear only in the allies table, and the key players section is limited to players requiring new outreach. This was a structural decision by the human; the AI had originally listed some players in both places with different framing.
+
+13. **Institutional corrections by human.** The human corrected "BFH" to "BFH / CHopen," removed Switzerland as a standalone ally, and added Andrew Nesbitt and CHAOSS as direct connections. These corrections reflected relationship knowledge the AI did not have and could not have inferred from the existing documents.
 
 ---
 
