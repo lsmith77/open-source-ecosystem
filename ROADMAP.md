@@ -22,9 +22,9 @@ This roadmap is illustrative, not prescriptive. Its purpose is to make the [prop
 | **CHAOSS**                       | Community Health Analytics — defines metrics for open source project health. Alignment on how to measure contributions and community vitality. | Direct contact                |
 | **publiccode.yml maintainers**   | Control the spec. Any extension must go through them.                                                                                          | Acquaintances                 |
 
-### Critical Prerequisite: Governance Clarity
+### Critical Prerequisite: Spec Maintainer Buy-in
 
-Risk G1 (split governance) is the single highest-priority blocker. The two GitHub organizations ([publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) and [publiccodenet](https://github.com/publiccodenet/publiccode.yml)) must be navigated before any extension can move from proposal to spec. The acquaintance with publiccode.yml maintainers is the entry point here.
+Risk G1 (small spec governance community) is the single highest-priority blocker. The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community relative to its institutional adoption. The proposed extensions represent a significant scope increase. The existing acquaintance with publiccode.yml maintainers is the entry point for securing buy-in.
 
 ---
 
@@ -34,11 +34,11 @@ Risk G1 (split governance) is the single highest-priority blocker. The two GitHu
 
 ### Actions
 
-1. **Clarify publiccode.yml governance.** Through the existing acquaintance with publiccode.yml maintainers, determine:
-   - Which GitHub org is canonical (publiccodeyml vs. publiccodenet)?
+1. **Secure publiccode.yml maintainer buy-in.** Through the existing acquaintance with publiccode.yml maintainers (the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) org), determine:
    - What is the process for proposing v1.0 extensions?
-   - Who are the de facto decision-makers?
+   - What capacity exists to review and absorb the proposed scope increase?
    - Is Developers Italia still actively involved in spec governance?
+   - What support (co-maintenance, tooling, migration scripts) would make the extensions acceptable?
 
 2. **Form a working group.** Recruit from existing allies:
    - **BFH** — academic lead, ossdirectory.com as proving ground
@@ -187,12 +187,12 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 | **Developers Italia**                    | Co-creators of publiccode.yml. Governance legitimacy. Operate the Italian catalog and can become a usage registry.           | Through ZenDiS/EU collaboration channels.                                                                       |
 | **EU Commission / Interoperable Europe** | Operate the EU OSS Catalogue (640+ projects). Their adoption of extensions is the forcing function for the entire ecosystem. | Through ZenDiS and Developers Italia who already feed the EU catalogue. Present at Interoperable Europe events. |
 
-### Highly Valuable (accelerate success significantly)
+### Valuable Potential Allies
 
 | Player                         | Why they matter                                                                                                                | How to engage                                                                                    |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                  | Through Sovereign Tech Agency. Present the supply chain extension as amplifying Scorecard reach.  |
-| **Foundation for Public Code** | They maintain one of the two publiccode.yml GitHub orgs. Governance clarification depends on understanding their role.         | May overlap with publiccode.yml maintainer acquaintances.                                         |
+| **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the extensions in their standard. | No current connection.                                         |
 
 ### Important for Global Scale (Phase 5)
 

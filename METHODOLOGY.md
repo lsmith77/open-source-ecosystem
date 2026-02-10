@@ -288,7 +288,17 @@ The AI restructured to eliminate duplication: the allies table became the single
 **Human correction 2:**
 The human simplified the CHAOSS description and adjusted the relationship status to "Direct contact." These edits were made directly in the IDE.
 
-No web searches were performed in this phase — the roadmap was synthesized entirely from the existing documents and the human-provided relationship information.
+**Human input (prompt 4):**
+> github.com/publiccodeyml is about the file spec, tooling and such, while github.com/publiccodenet is a Dutch foundation. publiccodenet also have a subproject called The Standard for Public Code. So the owner of the publiccode.yml standard is github.com/publiccodeyml. The foundation might be a relevant ally to work with but so far there is no connection to them.
+
+The human provided a link to https://standard.publiccode.net/docs/review-template.html. The AI fetched this URL and confirmed that The Standard for Public Code is a broader framework (18 criteria for public software projects) that recommends publiccode.yml as one tool for meeting its findability criteria — it does not control or govern the publiccode.yml spec itself.
+
+This corrected a misunderstanding present across all documents since Phase 2: the AI had treated the two GitHub organizations (publiccodeyml and publiccodenet) as a "split governance" problem (risk G1), when in fact they are separate entities with different scopes. The AI updated all documents:
+- README.md: Reframed the weakness from "governance spread across multiple orgs" to "small governance community relative to institutional adoption"
+- RISK_ANALYSIS.md: Reframed G1 from "split governance creates confusion" to "small spec governance community relative to institutional adoption," updated the risk matrix row and critical risks summary
+- ROADMAP.md: Reframed the critical prerequisite from governance clarity to maintainer buy-in, updated Phase 0 actions to focus on capacity and support rather than determining which org is canonical, updated the Foundation for Public Code entry from "governance clarification" to "potential amplifier with no current connection"
+
+No additional web searches were performed beyond the Standard for Public Code URL provided by the human.
 
 ---
 
@@ -349,11 +359,15 @@ All sources that informed the analysis, grouped by role.
 37. Safespring EU CSF analysis (SOV-1 through SOV-8) — https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/
 38. sovereigntyscore.io — https://sovereigntyscore.io/ (not indexed by search engines at time of research; only title "European Digital Sovereignty Analysis" retrieved)
 
+### Governance clarification (Phase 7)
+
+39. The Standard for Public Code — https://standard.publiccode.net/docs/review-template.html
+
 ### Sources consulted but not directly cited
 
-39. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
-40. publicodes (French rules engine, disambiguation) — https://publi.codes/
-41. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
+40. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
+41. publicodes (French rules engine, disambiguation) — https://publi.codes/
+42. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
 
 ---
 
@@ -386,6 +400,8 @@ Key decisions made by the human during the process:
 12. **Allies table as single source of truth for relationships.** The human identified duplication between the "Confirmed or Likely Allies" section and "Additional Key Players Needed." The AI restructured so that all players with existing relationships appear only in the allies table, and the key players section is limited to players requiring new outreach. This was a structural decision by the human; the AI had originally listed some players in both places with different framing.
 
 13. **Institutional corrections by human.** The human corrected "BFH" to "BFH / CHopen," removed Switzerland as a standalone ally, and added Andrew Nesbitt and CHAOSS as direct connections. These corrections reflected relationship knowledge the AI did not have and could not have inferred from the existing documents.
+
+14. **Governance clarification by human.** The AI had treated the two GitHub organizations (publiccodeyml and publiccodenet) as a "split governance" problem since the initial analysis. The human clarified that publiccodeyml owns the spec and tooling, while publiccodenet is the Foundation for Public Code — a separate Dutch foundation maintaining "The Standard for Public Code," a broader framework that recommends publiccode.yml as one tool. These are not competing governance bodies. The AI corrected this misunderstanding across all documents: the risk was reframed from "split governance" to "small governance community relative to institutional adoption," and the Foundation for Public Code was repositioned as a potential amplifier (no current connection) rather than a governance blocker.
 
 ---
 

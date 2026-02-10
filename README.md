@@ -48,7 +48,7 @@ Create a single format with a good chance of wide adoption from the open source 
 - **No vendor/contributor credit system.** No fields for tracking which companies contribute, their expertise level, or anything resembling Drupal's credit system. The `maintenance.contractors` field is rudimentary (name + expiry date).
 - **Limited taxonomy depth.** The `categories` list is flat and coarse (e.g., "content-management") — no faceted classification like domain + function + audience.
 - **No supply-chain / dependency-security fields.** No SBOM reference, no OpenSSF scorecard integration, no vulnerability policy metadata beyond what badges add externally.
-- **Governance spread across multiple orgs.** Two GitHub orgs ([publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) and [publiccodenet](https://github.com/publiccodenet/publiccode.yml)) with overlapping repos creates confusion about canonical version.
+- **Small governance community.** The spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization. The separately-governed [Foundation for Public Code](https://publiccode.net/) (a Dutch foundation) maintains [The Standard for Public Code](https://standard.publiccode.net/), a broader framework that recommends publiccode.yml as a tool — but does not control the spec itself. The spec's maintainer community is small relative to its institutional adoption.
 
 **Chances of success:** **High for the public sector.** It is already the de facto EU standard. The question is whether it can expand beyond government contexts.
 

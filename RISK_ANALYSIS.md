@@ -151,13 +151,13 @@ Usage registries expose which organizations use which software. This information
 
 ## Governance Risks
 
-### G1. Split governance creates confusion
+### G1. Small spec governance community relative to institutional adoption
 
-The [README](README.md) notes two GitHub organizations ([publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) and [publiccodenet](https://github.com/publiccodenet/publiccode.yml)) with overlapping repositories. It's unclear who has authority to accept the proposed extensions.
+The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community. The separately-governed [Foundation for Public Code](https://publiccode.net/) (a Dutch foundation) maintains [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml as a tool but does not control the spec itself. The proposed extensions represent a significant scope increase that the current maintainer community may lack capacity or appetite to absorb.
 
-- **Likelihood:** High — this confusion already exists
-- **Impact:** High — without a clear governance path, the extensions remain a proposal indefinitely
-- **Mitigation:** The proposal must be submitted to the appropriate governance body with a clear champion. Identifying and engaging the de facto decision-makers (likely the publiccodeyml org, given EU OSS Catalogue alignment) is a prerequisite for any of the extensions moving forward.
+- **Likelihood:** High — the spec's institutional adoption (EU mandate, 640+ projects) outpaces its governance community size
+- **Impact:** High — without maintainer buy-in, the extensions remain a proposal indefinitely
+- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the extensions and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. The Foundation for Public Code is a potential amplifier — their Standard for Public Code could reference the extensions — but they do not control the spec.
 
 ### G2. Central registry directory becomes a gatekeeper
 
@@ -296,7 +296,7 @@ The proposal's examples and URL patterns assume GitHub hosting (e.g., `/releases
 | S3 | Malicious supply chain metadata | Low | High | Security/Trust |
 | S4 | Endorsement of unreliable credit registries | Medium | Medium | Security/Trust |
 | S5 | Privacy risks in usage declarations | Medium | Medium | Security/Trust |
-| G1 | Split governance creates confusion | High | High | Governance |
+| G1 | Small spec governance community | High | High | Governance |
 | G2 | Central directory becomes gatekeeper | Medium | Medium | Governance |
 | G3 | EU-centric governance excludes global community | Medium | High | Governance |
 | P1 | Digital sovereignty framing creates fragmentation | Medium | High | Political |
@@ -316,5 +316,5 @@ The proposal's examples and URL patterns assume GitHub hosting (e.g., `/releases
 1. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on solving both the perception problem (non-government projects) and the platform bootstrapping problem (registries need projects need registries).
 2. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
 3. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
-4. **G1 — Split governance**: None of the proposed extensions can advance without a clear governance path. This is the highest-priority prerequisite.
+4. **G1 — Small spec governance community**: The publiccode.yml spec's maintainer community is small relative to its institutional adoption. The proposed extensions represent a significant scope increase. Without maintainer buy-in and capacity, the extensions remain a proposal indefinitely. This is the highest-priority prerequisite.
 5. **E1 — Registry sustainability**: The architecture depends on registries existing and operating reliably. Without a sustainability model, the long-term viability of the ecosystem is uncertain.
