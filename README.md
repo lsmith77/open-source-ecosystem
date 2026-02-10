@@ -226,6 +226,8 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 **See [METHODOLOGY.md](METHODOLOGY.md) for research provenance** — full documentation of the AI-assisted research process, prompts, sources, editorial decisions, and limitations.
 
+**See [ROADMAP.md](ROADMAP.md) for an illustrative phased implementation plan** - to work towards the proposal by building momentum with achievable milestones, and address critical risks.
+
 ---
 
 ## Related Discussions
