@@ -9,6 +9,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Reach the public sector market** — EU procurement is shifting to open source (EU CSF, openCode.de, Developers Italia). One metadata file puts your project in front of buyers across 27 member states.
 - **Attract funding and contributors** — projects with visible adoption data and classified dependencies are easier for funders (Sovereign Tech Fund, CISA) to justify investing in.
 - **Control your narrative** — you decide how the project is classified and which credit registries you endorse, rather than letting third-party catalogs guess.
+- **Make adoption visible by default** — integrate usage declaration updates into your deployment documentation so that every deploying organization automatically signals adoption. More visible adoption means more funding, more contributors, and more leverage.
 
 ---
 
@@ -30,6 +31,8 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 
 ## Deploying Organization
 
+- **Declare usage on your own domain** — publish `/.well-known/publiccode-usage.json` with your domain as proof of identity. No registry account needed, no intermediary required.
+- **Integrate declarations into deployment** — when your deployment process updates the usage declaration automatically, the data stays current without manual effort. Retirement is explicitly signaled when software is decommissioned.
 - **Influence the ecosystem you depend on** — declaring what you use signals demand to maintainers, funders, and vendors. Software with many declared users attracts more investment and support.
 - **Reduce duplication across jurisdictions** — when municipalities, cantons, and agencies can see what peers deploy, they collaborate instead of procuring separately. Shared adoption lowers per-organization cost.
 - **Strengthen your negotiating position** — verified usage data from multiple organizations gives collective leverage with vendors and justifies shared maintenance contracts.

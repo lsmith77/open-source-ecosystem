@@ -139,13 +139,21 @@ A project could list a credit registry in `creditRegistries` that misrepresents 
 - **Impact:** Medium — affects the credibility of specific projects, not the system as a whole
 - **Mitigation:** Catalogs should cross-reference credit data from multiple registries. The central registry directory could include community-maintained trust assessments of registries. Over time, a reputation system for registries themselves may emerge.
 
-### S5. Privacy risks in usage declarations
+### S5. Privacy and security exposure in usage declarations
 
-Usage registries expose which organizations use which software. This information could be exploited for targeted attacks (knowing a municipality runs a specific CMS version reveals its attack surface) or competitive intelligence.
+Usage registries and `.well-known/publiccode-usage.json` files expose which organizations use which software. This information could theoretically be exploited for targeted attacks or competitive intelligence.
 
-- **Likelihood:** Medium — usage data is already partially public (job postings, conference talks), but systematic aggregation increases exposure
+- **Likelihood:** Low-Medium — technology detection services like BuiltWith already expose comparable or greater detail for public-facing web applications. The incremental attack surface from a standardized usage declaration (which deliberately excludes version numbers, deployment architecture, and infrastructure details) is modest. The data is also partially public via job postings, conference talks, and procurement records.
 - **Impact:** Medium — primarily affects organizations with strict security postures (defense, critical infrastructure)
-- **Mitigation:** Usage registries should allow organizations to control the granularity of their declarations (e.g., declaring software use without version or scale). The `scope` field in adopter responses should be optional. Organizations dealing with sensitive infrastructure may choose not to participate.
+- **Mitigation:** The `.well-known/publiccode-usage.json` schema excludes version numbers and infrastructure details by design — it answers "do you use this project?" not "how is it deployed?" Usage registries should allow organizations to control the granularity of their declarations. The `scope` field in adopter responses should be optional. Organizations dealing with sensitive infrastructure may choose not to participate.
+
+### S6. Stale `.well-known/publiccode-usage.json` files
+
+If organizations publish a `.well-known/publiccode-usage.json` but do not maintain it, the file becomes a source of false positives — software listed as `production` that was decommissioned years ago. This is worse than no declaration, as it pollutes adoption counts and misleads procurement decisions.
+
+- **Likelihood:** Medium — government IT departments frequently set-and-forget configuration files, but the two-tier aggregation model significantly mitigates this: individual deployments maintain their own per-deployment `.well-known` files as part of their deployment process, and an organizational aggregation tool assembles the public-facing file from these sources. Staleness at the organizational level is reduced because the source data is maintained at each deployment.
+- **Impact:** Medium — stale data degrades the reliability of adoption signals, but crawlers can detect and flag staleness via the `lastUpdated` field
+- **Mitigation:** The schema includes a `lastUpdated` timestamp. Crawlers should flag files older than a configurable threshold (e.g., 12 months) and downweight or exclude them from aggregated adoption counts. The `retired` status with an `until` date provides an explicit deprecation signal — organizations that actively maintain the file can distinguish retired software from current deployments. The two-tier model (per-deployment declarations aggregated into a public file) keeps data fresh at the source and gives organizations a single tool to audit their public declaration against actual deployments. Usage registries should display freshness indicators alongside adoption data.
 
 ---
 
@@ -295,7 +303,8 @@ The proposal's examples and URL patterns assume GitHub hosting (e.g., `/releases
 | S2 | Sybil attacks on usage registries | Medium | High | Security/Trust |
 | S3 | Malicious supply chain metadata | Low | High | Security/Trust |
 | S4 | Endorsement of unreliable credit registries | Medium | Medium | Security/Trust |
-| S5 | Privacy risks in usage declarations | Medium | Medium | Security/Trust |
+| S5 | Privacy and security exposure in usage declarations | Low-Medium | Medium | Security/Trust |
+| S6 | Stale `.well-known/publiccode-usage.json` files | Medium | Medium | Security/Trust |
 | G1 | Small spec governance community | High | High | Governance |
 | G2 | Central directory becomes gatekeeper | Medium | Medium | Governance |
 | G3 | EU-centric governance excludes global community | Medium | High | Governance |

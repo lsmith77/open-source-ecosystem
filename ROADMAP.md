@@ -146,12 +146,15 @@ Two operational credit registries (Drupal.org, ecosyste.ms) conforming to a publ
 2. **Implement the Usage Registry API on openCode.de** — standardizing the adoption/reuse data that already powers their badge system.
 3. **Engage Developers Italia** to become the second usage registry. Their catalog already tracks Italian public administration software use.
 4. **Publish the central registry directory** (bootstrap list) with openCode.de and Developers Italia as initial entries.
-5. **Deprecate `usedBy`** in the publiccode.yml spec (Extension 4) — now that a proper mechanism exists.
-6. **ossdirectory.com implements cross-registry aggregation** — demonstrating that a crawler can discover registries, fetch usage data from multiple jurisdictions, and present a unified view.
+5. **Define the `/.well-known/publiccode-usage.json` specification** for organization-level usage declarations. Pilot with a small set of German municipalities willing to publish their software usage on their domains.
+6. **Work with Drupal, Nextcloud, and other deployment-heavy projects** to integrate usage declaration updates into their documented deployment processes — so that deploying the software automatically adds an entry to the organization's `.well-known/publiccode-usage.json`.
+7. **Prototype an internal scan-and-publish tool** that organizations can run to inventory deployed software and generate a `.well-known/publiccode-usage.json` or bulk-import into a registry. This is particularly valuable for large organizations with hundreds of deployments.
+8. **Deprecate `usedBy`** in the publiccode.yml spec (Extension 4) — now that proper mechanisms exist.
+9. **ossdirectory.com implements cross-registry aggregation** — demonstrating that a crawler can discover registries, crawl `.well-known/publiccode-usage.json` files from organizational domains, and present a unified view.
 
 ### Deliverable
 
-Registry Discovery Standard published. Two operational usage registries (openCode.de, Developers Italia). Crawler (ossdirectory.com) demonstrating automated registry discovery and cross-registry aggregation. `usedBy` deprecated.
+Registry Discovery Standard published. Organization-level usage declaration spec (`/.well-known/publiccode-usage.json`) published. Two operational usage registries (openCode.de, Developers Italia) crawling both direct declarations and `.well-known` files. At least one open source project with deployment-integrated usage declaration updates. Crawler (ossdirectory.com) demonstrating automated registry discovery and cross-source aggregation. `usedBy` deprecated.
 
 ---
 

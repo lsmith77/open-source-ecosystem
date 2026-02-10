@@ -70,6 +70,23 @@ Phase 7: ROADMAP (2026-02-09)
           these relationships. Multiple human correction cycles refined
           ally descriptions and eliminated structural duplication.
   Output: ROADMAP.md (6 phases over ~24 months, ally map, key players)
+
+Phase 8: ORGANIZATION-LEVEL USAGE DECLARATIONS (2026-02-10)
+  Input:  All existing documents + human proposal to use .well-known
+          for tracking public-facing open source usage by organizations
+  Method: Human proposed using .well-known on deploying organizations'
+          domains to declare software usage, with three key insights:
+          (1) the file should be maintained as part of deployment
+          processes (not a separate bureaucratic artifact), (2) security
+          risk is low given existing technology detection services like
+          BuiltWith, (3) internal crawlers could scan and publish in
+          bulk. AI analyzed the proposal's fit with existing architecture,
+          identified risks, then updated all documents.
+  Output: New subsection in PROPOSAL.md (Organization-Level Usage
+          Declarations with schema, design rationale, intake mechanisms),
+          updates to RISK_ANALYSIS.md (revised S5, new S6), ROADMAP.md
+          (expanded Phase 4), PITCH.md (deploying org and maintainer
+          pitches), and this methodology document
 ```
 
 ---
@@ -80,7 +97,7 @@ Phase 7: ROADMAP (2026-02-09)
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap) |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -300,6 +317,36 @@ This corrected a misunderstanding present across all documents since Phase 2: th
 
 No additional web searches were performed beyond the Standard for Public Code URL provided by the human.
 
+### Phase 8: Organization-Level Usage Declarations (2026-02-10)
+
+**Human input (prompt 1):**
+> For public facing use of open source, use could also be tracked via .well-known. It would also help in tracking what is no longer in use. Via the domain this could be mapped to organizations. Is this worth considering? What are the risks?
+
+The AI analyzed the proposal's existing `.well-known` usage (for registry discovery at line 750 of PROPOSAL.md) and identified that the human's idea was architecturally distinct: deploying organizations publishing `/.well-known/publiccode-usage.json` on their own domains, rather than registries publishing registry manifests. The AI assessed the idea against the proposal's design principles and identified benefits (domain as identity, deprecation signals, low barrier, decentralization) and risks (security exposure, stale data, organizational complexity, adoption friction, IANA registration, biased visibility).
+
+**Human input (prompt 2):**
+> The file should be maintained as part of the deployment itself, ie. Drupal project would integrate such a file as part of its documented deployment processes. Security risk is fairly low given the reliability of services like BuiltsWith (for which there is unfortunately no open source alternative). There could even be crawlers that public organizations could use to scan internally and then publish in bulk via some defined mechanism for registries to index. Update the relevant documents with these findings, including the METHODOLOGY.md.
+
+The human provided three key corrections/additions to the AI's initial analysis:
+1. The file should be maintained as part of deployment processes, not as a separate IT operations task — projects like Drupal would integrate it into their deployment documentation
+2. The security risk assessment should be lowered because technology detection services like BuiltWith already expose comparable information for public-facing applications
+3. Internal scanning tools could inventory deployed software and publish results in bulk
+
+The AI updated all documents:
+- PROPOSAL.md: Added "Organization-Level Usage Declarations" subsection with schema, design rationale (deployment-integrated maintenance, domain as identity, no version details, explicit retirement), and three intake mechanisms (`.well-known` crawling, direct declaration, bulk import from internal scans). Updated the "Why Credit and Usage Are Architecturally Different" table with a "How data enters" row. Updated "What This Enables" with two new items.
+- RISK_ANALYSIS.md: Revised S5 (privacy risks) to acknowledge BuiltWith precedent and lower likelihood from Medium to Low-Medium. Added S6 (stale `.well-known` files) as a new risk. Updated risk summary matrix.
+- ROADMAP.md: Expanded Phase 4 with three new actions (`.well-known` spec, deployment integration with Drupal/Nextcloud, internal scan tool prototype) and updated deliverables.
+- PITCH.md: Added deployment integration points to OSS Project/Maintainer and Deploying Organization pitches.
+
+**Human input (prompt 3):**
+> In the proposal also mention that tooling could be created that would help organizations crawl both especially their internally (and publically) deployed tools that each publish their own .well-known publiccode-usage.json to build the public facing publiccode-usage.json that serves as the public gateway to this information. This way risk of stale data is minimized and both internal and public facing open source use could be declared.
+
+The human refined the architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file on the organization's primary domain. This addresses the stale data risk (S6) more fundamentally — data is maintained at the source by deployment processes, and the aggregation tool serves as both an assembly mechanism and an audit tool.
+
+The AI updated PROPOSAL.md (added "Two-tier aggregation" design rationale, restructured intake mechanisms to distinguish per-deployment aggregation from legacy scanning), RISK_ANALYSIS.md (updated S6 likelihood and mitigation to reference the two-tier model), and this methodology document.
+
+No web searches were performed — the analysis was based on the existing documents and the human's domain knowledge about BuiltWith and deployment processes.
+
 ---
 
 ## Sources Evaluated
@@ -402,6 +449,10 @@ Key decisions made by the human during the process:
 13. **Institutional corrections by human.** The human corrected "BFH" to "BFH / CHopen," removed Switzerland as a standalone ally, and added Andrew Nesbitt and CHAOSS as direct connections. These corrections reflected relationship knowledge the AI did not have and could not have inferred from the existing documents.
 
 14. **Governance clarification by human.** The AI had treated the two GitHub organizations (publiccodeyml and publiccodenet) as a "split governance" problem since the initial analysis. The human clarified that publiccodeyml owns the spec and tooling, while publiccodenet is the Foundation for Public Code — a separate Dutch foundation maintaining "The Standard for Public Code," a broader framework that recommends publiccode.yml as one tool. These are not competing governance bodies. The AI corrected this misunderstanding across all documents: the risk was reframed from "split governance" to "small governance community relative to institutional adoption," and the Foundation for Public Code was repositioned as a potential amplifier (no current connection) rather than a governance blocker.
+
+15. **Organization-level usage declarations via `.well-known` proposed by human.** The human proposed that deploying organizations publish `/.well-known/publiccode-usage.json` on their domains to declare software usage. The AI initially assessed security exposure as a significant risk; the human corrected this by noting that technology detection services like BuiltWith already expose comparable data, and that the schema deliberately excludes version numbers. The human also reframed maintenance from an IT operations task to a deployment-integrated process — projects like Drupal would include usage declaration updates in their deployment documentation. The human additionally proposed internal scanning tools as a bulk publishing mechanism. All three insights were incorporated across the documents.
+
+16. **Two-tier aggregation model proposed by human.** The human refined the `.well-known` architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file. This directly addresses the stale data risk — data is maintained at the source by deployment processes rather than manually curated at the organizational level. The AI had not considered this pattern; the human's insight came from practical knowledge of how large organizations manage distributed deployments.
 
 ---
 

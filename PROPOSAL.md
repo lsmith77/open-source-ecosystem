@@ -14,7 +14,7 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
-  - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api))
+  - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api) and [Organization-Level Usage Declarations](#organization-level-usage-declarations))
 
 ---
 
@@ -107,6 +107,7 @@ The architecture depends on each piece of data being asserted by the actor who a
 | **Who has authority?**         | The project knows who contributes to it.                                                              | Deploying organizations know what they run. The project does not. |
 | **Listed in publiccode.yml?**  | Yes — as an endorsement by the project.                                                               | No — the project has no role in tracking its own adoption.        |
 | **Discovered by crawlers via** | publiccode.yml `creditRegistries` field + [Registry Discovery Standard](#registry-discovery-standard) | [Registry Discovery Standard](#registry-discovery-standard) only  |
+| **How data enters**            | Via the registry's tracking mechanisms (issue credits, commit attribution, manual curation)            | Via direct registry declarations, [`.well-known/publiccode-usage.json`](#organization-level-usage-declarations) on org domains, or bulk imports from internal scans |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
@@ -836,6 +837,90 @@ Returns all projects the registry tracks, paginated. Enables crawlers to do a fu
 GET /v1/software?page=1&per_page=100
 ```
 
+### Organization-Level Usage Declarations
+
+Usage registries are the canonical aggregation point for adoption data, but the data has to get into registries somehow. The most scalable intake mechanism is a standardized `.well-known` file that deploying organizations publish on their own domains.
+
+#### `/.well-known/publiccode-usage.json`
+
+An organization declares which open source software it uses by publishing a static JSON file at a well-known URL on its domain:
+
+```
+https://muenchen.de/.well-known/publiccode-usage.json
+```
+
+##### Schema
+
+```json
+{
+  "schema": "https://publiccode.net/usage-declaration/v1",
+  "organization": {
+    "name": "Stadt München",
+    "url": "https://muenchen.de",
+    "type": "public-administration",
+    "jurisdiction": "DE"
+  },
+  "software": [
+    {
+      "url": "https://github.com/example/medusa-cms",
+      "name": "MedusaCMS",
+      "status": "production",
+      "since": "2024-06-01"
+    },
+    {
+      "url": "https://github.com/drupal/drupal",
+      "name": "Drupal",
+      "status": "production",
+      "since": "2020-03-15"
+    },
+    {
+      "url": "https://github.com/example/old-portal",
+      "name": "OldPortal",
+      "status": "retired",
+      "since": "2018-01-01",
+      "until": "2025-06-30"
+    }
+  ],
+  "lastUpdated": "2026-02-01T00:00:00Z"
+}
+```
+
+##### Key Fields
+
+| Field                 | Purpose                                                                                                                   |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `organization.url`    | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)           |
+| `software[].url`      | The project's canonical URL (matches the `url` field in publiccode.yml)                                                   |
+| `software[].status`   | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                      |
+| `software[].until`    | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                       |
+| `lastUpdated`         | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale |
+
+##### Design Rationale
+
+**Deployment-integrated maintenance.** The file should be maintained as part of software deployment processes, not as a separate bureaucratic exercise. Projects like Drupal, Nextcloud, or WordPress can integrate the generation or update of this file into their documented deployment procedures — when an organization deploys the software, the deployment process adds an entry to the usage declaration. When an organization decommissions software, the teardown process marks the entry as `retired`. This makes the file a living artifact that stays current with actual deployments rather than a document that rots in a forgotten web directory.
+
+**Two-tier aggregation.** In practice, organizations deploy software across many internal and public-facing domains (e.g., `intranet.muenchen.de`, `cloud.muenchen.de`, `kita-portal.muenchen.de`). Each deployment can publish its own `/.well-known/publiccode-usage.json` declaring what software it runs — maintained automatically by that deployment's process. An organizational aggregation tool then crawls these per-deployment declarations (both internal and public-facing) and assembles the combined public-facing `/.well-known/publiccode-usage.json` on the organization's primary domain (e.g., `muenchen.de`). This two-tier model has two advantages: (1) staleness risk is minimized because each deployment maintains its own declaration at the source, and (2) both internal and public-facing open source usage can be declared — the aggregation tool decides what to include in the public file, giving the organization control over what is externally visible.
+
+**Domain as identity.** The organization's control over the domain (via TLS certificate and DNS) proves identity without requiring accounts on any registry. This is the same trust primitive used by the `verified-domain` trust model in registry manifests.
+
+**No version or infrastructure details.** The schema deliberately excludes software version numbers, deployment architecture, and infrastructure details. This limits security exposure — the declaration answers "do you use this project?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable or greater detail for public-facing web applications; a standardized declaration adds minimal incremental attack surface while providing significant ecosystem value.
+
+**Explicit retirement.** The `retired` status with an `until` date provides a positive deprecation signal. When a crawlable file simply disappears, the cause is ambiguous (decommissioned? server migration? IT reorganization?). An explicit `retired` entry in an otherwise-maintained file is unambiguous.
+
+#### Intake Mechanisms for Usage Registries
+
+Usage registries aggregate declaration data from multiple sources:
+
+1. **`.well-known` crawling.** Registries crawl known organizational domains for `/.well-known/publiccode-usage.json`. For government domains, comprehensive lists are often publicly available (e.g., all `.gov.uk` domains, all German municipal domains). Domain control serves as identity verification — no additional trust negotiation needed.
+
+2. **Direct declaration.** Organizations register on a usage registry (e.g., openCode.de) and declare their software use through the registry's UI or API. This is the existing mechanism and remains the path of least resistance for organizations that cannot easily modify their web server's `.well-known` directory.
+
+3. **Aggregation from per-deployment declarations.** When individual deployments each publish their own `/.well-known/publiccode-usage.json` (see "Two-tier aggregation" above), an organizational aggregation tool crawls these per-deployment files — both internal and public-facing — and assembles the combined public declaration on the organization's primary domain. This tool can also be offered as a service by public-sector IT cooperatives or shared service centers.
+
+4. **Bulk import from internal scans.** Organizations can additionally run scanning tools that detect deployed software via fingerprinting or package inventory, then publish results either as a `.well-known` file or via a registry's bulk import API. This complements per-deployment declarations by catching software that doesn't yet publish its own `.well-known` file.
+
+These mechanisms are complementary, not competing. An organization might use per-deployment declarations for software that integrates them, scanning tools for legacy deployments, and a registry's UI for declarations that require additional context or approval workflows. The organizational aggregation tool merges all sources into the public-facing `/.well-known/publiccode-usage.json`.
+
 ### How Credit Registries Relate
 
 Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** publish a registry manifest and appear in the central directory. This means:
@@ -857,3 +942,5 @@ Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** p
 2. **Crawlers discover registries, not projects.** The EU OSS Catalogue crawler checks the central directory, fetches all registry manifests, then queries each registry's API. No per-project configuration needed.
 3. **Projects remain in control of credit endorsement** via `creditRegistries` in publiccode.yml, while usage data flows independently.
 4. **The openCode.de reuse badge model scales globally.** openCode.de is one registry among many. A French equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
+5. **Deploying organizations can declare usage without intermediaries.** By publishing `/.well-known/publiccode-usage.json` on their domain, organizations assert usage with their domain as proof of identity — no registry account required. Registries crawl these files as one intake mechanism alongside direct declarations.
+6. **Deployment processes become the source of truth.** When open source projects integrate usage declaration updates into their deployment documentation, the `.well-known` file stays current with actual deployments. Retirement is explicitly signaled, giving the ecosystem a deprecation mechanism that manual registries lack.
