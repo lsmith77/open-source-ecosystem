@@ -57,13 +57,14 @@ A published working group charter with institutional commitments from at least B
 
 ---
 
-## Phase 1: Supply Chain References (Months 3-6)
+## Phase 1: Supply Chain References & Temporal Field Deprecation (Months 3-6)
 
-**Goal:** Ship the simplest, least controversial extension first. Build credibility and demonstrate the working group can deliver.
+**Goal:** Ship the simplest, least controversial extensions first. Build credibility and demonstrate the working group can deliver.
 
 ### Why Start Here
 
 - **Extension 2 (Supply Chain References)** requires no new infrastructure — it only adds URL fields to publiccode.yml pointing to things that already exist (SBOMs, Scorecard, REUSE, security policies).
+- **Extension 5 (Deprecate Temporal Fields)** pairs naturally with supply chain references. The SBOM reference in `supplyChain` replaces `dependsOn[].versionMin` as the authoritative source for dependency data. Removing `softwareVersion` and `releaseDate` addresses the most common source of stale data — empirically observed across thousands of files indexed by ecosyste.ms.
 - openCode.de already checks REUSE compliance and displays badges. Formalizing this in the schema is a natural step ZenDiS will support.
 - The Sovereign Tech Agency cares about supply chain security — this extension directly serves their mission and could unlock funding support.
 - No chicken-and-egg problem. No new registries needed.
@@ -71,14 +72,15 @@ A published working group charter with institutional commitments from at least B
 ### Actions
 
 1. **Draft the `supplyChain` schema extension** as a formal PR to the publiccode.yml spec.
-2. **Implement support in openCode.de** — ZenDiS adds crawler support for the new fields, feeding into their existing badge system.
-3. **Implement support in ossdirectory.com** — BFH's catalog consumes the same fields, demonstrating multi-crawler interoperability from day one.
-4. **Pilot with 5-10 projects** that already have Scorecards and SBOMs. Drupal is an obvious candidate given the close relationship.
-5. **Present results to the Sovereign Tech Agency** — demonstrate that the metadata enables exactly the supply chain visibility they need for investment decisions.
+2. **Draft the temporal field deprecation** (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) as a companion PR. Present Andrew Nesbitt's empirical evidence from ecosyste.ms indexing as motivation.
+3. **Implement support in openCode.de** — ZenDiS adds crawler support for the new fields, feeding into their existing badge system. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
+4. **Implement support in ossdirectory.com** — BFH's catalog consumes the same fields, demonstrating multi-crawler interoperability from day one.
+5. **Pilot with 5-10 projects** that already have Scorecards and SBOMs. Drupal is an obvious candidate given the close relationship.
+6. **Present results to the Sovereign Tech Agency** — demonstrate that the metadata enables exactly the supply chain visibility they need for investment decisions.
 
 ### Deliverable
 
-Accepted publiccode.yml extension for `supplyChain`. Two operational crawlers consuming it (openCode.de, ossdirectory.com). A handful of real projects using it.
+Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecation. Two operational crawlers consuming supply chain data (openCode.de, ossdirectory.com). A handful of real projects using the new fields without temporal fields.
 
 ---
 
@@ -95,7 +97,7 @@ Accepted publiccode.yml extension for `supplyChain`. Two operational crawlers co
 ### Actions
 
 1. **Collaborate with Andrew Nesbitt** to align the `classification` schema with OSS Taxonomy dimensions. Publish a joint vocabulary artifact.
-2. **Build the classification wizard** in the openCode.de publiccode.yml editor — reducing the complexity risk (A5) by guiding maintainers through facet selection.
+2. **Build the classification wizard** in the openCode.de publiccode.yml editor — reducing the complexity risk (A6) by guiding maintainers through facet selection.
 3. **Provide automated migration tooling** that converts existing `categories` + `softwareType` to the new `classification` structure for the 640+ projects in the EU OSS Catalogue.
 4. **Pilot with ossdirectory.com** — implement faceted search to demonstrate the procurement discovery improvement ("show me a CRM for healthcare in the backend layer").
 
@@ -168,7 +170,7 @@ Registry Discovery Standard published. Organization-level usage declaration spec
 2. **Address the branding problem (A1).** Work with the publiccode.yml governance body on either:
    - A neutral alias/profile (e.g., "softwarecode.yml") that maps 1:1, or
    - A reframing campaign demonstrating the standard's value beyond government.
-3. **Publish the YAML-LD context** (Extension 5) — enabling CodeMeta/Software Heritage interoperability for projects that want it.
+3. **Publish the YAML-LD context** (Extension 6) — enabling CodeMeta/Software Heritage interoperability for projects that want it.
 4. **Engage non-EU players** — Canada's Open Resource Exchange, U.S. DSACMS, Brazilian government programs — to adopt publiccode.yml with country extensions.
 5. **Build the conformance test suite** for the Credit Registry API and Usage Registry API — critical for scaling beyond hand-coordinated implementations (risk T3).
 6. **Develop auto-generation tooling** that populates publiccode.yml from package.json, pyproject.toml, Cargo.toml etc. — reducing maintainer burden (risk A3) and making adoption viable for the long tail of projects.

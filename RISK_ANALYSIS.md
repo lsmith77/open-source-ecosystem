@@ -41,7 +41,7 @@ Open source maintainers already manage package.json, pyproject.toml, CITATION.cf
 
 - **Likelihood:** High — well-documented problem in the OSS ecosystem
 - **Impact:** Medium — affects breadth of adoption; high-profile projects with dedicated teams will adopt, long-tail projects won't
-- **Mitigation:** Auto-generation tooling that populates publiccode.yml from existing metadata (package.json, pyproject.toml, GitHub API). The publiccode.yml editor at openCode.de is a start, but CI-based generators that keep it in sync reduce the maintenance cost to near zero.
+- **Mitigation:** Auto-generation tooling that populates publiccode.yml from existing metadata (package.json, pyproject.toml, GitHub API). The publiccode.yml editor at openCode.de is a start, but CI-based generators that keep it in sync reduce the maintenance cost to near zero. Removing temporal fields (see A5) also directly reduces the maintenance burden by eliminating the fields most likely to require per-release updates.
 
 ### A4. Migration friction from v0.x to v1.0
 
@@ -51,7 +51,15 @@ Existing publiccode.yml adopters (640+ in the EU OSS Catalogue) must migrate fro
 - **Impact:** Medium — catalogs must support both schemas indefinitely, increasing implementation cost
 - **Mitigation:** Provide automated migration tools that convert existing `categories` and `softwareType` values to the new `classification` structure. Set a clear deprecation timeline (e.g., 2 years) for the old fields.
 
-### A5. Faceted classification is too complex for most projects
+### A5. Temporal fields cause widespread file staleness
+
+Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update version numbers, release dates, and dependency constraints between releases. Stale files erode trust in the entire metadata format — if a crawler encounters an outdated `softwareVersion`, it has no way to know whether the `maintenance` or `legal` sections are also outdated.
+
+- **Likelihood:** High — empirically observed at scale by ecosyste.ms across existing publiccode.yml deployments
+- **Impact:** High — stale data undermines the credibility of the entire metadata ecosystem; procurement officers who encounter outdated fields lose trust in the file
+- **Mitigation:** Extension 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
+
+### A6. Faceted classification is too complex for most projects
 
 The flat `categories` list is simple: pick one or two terms. The faceted `classification` with 5 controlled dimensions plus free-form tags requires understanding the distinction between domain, function, role, layer, and audience.
 
@@ -89,7 +97,7 @@ The Credit Registry API and Usage Registry API are "rough outlines." Different i
 
 ### T4. YAML-LD adds complexity without adoption
 
-Extension 5 (YAML-LD) adds a linked data layer that most maintainers won't use and most crawlers won't need. The `@context` block may confuse maintainers, and the YAML-LD W3C spec is a Community Group report, not a full Recommendation.
+Extension 6 (YAML-LD) adds a linked data layer that most maintainers won't use and most crawlers won't need. The `@context` block may confuse maintainers, and the YAML-LD W3C spec is a Community Group report, not a full Recommendation.
 
 - **Likelihood:** Medium — the "optional" framing reduces risk, but the mere presence of the option adds cognitive load to the spec
 - **Impact:** Low — since it's optional, it mainly affects the specification's perceived complexity rather than practical adoption
@@ -272,7 +280,7 @@ ecosyste.ms is the largest open dataset of OSS metadata and a natural credit/fun
 YAML-LD is a W3C Community Group Final Report, not a W3C Recommendation. Community Group reports can be abandoned if the group loses interest.
 
 - **Likelihood:** Medium — W3C Community Groups have variable longevity
-- **Impact:** Low — Extension 5 is explicitly optional, and crawlers can produce linked data from plain YAML using a canonical context
+- **Impact:** Low — Extension 6 is explicitly optional, and crawlers can produce linked data from plain YAML using a canonical context
 - **Mitigation:** The proposal already treats YAML-LD as optional. If the spec stalls, the fallback is that crawlers apply a server-side context mapping. The linked data interoperability goal is achieved either way.
 
 ### D4. GitHub-centric assumptions
@@ -293,7 +301,8 @@ The proposal's examples and URL patterns assume GitHub hosting (e.g., `/releases
 | A2 | Chicken-and-egg problem for registries | High | High | Adoption |
 | A3 | Maintainer fatigue from another metadata file | High | Medium | Adoption |
 | A4 | Migration friction from v0.x to v1.0 | Medium | Medium | Adoption |
-| A5 | Faceted classification too complex | Medium | Medium | Adoption |
+| A5 | Temporal fields cause widespread file staleness | High | High | Adoption |
+| A6 | Faceted classification too complex | Medium | Medium | Adoption |
 | T1 | Vocabulary governance bottleneck | Medium | High | Technical |
 | T2 | URL rot in supply chain references | High | Medium | Technical |
 | T3 | Registry API interoperability failures | High | High | Technical |
@@ -323,7 +332,8 @@ The proposal's examples and URL patterns assume GitHub hosting (e.g., `/releases
 ### Critical risks (High likelihood + High impact)
 
 1. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on solving both the perception problem (non-government projects) and the platform bootstrapping problem (registries need projects need registries).
-2. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
-3. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
-4. **G1 — Small spec governance community**: The publiccode.yml spec's maintainer community is small relative to its institutional adoption. The proposed extensions represent a significant scope increase. Without maintainer buy-in and capacity, the extensions remain a proposal indefinitely. This is the highest-priority prerequisite.
-5. **E1 — Registry sustainability**: The architecture depends on registries existing and operating reliably. Without a sustainability model, the long-term viability of the ecosystem is uncertain.
+2. **A5 — Temporal field staleness**: Empirically observed at scale — most existing publiccode.yml files are out of date because temporal fields (version, release date, dependency versions) aren't maintained between releases. This directly undermines ecosystem credibility and is addressed by Extension 5 (deprecate temporal fields).
+3. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
+4. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
+5. **G1 — Small spec governance community**: The publiccode.yml spec's maintainer community is small relative to its institutional adoption. The proposed extensions represent a significant scope increase. Without maintainer buy-in and capacity, the extensions remain a proposal indefinitely. This is the highest-priority prerequisite.
+6. **E1 — Registry sustainability**: The architecture depends on registries existing and operating reliably. Without a sustainability model, the long-term viability of the ecosystem is uncertain.

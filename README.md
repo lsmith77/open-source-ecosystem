@@ -45,6 +45,7 @@ Create a single format with a good chance of wide adoption from the open source 
 **Weaknesses:**
 
 - **Public-sector-centric naming and framing.** "publiccode" signals government software; open source projects outside government may not feel it applies to them. Fields like `usedBy` assume public administration context.
+- **Temporal fields cause widespread staleness.** Fields like `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin` change with every release but are rarely updated in the metadata file. Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases. This data already exists in authoritative sources (forge APIs, package registries) — duplicating it in a committed file creates a staleness problem that undermines trust in the entire file.
 - **No vendor/contributor credit system.** No fields for tracking which companies contribute, their expertise level, or anything resembling Drupal's credit system. The `maintenance.contractors` field is rudimentary (name + expiry date).
 - **Limited taxonomy depth.** The `categories` list is flat and coarse (e.g., "content-management") — no faceted classification like domain + function + audience.
 - **No supply-chain / dependency-security fields.** No SBOM reference, no OpenSSF scorecard integration, no vulnerability policy metadata beyond what badges add externally.
@@ -211,6 +212,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 2. **Credit registry discovery** — a `creditRegistries` section pointing to external systems (Drupal-style credit APIs, ecosyste.ms) where vendor/contributor data lives, endorsed by the project
 3. **Supply chain references** — fields pointing to SBOM locations, OpenSSF Scorecard results, and REUSE compliance status
 4. **A companion Registry Discovery Standard** — decentralized usage registries where procurement offices declare what they deploy, discoverable by crawlers without per-project configuration, enabling the reuse badge system to scale beyond openCode.de
+5. **Deprecation of temporal fields** — remove `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin/versionMax` from the spec, keeping only slow-changing, human-authored data that cannot be reliably obtained from forge APIs or package registries
 
 **Make publiccode.yml attractive to non-government open source projects** by:
 

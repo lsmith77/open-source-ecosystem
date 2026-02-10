@@ -87,6 +87,28 @@ Phase 8: ORGANIZATION-LEVEL USAGE DECLARATIONS (2026-02-10)
           updates to RISK_ANALYSIS.md (revised S5, new S6), ROADMAP.md
           (expanded Phase 4), PITCH.md (deploying org and maintainer
           pitches), and this methodology document
+
+Phase 9: TEMPORAL FIELD DEPRECATION (2026-02-10)
+  Input:  All existing documents + external feedback from Andrew Nesbitt
+          (ecosyste.ms) via GitHub issue #2
+  Method: Andrew Nesbitt provided empirical feedback based on indexing
+          thousands of publiccode.yml files via ecosyste.ms: most files
+          are out of date because temporal fields (softwareVersion,
+          releaseDate, dependsOn versionMin) are not updated between
+          releases. He proposed keeping only human-authored, slow-changing
+          data: classification, contacts/maintenance, legal, and registry
+          pointers. AI analyzed the feedback against existing documents,
+          identified alignment with Design Principle 1, and integrated
+          the feedback as a new extension and cross-cutting updates.
+  Output: New Extension 5 in PROPOSAL.md (Deprecate Temporal Fields),
+          new Design Principle 2 (slow-changing data only), updated full
+          example, renumbered YAML-LD to Extension 6. New weakness in
+          README.md, new recommendation item. New risk A5 in
+          RISK_ANALYSIS.md (renumbered A5→A6 for classification
+          complexity), updated critical risks. New pitch point in
+          PITCH.md (maintainer). ROADMAP.md Phase 1 expanded to include
+          temporal field deprecation alongside supply chain references.
+          Updated this methodology document.
 ```
 
 ---
@@ -317,6 +339,31 @@ This corrected a misunderstanding present across all documents since Phase 2: th
 
 No additional web searches were performed beyond the Standard for Public Code URL provided by the human.
 
+### Phase 9: Temporal Field Deprecation (2026-02-10)
+
+**External input:** Andrew Nesbitt (ecosyste.ms, OSS Taxonomy author) filed [GitHub issue #2](https://github.com/lsmith77/open-source-ecosystem/issues/2) with feedback based on his experience indexing thousands of publiccode.yml files via ecosyste.ms. His core argument: "across the thousands of files I index via ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases."
+
+He proposed that publiccode.yml should exclude fields that become outdated quickly (version numbers, release dates, dependency version minimums) — data that already exists in authoritative sources like forge APIs and package registries — and retain only:
+- **Classification** — project categorization unavailable elsewhere
+- **Contacts and maintenance** — support contacts and arrangements
+- **Legal** — license and copyright declarations
+- **Registry pointers** — links to credits, supply chains, and SBOMs
+
+**Human input (prompt 1):**
+> Review the feedback from https://github.com/lsmith77/open-source-ecosystem/issues/2 and make relevant updates, while keeping METHODOLOGY.md updated.
+
+The AI fetched the issue, analyzed the feedback against all existing documents, and identified that Andrew's proposal directly aligns with Design Principle 1 ("publiccode.yml points to external data, doesn't replicate it") but applies it more aggressively — to fields already in the current spec, not just proposed extensions. The AI also identified that the feedback strengthens the case for Extension 2 (Supply Chain References), since `supplyChain.sbom` becomes the authoritative replacement for `dependsOn[].versionMin`.
+
+The AI updated all documents:
+- **PROPOSAL.md:** Added Design Principle 2 ("only slow-changing, human-authored data"), renumbered subsequent principles. Added Extension 5 (Deprecate Temporal Fields) with schema, rationale, and the four-category framework from Andrew's feedback. Updated the full example to remove `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin`. Renumbered YAML-LD from Extension 5 to Extension 6.
+- **README.md:** Added "temporal fields cause widespread staleness" to publiccode.yml weaknesses with Andrew's empirical evidence. Added "deprecation of temporal fields" as recommendation item 5.
+- **RISK_ANALYSIS.md:** Added A5 (temporal field staleness, High/High) with ecosyste.ms evidence. Renumbered faceted classification complexity from A5 to A6. Added A5 to critical risks summary. Updated A3 mitigation to cross-reference A5. Updated Extension 5→6 references for YAML-LD risk T4.
+- **ROADMAP.md:** Expanded Phase 1 to include temporal field deprecation alongside supply chain references (they pair naturally — SBOM replaces `dependsOn.versionMin`). Updated risk reference A5→A6 for classification complexity. Updated Extension 5→6 reference for YAML-LD.
+
+No web searches were performed beyond fetching the GitHub issue — the analysis was based on the existing documents and Andrew's domain expertise.
+
+---
+
 ### Phase 8: Organization-Level Usage Declarations (2026-02-10)
 
 **Human input (prompt 1):**
@@ -406,15 +453,19 @@ All sources that informed the analysis, grouped by role.
 37. Safespring EU CSF analysis (SOV-1 through SOV-8) — https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/
 38. sovereigntyscore.io — https://sovereigntyscore.io/ (not indexed by search engines at time of research; only title "European Digital Sovereignty Analysis" retrieved)
 
+### External feedback (Phase 9)
+
+39. GitHub issue #2: Remove temporal fields — https://github.com/lsmith77/open-source-ecosystem/issues/2
+
 ### Governance clarification (Phase 7)
 
-39. The Standard for Public Code — https://standard.publiccode.net/docs/review-template.html
+40. The Standard for Public Code — https://standard.publiccode.net/docs/review-template.html
 
 ### Sources consulted but not directly cited
 
-40. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
-41. publicodes (French rules engine, disambiguation) — https://publi.codes/
-42. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
+41. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
+42. publicodes (French rules engine, disambiguation) — https://publi.codes/
+43. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
 
 ---
 
@@ -452,7 +503,9 @@ Key decisions made by the human during the process:
 
 15. **Organization-level usage declarations via `.well-known` proposed by human.** The human proposed that deploying organizations publish `/.well-known/publiccode-usage.json` on their domains to declare software usage. The AI initially assessed security exposure as a significant risk; the human corrected this by noting that technology detection services like BuiltWith already expose comparable data, and that the schema deliberately excludes version numbers. The human also reframed maintenance from an IT operations task to a deployment-integrated process — projects like Drupal would include usage declaration updates in their deployment documentation. The human additionally proposed internal scanning tools as a bulk publishing mechanism. All three insights were incorporated across the documents.
 
-16. **Two-tier aggregation model proposed by human.** The human refined the `.well-known` architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file. This directly addresses the stale data risk — data is maintained at the source by deployment processes rather than manually curated at the organizational level. The AI had not considered this pattern; the human's insight came from practical knowledge of how large organizations manage distributed deployments.
+16. **Temporal field deprecation driven by external feedback.** Andrew Nesbitt (ecosyste.ms) filed GitHub issue #2 with empirical evidence that most publiccode.yml files are stale because temporal fields aren't maintained between releases. The AI identified this as a strengthening of Design Principle 1 and proposed Extension 5 to deprecate `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin`. The human directed the AI to integrate the feedback across all documents. No new schema fields were needed — only deprecations and the corresponding updates to the full example, risk analysis, pitches, and roadmap.
+
+17. **Two-tier aggregation model proposed by human.** The human refined the `.well-known` architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file. This directly addresses the stale data risk — data is maintained at the source by deployment processes rather than manually curated at the organizational level. The AI had not considered this pattern; the human's insight came from practical knowledge of how large organizations manage distributed deployments.
 
 ---
 

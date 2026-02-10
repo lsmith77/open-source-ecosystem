@@ -10,7 +10,8 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 - [Extension 2: Supply Chain References](#extension-2-supply-chain-references)
 - [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery)
 - [Extension 4: Deprecate `usedBy`](#extension-4-deprecate-usedby)
-- [Extension 5: Optional Linked Data Representation (YAML-LD)](#extension-5-optional-linked-data-representation-yaml-ld)
+- [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields)
+- [Extension 6: Optional Linked Data Representation (YAML-LD)](#extension-6-optional-linked-data-representation-yaml-ld)
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
@@ -21,11 +22,12 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 ## Design Principles
 
 1. **The publiccode.yml file is the authoritative anchor.** It lives in the repository and is maintained by the project. It describes the project and points to external systems where the project has authority; it does not replicate dynamic data.
-2. **Only project-authoritative data belongs in publiccode.yml.** The project can endorse credit registries (it knows who contributes). It cannot endorse usage registries (it doesn't control who uses it). Usage data flows independently.
+2. **Only slow-changing, human-authored data belongs in publiccode.yml.** Fields that change with every release (version numbers, release dates, dependency version constraints) belong in forge APIs, package registries, and SBOMs — not in a file that nobody remembers to update. The file should contain classification, contacts, legal, and registry pointers: data that humans must author and that doesn't become stale between releases.
+3. **Only project-authoritative data belongs in publiccode.yml.** The project can endorse credit registries (it knows who contributes). It cannot endorse usage registries (it doesn't control who uses it). Usage data flows independently.
 3. **Decentralized registries discover projects, not the other way around.** Usage registries index projects by their publiccode.yml `url` field. A companion [Registry Discovery Standard](#registry-discovery-standard) makes registries themselves crawlable.
-4. **External systems should implement standardized APIs.** So that crawlers (openCode.de, EU OSS Catalogue, Developers Italia) can aggregate data from any conforming provider, not just one.
-5. **Faceted classification replaces flat categories.** Enabling multi-dimensional discovery for procurement and supply chain analysis.
-6. **Optional linked data representation.** For interoperability with the linked-data ecosystem (CodeMeta, schema.org, Software Heritage) without forcing all maintainers into JSON-LD etc.
+5. **External systems should implement standardized APIs.** So that crawlers (openCode.de, EU OSS Catalogue, Developers Italia) can aggregate data from any conforming provider, not just one.
+6. **Faceted classification replaces flat categories.** Enabling multi-dimensional discovery for procurement and supply chain analysis.
+7. **Optional linked data representation.** For interoperability with the linked-data ecosystem (CodeMeta, schema.org, Software Heritage) without forcing all maintainers into JSON-LD etc.
 
 ---
 
@@ -313,7 +315,51 @@ usedBy:
 
 ---
 
-## Extension 5: Optional Linked Data Representation (YAML-LD)
+## Extension 5: Deprecate Temporal Fields
+
+Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases. The fields most responsible for staleness are those that track information already available from authoritative sources — forge APIs, package registries, and release artifacts.
+
+### Fields to Deprecate
+
+| Field | Why it goes stale | Authoritative source |
+|---|---|---|
+| `softwareVersion` | Changes with every release; rarely updated in publiccode.yml | Forge API (GitHub releases, GitLab tags), package registry |
+| `releaseDate` | Same as above — coupled to `softwareVersion` | Forge API, package registry |
+| `dependsOn[].versionMin` | Dependency minimum versions evolve with each release | Package manager lockfiles, SBOM (already referenced in `supplyChain`) |
+
+### Schema Change
+
+```yaml
+# Deprecated — version and release data should be consumed from
+# the project's forge API or package registry, not maintained
+# manually in a metadata file.
+# softwareVersion: "3.2.1"
+# releaseDate: "2026-01-15"
+
+# Deprecated — dependency version constraints are better expressed
+# in package manager files and SBOMs (see supplyChain.sbom).
+# dependsOn:
+#   open:
+#     - name: PostgreSQL
+#       versionMin: "14"
+```
+
+### Design Rationale
+
+**Keep only what humans must author.** The remaining publiccode.yml content falls into four categories of data that cannot be reliably extracted from other sources:
+
+1. **Classification** — project categorization unavailable from forges or registries (the `classification` section)
+2. **Contacts and maintenance** — support contacts, maintenance arrangements, contractor information
+3. **Legal** — license and copyright declarations (beyond what REUSE/SPDX cover at the file level)
+4. **Registry pointers** — links to credit registries, supply chain artifacts, and security policies
+
+These are slow-changing, human-maintained fields. They don't become stale between releases because they don't change with releases. Removing temporal fields reduces the maintenance burden on maintainers (addressing risk A3) and eliminates the most common source of inaccurate data in the ecosystem.
+
+**Note:** The `dependsOn` field retains value as a human-readable indicator of major runtime dependencies (e.g., "this software needs PostgreSQL") even without version constraints. Projects may choose to keep `dependsOn` with dependency names but without `versionMin`/`versionMax` — the version detail belongs in the SBOM referenced by `supplyChain.sbom`.
+
+---
+
+## Extension 6: Optional Linked Data Representation (YAML-LD)
 
 publiccode.yml's YAML format is its strength for maintainer adoption. But the linked-data ecosystem (CodeMeta, schema.org, Software Heritage, Zenodo) speaks JSON-LD. The proposal: make publiccode.yml **optionally** expressible as [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/).
 
@@ -421,8 +467,8 @@ name: MedusaCMS
 applicationSuite: MegaProductivitySuite
 url: https://github.com/example/medusa-cms
 landingURL: https://medusa-cms.example.org
-softwareVersion: "3.2.1"
-releaseDate: "2026-01-15"
+# softwareVersion and releaseDate removed — consumed from
+# forge API / package registry (see Extension 5)
 logo: img/logo.svg
 platforms:
   - web
@@ -505,10 +551,12 @@ localisation:
     - de
     - fr
 
+# dependsOn retained for human-readable dependency names,
+# but versionMin/versionMax removed (see Extension 5).
+# Version constraints belong in the SBOM.
 dependsOn:
   open:
     - name: PostgreSQL
-      versionMin: "14"
 
 # ===== NEW: Supply chain references =====
 supplyChain:
