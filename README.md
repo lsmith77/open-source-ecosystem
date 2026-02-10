@@ -228,6 +228,8 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 **See [ROADMAP.md](ROADMAP.md) for an illustrative phased implementation plan** - to work towards the proposal by building momentum with achievable milestones, and address critical risks.
 
+**See [RISK_ANALYSIS.md](RISK_ANALYSIS) for a systematic examination of risks to the proposal** - each risk includes an assessment of likelihood and impact, plus potential mitigations.
+
 ---
 
 ## Related Discussions
