@@ -10,6 +10,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Attract funding and contributors** — projects with visible adoption data and classified dependencies are easier for funders (Sovereign Tech Fund, CISA) to justify investing in.
 - **Control your narrative** — you decide how the project is classified and which credit registries you endorse, rather than letting third-party catalogs guess.
 - **Make adoption visible by default** — integrate usage declaration updates into your deployment documentation so that every deploying organization automatically signals adoption. More visible adoption means more funding, more contributors, and more leverage.
+- **Provide the data that lawmakers and procurement offices need** — "Public Money, Public Code" laws and open source procurement mandates are spreading across Europe, but without project-level metadata, compliance is unverifiable. One publiccode.yml file makes your project the kind of software these policies can actually require.
 
 ---
 
@@ -18,6 +19,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Win public sector contracts** — procurement offices increasingly evaluate vendor expertise before awarding contracts. Standardized credit data makes your open source contributions a competitive advantage in tenders.
 - **Access a growing market** — EU public sector IT spending is hundreds of billions annually. Digital sovereignty mandates are steering more of it toward open source solutions with proven vendor ecosystems.
 - **Level the playing field** — small vendors with strong contributions become visible alongside large incumbents. Credit data speaks louder than brand recognition.
+- **Ride the legislative wave** — Switzerland's EMBAG, APELL's procurement criteria proposals, and EuroStack's "Buy Open Source Act" are all moving toward requiring verified upstream contributions in tenders. Vendors with credit registry data are positioned for this future; those without it will scramble to catch up.
 
 ---
 
@@ -26,6 +28,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Reduce procurement risk** — evaluate security posture, vendor ecosystem, and adoption by peer organizations before committing, not after.
 - **Meet digital sovereignty requirements** — the EU Cloud Sovereignty Framework (SOV-5, SOV-6) and national mandates (Munich SDS) require supply chain transparency and open source preference. This metadata makes compliance auditable.
 - **Avoid vendor lock-in** — identify software with multiple contributing vendors and active maintenance before you buy, not when a sole contractor walks away.
+- **Use proven selection criteria** — the [OSBA's procurement framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) defines four criteria (community relationship, upstream contributions, Level 3 support, supply chain security) that map directly to publiccode.yml metadata. No more inventing evaluation criteria from scratch for each tender.
 
 ---
 
@@ -44,6 +47,15 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Allocate funding where it matters** — identify critical infrastructure gaps: which widely-deployed software has only one maintainer? Which domains lack open source alternatives entirely?
 - **Implement digital sovereignty policy** — the EU CSF, national sovereignty scores, and open source mandates all require the ecosystem transparency this metadata provides. Without it, policy lacks an evidence base.
 - **Measure outcomes** — track whether funding leads to improved security scores, broader adoption, or stronger vendor ecosystems. Usage and credit data make impact measurable.
+
+---
+
+## Policy Maker / Legislator
+
+- **Turn principles into enforceable criteria** — "Public Money, Public Code" and digital sovereignty mandates need verifiable compliance mechanisms. This metadata makes "prioritize open source" auditable rather than aspirational.
+- **Build on proven legislative models** — Switzerland's EMBAG demonstrates that mandating open source release works. The proposed extensions answer the next question: how do procurement offices actually find, evaluate, and maintain the software the law requires them to prefer?
+- **Strengthen European digital sovereignty** — the EU CSF's SOV-5 (supply chain) and SOV-6 (open source) objectives require exactly the transparency this metadata provides. Standardized credit and classification data turns sovereignty scores from self-assessments into evidence-based evaluations.
+- **Create a level playing field for European vendors** — procurement criteria based on verified upstream contributions (as APELL and EuroStack propose) reward companies that invest in open source, rather than incumbents who simply resell it.
 
 ---
 

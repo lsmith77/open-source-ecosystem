@@ -245,7 +245,7 @@ The proposal assumes procurement officers will query catalogs for faceted classi
 
 - **Likelihood:** High — procurement capacity varies enormously across organizations and jurisdictions
 - **Impact:** Medium — the data exists but doesn't influence decisions; adoption effort is wasted
-- **Mitigation:** The value chain requires intermediaries: catalog UIs (openCode.de, EU OSS Catalogue) that present the data as simple badges, comparison tables, and recommendations rather than raw API queries. Training programs (like the [U.S. DITAP curriculum](https://github.com/usds/ditap-curriculum-update)) should incorporate open source metadata literacy.
+- **Mitigation:** The value chain requires intermediaries: catalog UIs (openCode.de, EU OSS Catalogue) that present the data as simple badges, comparison tables, and recommendations rather than raw API queries. Published procurement criteria frameworks — like the [OSBA's selection criteria for sustainable OSS procurement](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software), which maps directly to publiccode.yml metadata — give procurement offices ready-to-use evaluation templates rather than expecting them to design criteria from scratch. Training programs (like the [U.S. DITAP curriculum](https://github.com/usds/ditap-curriculum-update)) should incorporate open source metadata literacy.
 
 ### E4. Free-rider problem in usage declarations
 

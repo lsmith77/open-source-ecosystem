@@ -109,6 +109,26 @@ Phase 9: TEMPORAL FIELD DEPRECATION (2026-02-10)
           PITCH.md (maintainer). ROADMAP.md Phase 1 expanded to include
           temporal field deprecation alongside supply chain references.
           Updated this methodology document.
+
+Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
+  Input:  All existing documents + 4 human-provided URLs on public
+          procurement and open source policy
+  Method: Human identified that the proposal lacked explicit connection
+          to "Public Money, Public Code" principle, procurement criteria
+          frameworks, and legislative models. Provided URLs to FSFE PMPC
+          campaign, Dries Buytaert article on contribution-based
+          procurement, Switzerland's EMBAG law (via OSOR), and OSBA
+          procurement selection criteria. AI fetched all 4 URLs plus
+          supplementary web search, then integrated findings across all
+          documents.
+  Output: New "Policy Context" section in PROPOSAL.md (PMPC framing,
+          extension-to-procurement mapping table, OSBA criteria
+          alignment, legislative models). New "Policy Maker / Legislator"
+          actor in PROPOSAL.md and PITCH.md. New allies in ROADMAP.md
+          (FSFE, Swiss Federal Chancellery, APELL, EuroStack).
+          Procurement policy milestones woven into Phases 0, 2, 3, and
+          5 of ROADMAP.md. Updated sequencing rationale with procurement
+          policy track. Updated this methodology document.
 ```
 
 ---
@@ -119,7 +139,7 @@ Phase 9: TEMPORAL FIELD DEPRECATION (2026-02-10)
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations) |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -396,6 +416,48 @@ No web searches were performed — the analysis was based on the existing docume
 
 ---
 
+### Phase 10: Public Procurement Policy Integration (2026-02-11)
+
+**Human input (prompt 1):**
+The human identified that the proposal lacked explicit connection to the "Public Money, Public Code" principle and public procurement policy. They provided four URLs and directed the AI to incorporate these aspects and identify relevant partners and milestones:
+
+1. https://publiccode.eu/ — FSFE's Public Money? Public Code! campaign
+2. https://dri.es/funding-open-source-for-digital-sovereignty — Dries Buytaert on contribution-based procurement
+3. https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland — Switzerland's EMBAG law
+4. https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software — OSBA procurement selection criteria
+
+#### Batch 10 — Public procurement policy sources (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `https://publiccode.eu/` | Web fetch | PMPC campaign principles — fetch failed, content not extractable |
+| `https://dri.es/funding-open-source-for-digital-sovereignty` | Web fetch | Contribution-based procurement argument, Drupal credit system as procurement model |
+| `https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland` | Web fetch | EMBAG law details: mandatory source code disclosure, Article 9 paid services, Prof. Stürmer quote |
+| `https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software` | Web fetch | Four procurement criteria: community relationship, upstream publication, Level 3 support, supply chain security |
+| `Public Money Public Code FSFE principles demands policy recommendations` | Web search | Supplementary search for PMPC campaign details (200+ orgs, 31,000+ signatories, expert brochure) |
+
+The AI synthesized findings across all sources and identified:
+- The PMPC principle creates demand for the extensions: once governments commit to open source, they need the discovery/evaluation infrastructure this proposal provides
+- The OSBA's four procurement criteria map directly to specific extensions (creditRegistries → criterion 1 and 2, maintenance + credits → criterion 3, supplyChain → criterion 4)
+- Switzerland's EMBAG demonstrates that legislation works but reveals a gap: mandating release is not sufficient without procurement infrastructure
+- APELL and EuroStack (mentioned in the Dries article) are advancing EU-level policy that needs this metadata as evidence infrastructure
+
+**Human input (prompt 2):**
+The human directed that APELL and EuroStack be listed as separate allies (not combined), noting acquaintances in both initiatives.
+
+**Human input (prompt 3):**
+> Should new stakeholders be added? Update the PITCH and METHODOLOGY documents
+
+The AI identified that "Policy Maker / Legislator" is a distinct actor from "Federal Authority / Funder" — legislators craft laws and procurement regulations (EMBAG, Buy Open Source Act), while funders allocate money (Sovereign Tech Fund, CISA). The AI added the new actor to PROPOSAL.md and a corresponding pitch section to PITCH.md.
+
+Documents updated:
+- PROPOSAL.md: New "Policy Context: Public Procurement and Open Source" section with extension-to-procurement mapping table, OSBA criteria alignment, and legislative models subsection. Updated table of contents. New "Policy Maker / Legislator" actor in Actors table.
+- PITCH.md: New "Policy Maker / Legislator" section with four bullet points on enforceable criteria, legislative models, sovereignty, and level playing field.
+- ROADMAP.md: New allies (FSFE, Swiss Federal Chancellery, APELL, EuroStack). Removed FSFE duplicate from Phase 5 table. New procurement policy actions in Phases 0, 2, 3, and 5. Updated sequencing rationale with procurement policy track description.
+- METHODOLOGY.md: This phase entry, new sources, updated research date.
+
+---
+
 ## Sources Evaluated
 
 All sources that informed the analysis, grouped by role.
@@ -461,11 +523,21 @@ All sources that informed the analysis, grouped by role.
 
 40. The Standard for Public Code — https://standard.publiccode.net/docs/review-template.html
 
+### Public procurement policy sources (Phase 10)
+
+41. Public Money? Public Code! (FSFE) — https://publiccode.eu/
+42. Funding Open Source for Digital Sovereignty (Dries Buytaert) — https://dri.es/funding-open-source-for-digital-sovereignty
+43. Switzerland's EMBAG open source law (OSOR) — https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland
+44. OSBA Selection Criteria for Sustainable Procurement of OSS — https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software
+45. APELL initiative — https://apell.info/
+46. EuroStack coalition — https://eurostack.eu/
+47. Switzerland EMBAG law text — https://www.fedlex.admin.ch/eli/cc/2023/682/en
+
 ### Sources consulted but not directly cited
 
-41. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
-42. publicodes (French rules engine, disambiguation) — https://publi.codes/
-43. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
+48. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
+49. publicodes (French rules engine, disambiguation) — https://publi.codes/
+50. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
 
 ---
 
@@ -506,6 +578,8 @@ Key decisions made by the human during the process:
 16. **Temporal field deprecation driven by external feedback.** Andrew Nesbitt (ecosyste.ms) filed GitHub issue #2 with empirical evidence that most publiccode.yml files are stale because temporal fields aren't maintained between releases. The AI identified this as a strengthening of Design Principle 1 and proposed Extension 5 to deprecate `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin`. The human directed the AI to integrate the feedback across all documents. No new schema fields were needed — only deprecations and the corresponding updates to the full example, risk analysis, pitches, and roadmap.
 
 17. **Two-tier aggregation model proposed by human.** The human refined the `.well-known` architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file. This directly addresses the stale data risk — data is maintained at the source by deployment processes rather than manually curated at the organizational level. The AI had not considered this pattern; the human's insight came from practical knowledge of how large organizations manage distributed deployments.
+
+18. **Public procurement policy framing directed by human.** The human identified that the proposal lacked explicit connection to the "Public Money, Public Code" principle, procurement criteria frameworks, and legislative models. The AI had treated procurement as one of several use cases but had not positioned the extensions as infrastructure for implementing procurement policy. The human provided four URLs covering the PMPC campaign, contribution-based procurement, Switzerland's EMBAG law, and OSBA procurement criteria. The AI mapped each extension to specific procurement needs and OSBA criteria, and identified "Policy Maker / Legislator" as a distinct actor from "Federal Authority / Funder" — legislators draft laws and procurement regulations, while funders allocate money. The human also corrected the AI's initial attempt to combine APELL and EuroStack into a single ally entry, noting that they are separate initiatives with separate acquaintances.
 
 ---
 

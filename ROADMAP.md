@@ -20,6 +20,8 @@ This roadmap is illustrative, not prescriptive. Its purpose is to make the [prop
 | **Drupal / PHP community**       | Operates the most mature vendor credit system in open source. Living proof the credit model works.                                             | Close relationship            |
 | **Andrew Nesbitt / ecosyste.ms** | OSS Taxonomy author. Largest open OSS metadata dataset. ecosyste.ms as potential credit/funding registry.                                      | Direct connection             |
 | **CHAOSS**                       | Community Health Analytics — defines metrics for open source project health. Alignment on how to measure contributions and community vitality. | Direct contact                |
+| **FSFE**                         | Runs the [Public Money? Public Code!](https://publiccode.eu/) campaign. Maintains [REUSE](https://reuse.software/) tooling (already referenced in `supplyChain`). European advocacy network for open source policy. | Direct contact                |
+| **Swiss Federal Chancellery / BK** | Operates under [EMBAG](https://www.fedlex.admin.ch/eli/cc/2023/682/en) — the most advanced open source law in Europe. Legislative proof that mandating open source release works. BFH/Prof. Stürmer connections. | Home jurisdiction             |
 | **publiccode.yml maintainers**   | Control the spec. Any extension must go through them.                                                                                          | Acquaintances                 |
 
 ### Critical Prerequisite: Spec Maintainer Buy-in
@@ -51,9 +53,11 @@ Risk G1 (small spec governance community) is the single highest-priority blocker
 
 4. **Contact Andrew Nesbitt (ecosyste.ms / OSS Taxonomy).** The faceted classification proposal directly builds on his taxonomy work. His support lends credibility with the broader OSS community and he brings the ecosyste.ms data infrastructure as a potential credit registry.
 
+5. **Engage procurement policy stakeholders.** Connect with APELL and EuroStack to position the proposed extensions as the data infrastructure their policy initiatives need. Coordinate with FSFE to align with the Public Money? Public Code! campaign — the extensions answer the practical "how do you actually procure open source?" question that follows from PMPC adoption. Review EMBAG implementation with the Swiss Federal Chancellery to understand how legislative mandates create demand for this metadata.
+
 ### Deliverable
 
-A published working group charter with institutional commitments from at least BFH, ZenDiS, and one publiccode.yml maintainer. A clear understanding of the governance path for extensions.
+A published working group charter with institutional commitments from at least BFH, ZenDiS, and one publiccode.yml maintainer. A clear understanding of the governance path for extensions. A mapping of active procurement policy initiatives (APELL, EuroStack, PMPC) to the extensions they require.
 
 ---
 
@@ -100,10 +104,11 @@ Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecat
 2. **Build the classification wizard** in the openCode.de publiccode.yml editor — reducing the complexity risk (A6) by guiding maintainers through facet selection.
 3. **Provide automated migration tooling** that converts existing `categories` + `softwareType` to the new `classification` structure for the 640+ projects in the EU OSS Catalogue.
 4. **Pilot with ossdirectory.com** — implement faceted search to demonstrate the procurement discovery improvement ("show me a CRM for healthcare in the backend layer").
+5. **Draft procurement selection criteria** aligned with the [OSBA framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) that reference publiccode.yml extensions as evidence sources. Work with Schleswig-Holstein's procurement office to validate that the criteria are practical for real tenders. Publish as a companion guide: "How to use publiccode.yml metadata in procurement scoring."
 
 ### Deliverable
 
-Accepted `classification` extension. Migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process.
+Accepted `classification` extension. Migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process. Draft procurement selection criteria referencing publiccode.yml metadata.
 
 ---
 
@@ -125,10 +130,11 @@ Accepted `classification` extension. Migration tooling. Faceted search operation
 3. **Add `creditRegistries` to Drupal's publiccode.yml** (or equivalent metadata) — Drupal endorses its own credit system via the new field.
 4. **Implement credit data aggregation** in openCode.de and ossdirectory.com — crawlers follow `creditRegistries` links and display vendor credit data alongside project metadata.
 5. **Engage ecosyste.ms as a second credit registry** — Andrew Nesbitt implements the Credit Registry API for ecosyste.ms contribution/funding data, demonstrating multi-registry aggregation.
+6. **Run a procurement pilot with credit data.** Work with a procurement office (Schleswig-Holstein or a Swiss canton) to use credit registry data in an actual tender evaluation — scoring vendors by verified upstream contributions as the [OSBA criteria](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) and [APELL](https://apell.info/) propose. Document the process and outcomes as a replicable case study.
 
 ### Deliverable
 
-Two operational credit registries (Drupal.org, ecosyste.ms) conforming to a published API spec. At least one catalog displaying aggregated credit data. A reference project (Drupal) with `creditRegistries` in its publiccode.yml.
+Two operational credit registries (Drupal.org, ecosyste.ms) conforming to a published API spec. At least one catalog displaying aggregated credit data. A reference project (Drupal) with `creditRegistries` in its publiccode.yml. One documented procurement pilot using credit data in vendor evaluation.
 
 ---
 
@@ -174,10 +180,12 @@ Registry Discovery Standard published. Organization-level usage declaration spec
 4. **Engage non-EU players** — Canada's Open Resource Exchange, U.S. DSACMS, Brazilian government programs — to adopt publiccode.yml with country extensions.
 5. **Build the conformance test suite** for the Credit Registry API and Usage Registry API — critical for scaling beyond hand-coordinated implementations (risk T3).
 6. **Develop auto-generation tooling** that populates publiccode.yml from package.json, pyproject.toml, Cargo.toml etc. — reducing maintainer burden (risk A3) and making adoption viable for the long tail of projects.
+7. **Publish procurement selection criteria as a formal recommendation.** Refine the draft criteria from Phase 2 based on the Phase 3 procurement pilot. Work with OSBA, APELL, and EuroStack to position the criteria for adoption in national and EU-level procurement guidelines. Target inclusion in frameworks like the [Interoperable Europe Act](https://interoperable-europe.ec.europa.eu/) implementing measures.
+8. **Engage legislators using the Swiss EMBAG as a model.** Document EMBAG's outcomes and package a "legislative toolkit" — model clauses that reference publiccode.yml metadata for procurement compliance, supply chain transparency, and vendor evaluation. Coordinate with FSFE's Public Money? Public Code! campaign to connect legislation advocacy with the metadata infrastructure that makes compliance practical.
 
 ### Deliverable
 
-EU OSS Catalogue consuming the full extension set. At least one non-EU country adopting publiccode.yml. Conformance test suites published. Auto-generation tooling available for major ecosystems.
+EU OSS Catalogue consuming the full extension set. At least one non-EU country adopting publiccode.yml. Conformance test suites published. Auto-generation tooling available for major ecosystems. Published procurement selection criteria endorsed by at least two procurement policy organizations. Legislative toolkit with model clauses referencing publiccode.yml metadata.
 
 ---
 
@@ -198,6 +206,8 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                  | Through Sovereign Tech Agency. Present the supply chain extension as amplifying Scorecard reach.  |
 | **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the extensions in their standard. | No current connection.                                         |
+| **APELL**                      | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria. | Acquaintances. Present credit registries as the data layer their policy proposals need. |
+| **EuroStack**                  | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure. | Acquaintances. Through OSBA (member of the coalition). |
 
 ### Important for Global Scale (Phase 5)
 
@@ -206,7 +216,6 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 | **DSACMS (U.S.)**                                             | gov-codejson could adopt publiccode.yml with a U.S. country extension instead of maintaining a parallel standard. | Through Sovereign Tech Agency or CISA contacts.           |
 | **Canada Open Resource Exchange**                             | Already discussed adopting publiccode.yml. English-speaking government OSS community.                             | Direct outreach — they're already interested.             |
 | **Software Heritage**                                         | Academic/archival legitimacy. YAML-LD/CodeMeta bridge.                                                            | Through the linked data extension (Phase 5).              |
-| **FSFE**                                                      | REUSE integration in `supplyChain`. European OSS advocacy network.                                                | Through ZenDiS (REUSE is already in openCode.de badges). |
 | **Large OSS foundations (Apache, Eclipse, Linux Foundation)** | Adoption beyond government-specific projects. Address branding risk A1.                                           | Later phases. Need proven value before approaching.       |
 
 ---
@@ -221,5 +230,7 @@ The phases are ordered to:
 4. **Prove the hardest piece with an existing system** (Phase 3: credits via Drupal) — avoids the chicken-and-egg problem by retrofitting a standardized API onto something that already works.
 5. **Formalize what's already happening** (Phase 4: registry discovery) — openCode.de is already a usage registry; the standard just makes it interoperable.
 6. **Scale once the pattern is proven** (Phase 5) — branding, linked data, and global expansion only make sense after the core architecture works.
+
+A **procurement policy track** runs in parallel across the phases: stakeholder mapping (Phase 0), draft criteria (Phase 2), procurement pilot with credit data (Phase 3), and formal criteria publication with legislative engagement (Phase 5). This mirrors the technical sequencing — you can't write procurement criteria for credit data before credit registries exist, and you can't run a procurement pilot before the data is real.
 
 Each phase produces tangible, demonstrable results that justify the next phase to funders and stakeholders. No phase depends on solving the hardest problems first.

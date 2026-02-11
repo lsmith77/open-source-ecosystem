@@ -5,6 +5,7 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 ## Contents
 
 - [Design Principles](#design-principles)
+- [Policy Context: Public Procurement and Open Source](#policy-context-public-procurement-and-open-source)
 - [Actors and Relationships](#actors-and-relationships)
 - [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories)
 - [Extension 2: Supply Chain References](#extension-2-supply-chain-references)
@@ -31,6 +32,41 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 
 ---
 
+## Policy Context: Public Procurement and Open Source
+
+The extensions proposed here are not merely technical improvements to a metadata standard — they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under free and open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
+
+This proposal answers that question. Each extension directly serves a procurement need that existing standards leave unmet.
+
+### How the Extensions Serve Procurement
+
+| Procurement need | Extension | What it enables |
+|---|---|---|
+| **Finding software that fits** | [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories) | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing |
+| **Assessing security posture** | [Extension 2: Supply Chain References](#extension-2-supply-chain-references) | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies |
+| **Evaluating vendor expertise** | [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery) | Verifiable contribution data — who actually maintains the software, not just who claims to |
+| **Checking peer adoption** | [Extension 4](#extension-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control |
+| **Trusting the metadata** | [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields) | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
+
+### Alignment with Procurement Criteria Frameworks
+
+The [OSBA's selection criteria for sustainable procurement of open source software](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) proposes four criteria that procurement offices should evaluate. The extensions provide the data infrastructure to make each criterion machine-verifiable:
+
+1. **Relationship with software community.** The `creditRegistries` field (Extension 3) provides verifiable evidence of a vendor's upstream contributions — not self-reported claims, but project-endorsed credit data.
+2. **Upstream publication of modifications.** Credit registries track contribution types (code, security, documentation). Procurement offices can verify that a vendor pushes patches upstream rather than maintaining proprietary forks.
+3. **High-quality Level 3 support.** The `maintenance` section (already in publiccode.yml) combined with credit data shows whether a vendor employs core developers or has contractual relationships with maintainers.
+4. **Supply chain security.** The `supplyChain` section (Extension 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
+
+### Legislative Models
+
+Legislation is the most effective lever for establishing open source as the default in public procurement. [Switzerland's EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) demonstrates this: it requires federal authorities to disclose source code developed by or for them under open source licenses, while allowing government bodies to offer commercial services (support, integration, security) at cost-covering rates. As Professor Matthias Stürmer has noted, "all stakeholders benefit — the public sector reduces vendor lock-in, companies grow their digital business, and taxpayers spend less on IT."
+
+The EMBAG model shows that legislation can coexist with a healthy vendor ecosystem — but it also reveals a gap: mandating open source release is necessary but not sufficient. Procurement offices still need the discovery, evaluation, and supply chain infrastructure that this proposal provides. A law says "you must use open source"; this proposal answers "here is how you find, assess, and maintain it."
+
+The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) of 260+ companies are advancing similar arguments at the EU level, advocating for a "Buy Open Source Act" and for making upstream contribution an explicit procurement criterion. The metadata infrastructure proposed here — particularly credit registries and faceted classification — provides the evidence base these policy initiatives need to move from principles to enforceable criteria.
+
+---
+
 ## Actors and Relationships
 
 The ecosystem this proposal addresses has distinct actors with different authorities and information needs. Understanding who knows what — and who should assert what — drives the architecture. See [PITCH.md](PITCH.md) for what each actor gains economically and politically from this proposal.
@@ -45,6 +81,7 @@ The ecosystem this proposal addresses has distinct actors with different authori
 | **Procurement Office**         | Searches for software that meets a need, evaluates vendor expertise, assesses security posture and licensing compliance, and makes buying decisions. | A municipal IT department                   |
 | **Deploying Organization**     | Runs the software in production. May or may not be the same as the procurement office. Wants to declare what it uses.                    | Stadt München, Comune di Roma               |
 | **Federal Authority / Funder** | Steers money toward supply chain security, identifies ecosystem gaps, sets policy.                                                       | Sovereign Tech Fund, CISA, ZenDiS           |
+| **Policy Maker / Legislator**  | Drafts laws and procurement regulations that mandate or prioritize open source. Needs evidence infrastructure to make compliance verifiable. | Swiss Federal Chancellery (EMBAG), APELL, EuroStack |
 | **Credit Registry**            | Tracks who contributes to which projects. Endorsed by projects.                                                                          | Drupal.org Marketplace, ecosyste.ms         |
 | **Usage Registry**             | Tracks which organizations use which software. Operates independently of projects.                                                       | openCode.de, Developers Italia              |
 | **Software Catalog / Crawler** | Aggregates data from publiccode.yml files and registries into a searchable index.                                                        | EU OSS Catalogue, Developers Italia catalog |

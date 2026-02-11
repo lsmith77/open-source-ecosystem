@@ -205,6 +205,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 - Proven federated crawler architecture
 - Active tooling ecosystem (editors, validators, crawlers)
 - Already designed for the public sector audience
+- Aligned with the [Public Money, Public Code](https://publiccode.eu/) principle — as governments mandate open source (e.g., [Switzerland's EMBAG](https://www.fedlex.admin.ch/eli/cc/2023/682/en)), procurement offices need the discovery and evaluation infrastructure that publiccode.yml extensions can provide
 
 **But extend it with:**
 
@@ -243,3 +244,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 - [USDS DITAP Curriculum](https://github.com/usds/ditap-curriculum-update)
 - [CivicActions Open Practice](https://github.com/CivicActions/open-practice)
 - [The Dependency Layer in Digital Sovereignty (Nesbitt)](https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html)
+- [Funding Open Source for Digital Sovereignty (Buytaert)](https://dri.es/funding-open-source-for-digital-sovereignty)
+- [Public Money? Public Code! (FSFE)](https://publiccode.eu/)
+- [Switzerland's EMBAG open source law (OSOR)](https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland)
+- [Selection Criteria for Sustainable Procurement of OSS (OSBA)](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software)
