@@ -110,6 +110,28 @@ Phase 9: TEMPORAL FIELD DEPRECATION (2026-02-10)
           temporal field deprecation alongside supply chain references.
           Updated this methodology document.
 
+Phase 11: CREDIT SYSTEM REFERENCE ARCHITECTURE (2026-02-12)
+  Input:  All existing documents + human-provided URLs for Drupal's
+          contribution_records module and credit weight documentation
+  Method: Human identified that the proposal referenced Drupal's credit
+          system as inspiration but lacked detail on: (1) the
+          contribution_records module being open-source, ticket-system-
+          agnostic, and API-ready — reusable by other projects or as a
+          SaaS, (2) the range of credit system complexity across
+          projects (from Drupal's weighted system to GitHub Sponsors),
+          (3) the credit stickiness property (credits stay with vendor
+          after contributor changes employer), (4) an explicit scope
+          boundary that specifying credit system details is beyond this
+          proposal. AI fetched both URLs, distilled findings into
+          PROPOSAL.md (Extension 3 intro, Credit Registry API design
+          principles and scope boundary), PITCH.md (vendor and credit
+          registry sections), and this methodology document.
+  Output: Enhanced Extension 3 and Credit Registry API sections in
+          PROPOSAL.md with reference architecture details and explicit
+          scope boundary. New pitch points in PITCH.md for vendors
+          (credit stickiness) and credit registries (reusable
+          infrastructure). Updated this methodology document.
+
 Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
   Input:  All existing documents + 4 human-provided URLs on public
           procurement and open source policy
@@ -139,7 +161,7 @@ Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy) |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy), 2026-02-12 (credit system reference architecture) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -450,6 +472,28 @@ The human directed that APELL and EuroStack be listed as separate allies (not co
 
 The AI identified that "Policy Maker / Legislator" is a distinct actor from "Federal Authority / Funder" — legislators craft laws and procurement regulations (EMBAG, Buy Open Source Act), while funders allocate money (Sovereign Tech Fund, CISA). The AI added the new actor to PROPOSAL.md and a corresponding pitch section to PITCH.md.
 
+### Phase 11: Credit System Reference Architecture (2026-02-12)
+
+**Human input (prompt 1):**
+The human identified that the proposal referenced Drupal's credit system as inspiration but lacked important details. They provided two URLs and the following context:
+- Drupal's `contribution_records` module is architecturally ticket-system-agnostic and has an API — it could be adopted by other OSS projects or operated as a SaaS
+- Drupal has documented their rating system in detail (credit weights, contribution types, marketplace ranking)
+- Some projects might prefer simpler metrics (GitHub Sponsors, code contributor mapping)
+- A critical feature of Drupal's credit system is that credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employer
+- Specifying the details of a credit system is beyond the scope of this proposal
+
+#### Batch 11 — Credit system reference architecture (parallel)
+
+| Query / URL | Method | Purpose |
+|---|---|---|
+| `https://git.drupalcode.org/project/contribution_records` | Web fetch | contribution_records module — GitLab portal retrieved, confirmed open-source module with 361 commits |
+| `https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking` | Web fetch | Credit weight details: issue credits scaled by project usage, case studies, org membership, sponsored roles, event sponsorships |
+
+The AI distilled the critical aspects into three documents:
+- **PROPOSAL.md:** Added a new paragraph in Extension 3 intro on the spectrum of credit system complexity (from Drupal's weighted system to GitHub Sponsors), with an explicit scope boundary. Enhanced Credit Registry API Design Principle 4 with the `contribution_records` module's reusability. Added new "Attribution policies" bullet in "What This Doesn't Standardize" covering credit stickiness.
+- **PITCH.md:** Added "Protect your investment in contributions" (credit stickiness) to Vendor pitch. Added "Build on proven infrastructure" (reusable `contribution_records` module) to Credit Registry pitch.
+- **METHODOLOGY.md:** This phase entry and new sources.
+
 Documents updated:
 - PROPOSAL.md: New "Policy Context: Public Procurement and Open Source" section with extension-to-procurement mapping table, OSBA criteria alignment, and legislative models subsection. Updated table of contents. New "Policy Maker / Legislator" actor in Actors table.
 - PITCH.md: New "Policy Maker / Legislator" section with four bullet points on enforceable criteria, legislative models, sovereignty, and level playing field.
@@ -533,11 +577,16 @@ All sources that informed the analysis, grouped by role.
 46. EuroStack coalition — https://eurostack.eu/
 47. Switzerland EMBAG law text — https://www.fedlex.admin.ch/eli/cc/2023/682/en
 
+### Credit system reference architecture (Phase 11)
+
+48. Drupal contribution_records module — https://git.drupalcode.org/project/contribution_records
+49. Drupal contribution credit weight and impact on ranking — https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking
+
 ### Sources consulted but not directly cited
 
-48. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
-49. publicodes (French rules engine, disambiguation) — https://publi.codes/
-50. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
+50. Canada Open Resource Exchange — https://github.com/canada-ca/ore-ero
+51. publicodes (French rules engine, disambiguation) — https://publi.codes/
+52. FOSDEM 2022 publiccode.yml talk — https://archive.fosdem.org/2022/schedule/event/publiccodeyml/
 
 ---
 
@@ -580,6 +629,8 @@ Key decisions made by the human during the process:
 17. **Two-tier aggregation model proposed by human.** The human refined the `.well-known` architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file. This directly addresses the stale data risk — data is maintained at the source by deployment processes rather than manually curated at the organizational level. The AI had not considered this pattern; the human's insight came from practical knowledge of how large organizations manage distributed deployments.
 
 18. **Public procurement policy framing directed by human.** The human identified that the proposal lacked explicit connection to the "Public Money, Public Code" principle, procurement criteria frameworks, and legislative models. The AI had treated procurement as one of several use cases but had not positioned the extensions as infrastructure for implementing procurement policy. The human provided four URLs covering the PMPC campaign, contribution-based procurement, Switzerland's EMBAG law, and OSBA procurement criteria. The AI mapped each extension to specific procurement needs and OSBA criteria, and identified "Policy Maker / Legislator" as a distinct actor from "Federal Authority / Funder" — legislators draft laws and procurement regulations, while funders allocate money. The human also corrected the AI's initial attempt to combine APELL and EuroStack into a single ally entry, noting that they are separate initiatives with separate acquaintances.
+
+19. **Credit system details explicitly scoped out by human.** The human provided details about Drupal's `contribution_records` module (open-source, ticket-system-agnostic, API-ready, reusable as SaaS) and credit weight system (issue credits scaled by project usage, case studies, event sponsorships, organizational membership), as well as the critical credit stickiness property (credits remain with a vendor after a contributor changes employer). The human directed these to be distilled into the proposal as reference architecture context, while explicitly noting that specifying the details of a credit system is beyond the scope of this proposal. The AI added this as a spectrum — from Drupal's sophisticated weighted system to simple GitHub Sponsors — to make clear that the Credit Registry API is intentionally agnostic to credit methodology.
 
 ---
 

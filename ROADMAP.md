@@ -131,10 +131,11 @@ Accepted `classification` extension. Migration tooling. Faceted search operation
 4. **Implement credit data aggregation** in openCode.de and ossdirectory.com — crawlers follow `creditRegistries` links and display vendor credit data alongside project metadata.
 5. **Engage ecosyste.ms as a second credit registry** — Andrew Nesbitt implements the Credit Registry API for ecosyste.ms contribution/funding data, demonstrating multi-registry aggregation.
 6. **Run a procurement pilot with credit data.** Work with a procurement office (Schleswig-Holstein or a Swiss canton) to use credit registry data in an actual tender evaluation — scoring vendors by verified upstream contributions as the [OSBA criteria](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) and [APELL](https://apell.info/) propose. Document the process and outcomes as a replicable case study.
+7. **Evaluate Drupal's `contribution_records` module for reuse.** The module is [open source and ticket-system-agnostic](https://git.drupalcode.org/project/contribution_records). Assess what it would take to package it as a standalone credit system that other OSS projects can adopt — either self-hosted or as a SaaS. Identify gaps (e.g., non-Drupal issue tracker integrations, Credit Registry API conformance) and estimate the effort to close them.
 
 ### Deliverable
 
-Two operational credit registries (Drupal.org, ecosyste.ms) conforming to a published API spec. At least one catalog displaying aggregated credit data. A reference project (Drupal) with `creditRegistries` in its publiccode.yml. One documented procurement pilot using credit data in vendor evaluation.
+An assessment of `contribution_records` reusability with a concrete plan for packaging it for other projects. Two operational credit registries (Drupal.org and at least one more larger OSS project) conforming to a published API spec with `creditRegistries` in its publiccode.yml.
 
 ---
 
@@ -182,10 +183,11 @@ Registry Discovery Standard published. Organization-level usage declaration spec
 6. **Develop auto-generation tooling** that populates publiccode.yml from package.json, pyproject.toml, Cargo.toml etc. — reducing maintainer burden (risk A3) and making adoption viable for the long tail of projects.
 7. **Publish procurement selection criteria as a formal recommendation.** Refine the draft criteria from Phase 2 based on the Phase 3 procurement pilot. Work with OSBA, APELL, and EuroStack to position the criteria for adoption in national and EU-level procurement guidelines. Target inclusion in frameworks like the [Interoperable Europe Act](https://interoperable-europe.ec.europa.eu/) implementing measures.
 8. **Engage legislators using the Swiss EMBAG as a model.** Document EMBAG's outcomes and package a "legislative toolkit" — model clauses that reference publiccode.yml metadata for procurement compliance, supply chain transparency, and vendor evaluation. Coordinate with FSFE's Public Money? Public Code! campaign to connect legislation advocacy with the metadata infrastructure that makes compliance practical.
+9. **Ship a turnkey credit system for OSS projects.** Based on the Phase 3 reusability assessment, package Drupal's `contribution_records` module (or a derivative) as a standalone credit system that any OSS project can deploy — either self-hosted or as a hosted SaaS. Provide integrations for common issue trackers (GitHub, GitLab, Jira) and out-of-the-box Credit Registry API conformance. This lowers the barrier for projects that want vendor credit tracking but lack the resources to build it themselves.
 
 ### Deliverable
 
-EU OSS Catalogue consuming the full extension set. At least one non-EU country adopting publiccode.yml. Conformance test suites published. Auto-generation tooling available for major ecosystems. Published procurement selection criteria endorsed by at least two procurement policy organizations. Legislative toolkit with model clauses referencing publiccode.yml metadata.
+EU OSS Catalogue consuming the full extension set. At least one non-EU country adopting publiccode.yml. Conformance test suites published. Auto-generation tooling available for major ecosystems. Published procurement selection criteria endorsed by at least two procurement policy organizations. Legislative toolkit with model clauses referencing publiccode.yml metadata. A deployable credit system solution available for adoption by OSS projects beyond Drupal.
 
 ---
 

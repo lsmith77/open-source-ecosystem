@@ -19,6 +19,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 - **Win public sector contracts** — procurement offices increasingly evaluate vendor expertise before awarding contracts. Standardized credit data makes your open source contributions a competitive advantage in tenders.
 - **Access a growing market** — EU public sector IT spending is hundreds of billions annually. Digital sovereignty mandates are steering more of it toward open source solutions with proven vendor ecosystems.
 - **Level the playing field** — small vendors with strong contributions become visible alongside large incumbents. Credit data speaks louder than brand recognition.
+- **Protect your investment in contributions** — in well-designed credit systems like Drupal's, credits attributed through your contributors remain with your organization even after individual contributors change employers. Your track record reflects cumulative investment, not current headcount.
 - **Ride the legislative wave** — Switzerland's EMBAG, APELL's procurement criteria proposals, and EuroStack's "Buy Open Source Act" are all moving toward requiring verified upstream contributions in tenders. Vendors with credit registry data are positioned for this future; those without it will scramble to catch up.
 
 ---
@@ -62,6 +63,7 @@ Short pitches for each stakeholder in the [proposal](PROPOSAL.md), focused on ec
 ## Credit Registry
 
 - **Become procurement infrastructure** — public sector buyers increasingly need vendor expertise data. A standardized API makes your registry part of every EU-wide catalog, not an isolated silo.
+- **Build on proven infrastructure** — Drupal's open-source [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is ticket-system-agnostic and API-ready. New registries can adopt it rather than building credit tracking from scratch.
 - **Gain project endorsement** — when projects list your registry in their metadata, it's a public signal of trust that raises your credibility with consumers of your data.
 - **Scale without gatekeeping** — any registry can join the ecosystem by publishing a standard manifest. No central authority decides who participates.
 

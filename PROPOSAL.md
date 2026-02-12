@@ -291,6 +291,8 @@ supplyChain:
 
 The vendor/contributor credit data itself is too dynamic to live in a git-committed file. Instead, publiccode.yml points to one or more **credit registries** — external databases that track who contributes to the project and in what capacity.
 
+Projects vary widely in how they track contributions. Drupal operates the most mature example: a [weighted credit system](https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking) backed by an [open-source, ticket-system-agnostic module](https://git.drupalcode.org/project/contribution_records) with an API — infrastructure that could in principle be adopted by other projects or operated as a SaaS. Other projects may prefer simpler approaches: GitHub Sponsors lists, or mapping code contributions to vendors through contributor employer declarations. This proposal standardizes only the **read interface** for credit data (the [Credit Registry API](#credit-registry-api-rough-outline)), not the methodology for earning or weighting credits — that is a per-project decision beyond the scope of this proposal.
+
 ### Schema
 
 ```yaml
@@ -634,7 +636,7 @@ This is a **separate specification** from publiccode.yml. It defines the API tha
 1. **Read-only public API.** The write side (how credits are recorded) is registry-specific. Only the read side is standardized.
 2. **Project-centric queries.** Given a project identifier (repository URL), return all credited organizations and individuals.
 3. **Time-windowed.** Credits are meaningful in context of recency. A company that contributed heavily 5 years ago but not since is different from one actively contributing.
-4. **Inspired by Drupal's Contribution Records system.** Drupal tracks contributions per-issue, links them to users and organizations, and exposes them via [JSON:API endpoints](https://www.drupal.org/drupalorg/docs/apis/rest-and-other-apis) (`contribution-records-by-organization`, `contribution-records-by-user`).
+4. **Inspired by Drupal's Contribution Records system.** Drupal tracks contributions per-issue, links them to users and organizations, and exposes them via [JSON:API endpoints](https://www.drupal.org/drupalorg/docs/apis/rest-and-other-apis) (`contribution-records-by-organization`, `contribution-records-by-user`). The underlying [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is open source and architecturally ticket-system-agnostic — it could be adopted by other projects or operated as a SaaS for projects that want a proven credit system without building one from scratch.
 
 ### Endpoints
 
@@ -731,7 +733,8 @@ GET /organizations/acme.example.org/credits?since=2025-01-01
 
 ### What This Doesn't Standardize (Intentionally)
 
-- **How credits are earned.** Each project/registry defines its own contribution tracking. Drupal counts issue credits. Others might count commits, reviews, or funding. The API reports the _result_, not the methodology.
+- **How credits are earned.** Each project/registry defines its own contribution tracking. Drupal's system weights issue credits by project usage (more users = more credit per issue), adds credits for case studies, event sponsorships, organizational membership, and sponsored contributor roles. Other projects might simply count commits, reviews, or funding — or use GitHub Sponsors as a proxy for organizational investment. The API reports the _result_, not the methodology.
+- **Attribution policies.** Registries differ in how credits follow people and organizations over time. In Drupal's system, credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employers — a critical property for procurement stability, since it means a vendor's track record reflects cumulative investment rather than current headcount. Other registries may re-attribute credits when contributors move. The API exposes credit totals and time windows; the attribution policy is registry-specific.
 - **The trust model.** Some registries verify contributions via code review sign-off (high trust). Others use self-reporting (low trust). The `trustModel` field lets consumers assess credibility.
 - **Tier definitions.** What "platinum" means varies by registry. This is like credit rating agencies — the scale is per-agency, but the API format is standard.
 
