@@ -58,11 +58,7 @@ The [OSBA's selection criteria for sustainable procurement of open source softwa
 
 ### Legislative Models
 
-Legislation is the most effective lever for establishing open source as the default in public procurement. [Switzerland's EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) demonstrates this: it requires federal authorities to disclose source code developed by or for them under open source licenses, while allowing government bodies to offer commercial services (support, integration, security) at cost-covering rates. As Professor Matthias Stürmer has noted, "all stakeholders benefit — the public sector reduces vendor lock-in, companies grow their digital business, and taxpayers spend less on IT."
-
-The EMBAG model shows that legislation can coexist with a healthy vendor ecosystem — but it also reveals a gap: mandating open source release is necessary but not sufficient. Procurement offices still need the discovery, evaluation, and supply chain infrastructure that this proposal provides. A law says "you must use open source"; this proposal answers "here is how you find, assess, and maintain it."
-
-The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) of 260+ companies are advancing similar arguments at the EU level, advocating for a "Buy Open Source Act" and for making upstream contribution an explicit procurement criterion. The metadata infrastructure proposed here — particularly credit registries and faceted classification — provides the evidence base these policy initiatives need to move from principles to enforceable criteria.
+Legislation is creating demand for this infrastructure. Switzerland's [EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) already mandates open source release of publicly financed software, but procurement offices still lack the discovery and evaluation tools to act on it. The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) are advancing similar mandates at the EU level, including making upstream contribution an explicit procurement criterion. The metadata proposed here — particularly credit registries and faceted classification — provides the evidence base these legislative efforts need to move from principles to enforceable criteria.
 
 ---
 
