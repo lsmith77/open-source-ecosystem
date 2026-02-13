@@ -151,6 +151,36 @@ Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
           Procurement policy milestones woven into Phases 0, 2, 3, and
           5 of ROADMAP.md. Updated sequencing rationale with procurement
           policy track. Updated this methodology document.
+
+Phase 12: HUMAN EDITORIAL PASS (2026-02-13)
+  Input:  All existing documents
+  Method: Human performed a comprehensive manual edit pass across
+          PROPOSAL.md, ROADMAP.md, and RISK_ANALYSIS.md with two goals:
+          (1) shorten documents by cutting implementation details —
+          especially in the roadmap and risk sections — to avoid giving
+          the impression that everything is already set in stone, and
+          (2) reduce the number of specific terms proposed, since those
+          will likely need to go through a governance process. The
+          underlying motivation was to leave more space for stakeholders
+          to affect the proposal and make it partially their own, to
+          increase buy-in rather than presenting a top-down document.
+  Output: Shorter, less prescriptive versions of PROPOSAL.md,
+          ROADMAP.md, and RISK_ANALYSIS.md. No AI involvement — all
+          edits were made directly by the human in the IDE.
+
+Phase 13: METHODOLOGY REVIEW (2026-02-13)
+  Input:  METHODOLOGY.md + external feedback from Andrew Nesbitt
+          via Slack conversation
+  Method: Andrew Nesbitt reviewed the methodology document and provided
+          feedback: web search query strings are not useful (the search
+          engine and results are not reproducible), but the individual
+          URLs investigated are helpful as a reproducible research log
+          and reference document. AI restructured the Research Prompts
+          and Queries section accordingly.
+  Output: Restructured research log: removed web search query strings,
+          kept investigated URLs as the reproducible trail, added
+          summary lines for web-search-discovered context. Sources
+          Evaluated section retained as reference document.
 ```
 
 ---
@@ -161,7 +191,7 @@ Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
 |---|---|
 | **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
 | **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy), 2026-02-12 (credit system reference architecture) |
+| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy), 2026-02-12 (credit system reference architecture), 2026-02-13 (human editorial pass, methodology review) |
 | **Knowledge cutoff** | May 2025 (supplemented by live web search) |
 | **Web search** | Built-in web search and URL fetch tools |
 | **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
@@ -187,7 +217,7 @@ Using the [CRediT taxonomy](https://credit.niso.org/contributor-roles-defined/) 
 
 ## Research Prompts and Queries
 
-Each phase is documented with the prompts/queries used and the sources they surfaced. This section is intentionally verbose to support reproducibility.
+Each phase is documented with the human prompts, the sources investigated, and key editorial decisions. Web searches were used to discover sources but the query strings are not recorded here as they are not reproducible (the search engine, ranking, and results vary). The investigated URLs — the reproducible research trail — are listed below and compiled in the [Sources Evaluated](#sources-evaluated) section as a reference document.
 
 ### Phase 1: Scoping
 
@@ -198,70 +228,59 @@ The user also specified four evaluation dimensions: procurement discovery, vendo
 
 ### Phase 2: Data Collection
 
-Queries were issued in parallel batches to maximize efficiency. Below is the full list.
+Sources were retrieved in parallel batches. Web searches supplemented user-provided URLs to discover additional sources.
 
-#### Batch 1 — Primary candidate retrieval (parallel)
+#### Batch 1 — Primary candidate retrieval
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `https://nesbitt.io/2025/11/29/oss-taxonomy.html` | Web fetch | OSS Taxonomy primary source |
-| `https://codemeta.github.io/` | Web fetch | CodeMeta primary source |
-| `https://github.com/DSACMS/gov-codejson` | Web fetch | gov-codejson primary source |
-| `https://github.com/mozilla/contribute.json` | Web fetch | contribute.json primary source |
-| `publiccode.yml standard software description open source public administration` | Web search | publiccode.yml background (user wrote "publicode.yml" — search resolved to publiccode.yml) |
-| `opencode.de software index badges publiccode.yml Germany` | Web search | openCode.de badge system context |
+| URL | Purpose |
+|---|---|
+| https://nesbitt.io/2025/11/29/oss-taxonomy.html | OSS Taxonomy primary source |
+| https://codemeta.github.io/ | CodeMeta primary source |
+| https://github.com/DSACMS/gov-codejson | gov-codejson primary source |
+| https://github.com/mozilla/contribute.json | contribute.json primary source |
 
-#### Batch 2 — Schema details and adjacent standards (parallel)
+Additional sources discovered via web search: publiccode.yml background, openCode.de badge system context.
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `publiccode.yml schema fields categories software type procurement metadata 2025 2026` | Web search | Full schema field inventory |
-| `SPDX SBOM software bill of materials metadata standard open source` | Web search | SBOM standards context |
-| `CycloneDX software metadata component identity open source` | Web search | CycloneDX context |
-| `REUSE specification FSFE software metadata licensing standard` | Web search | REUSE spec context |
-| `https://opencode.de/en/knowledge/software-index/badges-en` | Web fetch | Badge system details |
+#### Batch 2 — Schema details and adjacent standards
 
-#### Batch 3 — Ecosystem and adoption context (parallel)
+| URL | Purpose |
+|---|---|
+| https://opencode.de/en/knowledge/software-index/badges-en | Badge system details |
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `ecosyste.ms funds Andrew Nesbitt open source taxonomy CodeMeta integration` | Web search | ecosyste.ms ecosystem context |
-| `"software heritage" CodeMeta metadata scholarly academic adoption` | Web search | CodeMeta adoption in academia |
-| `https://yml.publiccode.tools/schema.core.html` | Web fetch | Full publiccode.yml schema |
-| `EU open source solutions catalogue publiccode.yml 2025 OSOR interoperable europe` | Web search | EU adoption status |
-| `Developers Italia software catalog publiccode.yml Italy adoption success` | Web search | Italian adoption history |
+Additional sources discovered via web search: publiccode.yml schema field inventory, SPDX/SBOM context, CycloneDX context, REUSE spec context.
 
-#### Batch 4 — Procurement and credit systems (parallel)
+#### Batch 3 — Ecosystem and adoption context
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html` | Web fetch | Digital sovereignty argument |
-| `open source vendor marketplace credit system procurement public sector ecosystem metadata` | Web search | Procurement ecosystem landscape |
-| `Drupal credit system marketplace vendors contribution attribution procurement` | Web search | Drupal credit system details |
-| `https://github.com/ecosyste-ms/funds/issues/290` | Web fetch | Cross-ecosystem funding proposal |
-| `https://github.com/ecosyste-ms/funds/issues/236` | Web fetch | Funder leaderboard proposal |
-| `https://github.com/opensourcepledge/opensourcepledge.com/issues/418` | Web fetch | Contribution tracking discussion |
+| URL | Purpose |
+|---|---|
+| https://yml.publiccode.tools/schema.core.html | Full publiccode.yml schema |
 
-#### Batch 5 — Additional standards (parallel)
+Additional sources discovered via web search: ecosyste.ms ecosystem context, CodeMeta adoption in academia, EU adoption status, Italian adoption history.
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `CITATION.cff software citation format GitHub adoption metadata` | Web search | CITATION.cff context |
-| `OpenSSF scorecard security metadata open source supply chain` | Web search | OpenSSF Scorecard context |
-| `schema.org SoftwareApplication SoftwareSourceCode metadata standard adoption` | Web search | schema.org software terms |
+#### Batch 4 — Procurement and credit systems
 
-### Phase 4: Proposal Development — Additional Queries
+| URL | Purpose |
+|---|---|
+| https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html | Digital sovereignty argument |
+| https://github.com/ecosyste-ms/funds/issues/290 | Cross-ecosystem funding proposal |
+| https://github.com/ecosyste-ms/funds/issues/236 | Funder leaderboard proposal |
+| https://github.com/opensourcepledge/opensourcepledge.com/issues/418 | Contribution tracking discussion |
 
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `https://yml.publiccode.tools/categories-list.html` | Web fetch | Full categories vocabulary (144 values retrieved) |
-| `JSON-LD YAML representation yaml-ld specification linked data` | Web search | YAML-LD feasibility |
-| `https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/` | Web fetch | YAML-LD spec details |
-| `Drupal marketplace API credit contribution data endpoint format` | Web search | Drupal API structure for credit registry API design |
-| `https://www.drupal.org/drupalorg/blog/the-new-contribution-records-system` | Web fetch | Contribution records data model |
-| `publiccode.yml scope allowed values list intendedAudience` | Web search | Scope vocabulary for migration mapping |
-| `OpenSSF scorecard API URL format REST endpoint example` | Web search | Scorecard API URL patterns |
-| `publicode French open source calculation rules engine` | Web search | Disambiguation: publicode vs publiccode |
+Additional sources discovered via web search: procurement ecosystem landscape, Drupal credit system details.
+
+#### Batch 5 — Additional standards
+
+Sources discovered via web search: CITATION.cff context, OpenSSF Scorecard context, schema.org software terms.
+
+### Phase 4: Proposal Development — Additional Sources
+
+| URL | Purpose |
+|---|---|
+| https://yml.publiccode.tools/categories-list.html | Full categories vocabulary (144 values retrieved) |
+| https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/ | YAML-LD spec details |
+| https://www.drupal.org/drupalorg/blog/the-new-contribution-records-system | Contribution records data model |
+
+Additional sources discovered via web search: YAML-LD feasibility, Drupal API structure, scope vocabulary, Scorecard API patterns, publicode vs publiccode disambiguation.
 
 ### Phase 5: Refinement (2026-02-08)
 
@@ -282,41 +301,25 @@ No web searches were performed in this phase — the analysis was based entirely
 
 The user provided 6 URLs to sovereignty score initiatives: sovereigntyscore.io, Munich SDS (Heise article), EU Cloud Sovereignty Framework (Commission PDF), SUSE CSF Assessment, Nextcloud DSI (Robert Freund blog), and Bechtle Index (press release PDF).
 
-#### Batch 6 — Digital sovereignty score initiatives (parallel)
+#### Sources investigated — Digital sovereignty score initiatives
 
-| Query / URL | Method | Purpose |
+User-provided URLs and follow-up sources discovered via web search:
+
+| URL | Purpose | Notes |
 |---|---|---|
-| `https://sovereigntyscore.io/` | Web fetch | Sovereignty score tool — returned only a title ("European Digital Sovereignty Analysis"), no content |
-| `https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html` | Web fetch | Munich Digital Sovereignty Score details |
-| `https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en` | Web fetch | EU Cloud Sovereignty Framework — PDF failed to parse |
-| `https://www.suse.com/cloud-sovereignty-framework-assessment/` | Web fetch | SUSE CSF self-assessment tool |
-| `https://www.robertfreund.de/blog/2025/08/15/digital-sovereignty-index-score/` | Web fetch | Nextcloud Digital Sovereignty Index |
-| `https://www.bechtle.com/dam/jcr:32fae9a6-40fe-4c92-ac69-ae61a2d018a6/pm-bechtle-index-fuer-digitale-souveraenitaet-29092025-en.pdf` | Web fetch | Bechtle Index — PDF returned minimal content |
+| https://sovereigntyscore.io/ | Sovereignty score tool | Only a title retrieved; not indexed by search engines |
+| https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html | Munich Digital Sovereignty Score | Details on scoring methodology |
+| https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en | EU Cloud Sovereignty Framework | PDF failed to parse |
+| https://www.suse.com/cloud-sovereignty-framework-assessment/ | SUSE CSF self-assessment tool | |
+| https://www.robertfreund.de/blog/2025/08/15/digital-sovereignty-index-score/ | Nextcloud Digital Sovereignty Index | |
+| https://www.bechtle.com/dam/jcr:32fae9a6-40fe-4c92-ac69-ae61a2d018a6/pm-bechtle-index-fuer-digitale-souveraenitaet-29092025-en.pdf | Bechtle Index | PDF returned minimal content |
+| https://www.heise.de/en/news/Cloud-Sovereignty-Framework-How-the-EU-will-assess-cloud-sovereignty-10922224.html | EU CSF details and open source role | Follow-up for failed PDF |
+| https://www.connect-professional.de/netzwerke-it-infrastruktur/bechle-digital-souveraenitaet-403822.html | Bechtle Index dimensions | Follow-up for failed PDF |
+| https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/ | Full list of 8 SOV objectives; SOV-6 requires open source | |
+| https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/ | DSI methodology: 50 self-hosted tools, per-country deployment counts | |
+| https://www.infoq.com/news/2025/11/eu-seal-framework-governance/ | SEAL governance trade-offs | |
 
-#### Batch 7 — Follow-up searches for sparse results (parallel)
-
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `sovereigntyscore.io European digital sovereignty analysis tool` | Web search | No results found for this domain |
-| `Bechtle "index für digitale souveränität" digital sovereignty index 2025` | Web search | Bechtle Index dimensions: data sovereignty, tech independence, design freedom |
-| `EU Commission "cloud sovereignty" framework assessment criteria SEAL rating 2025` | Web search | EU CSF 8 objectives, SEAL 0–4 rating, €180M tender |
-
-#### Batch 8 — Detailed framework content (parallel)
-
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `https://www.heise.de/en/news/Cloud-Sovereignty-Framework-How-the-EU-will-assess-cloud-sovereignty-10922224.html` | Web fetch | EU CSF details and open source role |
-| `https://www.connect-professional.de/netzwerke-it-infrastruktur/bechle-digital-souveraenitaet-403822.html` | Web fetch | Bechtle Index dimensions and open source connection |
-| `site:sovereigntyscore.io OR "sovereignty score" European software assessment open source` | Web search | sovereigntyscore.io still not indexed |
-
-#### Batch 9 — EU framework objectives and Nextcloud DSI (parallel)
-
-| Query / URL | Method | Purpose |
-|---|---|---|
-| `https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/` | Web fetch | Full list of 8 SOV objectives; SOV-6 requires open source |
-| `https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/` | Web fetch | DSI methodology: 50 self-hosted tools, per-country deployment counts |
-| `https://www.infoq.com/news/2025/11/eu-seal-framework-governance/` | Web fetch | SEAL governance trade-offs |
-| `sovereigntyscore.io` | Web search | Final attempt — domain not found in any index |
+Additional context discovered via web search: Bechtle Index dimensions, EU CSF objectives and SEAL rating system.
 
 The AI concluded that sovereignty score initiatives operate at a different level (organization/provider/country) than publiccode.yml (individual projects), but are *consumers* of the metadata publiccode.yml provides. Specifically, the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, requiring open source) directly need the kind of data the proposed extensions produce. The AI recommended adding these as context in the README rather than proposing new schema extensions.
 
@@ -448,15 +451,16 @@ The human identified that the proposal lacked explicit connection to the "Public
 3. https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland — Switzerland's EMBAG law
 4. https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software — OSBA procurement selection criteria
 
-#### Batch 10 — Public procurement policy sources (parallel)
+#### Sources investigated — Public procurement policy
 
-| Query / URL | Method | Purpose |
+| URL | Purpose | Notes |
 |---|---|---|
-| `https://publiccode.eu/` | Web fetch | PMPC campaign principles — fetch failed, content not extractable |
-| `https://dri.es/funding-open-source-for-digital-sovereignty` | Web fetch | Contribution-based procurement argument, Drupal credit system as procurement model |
-| `https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland` | Web fetch | EMBAG law details: mandatory source code disclosure, Article 9 paid services, Prof. Stürmer quote |
-| `https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software` | Web fetch | Four procurement criteria: community relationship, upstream publication, Level 3 support, supply chain security |
-| `Public Money Public Code FSFE principles demands policy recommendations` | Web search | Supplementary search for PMPC campaign details (200+ orgs, 31,000+ signatories, expert brochure) |
+| https://publiccode.eu/ | PMPC campaign principles | Fetch failed, content not extractable |
+| https://dri.es/funding-open-source-for-digital-sovereignty | Contribution-based procurement argument | Drupal credit system as procurement model |
+| https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland | EMBAG law details | Mandatory source code disclosure, Article 9, Prof. Stürmer quote |
+| https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software | OSBA procurement criteria | Community relationship, upstream publication, Level 3 support, supply chain security |
+
+Additional context discovered via web search: PMPC campaign details (200+ orgs, 31,000+ signatories).
 
 The AI synthesized findings across all sources and identified:
 - The PMPC principle creates demand for the extensions: once governments commit to open source, they need the discovery/evaluation infrastructure this proposal provides
@@ -482,12 +486,12 @@ The human identified that the proposal referenced Drupal's credit system as insp
 - A critical feature of Drupal's credit system is that credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employer
 - Specifying the details of a credit system is beyond the scope of this proposal
 
-#### Batch 11 — Credit system reference architecture (parallel)
+#### Sources investigated — Credit system reference architecture
 
-| Query / URL | Method | Purpose |
+| URL | Purpose | Notes |
 |---|---|---|
-| `https://git.drupalcode.org/project/contribution_records` | Web fetch | contribution_records module — GitLab portal retrieved, confirmed open-source module with 361 commits |
-| `https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking` | Web fetch | Credit weight details: issue credits scaled by project usage, case studies, org membership, sponsored roles, event sponsorships |
+| https://git.drupalcode.org/project/contribution_records | contribution_records module | Open-source, 361 commits, ticket-system-agnostic |
+| https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking | Credit weight and ranking details | Issue credits scaled by project usage, case studies, org membership, event sponsorships |
 
 The AI distilled the critical aspects into three documents:
 - **PROPOSAL.md:** Added a new paragraph in Extension 3 intro on the spectrum of credit system complexity (from Drupal's weighted system to GitHub Sponsors), with an explicit scope boundary. Enhanced Credit Registry API Design Principle 4 with the `contribution_records` module's reusability. Added new "Attribution policies" bullet in "What This Doesn't Standardize" covering credit stickiness.
@@ -499,6 +503,20 @@ Documents updated:
 - PITCH.md: New "Policy Maker / Legislator" section with four bullet points on enforceable criteria, legislative models, sovereignty, and level playing field.
 - ROADMAP.md: New allies (FSFE, Swiss Federal Chancellery, APELL, EuroStack). Removed FSFE duplicate from Phase 5 table. New procurement policy actions in Phases 0, 2, 3, and 5. Updated sequencing rationale with procurement policy track description.
 - METHODOLOGY.md: This phase entry, new sources, updated research date.
+
+### Phase 12: Human Editorial Pass (2026-02-13)
+
+The human performed a comprehensive manual edit pass across PROPOSAL.md, ROADMAP.md, and RISK_ANALYSIS.md. No AI involvement — all edits were made directly in the IDE. The goals were:
+
+1. **Shorten documents** by cutting implementation details, especially in the roadmap and risk sections, to avoid giving the impression that everything is already decided.
+2. **Reduce proposed terminology** — specific field names and terms were trimmed back, since these will likely need to go through a governance process that the human did not want to preclude.
+3. **Leave space for stakeholders** — the underlying motivation was to make the documents less prescriptive so that collaborators can affect the proposal and make it partially their own. A top-down document discourages buy-in; a proposal with room for discussion invites it. The shape of the final result will depend on which stakeholders sign on and what expertise, influence, and time they bring.
+
+### Phase 13: Methodology Review (2026-02-13)
+
+**External input:** Andrew Nesbitt reviewed this methodology document and provided feedback via Slack. His assessment: the web search query strings are not useful as a reproducibility aid because the search engine, ranking, and results are opaque and non-reproducible. However, the individual URLs that were actually investigated are helpful — they form a reproducible research log and can serve as a reference document to refer back to later.
+
+The AI restructured the "Research Prompts and Queries" section accordingly: web search query strings were removed from the batch tables, investigated URLs were retained as the reproducible trail, and brief summary lines note what additional context was discovered via web search without recording the non-reproducible queries. The "Sources Evaluated" section was retained as the compiled reference document.
 
 ---
 
@@ -632,6 +650,10 @@ Key decisions made by the human during the process:
 
 19. **Credit system details explicitly scoped out by human.** The human provided details about Drupal's `contribution_records` module (open-source, ticket-system-agnostic, API-ready, reusable as SaaS) and credit weight system (issue credits scaled by project usage, case studies, event sponsorships, organizational membership), as well as the critical credit stickiness property (credits remain with a vendor after a contributor changes employer). The human directed these to be distilled into the proposal as reference architecture context, while explicitly noting that specifying the details of a credit system is beyond the scope of this proposal. The AI added this as a spectrum — from Drupal's sophisticated weighted system to simple GitHub Sponsors — to make clear that the Credit Registry API is intentionally agnostic to credit methodology.
 
+20. **Human editorial pass to reduce prescriptiveness.** The human performed a comprehensive manual edit across PROPOSAL.md, ROADMAP.md, and RISK_ANALYSIS.md — without AI involvement — to shorten documents, reduce specific proposed terminology, and leave more room for stakeholders to shape the proposal. The motivation: the documents had become too detailed and prescriptive, which risks discouraging collaboration by making it feel like a top-down, already-decided plan. The final shape will depend on which stakeholders sign on and what they bring in terms of expertise, influence, and time.
+
+21. **Methodology restructured based on external feedback.** Andrew Nesbitt reviewed this methodology document and noted that web search query strings are not useful for reproducibility (the search engine and results are opaque), but the investigated URLs are valuable as a reproducible research log and reference document. The AI restructured accordingly: query strings removed, URLs retained, summary lines added for web-search-discovered context.
+
 ---
 
 ## Limitations
@@ -649,7 +671,7 @@ Key decisions made by the human during the process:
 This methodology document is itself experimental. If you adopt a similar approach, consider:
 
 1. **Record prompts verbatim** when feasible, or summarize when prompts are conversational.
-2. **Log all queries** — including failed or unhelpful ones — for honest reporting.
+2. **Log investigated sources** — the URLs actually fetched and analyzed form the reproducible research trail. Web search query strings are less useful since the search engine and results are opaque.
 3. **Separate human decisions from AI outputs.** The "Editorial Decisions" section is critical for understanding what the AI would not have done on its own.
 4. **Version the tools.** AI model versions matter for reproducibility. Record the exact model ID.
 5. **Acknowledge limitations** including the inherent non-reproducibility of LLM outputs (same prompt may yield different results).
