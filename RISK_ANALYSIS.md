@@ -24,10 +24,10 @@ Credit and usage registries need projects to have publiccode.yml files to index.
 
 ### A5. Temporal fields cause widespread file staleness
 
-Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update version numbers, release dates, and dependency constraints between releases. Stale files erode trust in the entire metadata format — if a crawler encounters an outdated `softwareVersion`, it has no way to know whether the `maintenance` or `legal` sections are also outdated.
+Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update version numbers, release dates, and dependency constraints between releases. Stale files erode trust in the entire metadata format — if a crawler encounters an outdated `softwareVersion`, it has no way to know whether the `maintenance` or `legal` sections are also outdated. Additionally, temporal fields that frequently go stale frustrate maintainers who want to keep their publiccode.yml accurate but find themselves unable to sustain the update discipline across releases.
 
 - **Likelihood:** High — empirically observed at scale by ecosyste.ms across existing publiccode.yml deployments
-- **Impact:** High — stale data undermines the credibility of the entire metadata ecosystem; procurement officers who encounter outdated fields lose trust in the file
+- **Impact:** High — stale data undermines the credibility of the entire metadata ecosystem; procurement officers who encounter outdated fields lose trust in the file, and maintainers who notice their own files are stale may disengage from the standard entirely
 - **Mitigation:** Extension 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
 
 ---
@@ -56,11 +56,11 @@ The Credit Registry API and Usage Registry API are "rough outlines." Different i
 
 ### S1. Credit gaming and contribution inflation
 
-If credit registries influence procurement decisions, there is a strong economic incentive to inflate contribution counts. A vendor could generate trivial contributions (typo fixes, whitespace commits) to climb credit rankings.
+If credit registries influence procurement decisions, there is a strong economic incentive to inflate contribution counts. A vendor could generate trivial contributions (typo fixes, whitespace commits) to climb credit rankings. This risk is about the **integrity of the data itself** — whether the numbers in a credit registry can be trusted. (See P3 for the related but distinct risk of how procurement frameworks *interpret* that data.)
 
 - **Likelihood:** High — any system that ties economic value to measurable contributions gets gamed (Goodhart's Law)
 - **Impact:** High — undermines the credibility of the entire credit system, which is central to the proposal's value for procurement
-- **Mitigation:** The proposal correctly separates credit *tracking* (registry-specific) from credit *reporting* (standardized API). Registries must implement their own anti-gaming measures (e.g., Drupal's issue credit system requires maintainer sign-off). The `trustModel` field lets consumers weight registries by verification rigor. Procurement officers should be trained to interpret credit data critically, not treat it as a score.
+- **Mitigation:** The proposal correctly separates credit *tracking* (registry-specific) from credit *reporting* (standardized API). Credit systems should require maintainer or project-level sign-off on contributions (as Drupal's issue credit system does) to prevent unilateral inflation. The `trustModel` field lets consumers weight registries by verification rigor. Procurement officers should be trained to interpret credit data critically, not treat it as a score.
 
 ### S2. Sybil attacks on usage registries
 
@@ -68,7 +68,7 @@ An organization (or vendor promoting its product) could create fake adopter decl
 
 - **Likelihood:** Medium — depends on the trust model; `verified-domain` registries are harder to game
 - **Impact:** High — inflated adoption data misleads procurement decisions and funding allocation
-- **Mitigation:** The trust model taxonomy (`verified-domain`, `signed-attestation`, `self-reported`) lets consumers filter by verification level. Catalogs should prominently display the trust model alongside adoption data. High-stakes decisions (funding allocation, procurement) should require `verified-domain` or `signed-attestation` data.
+- **Mitigation:** The trust model taxonomy (`verified-domain`, `signed-attestation`, `self-reported`) lets consumers filter by verification level. Catalogs should prominently display the trust model alongside adoption data. High-stakes decisions (funding allocation, procurement) should require `verified-domain` or `signed-attestation` data. For public procurement specifically, catalogs could restrict to declarations from known government domains within the relevant jurisdiction — an allowlist approach that sidesteps the Sybil problem entirely for the highest-stakes use case.
 
 ---
 
@@ -96,11 +96,11 @@ The proposal's value proposition depends heavily on procurement policies that ac
 
 ### P3. Credit system creates perverse procurement incentives
 
-If procurement regulations begin to require or favor vendors with high credit scores, vendors may optimize for credit metrics rather than actual software quality. Procurement becomes a game of credit accumulation rather than demonstrated capability.
+Even if credit data is accurate (see S1 for data integrity), procurement regulations may misuse it. If regulations require or favor vendors with high credit scores, vendors may optimize for credit metrics rather than actual software quality. Procurement becomes a game of credit accumulation rather than demonstrated capability. This risk is about the **policy interpretation layer** — how procurement frameworks consume credit data — distinct from S1's concern about whether the underlying data can be trusted.
 
 - **Likelihood:** Medium — regulations tend to simplify complex signals into checkbox requirements. However, Drupal's credit system has operated for years with procurement-relevant credits without devolving into pure gaming — its process (maintainer sign-off, usage-weighted credits, organizational attribution, tiered marketplace) is sophisticated enough to resist it. The fact that this process is open source means other projects can adopt proven anti-gaming measures rather than designing from scratch.
 - **Impact:** High — distorts the open source contribution ecosystem and may disadvantage smaller vendors who do high-quality but less frequent work
-- **Mitigation:** Credit data should be presented as one input among many in procurement evaluation, not as a scoring system. The proposal should explicitly warn against reducing credit data to single numeric scores in procurement frameworks. Registries should expose contribution type (code, security, documentation) to allow qualitative assessment.
+- **Mitigation:** Credit data should be presented as one input among many in procurement evaluation, not as a scoring system. The proposal should explicitly warn against reducing credit data to single numeric scores in procurement frameworks. Registries should expose contribution type (code, security, documentation) to allow qualitative assessment rather than simple numeric ranking.
 
 ---
 
