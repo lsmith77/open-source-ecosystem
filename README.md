@@ -223,7 +223,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 > The worst outcome would be fragmentation — five competing standards each with 10% adoption. publiccode.yml is the only candidate that has crossed the threshold from "proposal" to "infrastructure with legal backing," and the EU's adoption makes it the gravitational center.
 
-**See [PROPOSAL.md](PROPOSAL.md) for a concrete proposal** with schema extensions for faceted classification, supply chain references, credit registry discovery, a Registry Discovery Standard for usage declarations, and optional linked data representation.
+**See [PROPOSAL.md](PROPOSAL.md) for a concrete proposal** with schema extensions for faceted classification, supply chain references, credit registry discovery, and a Registry Discovery Standard for usage declarations.
 
 **See [PITCH.md](PITCH.md) for stakeholder pitches** — what each actor (maintainers, vendors, procurement offices, funders, registries) gains economically and politically from this proposal.
 

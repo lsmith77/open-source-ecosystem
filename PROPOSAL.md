@@ -12,7 +12,6 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 - [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery)
 - [Extension 4: Deprecate `usedBy`](#extension-4-deprecate-usedby)
 - [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields)
-- [Extension 6: Optional Linked Data Representation (YAML-LD)](#extension-6-optional-linked-data-representation-yaml-ld)
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
@@ -28,7 +27,7 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 3. **Decentralized registries discover projects, not the other way around.** Usage registries index projects by their publiccode.yml `url` field. A companion [Registry Discovery Standard](#registry-discovery-standard) makes registries themselves crawlable.
 5. **External systems should implement standardized APIs.** So that crawlers (openCode.de, EU OSS Catalogue, Developers Italia) can aggregate data from any conforming provider, not just one.
 6. **Faceted classification replaces flat categories.** Enabling multi-dimensional discovery for procurement and supply chain analysis.
-7. **Optional linked data representation.** For interoperability with the linked-data ecosystem (CodeMeta, schema.org, Software Heritage) without forcing all maintainers into JSON-LD etc.
+7. **Future consideration: linked data representation.** Interoperability with the linked-data ecosystem (CodeMeta, schema.org, Software Heritage) via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/) is possible — crawlers can produce linked data from plain publiccode.yml by applying a canonical `@context` at indexing time — but is deferred from this proposal to reduce complexity.
 
 ---
 
@@ -398,109 +397,12 @@ These are slow-changing, human-maintained fields. They don't become stale betwee
 
 ---
 
-## Extension 6: Optional Linked Data Representation (YAML-LD)
-
-publiccode.yml's YAML format is its strength for maintainer adoption. But the linked-data ecosystem (CodeMeta, schema.org, Software Heritage, Zenodo) speaks JSON-LD. The proposal: make publiccode.yml **optionally** expressible as [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/).
-
-YAML-LD is a W3C Community Group specification (Final Report, December 2023) that defines how to serialize JSON-LD as YAML. Since YAML is a superset of JSON, any JSON-LD document is valid YAML, and YAML-LD defines the conventions for going the other direction.
-
-### How It Works
-
-A standard publiccode.yml file:
-
-```yaml
-publiccodeYmlVersion: "1.0"
-name: Example CMS
-url: https://github.com/example/cms
-classification:
-  function:
-    - content-management
-    - crm
-  domain:
-    - public-administration
-  role:
-    - standalone-web
-maintenance:
-  type: community
-  contacts:
-    - name: Jane Maintainer
-      email: jane@example.org
-legal:
-  license: AGPL-3.0-or-later
-```
-
-The same file as YAML-LD, with a `@context` header:
-
-```yaml
-"@context":
-  "@vocab": https://w3id.org/publiccode/vocab#
-  schema: https://schema.org/
-  codemeta: https://codemeta.github.io/terms/
-  name:
-    "@id": schema:name
-  url:
-    "@id": schema:codeRepository
-  license:
-    "@id": schema:license
-  classification:
-    "@id": publiccode:classification
-"@type": schema:SoftwareSourceCode
-
-publiccodeYmlVersion: "1.0"
-name: Example CMS
-url: https://github.com/example/cms
-classification:
-  function:
-    - content-management
-    - crm
-  domain:
-    - public-administration
-  role:
-    - standalone-web
-maintenance:
-  type: community
-  contacts:
-    - name: Jane Maintainer
-      email: jane@example.org
-legal:
-  license: AGPL-3.0-or-later
-```
-
-### Design Decisions
-
-- **The `@context` block is optional.** Files without it are plain publiccode.yml. Files with it are valid YAML-LD and can be processed by any linked data toolchain.
-- **The `@context` maps publiccode.yml fields to schema.org and CodeMeta terms.** This is a one-time mapping defined by the standard, not something each project writes.
-- **A canonical `@context` URL** (e.g., `https://w3id.org/publiccode/context.jsonld`) could be published by the publiccode.yml governance body. Projects then simply write:
-
-```yaml
-"@context": https://w3id.org/publiccode/context.jsonld
-"@type": schema:SoftwareSourceCode
-
-publiccodeYmlVersion: "1.0"
-name: Example CMS
-# ... rest of file unchanged
-```
-
-- **Crawlers can produce the linked data representation** even from plain publiccode.yml files by applying the canonical context at indexing time. The YAML-LD header is only needed if the project itself wants to be directly consumable as linked data.
-
-### What This Enables
-
-- **CodeMeta interoperability.** Software Heritage, Zenodo, and other academic infrastructure can ingest publiccode.yml files as linked data without a separate crosswalk step.
-- **schema.org visibility.** Search engines that understand schema.org `SoftwareSourceCode` markup can index publiccode.yml metadata.
-- **No extra burden on maintainers.** The plain YAML form remains the primary authoring format. The linked data layer is an interoperability feature for the ecosystem, not a requirement for projects.
-
----
-
 ## Full Example
 
 Putting all extensions together:
 
 ```yaml
 publiccodeYmlVersion: "1.0"
-
-# Optionally make this file valid YAML-LD:
-# "@context": https://w3id.org/publiccode/context.jsonld
-# "@type": schema:SoftwareSourceCode
 
 name: MedusaCMS
 applicationSuite: MegaProductivitySuite
