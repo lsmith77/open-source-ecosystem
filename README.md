@@ -103,41 +103,13 @@ See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/
 
 ### 4. gov-codejson (DSACMS / code.gov lineage)
 
-**What it is:** A [JSON schema](https://github.com/DSACMS/gov-codejson) for collecting metadata about U.S. federal agency software projects. Evolved from the code.gov `code.json` standard mandated by [M-16-21](https://obamawhitehouse.archives.gov/sites/default/files/omb/memoranda/2016/m-16-21.pdf) and the SHARE IT Act.
-
-**Strengths:**
-
-- **U.S. federal mandate.** Agencies are legally required to publish this metadata, creating a compliance-driven adoption floor.
-- **Active development.** Schema v2.0.0 released September 2025, showing ongoing iteration.
-- **Government-specific fields.** Designed for the compliance context of federal software inventory.
-
-**Weaknesses:**
-
-- **U.S.-specific scope.** Designed for U.S. federal compliance, not international use. No localization, no multi-country architecture.
-- **Agency-centric, not project-centric.** Metadata describes what an agency has, not what a project is. It's an inventory format, not a discovery format.
-- **Tiny community.** 5 stars, 2 forks — the team is "still building the core team and defining roles and responsibilities."
-- **No ecosystem for open source broadly.** Not designed to be placed in open source repositories by their maintainers; it's for agency reporting.
-- **Overlaps with publiccode.yml** but with less maturity, less tooling, and narrower geographic scope.
-
-**Chances of success:** **Low as a global standard.** Will persist as a U.S. compliance artifact. The smart move would be for DSACMS to adopt publiccode.yml with a U.S. country extension, similar to how Italy and Germany did.
+A [JSON schema](https://github.com/DSACMS/gov-codejson) for U.S. federal agency software inventory, evolved from the code.gov `code.json` standard mandated by [M-16-21](https://obamawhitehouse.archives.gov/sites/default/files/omb/memoranda/2016/m-16-21.pdf). While backed by a U.S. federal mandate, it is agency-centric (an inventory format, not a discovery format), U.S.-specific with no multi-country architecture, and has a tiny community (5 stars, 2 forks). It will persist as a U.S. compliance artifact but is not viable as a global standard. The natural path forward would be for DSACMS to adopt publiccode.yml with a U.S. country extension, similar to how Italy and Germany did.
 
 ---
 
 ### 5. contribute.json (Mozilla)
 
-**What it is:** A [JSON schema](https://github.com/mozilla/contribute.json) for describing how to contribute to an open source project — communication channels, bug tracking, deployment URLs, tech stack.
-
-**Strengths:**
-
-- None that are currently relevant.
-
-**Weaknesses:**
-
-- **Decommissioned and archived** (March 2024). The website (contributejson.org) is gone. The schema was never stabilized.
-- **Narrow scope.** Only covered contribution onboarding metadata, not software classification, procurement, or supply chain.
-- **Zero adoption** beyond Mozilla's own projects.
-
-**Chances of success:** **Zero.** This is a dead project. Mentioned here only as a cautionary tale about standards that don't find a community.
+[contribute.json](https://github.com/mozilla/contribute.json) was decommissioned and archived in March 2024 with zero adoption outside Mozilla — a narrow contribution-onboarding schema that never found a community.
 
 ---
 
