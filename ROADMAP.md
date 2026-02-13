@@ -2,7 +2,7 @@
 
 One possible phased implementation plan for the [publiccode.yml v1.0 extensions](PROPOSAL.md), sequenced to leverage existing allies, build momentum with achievable milestones, and address [critical risks](RISK_ANALYSIS.md) in order.
 
-This roadmap is illustrative, not prescriptive. Its purpose is to make the [proposal](PROPOSAL.md) more concrete by showing one plausible path to realization. The actual sequence will depend heavily on which individuals within key organizations can be convinced of the vision and how quickly institutional buy-in follows. It is also likely that people within these or adjacent organizations are already working on overlapping initiatives — this can create natural allies but also competing priorities and "not invented here" resistance. Conversations with stakeholders will reshape these phases significantly.
+This roadmap is illustrative, not prescriptive. Its purpose is to make the [proposal](PROPOSAL.md) more concrete by showing one plausible path to realization. The actual sequence will depend heavily on which individuals within key organizations engage with the vision and how quickly institutional alignment follows. It is also likely that people within these or adjacent organizations are already working on overlapping initiatives — this can create natural allies but also competing priorities and resistance to adopting externally-originated approaches. Conversations with stakeholders will reshape these phases significantly.
 
 ---
 
