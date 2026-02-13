@@ -544,76 +544,13 @@ This is a **separate specification** from publiccode.yml. It defines the API tha
 
 #### `GET /projects/{project-url}/credits`
 
-Returns all credited entities for a project.
+Returns all credited entities for a project. Supports a `since` parameter for time-windowed queries.
 
 ```
 GET /projects/github.com%2Fexample%2Fmedusa-cms/credits?since=2025-01-01
 ```
 
-#### Response Schema
-
-```json
-{
-  "project": {
-    "url": "https://github.com/example/medusa-cms",
-    "name": "MedusaCMS"
-  },
-  "registry": {
-    "name": "MedusaCMS Vendor Directory",
-    "url": "https://medusa-cms.example.org/vendors",
-    "trustModel": "maintainer-verified"
-  },
-  "credits": [
-    {
-      "entity": {
-        "type": "organization",
-        "name": "Acme GmbH",
-        "url": "https://acme.example.org",
-        "identifier": {
-          "type": "url",
-          "value": "https://acme.example.org"
-        }
-      },
-      "summary": {
-        "totalCredits": 142,
-        "periodCredits": 87,
-        "firstContribution": "2022-03-15",
-        "lastContribution": "2026-01-28",
-        "roles": ["maintainer", "code", "documentation"]
-      },
-      "ranking": {
-        "position": 1,
-        "tier": "platinum"
-      }
-    },
-    {
-      "entity": {
-        "type": "organization",
-        "name": "Beta Solutions AG",
-        "url": "https://beta-solutions.example.org"
-      },
-      "summary": {
-        "totalCredits": 53,
-        "periodCredits": 12,
-        "firstContribution": "2023-06-01",
-        "lastContribution": "2025-11-14",
-        "roles": ["code", "security"]
-      },
-      "ranking": {
-        "position": 2,
-        "tier": "gold"
-      }
-    }
-  ],
-  "meta": {
-    "since": "2025-01-01",
-    "generatedAt": "2026-02-07T12:00:00Z",
-    "totalEntities": 2
-  }
-}
-```
-
-#### Key Fields
+The response identifies the project and registry, then lists credited entities with the following key fields per entity:
 
 | Field                   | Purpose                                                                                                                 |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -628,10 +565,6 @@ GET /projects/github.com%2Fexample%2Fmedusa-cms/credits?since=2025-01-01
 #### `GET /organizations/{org-identifier}/credits`
 
 Inverse query: given an organization, return all projects they have credits in. This lets procurement officers look up a vendor and see their full portfolio of contributions.
-
-```
-GET /organizations/acme.example.org/credits?since=2025-01-01
-```
 
 ### What This Doesn't Standardize (Intentionally)
 
@@ -682,49 +615,7 @@ Each registry publishes a manifest at a well-known URL:
 https://{registry-domain}/.well-known/publiccode-registry.json
 ```
 
-##### Schema
-
-```json
-{
-  "schema": "https://publiccode.net/registry/v1",
-  "registry": {
-    "name": "openCode.de",
-    "url": "https://opencode.de",
-    "description": "German public sector open source software registry",
-    "operator": {
-      "name": "ZenDiS GmbH",
-      "url": "https://zendis.de",
-      "jurisdiction": "DE"
-    },
-
-    "capabilities": ["usage", "credits"],
-
-    "trustModel": "verified-domain",
-    "trustDescription": "Organizations verified via institutional accounts on the openCode.de GitLab instance",
-
-    "api": {
-      "version": "v1",
-      "baseUrl": "https://api.opencode.de/v1",
-      "documentation": "https://opencode.de/en/knowledge/api",
-      "conformsTo": [
-        "https://publiccode.net/registry-api/usage/v1",
-        "https://publiccode.net/registry-api/credits/v1"
-      ]
-    },
-
-    "scope": {
-      "jurisdictions": ["DE"],
-      "sectors": ["public-administration"]
-    },
-
-    "contact": {
-      "email": "registry@opencode.de"
-    }
-  }
-}
-```
-
-##### Key Fields
+The manifest describes the registry's identity, operator, capabilities, API location, and scope. Key fields:
 
 | Field                 | Purpose                                                                                      |
 | --------------------- | -------------------------------------------------------------------------------------------- |
@@ -740,25 +631,7 @@ Crawlers discover registries through multiple complementary channels:
 
 1. **Well-known URL probing.** Crawlers can probe known domains for `/.well-known/publiccode-registry.json`. Useful for discovering registries at domains already known to the ecosystem (opencode.de, developers.italia.it, etc.).
 
-2. **Central directory (bootstrap list).** A community-maintained list of known registries, similar to how browsers ship a root certificate store. Published as a simple JSON file:
-
-```json
-{
-  "schema": "https://publiccode.net/registry-directory/v1",
-  "registries": [
-    {
-      "manifestUrl": "https://opencode.de/.well-known/publiccode-registry.json",
-      "addedAt": "2026-01-01"
-    },
-    {
-      "manifestUrl": "https://developers.italia.it/.well-known/publiccode-registry.json",
-      "addedAt": "2026-01-15"
-    }
-  ]
-}
-```
-
-This directory is maintained via pull requests (like a browser's CA inclusion process) and published at a stable URL (e.g., `https://publiccode.net/registries.json`). Any registry operator can request inclusion.
+2. **Central directory (bootstrap list).** A community-maintained list of known registry manifest URLs, similar to how browsers ship a root certificate store. Maintained via pull requests (like a browser's CA inclusion process) and published at a stable URL. Any registry operator can request inclusion.
 
 3. **DNS TXT records (future).** A registry could publish a TXT record at `_publiccode-registry.opencode.de` pointing to its manifest URL. This enables fully decentralized discovery without any central directory.
 
@@ -768,114 +641,25 @@ Registries with `"capabilities": ["usage"]` must implement these endpoints.
 
 #### `GET /software/{project-url}/adopters`
 
-Given a project URL (the `url` field from publiccode.yml, URL-encoded), return all organizations that have declared they use it.
+Given a project URL (the `url` field from publiccode.yml, URL-encoded), return all organizations that have declared they use it. Each adopter entry includes the organization's identity (name, domain, jurisdiction), adoption status (`production`, `pilot`, `evaluation`, `retired`), and when they adopted.
 
 ```
 GET /v1/software/github.com%2Fexample%2Fmedusa-cms/adopters
 ```
 
-##### Response Schema
-
-```json
-{
-  "project": {
-    "url": "https://github.com/example/medusa-cms",
-    "name": "MedusaCMS"
-  },
-  "adopters": [
-    {
-      "organization": {
-        "name": "Stadt München",
-        "url": "https://muenchen.de",
-        "type": "public-administration",
-        "identifier": {
-          "type": "domain",
-          "value": "muenchen.de"
-        },
-        "jurisdiction": "DE"
-      },
-      "adoption": {
-        "status": "production",
-        "since": "2024-06-01",
-        "declaredAt": "2025-01-15T10:00:00Z",
-        "scope": "city-wide CMS for all municipal websites"
-      }
-    }
-  ],
-  "meta": {
-    "totalAdopters": 1,
-    "generatedAt": "2026-02-07T12:00:00Z"
-  }
-}
-```
-
 #### `GET /organizations/{org-identifier}/software`
 
-Inverse query: what software does this organization use?
-
-```
-GET /v1/organizations/muenchen.de/software
-```
-
-This enables the "software declaration" use case — a procurement office can publish its entire stack, and crawlers can aggregate this into the reuse badge system.
+Inverse query: what software does this organization use? This enables the "software declaration" use case — a procurement office can publish its entire stack, and crawlers can aggregate this into the reuse badge system.
 
 #### `GET /software` (bulk index)
 
 Returns all projects the registry tracks, paginated. Enables crawlers to do a full sync rather than querying project-by-project.
 
-```
-GET /v1/software?page=1&per_page=100
-```
-
 ### Organization-Level Usage Declarations
 
-Usage registries are the canonical aggregation point for adoption data, but the data has to get into registries somehow. The most scalable intake mechanism is a standardized `.well-known` file that deploying organizations publish on their own domains.
+Usage registries are the canonical aggregation point for adoption data, but the data has to get into registries somehow. The most scalable intake mechanism is a standardized `.well-known` file that deploying organizations publish on their own domains (e.g., `https://muenchen.de/.well-known/publiccode-usage.json`).
 
-#### `/.well-known/publiccode-usage.json`
-
-An organization declares which open source software it uses by publishing a static JSON file at a well-known URL on its domain:
-
-```
-https://muenchen.de/.well-known/publiccode-usage.json
-```
-
-##### Schema
-
-```json
-{
-  "schema": "https://publiccode.net/usage-declaration/v1",
-  "organization": {
-    "name": "Stadt München",
-    "url": "https://muenchen.de",
-    "type": "public-administration",
-    "jurisdiction": "DE"
-  },
-  "software": [
-    {
-      "url": "https://github.com/example/medusa-cms",
-      "name": "MedusaCMS",
-      "status": "production",
-      "since": "2024-06-01"
-    },
-    {
-      "url": "https://github.com/drupal/drupal",
-      "name": "Drupal",
-      "status": "production",
-      "since": "2020-03-15"
-    },
-    {
-      "url": "https://github.com/example/old-portal",
-      "name": "OldPortal",
-      "status": "retired",
-      "since": "2018-01-01",
-      "until": "2025-06-30"
-    }
-  ],
-  "lastUpdated": "2026-02-01T00:00:00Z"
-}
-```
-
-##### Key Fields
+#### Key Fields
 
 | Field                 | Purpose                                                                                                                   |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
@@ -885,31 +669,15 @@ https://muenchen.de/.well-known/publiccode-usage.json
 | `software[].until`    | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                       |
 | `lastUpdated`         | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale |
 
-##### Design Rationale
+The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
 
-**Deployment-integrated maintenance.** The file should be maintained as part of software deployment processes, not as a separate bureaucratic exercise. Projects like Drupal, Nextcloud, or WordPress can integrate the generation or update of this file into their documented deployment procedures — when an organization deploys the software, the deployment process adds an entry to the usage declaration. When an organization decommissions software, the teardown process marks the entry as `retired`. This makes the file a living artifact that stays current with actual deployments rather than a document that rots in a forgotten web directory.
+#### Design Principles
 
-**Two-tier aggregation.** In practice, organizations deploy software across many internal and public-facing domains (e.g., `intranet.muenchen.de`, `cloud.muenchen.de`, `kita-portal.muenchen.de`). Each deployment can publish its own `/.well-known/publiccode-usage.json` declaring what software it runs — maintained automatically by that deployment's process. An organizational aggregation tool then crawls these per-deployment declarations (both internal and public-facing) and assembles the combined public-facing `/.well-known/publiccode-usage.json` on the organization's primary domain (e.g., `muenchen.de`). This two-tier model has two advantages: (1) staleness risk is minimized because each deployment maintains its own declaration at the source, and (2) both internal and public-facing open source usage can be declared — the aggregation tool decides what to include in the public file, giving the organization control over what is externally visible.
+The file should be maintained as part of software deployment processes, not as a separate bureaucratic exercise. Projects like Drupal or Nextcloud can integrate the generation of this file into their documented deployment procedures — deploying adds an entry, decommissioning marks it `retired`.
 
-**Domain as identity.** The organization's control over the domain (via TLS certificate and DNS) proves identity without requiring accounts on any registry. This is the same trust primitive used by the `verified-domain` trust model in registry manifests.
+For organizations with many deployments across internal and public-facing domains, a two-tier model applies: each deployment publishes its own per-deployment declaration, and an organizational aggregation tool assembles the combined public-facing file on the organization's primary domain. This minimizes staleness and allows both internal and public-facing usage to be declared.
 
-**No version or infrastructure details.** The schema deliberately excludes software version numbers, deployment architecture, and infrastructure details. This limits security exposure — the declaration answers "do you use this project?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable or greater detail for public-facing web applications; a standardized declaration adds minimal incremental attack surface while providing significant ecosystem value.
-
-**Explicit retirement.** The `retired` status with an `until` date provides a positive deprecation signal. When a crawlable file simply disappears, the cause is ambiguous (decommissioned? server migration? IT reorganization?). An explicit `retired` entry in an otherwise-maintained file is unambiguous.
-
-#### Intake Mechanisms for Usage Registries
-
-Usage registries aggregate declaration data from multiple sources:
-
-1. **`.well-known` crawling.** Registries crawl known organizational domains for `/.well-known/publiccode-usage.json`. For government domains, comprehensive lists are often publicly available (e.g., all `.gov.uk` domains, all German municipal domains). Domain control serves as identity verification — no additional trust negotiation needed.
-
-2. **Direct declaration.** Organizations register on a usage registry (e.g., openCode.de) and declare their software use through the registry's UI or API. This is the existing mechanism and remains the path of least resistance for organizations that cannot easily modify their web server's `.well-known` directory.
-
-3. **Aggregation from per-deployment declarations.** When individual deployments each publish their own `/.well-known/publiccode-usage.json` (see "Two-tier aggregation" above), an organizational aggregation tool crawls these per-deployment files — both internal and public-facing — and assembles the combined public declaration on the organization's primary domain. This tool can also be offered as a service by public-sector IT cooperatives or shared service centers.
-
-4. **Bulk import from internal scans.** Organizations can additionally run scanning tools that detect deployed software via fingerprinting or package inventory, then publish results either as a `.well-known` file or via a registry's bulk import API. This complements per-deployment declarations by catching software that doesn't yet publish its own `.well-known` file.
-
-These mechanisms are complementary, not competing. An organization might use per-deployment declarations for software that integrates them, scanning tools for legacy deployments, and a registry's UI for declarations that require additional context or approval workflows. The organizational aggregation tool merges all sources into the public-facing `/.well-known/publiccode-usage.json`.
+Usage registries aggregate declaration data from multiple complementary sources: `.well-known` crawling (domain control = identity verification), direct declaration via registry UI/API, per-deployment aggregation, and bulk import from internal scanning tools.
 
 ### How Credit Registries Relate
 
