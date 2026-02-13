@@ -86,6 +86,14 @@ The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/
 
 ## Political Risks
 
+### P4. Procurement policy momentum stalls
+
+The proposal's value proposition depends heavily on procurement policies that actually favor open source and evaluate vendors by upstream contributions. If APELL's proposals stall, EuroStack's "Buy Open Source Act" fails to advance, and EMBAG remains an isolated Swiss example, the credit registry and classification infrastructure serves a much smaller audience — enthusiasts rather than a mandated market.
+
+- **Likelihood:** Medium — procurement reform is slow and politically contingent. Current momentum is real (EMBAG enacted, PMPC campaign with 31,000+ signatures, EuroStack's 260+ company coalition, Cyber Resilience Act's supply chain requirements), but translating advocacy into binding procurement criteria has historically taken years.
+- **Impact:** High — without policy demand, credit registries lack their primary use case and the economic incentive for vendors to participate collapses. The proposal becomes incremental rather than transformative.
+- **Mitigation:** The infrastructure should deliver value independent of mandates. Credit data helps projects attract contributors and funding even without procurement policy. Classification improves discovery for any catalog user. Supply chain references serve Cyber Resilience Act compliance regardless of procurement reform. But the proposal should be honest that the legislative track is what makes the credit system economically viable at scale.
+
 ### P3. Credit system creates perverse procurement incentives
 
 If procurement regulations begin to require or favor vendors with high credit scores, vendors may optimize for credit metrics rather than actual software quality. Procurement becomes a game of credit accumulation rather than demonstrated capability.
@@ -120,6 +128,7 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 | S1 | Credit gaming and contribution inflation | High | High | Security/Trust |
 | S2 | Sybil attacks on usage registries | Medium | High | Security/Trust |
 | G1 | Small spec governance community | High | High | Governance |
+| P4 | Procurement policy momentum stalls | Medium | High | Political |
 | P3 | Credit system creates perverse procurement incentives | Medium | High | Political |
 | E1 | Registry operation costs have no revenue model | High | High | Economic |
 
