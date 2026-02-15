@@ -1,27 +1,35 @@
 # Roadmap: From Proposal to Reality
 
-One possible phased implementation plan for the [publiccode.yml v1.0 extensions](PROPOSAL.md), sequenced to leverage existing allies, build momentum with achievable milestones, and address [critical risks](RISK_ANALYSIS.md) in order.
+One possible phased implementation plan for the integrated ecosystem proposal: publiccode.yml extensions, companion registries and standards (Credit Registry API, Usage Registry API, Registry Discovery Standard, organization-level declarations), policy frameworks, and decentralized trust networks. The plan is sequenced to leverage existing relationships, build credibility through achievable wins, and address critical risks early.
 
-This roadmap is illustrative, not prescriptive. Its purpose is to make the [proposal](PROPOSAL.md) more concrete by showing one plausible path to realization. The actual sequence will depend heavily on which individuals within key organizations engage with the vision and how quickly institutional alignment follows. It is also likely that people within these or adjacent organizations are already working on overlapping initiatives — this can create natural allies but also competing priorities and resistance to adopting externally-originated approaches. Conversations with stakeholders will reshape these phases significantly.
+**Important:** This roadmap is illustrative, not prescriptive. It shows one plausible path forward based on current relationships and known allies. The actual implementation will depend on:
+
+- Which individuals within organizations are willing to champion the vision
+- How quickly institutional alignment happens
+- What overlapping initiatives already exist in related organizations
+- What barriers and competing priorities emerge during conversations with stakeholders
+
+Stakeholder conversations will reshape these phases significantly. What matters most is the sequence of prerequisite steps, not the specific timing or organizational implementation details.
 
 ---
 
 ## Starting Position
 
-### Confirmed or Likely Allies
+### Who We Know
 
-| Ally                             | What they bring                                                                                                                                |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| **ZenDiS / Schleswig-Holstein**  | Operate openCode.de — the most advanced usage registry and badge system. Political will for digital sovereignty.                               |
-| **BFH / CHopen** | Owns ossdirectory.com — a natural crawler/catalog that benefits directly from standardized data sources. Academic credibility.                 |
-| **OSBA**                         | German Open Source Business Alliance — vendor community that directly benefits from credit visibility.             |
-| **Sovereign Tech Agency**        | Funds critical open source infrastructure. Needs metadata for investment decisions.                                                            |
-| **Drupal / PHP community**       | Operates the most mature vendor credit system in open source. Living proof the credit model works.                                             |
-| **Andrew Nesbitt / ecosyste.ms** | OSS Taxonomy author. Largest open OSS metadata dataset. ecosyste.ms as potential credit/funding registry.                                      |
-| **CHAOSS**                       | Community Health Analytics — defines metrics for open source project health. Alignment on how to measure contributions and community vitality. |
-| **FSFE**                         | Runs the [Public Money? Public Code!](https://publiccode.eu/) campaign. Maintains [REUSE](https://reuse.software/) tooling (already referenced in `supplyChain`). European advocacy network for open source policy. |
-| **Swiss Federal Chancellery / BK** | Operates under [EMBAG](https://www.fedlex.admin.ch/eli/cc/2023/682/en) — the most advanced open source law in Europe. Legislative proof that mandating open source release works. |
-| **publiccode.yml maintainers**   | Control the spec. Any extension must go through them.                                                                                          |
+This roadmap assumes we can activate these existing relationships. Conversations will refine, redirect, or expand this list.
+
+| Ally                                            | What they bring                                                                                                                                                          | Current relationship                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
+| **ZenDiS / Schleswig-Holstein**                 | Operate openCode.de—the most advanced usage registry and reuse badge system in the EU. Political commitment to digital sovereignty.                                      | Direct acquaintance; prior collaboration         |
+| **BFH / CHopen**                                | Operate ossdirectory.com—a natural crawler/catalog that benefitsimmediately from standardized metadata. Academic credibility.                                            | Existing relationship through Schleswig-Holstein |
+| **OSBA (German Open Source Business Alliance)** | Represent the vendor community most affected by credit visibility and procurement criteria. Actively developing procurement frameworks.                                  | Existing relationship                            |
+| **Sovereign Tech Agency**                       | German government funding for critical open source. Needs metadata to make resource allocation decisions.                                                                | Emerging connection                              |
+| **Drupal / PHP community**                      | Operate the most mature vendor credit system in open source—living proof the credit model works. Strong commitment to contribution tracking.                             | Strong existing relationship                     |
+| **Andrew Nesbitt / ecosyste.ms**                | Created OSS Taxonomy. Operate the largest open source metadata dataset (100K+ projects, 10M+ packages). Direct expertise in federated indexing.                          | Feedback contributor; existing relationship      |
+| **CHAOSS**                                      | Community Health Analytics—defines metrics for open source project health. Work on contribution attribution.                                                             | Direct contact                                   |
+| **FSFE (Free Software Foundation Europe)**      | Run the "Public Money? Public Code!" campaign (200+ organizations backing it). Maintain REUSE standard (already integrated into openCode.de). European advocacy network. | Emerging connection                              |
+| **publiccode.yml maintainers**                  | Control the specification. Any extension must receive their approval.                                                                                                    | Acquaintance; first contact needed               |
 
 ### Critical Prerequisite: Spec Maintainer Buy-in
 
@@ -195,12 +203,12 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 
 ### Valuable Potential Allies
 
-| Player                         | Why they matter                                                                                                                |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                  |
+| Player                         | Why they matter                                                                                                                                                                                                             |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                                                                                                               |
 | **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the extensions in their standard. |
-| **APELL**                      | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria. |
-| **EuroStack**                  | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure. |
+| **APELL**                      | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria.                               |
+| **EuroStack**                  | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure.                                                                    |
 
 ### Important for Global Scale (Phase 5)
 
@@ -208,7 +216,7 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | **DSACMS (U.S.)**                                             | gov-codejson could adopt publiccode.yml with a U.S. country extension instead of maintaining a parallel standard. |
 | **Canada Open Resource Exchange**                             | Already discussed adopting publiccode.yml. English-speaking government OSS community.                             |
-| **Software Heritage**                                         | Academic/archival legitimacy. CodeMeta bridge.                                                            |
+| **Software Heritage**                                         | Academic/archival legitimacy. CodeMeta bridge.                                                                    |
 | **Large OSS foundations (Apache, Eclipse, Linux Foundation)** | Adoption beyond government-specific projects. Address branding risk A1.                                           |
 
 ---

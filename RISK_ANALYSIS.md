@@ -1,18 +1,24 @@
 # Risk Analysis
 
-A focused examination of the highest-impact risks to the [proposal](PROPOSAL.md) for publiccode.yml v1.0 extensions. Each risk includes an assessment of likelihood and impact, plus potential mitigations.
+An examination of significant risks to the [proposal](PROPOSAL.md) for an integrated ecosystem of standards, registries, and policy frameworks built around publiccode.yml. The proposal includes publiccode.yml extensions, companion registries (credit, usage), standardized APIs, decentralized discovery mechanisms, and policy frameworks for procurement. Each risk is assessed for likelihood (probability it will occur) and impact (consequences if it does), with proposed mitigations.
+
+We've organized risks into seven categories: adoption, technical, security/trust, governance, political, economic, and external dependencies.
 
 ---
 
 ## Adoption Risks
 
-### A1. "publiccode" branding deters non-government projects
+### A1. Branding Problem: "publiccode" Deters Non-Government Projects
 
-The name signals "government software." Mainstream open source projects (React, Django, curl) may not see themselves in this standard, limiting the ecosystem to public-sector-specific software rather than the full open source commons that procurement depends on.
+The name signals "government software." Mainstream open source projects (React, Django, curl) may not see themselves reflected in this standard, limiting ecosystem adoption to public-sector-specific software rather than reaching the full open source commons that procurement depends on.
 
-- **Likelihood:** High — the [README](README.md) already identifies this as a weakness
-- **Impact:** High — without broad OSS adoption, procurement catalogs only index a fraction of available software
-- **Mitigation:** Create a neutral profile or alias (e.g., "softwarecode.yml") that maps 1:1 to publiccode.yml. Alternatively, invest in outreach demonstrating that the vendor credit system benefits any project seeking commercial adoption, not just government-facing ones.
+- **Likelihood:** High — the project analysis in README already identifies this as a weakness.
+- **Impact:** High — without broad adoption beyond government, procurement catalogs can only index a limited set of available software.
+- **Mitigations:**
+
+1. Create a neutral profile or alias (e.g., "softwarecode.yml") that maps 1-to-1 to publiccode.yml, with equivalent metadata structure.
+2. Launch an outreach campaign demonstrating that vendor credit systems and faceted classification benefit any project seeking commercial adoption—not just government-facing ones.
+3. Engage large open source foundations (Apache, Eclipse, Linux Foundation) to endorse the profile for their ecosystems.
 
 ### A2. Chicken-and-egg problem for registries
 
@@ -34,20 +40,24 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 
 ## Technical Risks
 
-### T1. Vocabulary governance becomes a bottleneck
+### T1. Vocabulary Governance Becomes a Bottleneck
 
-The controlled vocabularies for `domain`, `function`, `role`, `layer`, and `audience` must evolve as new software categories emerge. A slow or contentious governance process stalls the usefulness of the classification system.
+Controlled vocabularies for `domain`, `function`, `role`, `layer`, and `audience` must evolve as new software categories emerge. A governance process that is too slow or too contentious will stall the usefulness of the classification system.
 
-- **Likelihood:** Medium — any controlled vocabulary faces this tension between stability and expressiveness
-- **Impact:** High — projects that can't classify themselves accurately will either misclassify or not adopt
-- **Mitigation:** Use a tiered approach. The `tags` field allows immediate free-form experimentation. Tags that gain traction (used by N+ projects) are promoted to controlled vocabularies via a transparent, low-friction PR process — modeled on OSS Taxonomy's current approach.
+- **Likelihood:** Medium — any controlled vocabulary faces tension between stability and expressiveness.
+- **Impact:** High — projects that can't classify themselves accurately will either misclassify or choose not to adopt.
+- **Mitigations:**
 
-### T3. Registry API interoperability failures
+1. Use a tiered approach: the `tags` field allows immediate free-form experimentation with no approval needed.
+2. Promote tags to controlled vocabulary categories when they gain community traction (e.g., used by 10+ projects) via a transparent, low-friction PR process.
+3. Model this approach on how the OSS Taxonomy currently handles vocabulary evolution.
 
-The Credit Registry API and Usage Registry API are "rough outlines." Different implementations will interpret the spec differently, producing data that appears compatible but isn't — different semantics for `totalCredits`, different `trustModel` definitions, incompatible pagination.
+### T3. Registry API Interoperability Failures
 
-- **Likelihood:** High — API interoperability across independent implementors is notoriously difficult
-- **Impact:** High — if crawlers can't reliably aggregate data from multiple registries, the federated architecture fails
+The Credit Registry API and Usage Registry API are outlined but not fully specified. Different implementations will interpret the spec differently, causing data integration failures: different semantics for total credits, incompatible page navigation, mismatched trust model definitions, or unexpected field formats.
+
+- **Likelihood:** High — API interoperability across independent implementers is notoriously difficult.
+- **Impact:** High — if crawlers can't reliably aggregate data from multiple registries, the entire federated architecture fails.
 - **Mitigation:** Publish a conformance test suite that registry implementors can run against their API. Define a minimal viable response (required fields vs. optional) and mandate a common interpretation for core fields. Start with a reference implementation.
 
 ---
@@ -56,11 +66,11 @@ The Credit Registry API and Usage Registry API are "rough outlines." Different i
 
 ### S1. Credit gaming and contribution inflation
 
-If credit registries influence procurement decisions, there is a strong economic incentive to inflate contribution counts. A vendor could generate trivial contributions (typo fixes, whitespace commits) to climb credit rankings. This risk is about the **integrity of the data itself** — whether the numbers in a credit registry can be trusted. (See P3 for the related but distinct risk of how procurement frameworks *interpret* that data.)
+If credit registries influence procurement decisions, there is a strong economic incentive to inflate contribution counts. A vendor could generate trivial contributions (typo fixes, whitespace commits) to climb credit rankings. This risk is about the **integrity of the data itself** — whether the numbers in a credit registry can be trusted. (See P3 for the related but distinct risk of how procurement frameworks _interpret_ that data.)
 
 - **Likelihood:** High — any system that ties economic value to measurable contributions gets gamed (Goodhart's Law)
 - **Impact:** High — undermines the credibility of the entire credit system, which is central to the proposal's value for procurement
-- **Mitigation:** The proposal correctly separates credit *tracking* (registry-specific) from credit *reporting* (standardized API). Credit systems should require maintainer or project-level sign-off on contributions (as Drupal's issue credit system does) to prevent unilateral inflation. The `trustModel` field lets consumers weight registries by verification rigor. Procurement officers should be trained to interpret credit data critically, not treat it as a score.
+- **Mitigation:** The proposal correctly separates credit _tracking_ (registry-specific) from credit _reporting_ (standardized API). Credit systems should require maintainer or project-level sign-off on contributions (as Drupal's issue credit system does) to prevent unilateral inflation. The `trustModel` field lets consumers weight registries by verification rigor. Procurement officers should be trained to interpret credit data critically, not treat it as a score.
 
 ### S2. Sybil attacks on usage registries
 
@@ -118,19 +128,19 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 
 ## Risk Summary Matrix
 
-| ID | Risk | Likelihood | Impact | Category |
-|----|------|-----------|--------|----------|
-| A1 | "publiccode" branding deters non-government projects | High | High | Adoption |
-| A2 | Chicken-and-egg problem for registries | High | High | Adoption |
-| A5 | Temporal fields cause widespread file staleness | High | High | Adoption |
-| T1 | Vocabulary governance bottleneck | Medium | High | Technical |
-| T3 | Registry API interoperability failures | High | High | Technical |
-| S1 | Credit gaming and contribution inflation | High | High | Security/Trust |
-| S2 | Sybil attacks on usage registries | Medium | High | Security/Trust |
-| G1 | Small spec governance community | High | High | Governance |
-| P4 | Procurement policy momentum stalls | Medium | High | Political |
-| P3 | Credit system creates perverse procurement incentives | Medium | High | Political |
-| E1 | Registry operation costs have no revenue model | High | High | Economic |
+| ID  | Risk                                                  | Likelihood | Impact | Category       |
+| --- | ----------------------------------------------------- | ---------- | ------ | -------------- |
+| A1  | "publiccode" branding deters non-government projects  | High       | High   | Adoption       |
+| A2  | Chicken-and-egg problem for registries                | High       | High   | Adoption       |
+| A5  | Temporal fields cause widespread file staleness       | High       | High   | Adoption       |
+| T1  | Vocabulary governance bottleneck                      | Medium     | High   | Technical      |
+| T3  | Registry API interoperability failures                | High       | High   | Technical      |
+| S1  | Credit gaming and contribution inflation              | High       | High   | Security/Trust |
+| S2  | Sybil attacks on usage registries                     | Medium     | High   | Security/Trust |
+| G1  | Small spec governance community                       | High       | High   | Governance     |
+| P4  | Procurement policy momentum stalls                    | Medium     | High   | Political      |
+| P3  | Credit system creates perverse procurement incentives | Medium     | High   | Political      |
+| E1  | Registry operation costs have no revenue model        | High       | High   | Economic       |
 
 ### Critical risks (High likelihood + High impact)
 

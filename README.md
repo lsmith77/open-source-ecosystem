@@ -1,26 +1,43 @@
 # Evaluation of Software Metadata Standards for a Global Open Source Index
 
-An analysis of emerging standards for describing open source software in source repositories, with the goal of enabling a crawlable software index for procurement, supply chain security, and ecosystem transparency — particularly for the public sector.
+An analysis of emerging standards for describing open source software in source repositories, plus a comprehensive proposal for a decentralized ecosystem of metadata registries and procurement policies to make evidence-based open source adoption at scale.
 
-## Goal
+Our goal: create an integrated infrastructure enabling procurement offices, security researchers, and funders to discover, evaluate, and confidently adopt open source projects at scale—particularly within the public sector, where public money should support maintainable, transparent software.
 
-Create a single format with a good chance of wide adoption from the open source community and the public sector that enables:
+---
 
-1. **Procurement discovery** — help procurement people find software relevant to their goals (e.g., a CMS that is also a CRM)
-2. **Vendor/contributor credit metadata** — attach additional metadata (e.g., Drupal-style credit system) to provide procurement people insights about vendors knowledgeable with the software
-3. **Supply chain steering** — enable federal authorities to steer money to secure the supply chain or identify gaps
-4. **Usage declarations** — enable procurement offices to declare which software they use (inspired by [openCode.de badges](https://badges.opencode.de/en/))
-5. **Security and compliance assessment** — enable procurement offices to evaluate the security posture, dependency transparency, and licensing compliance of software before adoption (e.g., OpenSSF Scorecard, SBOM availability, REUSE compliance)
+## **Quick Navigation**
+
+**New to this project?** Start with [HOW_TO_READ.md](HOW_TO_READ.md) for guided reading paths by role.
+
+**Encounter unfamiliar terms?** Check [GLOSSARY.md](GLOSSARY.md) for explanations of technical terms and acronyms.
+
+**Want the executive summary?** Jump to [PITCH.md](PITCH.md) to see benefits for your role.
+
+---
+
+## Goals
+
+We seek an ecosystem of metadata standards, decentralized registries, and policy frameworks with broad adoption across the open source community and public sector that enables:
+
+1. **Procurement discovery** — Help procurement professionals find software that meets their specific needs (e.g., a content management system that also offers customer relationship management) through faceted classification and standardized metadata.
+2. **Vendor and contributor credit visibility** — Make visible which organizations contribute to projects through decentralized credit registries with verifiable trust models, creating transparent pathways to vendor expertise and shared investment in open source.
+3. **Supply chain visibility** — Enable funding agencies to identify critical infrastructure gaps and direct resources where they're most needed by linking projects to SBOMs, security assessments, and compliance data.
+4. **Usage transparency** — Allow procurement offices and deploying organizations to declare which software they use through standardized organization-level declarations, building a shared map of what's actually in use across organizations.
+5. **Security and compliance assessment** — Provide procurement professionals with verified information about security practices, dependencies, and license compliance before adoption.
+6. **Evidence-based procurement policy** — Support procurement regulations and digital sovereignty mandates with standardized data infrastructure that makes vendor expertise, supply chain security, and community health transparently measurable.
 
 ## Candidates Evaluated
 
-| Standard | Format | Status | Scope |
-|---|---|---|---|
-| [publiccode.yml](#1-publiccodeyml) | YAML | Active, EU-adopted | Public sector software metadata |
-| [OSS Taxonomy](#2-oss-taxonomy-andrew-nesbitt--ecosystems) | YAML vocabulary | Early stage | Faceted classification for OSS |
-| [CodeMeta](#3-codemeta) | JSON-LD | Active, academic adoption | Research software citation/metadata |
-| [gov-codejson](#4-gov-codejson-dsacms--codegov-lineage) | JSON | Active, U.S.-specific | U.S. federal agency software inventory |
-| [contribute.json](#5-contributejson-mozilla) | JSON | Decommissioned (2024) | Contribution onboarding metadata |
+We examined five metadata standards and specifications that could potentially serve as infrastructure for the procurement and discovery needs described above.
+
+| Standard                                                   | Format          | Status                    | Scope                                  |
+| ---------------------------------------------------------- | --------------- | ------------------------- | -------------------------------------- |
+| [publiccode.yml](#1-publiccodeyml)                         | YAML            | Active, EU-adopted        | Public sector software metadata        |
+| [OSS Taxonomy](#2-oss-taxonomy-andrew-nesbitt--ecosystems) | YAML vocabulary | Early stage               | Faceted classification for OSS         |
+| [CodeMeta](#3-codemeta)                                    | JSON-LD         | Active, academic adoption | Research software citation/metadata    |
+| [gov-codejson](#4-gov-codejson-dsacms--codegov-lineage)    | JSON            | Active, U.S.-specific     | U.S. federal agency software inventory |
+| [contribute.json](#5-contributejson-mozilla)               | JSON            | Decommissioned (2024)     | Contribution onboarding metadata       |
 
 ---
 
@@ -28,14 +45,14 @@ Create a single format with a good chance of wide adoption from the open source 
 
 ### 1. publiccode.yml
 
-**What it is:** A YAML metadata file placed in the repository root, originally developed by Italy's Digital Transformation Team. Defines software name, description, categories, software type, intended audience, maintenance status/contacts, legal/licensing info, dependencies, and localized descriptions.
+**What it is:** A YAML metadata file placed in a repository's root directory, created by Italy's Digital Transformation Team. It describes a project's name, purpose, categories, type (standalone web app, library, etc.), intended audience, maintenance arrangements, legal information and licensing, dependencies, and translations.
 
 - Spec: https://yml.publiccode.tools/schema.core.html
 - GitHub: https://github.com/publiccodeyml/publiccode.yml
 
 **Strengths:**
 
-- **Strongest real-world traction by far.** Mandatory in Italy since 2020 (powering [Developers Italia](https://developers.italia.it/en/reuse/publication.html) catalog), adopted by Germany's [openCode.de](https://opencode.de/en/sharing-and-developing-code), and since March 2025, **a prerequisite for the [EU Open Source Solutions Catalogue](https://interoperable-europe.ec.europa.eu/eu-oss-catalogue)** (640+ solutions across 30+ public sector domains).
+- **Real-world adoption at scale.** Mandatory in Italy since 2020, powering [Developers Italia](https://developers.italia.it/en/reuse/publication.html). Adopted by Germany's [openCode.de](https://opencode.de/en/sharing-and-developing-code). Since March 2025, required by the [EU Open Source Solutions Catalogue](https://interoperable-europe.ec.europa.eu/eu-oss-catalogue)—640+ projects across 30+ public sector domains.
 - **Purpose-built for procurement.** Has fields for `intendedAudience` (countries, scope), `categories` (controlled vocabulary like "content-management", "crm"), `softwareType` (standalone/web, library, addon, etc.), `maintenance` (internal/contract/community/none with contractor details and expiry dates), and `usedBy` (list of public administrations using the software).
 - **Federated crawling architecture.** National catalogs feed into the EU-wide catalog via public APIs — proven at scale.
 - **Human-readable YAML.** Low barrier for maintainers. Tooling exists: [publiccode.yml editor](https://editor.opencode.de/), validators, crawlers.
@@ -45,21 +62,28 @@ Create a single format with a good chance of wide adoption from the open source 
 **Weaknesses:**
 
 - **Public-sector-centric naming and framing.** "publiccode" signals government software; open source projects outside government may not feel it applies to them. Fields like `usedBy` assume public administration context.
-- **Temporal fields cause widespread staleness.** Fields like `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin` change with every release but are rarely updated in the metadata file. Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases. This data already exists in authoritative sources (forge APIs, package registries) — duplicating it in a committed file creates a staleness problem that undermines trust in the entire file.
-- **No vendor/contributor credit system.** No fields for tracking which companies contribute, their expertise level, or anything resembling Drupal's credit system. The `maintenance.contractors` field is rudimentary (name + expiry date).
-- **Limited taxonomy depth.** The `categories` list is flat and coarse (e.g., "content-management") — no faceted classification like domain + function + audience.
-- **No supply-chain / dependency-security fields.** No SBOM reference, no OpenSSF scorecard integration, no vulnerability policy metadata beyond what badges add externally.
-- **Small governance community.** The spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization. The separately-governed [Foundation for Public Code](https://publiccode.net/) (a Dutch foundation) maintains [The Standard for Public Code](https://standard.publiccode.net/), a broader framework that recommends publiccode.yml as a tool — but does not control the spec itself. The spec's maintainer community is small relative to its institutional adoption.
+- **Version fields go stale quickly.** Fields like `softwareVersion` and `releaseDate` change with every release but are rarely updated once committed to the repository. Across thousands of publiccode.yml files indexed by [ecosyste.ms](https://ecosyste.ms/), most contain outdated version information—not because maintainers are negligent, but because it's impractical to update a committed file with every release. This data already exists in authoritative sources (GitHub releases, package registries). Duplicating it in a metadata file creates staleness, which erodes trust in the entire file.
+- **No community credit system.** Fields like `maintenance.contractors` provide basic metadata (name and contract expiry) but don't connect the project to Drupal-style reputation systems where vendor expertise is visible to procurement officers.
+- **Limited taxonomy depth.** The `categories` list is flat and coarse (e.g., "content-management") — no way to express combinations like "CMS with healthcare focus in the backend layer."
+- **No supply chain / dependency visibility.** No references to SBOMs (bill of materials lists of all dependencies), OpenSSF Scorecards (security assessments), or vulnerability disclosure policies beyond what third-party badge systems add externally.
+- **Small, distributed governance.** The spec is maintained by the [publiccodeyml GitHub organization](https://github.com/publiccodeyml/publiccode.yml) with limited maintainer capacity relative to the scale of institutional adoption. Scope increases require approval from a small community.
 
-**Chances of success:** **High for the public sector.** It is already the de facto EU standard. The question is whether it can expand beyond government contexts.
+**Chances of success:** Very high for public sector adoption. It's already the de-facto EU standard. The key question is whether it can expand beyond government contexts to attract the broader open source community.
 
 ---
 
 ### 2. OSS Taxonomy (Andrew Nesbitt / ecosyste.ms)
 
-**What it is:** A [faceted classification system](https://nesbitt.io/2025/11/29/oss-taxonomy.html) for categorizing open source projects across 6 dimensions: domain, role, technology, audience, layer, and function. Stored as YAML in a GitHub repo, designed to integrate with CodeMeta via namespaced keywords (e.g., `"domain:web-development"`).
+**What it is:** A faceted classification system for categorizing open source projects across six dimensions:
 
-See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html)
+- **Domain**: What field does the software serve? (e.g., healthcare, education)
+- **Function**: What does it do? (e.g., authentication, reporting)
+- **Technology**: What languages or frameworks does it use?
+- **Audience**: Who uses it? (developers, enterprises, citizens)
+- **Layer**: Where in the technology stack? (frontend, backend, infrastructure)
+- **Role**: What architectural role? (library, plugin, framework, application)
+
+The taxonomy is stored as YAML in a GitHub repository and designed to integrate with CodeMeta (another metadata standard listed below) through namespaced keywords like `"domain:web-development"`.
 
 **Strengths:**
 
@@ -72,7 +96,7 @@ See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/
 
 - **Not a metadata file standard.** It's a classification vocabulary, not a repo-level manifest. Projects don't place an "oss-taxonomy.yml" in their repo — classification happens externally or via CodeMeta keywords.
 - **Early stage, single-person governance.** Community-contributed via GitHub PRs but no institutional backing yet.
-- **No procurement, vendor, or maintenance metadata.** It classifies *what* software does, not *who* maintains it, *how* it's supported, or *who* has expertise.
+- **No procurement, vendor, or maintenance metadata.** It classifies _what_ software does, not _who_ maintains it, _how_ it's supported, or _who_ has expertise.
 
 **Chances of success:** **High as a vocabulary/taxonomy layer** that other standards adopt. Low as a standalone standard. Best outcome: publiccode.yml and CodeMeta adopt its classification dimensions.
 
@@ -80,13 +104,13 @@ See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/
 
 ### 3. CodeMeta
 
-**What it is:** A [JSON-LD metadata schema](https://codemeta.github.io/) based on schema.org terms for describing software. A `codemeta.json` file in the repo root. Maintained by a research community consortium, affiliated with the [SciCodes Consortium](https://scicodes.net/).
+**What it is:** A schema for describing research software in JSON-LD format (a way to embed structured data in JSON that's machine-readable across the web). A `codemeta.json` file in the repository root. Maintained by a consortium of research institutions affiliated with the [SciCodes Consortium](https://scicodes.net/). Designed specifically for making research software findable and citable in academic contexts.
 
 **Strengths:**
 
 - **Strong academic/research adoption.** Used by [Software Heritage](https://www.softwareheritage.org/), Zenodo, and FAIRCORE4EOSC. The primary standard for research software citation and discovery.
-- **Semantically rich.** Built on JSON-LD and schema.org, enabling linked-data interoperability. Machine-readable in a way that integrates with the broader web of data.
-- **Crosswalks exist.** Mappings between CodeMeta and other metadata formats (npm, PyPI, CRAN, Maven, etc.) enable automated extraction.
+- **Machine-readable with web standards.** Built on [JSON-LD](https://json-ld.org/), which embeds structured data into JSON, and [schema.org](https://schema.org/), a shared vocabulary used across the web. This enables interoperability: data from CodeMeta can be linked with other datasets.
+- **Crosswalks to package ecosystems.** Mappings exist between CodeMeta and metadata from npm (JavaScript), PyPI (Python), CRAN (R), Maven (Java), and other package managers. This means CodeMeta can be auto-populated from package metadata rather than manually maintained.
 - **Active effort to merge upstream.** Work is ongoing to get CodeMeta terms adopted directly into [schema.org](https://github.com/codemeta/codemeta/issues/232), which would make it the web-native standard.
 
 **Weaknesses:**
@@ -103,39 +127,45 @@ See also: [The Dependency Layer in Digital Sovereignty](https://nesbitt.io/2026/
 
 ### 4. gov-codejson (DSACMS / code.gov lineage)
 
-A [JSON schema](https://github.com/DSACMS/gov-codejson) for U.S. federal agency software inventory, evolved from the code.gov `code.json` standard mandated by [M-16-21](https://obamawhitehouse.archives.gov/sites/default/files/omb/memoranda/2016/m-16-21.pdf). While backed by a U.S. federal mandate, it is agency-centric (an inventory format, not a discovery format), U.S.-specific with no multi-country architecture, and has a tiny community (5 stars, 2 forks). It will persist as a U.S. compliance artifact but is not viable as a global standard. The natural path forward would be for DSACMS to adopt publiccode.yml with a U.S. country extension, similar to how Italy and Germany did.
+### 4. gov-codejson (U.S. Federal Government)
+
+A JSON schema for U.S. federal agency software inventory, evolved from the code.gov `code.json` standard mandated by U.S. policy. The approach is narrow (U.S. federal context), small community (5 stars, 2 forks on GitHub), and fundamentally agency-centric (an internal inventory format rather than a discovery format for external procurement).
+
+It will persist as a U.S. federal compliance requirement but is not viable as a global standard. The natural path forward: U.S. agencies could adopt publiccode.yml with a U.S. country extension, as Italy and Germany have done.
 
 ---
 
 ### 5. contribute.json (Mozilla)
 
-[contribute.json](https://github.com/mozilla/contribute.json) was decommissioned and archived in March 2024 with zero adoption outside Mozilla — a narrow contribution-onboarding schema that never found a community.
+### 5. contribute.json (Mozilla) — Archived
+
+[contribute.json](https://github.com/mozilla/contribute.json) was decommissioned in March 2024 with zero adoption outside Mozilla. It was a narrow contribution-onboarding schema that never found any community traction.
 
 ---
 
 ## Other Relevant Standards and Initiatives
 
-| Standard | Focus | Relevance |
-|---|---|---|
-| [CITATION.cff](https://citation-file-format.github.io/) | Software citation (YAML) | GitHub-native support. Covers authorship/citation only. Complementary, not competing. |
-| [REUSE (FSFE)](https://reuse.software/spec-3.3/) | Per-file licensing compliance using SPDX | Adopted by KDE, SAP, Nextcloud, DLR. Already integrated as a badge on openCode.de. Complementary. |
-| [OpenSSF Scorecard](https://scorecard.dev/) | Automated security health scoring | Scans 1M+ projects weekly. Security metadata that procurement officers need. Complementary. |
-| [CycloneDX](https://cyclonedx.org/) / [SPDX](https://spdx.dev/) | SBOM (Software Bill of Materials) | Supply chain transparency, mandated by U.S. executive order. Answers "what are the dependencies" not "what is this software for." Complementary. |
-| [schema.org SoftwareSourceCode](https://schema.org/SoftwareSourceCode) | Web-native linked data vocabulary | The semantic backbone that CodeMeta builds on. Not a standalone file format. |
-| [Canada Open Resource Exchange](https://github.com/canada-ca/ore-ero) | Canadian government open source catalog | Uses its own schema, but has discussed adopting publiccode.yml. |
-| [Drupal Credit System](https://www.drupal.org/drupalorg/contribution-credit) | Vendor contribution tracking and marketplace ranking | The most mature model for linking contributions to vendor credibility. Not a file format but a system design to learn from. |
+| Standard                                                                     | Focus                                                | Relevance                                                                                                                                        |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [CITATION.cff](https://citation-file-format.github.io/)                      | Software citation (YAML)                             | GitHub-native support. Covers authorship/citation only. Complementary, not competing.                                                            |
+| [REUSE (FSFE)](https://reuse.software/spec-3.3/)                             | Per-file licensing compliance using SPDX             | Adopted by KDE, SAP, Nextcloud, DLR. Already integrated as a badge on openCode.de. Complementary.                                                |
+| [OpenSSF Scorecard](https://scorecard.dev/)                                  | Automated security health scoring                    | Scans 1M+ projects weekly. Security metadata that procurement officers need. Complementary.                                                      |
+| [CycloneDX](https://cyclonedx.org/) / [SPDX](https://spdx.dev/)              | SBOM (Software Bill of Materials)                    | Supply chain transparency, mandated by U.S. executive order. Answers "what are the dependencies" not "what is this software for." Complementary. |
+| [schema.org SoftwareSourceCode](https://schema.org/SoftwareSourceCode)       | Web-native linked data vocabulary                    | The semantic backbone that CodeMeta builds on. Not a standalone file format.                                                                     |
+| [Canada Open Resource Exchange](https://github.com/canada-ca/ore-ero)        | Canadian government open source catalog              | Uses its own schema, but has discussed adopting publiccode.yml.                                                                                  |
+| [Drupal Credit System](https://www.drupal.org/drupalorg/contribution-credit) | Vendor contribution tracking and marketplace ranking | The most mature model for linking contributions to vendor credibility. Not a file format but a system design to learn from.                      |
 
 ### Digital Sovereignty Score Initiatives
 
 A growing number of initiatives assess digital sovereignty at the organization, provider, or country level. These operate above the project metadata layer — they are **consumers** of the kind of data publiccode.yml provides, not competing standards. The EU Cloud Sovereignty Framework's SOV-5 (Supply Chain, 20% weight) and SOV-6 (Technology Sovereignty — requires open source components, open APIs, open protocols) directly need project-level metadata like SBOM references, license information, and open standard declarations.
 
-| Initiative | Scope | What it assesses |
-|---|---|---|
-| [EU Cloud Sovereignty Framework](https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en) | Cloud providers (EU) | 8 sovereignty objectives (SOV-1–SOV-8), SEAL 0–4 rating. Basis for a €180M EU procurement tender. SOV-6 explicitly requires open source. |
-| [Munich Digital Sovereignty Score](https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html) | Municipal IT services | Nutri-Score-style rating of vendor lock-in, jurisdiction risk, open standards. Applied to 194 services; integrated into procurement. |
-| [Bechtle Index für digitale Souveränität](https://www.bechtle.com/ueber-bechtle/presse/pressemeldungen/2025/bechtle-entwickelt-index-fuer-digitale-souveraenitaet) | Enterprise / public sector orgs | Data sovereignty, technological independence, design freedom. Software-based assessment launching Q1 2026. |
-| [Nextcloud Digital Sovereignty Index](https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/) | Countries | Self-hosted tool deployments per 100k citizens across ~60 countries. Measures adoption of 50 collaboration tools. |
-| [SUSE CSF Assessment](https://www.suse.com/cloud-sovereignty-framework-assessment/) | Organizations | Free self-assessment tool scoring against the EU Cloud Sovereignty Framework. Produces SEAL rating and gap analysis. |
+| Initiative                                                                                                               | What it assesses                           | Relevance to this proposal                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [EU Cloud Sovereignty Framework](https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en) | Cloud service providers (EU scope)         | Explicitly requires open source components (SOV-6). Project-level metadata about licensing, SBOMs, and open standards directly feeds this assessment.                              |
+| Munich Digital Sovereignty Score                                                                                         | Municipal IT services                      | Uses a scoring system similar to nutritional labeling. Software metadata enables objective scoring.                                                                                |
+| Bechtle Index für digitale Souveränität                                                                                  | Enterprise and public sector organizations | Software-independent assessment tool launching in 2026. Relies on availability of standardized project metadata.                                                                   |
+| Nextcloud Digital Sovereignty Index                                                                                      | Countries                                  | Counts deployments of self-hosted tools (50 collaboration platforms) across countries. Usage declarations and adoption registries would make this data collection more verifiable. |
+| SUSE Cloud Sovereignty Framework Assessment                                                                              | Organizations                              | Free self-assessment tool. Producing ratings and identifying gaps requires project-level supply chain and licensing data.                                                          |
 
 These frameworks strengthen the case for publiccode.yml extensions: sovereignty assessors need machine-readable project metadata (licenses, SBOMs, open standard compliance, dependency transparency) to automate their evaluations. The proposed `supplyChain` section and faceted `classification` directly feed this need.
 
@@ -165,19 +195,18 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 - **publiccode.yml** has `usedBy` but it's manually maintained and unverified.
 - **openCode.de's badge system** is the most advanced implementation: confirmed adopter declarations drive the [Reuse Badge](https://badges.opencode.de/en/) (Level 1–3).
-- **Missing:** A federated protocol for procurement offices to *publish* their software declarations. Usage data doesn't belong in the project's publiccode.yml (the project has no authority over who uses it) — it needs decentralized usage registries with a standardized discovery mechanism.
+- **Missing:** A federated protocol for procurement offices to _publish_ their software declarations. Usage data doesn't belong in the project's publiccode.yml (the project has no authority over who uses it) — it needs decentralized usage registries with a standardized discovery mechanism.
 
 ---
 
 ## Recommendation
 
-**Build on publiccode.yml.** It has the strongest momentum:
+**Recommendation:** Build on publiccode.yml because:
 
-- Legal mandate in Italy, adopted in Germany, prerequisite for the EU OSS Catalogue since 2025
-- Proven federated crawler architecture
-- Active tooling ecosystem (editors, validators, crawlers)
-- Already designed for the public sector audience
-- Aligned with the [Public Money, Public Code](https://publiccode.eu/) principle — as governments mandate open source (e.g., [Switzerland's EMBAG](https://www.fedlex.admin.ch/eli/cc/2023/682/en)), procurement offices need the discovery and evaluation infrastructure that publiccode.yml extensions can provide
+- **It has real institutional traction.** It's not a proposal or proof-of-concept — it's a legal requirement in Italy, activated in Germany, and mandatory for the EU Open Source Catalogue since March 2025 (640+ projects indexed). This is the only candidate to have crossed from "promising idea" to "operational infrastructure."
+- **Federated architecture already works.** openCode.de and Developers Italia prove the crawler model scales. National catalogs feed into the EU-wide catalog. No theoretical research needed.
+- **Proven tooling ecosystem.** Editors, validators, and crawlers already exist. Projects can adopt it today.
+- **Aligned with policy direction.** As governments mandate open source (like Switzerland's EMBAG law), procurement offices urgently need the discovery infrastructure that publiccode.yml extensions provide.
 
 **But extend it with:**
 

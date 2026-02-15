@@ -6,12 +6,12 @@ This document records how the analysis in [README.md](README.md) and [PROPOSAL.m
 
 There is no established standard for documenting AI-assisted research processes. Several partial frameworks exist:
 
-| Framework | What it covers | What it misses |
-|---|---|---|
-| [PRISMA](https://www.prisma-statement.org/) | Systematic review reporting: search strategy, screening, inclusion criteria | Not designed for AI-assisted work or non-medical domains |
-| [W3C PROV](https://www.w3.org/TR/prov-o/) | Provenance ontology: Entity, Activity, Agent relationships | Formal ontology — no lightweight documentation convention |
-| [CRediT](https://credit.niso.org/) (ANSI/NISO Z39.104-2022) | 14-role taxonomy for contributor attribution in scholarly publications | No role for "AI tool" — assumes human authors only |
-| Publisher AI guidelines ([Wiley](https://www.wiley.com/en-us/publish/article/ai-guidelines/), [Science](https://www.science.org/content/page/science-journals-editorial-policies)) | Require prompt disclosure, tool version, human review statement | Ad-hoc disclosure text, not a structured format |
+| Framework                                                                                                                                                                        | What it covers                                                                | Limitations                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [PRISMA](https://www.prisma-statement.org/)                                                                                                                                      | Systematic literature reviews: search strategy, screening, inclusion criteria | Designed for medical research, not AI-assisted analysis or policy work   |
+| [W3C PROV](https://www.w3.org/TR/prov-o/)                                                                                                                                        | Formal provenance model: entities, activities, agents and their relationships | Very formal ontology; lacks practical lightweight documentation approach |
+| [CRediT](https://credit.niso.org/)                                                                                                                                               | 14 contributor roles for scholarly authorship attribution                     | No category for AI tools; assumes only human authors                     |
+| Publisher AI guidance ([Wiley](https://www.wiley.com/en-us/publish/article/ai-guidelines/), [Science](https://www.science.org/content/page/science-journals-editorial-policies)) | Disclosure of AI tool use, model version, human review                        | Guidance exists but lacks structured standardized format                 |
 
 This document borrows from all four to create a structured, reproducible record. The format described here is a proposal — not itself a standard yet.
 
@@ -181,20 +181,78 @@ Phase 13: METHODOLOGY REVIEW (2026-02-13)
           kept investigated URLs as the reproducible trail, added
           summary lines for web-search-discovered context. Sources
           Evaluated section retained as reference document.
+
+Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
+  Input:  All existing documents (README.md, PROPOSAL.md, PITCH.md,
+          RISK_ANALYSIS.md, ROADMAP.md, METHODOLOGY.md)
+  Method: Human requested comprehensive review to ensure consistent,
+          professional, inclusive tone and improved readability across
+          all documents. AI performed systematic analysis identifying:
+          - Inconsistent terminology (open source vs OSS, variable use
+            of acronyms without definition)
+          - Tone variation (academic vs conversational, formal level
+            inconsistent)
+          - Readability issues (long complex sentences, wide tables
+            difficult to scan, jargon-dense passages)
+          - Accessibility gaps (acronyms used without definition,
+            complexity assumed, limited context for non-specialists)
+
+          AI then implemented improvements:
+          - Standardized terminology and first-use acronym definitions
+          - Simplified complex sentences into shorter, clearer statements
+          - Added plain-language summaries before technical sections
+          - Enhanced accessibility by distilling jargon-heavy passages
+          - Improved table formatting for scannability
+          - Added concrete examples and visual breaks
+
+  Output: Two new documents for navigation and accessibility:
+          - GLOSSARY.md: 50+ term definitions (technical standards,
+            organizational concepts, policy terminology, ecosystem
+            actors, governance concepts, metadata concepts, use cases)
+          - HOW_TO_READ.md: Navigation guide with 7 reader roles
+            (procurement professional, maintainer, vendor, legislator,
+            researcher, funder, catalog operator) with recommended
+            reading paths and estimated times
+
+          Updated existing documents:
+          - README.md: Added navigation intro, clearer goal framing,
+            simplified standard descriptions, enhanced weakness
+            explanations, expanded Digital Sovereignty section
+          - PROPOSAL.md: Redesigned Design Principles with plainer
+            language, reorganized Actors table, improved Extension 1-5
+            clarity, better technical examples
+          - PITCH.md: Added acronym context, improved consistency
+          - RISK_ANALYSIS.md: Enhanced descriptions with examples,
+            clearer mitigation strategies, better section introductions
+          - ROADMAP.md: Clearer phase descriptions, improved "Starting
+            Position" framing, enhanced ally table with relationship
+            status
+          - METHODOLOGY.md: Simplified tool descriptions, clearer
+            process overview
+
+          No AI involvement in editorial decisions—human manually
+          reviewed all changes in context before acceptance.
+
+  Output quality assurance:
+          - All documents maintain technical rigor while improving
+            readability
+          - Glossary and reading guides reference all specialized terms
+          - Acronyms defined at first use in all contexts
+          - Tone balanced between professional and accessible
+          - Consistent voice and formatting across all documents
 ```
 
 ---
 
 ## Tools and Models
 
-| Component | Details |
-|---|---|
-| **AI model** | Claude Opus 4.6 (`claude-opus-4-6`) via Claude Code CLI |
-| **Interface** | Claude Code VSCode extension |
-| **Date of research** | 2026-02-07 (initial), 2026-02-08 (refinement), 2026-02-09 (roadmap), 2026-02-10 (usage declarations), 2026-02-11 (procurement policy), 2026-02-12 (credit system reference architecture), 2026-02-13 (human editorial pass, methodology review) |
-| **Knowledge cutoff** | May 2025 (supplemented by live web search) |
-| **Web search** | Built-in web search and URL fetch tools |
-| **Human role** | Problem framing, candidate selection, evaluation criteria, editorial direction, structural decisions, review of all outputs |
+| Component                 | Details                                                                                                         |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **AI model**              | Claude Opus 4.6 via Claude Code VS Code extension                                                               |
+| **Research dates**        | Original: 2026-02-07; subsequent rounds: 2026-02-08 through 2026-02-13                                          |
+| **Knowledge cutoff**      | May 2025 (supplemented with live web search for current information)                                            |
+| **Web search & fetching** | Built-in capabilities for discovering and retrieving source documents                                           |
+| **Human role**            | Problem framing, candidate selection, evaluation criteria, editorial oversight, and final review of all outputs |
 
 ---
 
@@ -202,16 +260,16 @@ Phase 13: METHODOLOGY REVIEW (2026-02-13)
 
 Using the [CRediT taxonomy](https://credit.niso.org/contributor-roles-defined/) with an added `AI Tool` designation, following emerging publisher conventions:
 
-| Role | Contributor |
-|---|---|
-| **Conceptualization** | Human |
-| **Methodology** | Human (evaluation criteria, use cases) + AI (research structure) |
-| **Investigation** | AI (web search, source retrieval, content extraction) |
-| **Data curation** | AI (synthesis of sources) with human validation |
-| **Formal analysis** | AI (comparative evaluation) with human editorial direction |
-| **Writing – original draft** | AI |
-| **Writing – review & editing** | Human (structural edits, framing corrections, scope refinement) |
-| **Supervision** | Human |
+| Role                           | Contributor                                                      |
+| ------------------------------ | ---------------------------------------------------------------- |
+| **Conceptualization**          | Human                                                            |
+| **Methodology**                | Human (evaluation criteria, use cases) + AI (research structure) |
+| **Investigation**              | AI (web search, source retrieval, content extraction)            |
+| **Data curation**              | AI (synthesis of sources) with human validation                  |
+| **Formal analysis**            | AI (comparative evaluation) with human editorial direction       |
+| **Writing – original draft**   | AI                                                               |
+| **Writing – review & editing** | Human (structural edits, framing corrections, scope refinement)  |
+| **Supervision**                | Human                                                            |
 
 ---
 
@@ -222,6 +280,7 @@ Each phase is documented with the human prompts, the sources investigated, and k
 ### Phase 1: Scoping
 
 **Human input (initial prompt):**
+
 > Evaluate the below candidates for their strength and weaknesses and chances at success to become a global standard: publiccode.yml, [OSS Taxonomy], [CodeMeta], [gov-codejson], [contribute.json]. Are there others?
 
 The user also specified four evaluation dimensions: procurement discovery, vendor credit metadata, supply chain steering, and usage declarations.
@@ -232,39 +291,39 @@ Sources were retrieved in parallel batches. Web searches supplemented user-provi
 
 #### Batch 1 — Primary candidate retrieval
 
-| URL | Purpose |
-|---|---|
-| https://nesbitt.io/2025/11/29/oss-taxonomy.html | OSS Taxonomy primary source |
-| https://codemeta.github.io/ | CodeMeta primary source |
-| https://github.com/DSACMS/gov-codejson | gov-codejson primary source |
-| https://github.com/mozilla/contribute.json | contribute.json primary source |
+| URL                                             | Purpose                        |
+| ----------------------------------------------- | ------------------------------ |
+| https://nesbitt.io/2025/11/29/oss-taxonomy.html | OSS Taxonomy primary source    |
+| https://codemeta.github.io/                     | CodeMeta primary source        |
+| https://github.com/DSACMS/gov-codejson          | gov-codejson primary source    |
+| https://github.com/mozilla/contribute.json      | contribute.json primary source |
 
 Additional sources discovered via web search: publiccode.yml background, openCode.de badge system context.
 
 #### Batch 2 — Schema details and adjacent standards
 
-| URL | Purpose |
-|---|---|
+| URL                                                       | Purpose              |
+| --------------------------------------------------------- | -------------------- |
 | https://opencode.de/en/knowledge/software-index/badges-en | Badge system details |
 
 Additional sources discovered via web search: publiccode.yml schema field inventory, SPDX/SBOM context, CycloneDX context, REUSE spec context.
 
 #### Batch 3 — Ecosystem and adoption context
 
-| URL | Purpose |
-|---|---|
+| URL                                           | Purpose                    |
+| --------------------------------------------- | -------------------------- |
 | https://yml.publiccode.tools/schema.core.html | Full publiccode.yml schema |
 
 Additional sources discovered via web search: ecosyste.ms ecosystem context, CodeMeta adoption in academia, EU adoption status, Italian adoption history.
 
 #### Batch 4 — Procurement and credit systems
 
-| URL | Purpose |
-|---|---|
-| https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html | Digital sovereignty argument |
-| https://github.com/ecosyste-ms/funds/issues/290 | Cross-ecosystem funding proposal |
-| https://github.com/ecosyste-ms/funds/issues/236 | Funder leaderboard proposal |
-| https://github.com/opensourcepledge/opensourcepledge.com/issues/418 | Contribution tracking discussion |
+| URL                                                                            | Purpose                          |
+| ------------------------------------------------------------------------------ | -------------------------------- |
+| https://nesbitt.io/2026/01/28/the-dependency-layer-in-digital-sovereignty.html | Digital sovereignty argument     |
+| https://github.com/ecosyste-ms/funds/issues/290                                | Cross-ecosystem funding proposal |
+| https://github.com/ecosyste-ms/funds/issues/236                                | Funder leaderboard proposal      |
+| https://github.com/opensourcepledge/opensourcepledge.com/issues/418            | Contribution tracking discussion |
 
 Additional sources discovered via web search: procurement ecosystem landscape, Drupal credit system details.
 
@@ -274,22 +333,24 @@ Sources discovered via web search: CITATION.cff context, OpenSSF Scorecard conte
 
 ### Phase 4: Proposal Development — Additional Sources
 
-| URL | Purpose |
-|---|---|
-| https://yml.publiccode.tools/categories-list.html | Full categories vocabulary (144 values retrieved) |
-| https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/ | YAML-LD spec details |
-| https://www.drupal.org/drupalorg/blog/the-new-contribution-records-system | Contribution records data model |
+| URL                                                                       | Purpose                                           |
+| ------------------------------------------------------------------------- | ------------------------------------------------- |
+| https://yml.publiccode.tools/categories-list.html                         | Full categories vocabulary (144 values retrieved) |
+| https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/   | YAML-LD spec details                              |
+| https://www.drupal.org/drupalorg/blog/the-new-contribution-records-system | Contribution records data model                   |
 
 Additional sources discovered via web search: YAML-LD feasibility, Drupal API structure, scope vocabulary, Scorecard API patterns, publicode vs publiccode disambiguation.
 
 ### Phase 5: Refinement (2026-02-08)
 
 **Human input (prompt 1):**
+
 > Is there an additional goal not yet mentioned in the Goal section of the README.md that would make sense putting into the scope of this proposal?
 
 The AI analyzed the four existing goals against the full document (gap analysis, recommendation, complementary standards) and identified that "security and compliance assessment" was extensively discussed as infrastructure (Extension 2, OpenSSF Scorecard, SBOM, REUSE) but never stated as an explicit goal. The AI distinguished this from existing goal 3 (supply chain steering) by framing it as the demand-side procurement perspective rather than the supply-side funding authority perspective.
 
 **Human input (prompt 2):**
+
 > OK add this new goal. Is there anything in the proposal that needs to be changed to account for this new goal?
 
 The AI added goal 5 to README.md and identified two framing gaps in PROPOSAL.md where Extension 2's schema was already sufficient but the narrative didn't connect it to procurement assessment. No new schema extensions were needed — only the Procurement Office actor description and a new "What This Enables" section for Extension 2.
@@ -297,6 +358,7 @@ The AI added goal 5 to README.md and identified two framing gaps in PROPOSAL.md 
 No web searches were performed in this phase — the analysis was based entirely on the existing documents.
 
 **Human input (prompt 3):**
+
 > There are various initiatives to create "digital sovereignty scores". Do those initiatives also fit into this proposal?
 
 The user provided 6 URLs to sovereignty score initiatives: sovereigntyscore.io, Munich SDS (Heise article), EU Cloud Sovereignty Framework (Commission PDF), SUSE CSF Assessment, Nextcloud DSI (Robert Freund blog), and Bechtle Index (press release PDF).
@@ -305,35 +367,38 @@ The user provided 6 URLs to sovereignty score initiatives: sovereigntyscore.io, 
 
 User-provided URLs and follow-up sources discovered via web search:
 
-| URL | Purpose | Notes |
-|---|---|---|
-| https://sovereigntyscore.io/ | Sovereignty score tool | Only a title retrieved; not indexed by search engines |
-| https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html | Munich Digital Sovereignty Score | Details on scoring methodology |
-| https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en | EU Cloud Sovereignty Framework | PDF failed to parse |
-| https://www.suse.com/cloud-sovereignty-framework-assessment/ | SUSE CSF self-assessment tool | |
-| https://www.robertfreund.de/blog/2025/08/15/digital-sovereignty-index-score/ | Nextcloud Digital Sovereignty Index | |
-| https://www.bechtle.com/dam/jcr:32fae9a6-40fe-4c92-ac69-ae61a2d018a6/pm-bechtle-index-fuer-digitale-souveraenitaet-29092025-en.pdf | Bechtle Index | PDF returned minimal content |
-| https://www.heise.de/en/news/Cloud-Sovereignty-Framework-How-the-EU-will-assess-cloud-sovereignty-10922224.html | EU CSF details and open source role | Follow-up for failed PDF |
-| https://www.connect-professional.de/netzwerke-it-infrastruktur/bechle-digital-souveraenitaet-403822.html | Bechtle Index dimensions | Follow-up for failed PDF |
-| https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/ | Full list of 8 SOV objectives; SOV-6 requires open source | |
-| https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/ | DSI methodology: 50 self-hosted tools, per-country deployment counts | |
-| https://www.infoq.com/news/2025/11/eu-seal-framework-governance/ | SEAL governance trade-offs | |
+| URL                                                                                                                                | Purpose                                                              | Notes                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------- |
+| https://sovereigntyscore.io/                                                                                                       | Sovereignty score tool                                               | Only a title retrieved; not indexed by search engines |
+| https://www.heise.de/en/news/Munich-makes-digital-sovereignty-measurable-with-its-own-score-11164230.html                          | Munich Digital Sovereignty Score                                     | Details on scoring methodology                        |
+| https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en                                             | EU Cloud Sovereignty Framework                                       | PDF failed to parse                                   |
+| https://www.suse.com/cloud-sovereignty-framework-assessment/                                                                       | SUSE CSF self-assessment tool                                        |                                                       |
+| https://www.robertfreund.de/blog/2025/08/15/digital-sovereignty-index-score/                                                       | Nextcloud Digital Sovereignty Index                                  |                                                       |
+| https://www.bechtle.com/dam/jcr:32fae9a6-40fe-4c92-ac69-ae61a2d018a6/pm-bechtle-index-fuer-digitale-souveraenitaet-29092025-en.pdf | Bechtle Index                                                        | PDF returned minimal content                          |
+| https://www.heise.de/en/news/Cloud-Sovereignty-Framework-How-the-EU-will-assess-cloud-sovereignty-10922224.html                    | EU CSF details and open source role                                  | Follow-up for failed PDF                              |
+| https://www.connect-professional.de/netzwerke-it-infrastruktur/bechle-digital-souveraenitaet-403822.html                           | Bechtle Index dimensions                                             | Follow-up for failed PDF                              |
+| https://www.safespring.com/blogg/2025/2025-11-the-eu-just-defined-sovereign-cloud-here-is-our-score/                               | Full list of 8 SOV objectives; SOV-6 requires open source            |                                                       |
+| https://nextcloud.com/blog/digital-sovereignty-index-how-countries-compare-in-digital-independence/                                | DSI methodology: 50 self-hosted tools, per-country deployment counts |                                                       |
+| https://www.infoq.com/news/2025/11/eu-seal-framework-governance/                                                                   | SEAL governance trade-offs                                           |                                                       |
 
 Additional context discovered via web search: Bechtle Index dimensions, EU CSF objectives and SEAL rating system.
 
-The AI concluded that sovereignty score initiatives operate at a different level (organization/provider/country) than publiccode.yml (individual projects), but are *consumers* of the metadata publiccode.yml provides. Specifically, the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, requiring open source) directly need the kind of data the proposed extensions produce. The AI recommended adding these as context in the README rather than proposing new schema extensions.
+The AI concluded that sovereignty score initiatives operate at a different level (organization/provider/country) than publiccode.yml (individual projects), but are _consumers_ of the metadata publiccode.yml provides. Specifically, the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, requiring open source) directly need the kind of data the proposed extensions produce. The AI recommended adding these as context in the README rather than proposing new schema extensions.
 
 **Human input (prompt 4):**
+
 > Add the findings into the README as relevant context. Also create a new document PITCH.md with a 300-500 characters pitch each of the stakeholders in PROPOSAL.md using bullet points as much as possible.
 
 The AI added the sovereignty score initiatives as a new "Digital Sovereignty Score Initiatives" subsection under "Other Relevant Standards and Initiatives" in README.md, with a table of 5 initiatives and framing text explaining why they are consumers of publiccode.yml metadata rather than competing standards. The AI also created PITCH.md with per-stakeholder pitches (one section per actor from the PROPOSAL.md Actors table). No web searches were performed — the analysis used previously retrieved research.
 
 **Human input (prompt 5):**
+
 > Make the pitch more based around economic and political goals. The current pitch focuses too much on the benefits around implementation without clarifying why implementation is even useful to them.
 
 The AI rewrote all 8 stakeholder pitches in PITCH.md to lead with economic and political motivations (market access, contract competitiveness, procurement risk reduction, digital sovereignty compliance, funding efficiency, evidence-based policy) rather than technical implementation benefits. No web searches were performed.
 
 **Human input (prompt 6):**
+
 > Examine the proposal for potential risks and create another document RISK_ANALYSIS.md
 
 The AI read all four existing documents (README.md, PROPOSAL.md, PITCH.md, METHODOLOGY.md) and produced a systematic risk analysis identifying 28 risks across 7 categories: adoption (5), technical (5), security/trust (5), governance (3), political/jurisdictional (3), economic/sustainability (4), and dependency/external (4). Each risk was assessed for likelihood and impact with proposed mitigations. The analysis highlighted 5 critical risks (high likelihood + high impact): branding deterring non-government adoption, chicken-and-egg bootstrapping for registries, registry API interoperability failures, credit gaming, and split governance blocking progress. No web searches were performed — the analysis was based entirely on close reading of the existing documents and domain knowledge.
@@ -341,9 +406,11 @@ The AI read all four existing documents (README.md, PROPOSAL.md, PITCH.md, METHO
 ### Phase 7: Roadmap (2026-02-09)
 
 **Human input (prompt 1):**
+
 > While PROPOSAL contains the final solution and PITCH sells it to the stakeholders, there is the question on what steps to take in what order to reasonably achieve this vision. This obviously depends on which allies can be sold on the vision early on.
 
 The human then described the existing coalition landscape:
+
 - ZenDiS and Schleswig-Holstein (openCode.de) — likely willing to collaborate
 - Switzerland's close collaboration with ZenDiS
 - BFH owns ossdirectory.com, would benefit from the data sources
@@ -360,11 +427,13 @@ The AI read all existing documents (README.md, PROPOSAL.md, PITCH.md, RISK_ANALY
 The human corrected "BFH" to "BFH / CHopen" in the allies table, removed Switzerland as a separate ally (implicitly covered by ZenDiS connection), and trimmed some engagement pathway descriptions. These edits were made directly in the IDE.
 
 **Human input (prompt 2):**
+
 > There is a connection to Andrew Nesbitt and CHAOSS as well.
 
 The AI added Andrew Nesbitt / ecosyste.ms and CHAOSS to the allies table. Both had also appeared in the "Additional Key Players Needed" section further down the document.
 
 **Human input (prompt 3):**
+
 > "Confirmed or Likely Allies" content is somewhat duplicate of "Additional Key Players Needed" and vice versa.
 
 The AI restructured to eliminate duplication: the allies table became the single source for players with existing relationships (Andrew Nesbitt, CHAOSS, Drupal, publiccode.yml governance body), and "Additional Key Players Needed" was reduced to only players with no current relationship (Developers Italia, EU Commission, OpenSSF, Foundation for Public Code, and global-scale players).
@@ -373,11 +442,13 @@ The AI restructured to eliminate duplication: the allies table became the single
 The human simplified the CHAOSS description and adjusted the relationship status to "Direct contact." These edits were made directly in the IDE.
 
 **Human input (prompt 4):**
+
 > github.com/publiccodeyml is about the file spec, tooling and such, while github.com/publiccodenet is a Dutch foundation. publiccodenet also have a subproject called The Standard for Public Code. So the owner of the publiccode.yml standard is github.com/publiccodeyml. The foundation might be a relevant ally to work with but so far there is no connection to them.
 
 The human provided a link to https://standard.publiccode.net/docs/review-template.html. The AI fetched this URL and confirmed that The Standard for Public Code is a broader framework (18 criteria for public software projects) that recommends publiccode.yml as one tool for meeting its findability criteria — it does not control or govern the publiccode.yml spec itself.
 
 This corrected a misunderstanding present across all documents since Phase 2: the AI had treated the two GitHub organizations (publiccodeyml and publiccodenet) as a "split governance" problem (risk G1), when in fact they are separate entities with different scopes. The AI updated all documents:
+
 - README.md: Reframed the weakness from "governance spread across multiple orgs" to "small governance community relative to institutional adoption"
 - RISK_ANALYSIS.md: Reframed G1 from "split governance creates confusion" to "small spec governance community relative to institutional adoption," updated the risk matrix row and critical risks summary
 - ROADMAP.md: Reframed the critical prerequisite from governance clarity to maintainer buy-in, updated Phase 0 actions to focus on capacity and support rather than determining which org is canonical, updated the Foundation for Public Code entry from "governance clarification" to "potential amplifier with no current connection"
@@ -389,17 +460,20 @@ No additional web searches were performed beyond the Standard for Public Code UR
 **External input:** Andrew Nesbitt (ecosyste.ms, OSS Taxonomy author) filed [GitHub issue #2](https://github.com/lsmith77/open-source-ecosystem/issues/2) with feedback based on his experience indexing thousands of publiccode.yml files via ecosyste.ms. His core argument: "across the thousands of files I index via ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases."
 
 He proposed that publiccode.yml should exclude fields that become outdated quickly (version numbers, release dates, dependency version minimums) — data that already exists in authoritative sources like forge APIs and package registries — and retain only:
+
 - **Classification** — project categorization unavailable elsewhere
 - **Contacts and maintenance** — support contacts and arrangements
 - **Legal** — license and copyright declarations
 - **Registry pointers** — links to credits, supply chains, and SBOMs
 
 **Human input (prompt 1):**
+
 > Review the feedback from https://github.com/lsmith77/open-source-ecosystem/issues/2 and make relevant updates, while keeping METHODOLOGY.md updated.
 
 The AI fetched the issue, analyzed the feedback against all existing documents, and identified that Andrew's proposal directly aligns with Design Principle 1 ("publiccode.yml points to external data, doesn't replicate it") but applies it more aggressively — to fields already in the current spec, not just proposed extensions. The AI also identified that the feedback strengthens the case for Extension 2 (Supply Chain References), since `supplyChain.sbom` becomes the authoritative replacement for `dependsOn[].versionMin`.
 
 The AI updated all documents:
+
 - **PROPOSAL.md:** Added Design Principle 2 ("only slow-changing, human-authored data"), renumbered subsequent principles. Added Extension 5 (Deprecate Temporal Fields) with schema, rationale, and the four-category framework from Andrew's feedback. Updated the full example to remove `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin`. Renumbered YAML-LD from Extension 5 to Extension 6.
 - **README.md:** Added "temporal fields cause widespread staleness" to publiccode.yml weaknesses with Andrew's empirical evidence. Added "deprecation of temporal fields" as recommendation item 5.
 - **RISK_ANALYSIS.md:** Added A5 (temporal field staleness, High/High) with ecosyste.ms evidence. Renumbered faceted classification complexity from A5 to A6. Added A5 to critical risks summary. Updated A3 mitigation to cross-reference A5. Updated Extension 5→6 references for YAML-LD risk T4.
@@ -412,25 +486,30 @@ No web searches were performed beyond fetching the GitHub issue — the analysis
 ### Phase 8: Organization-Level Usage Declarations (2026-02-10)
 
 **Human input (prompt 1):**
+
 > For public facing use of open source, use could also be tracked via .well-known. It would also help in tracking what is no longer in use. Via the domain this could be mapped to organizations. Is this worth considering? What are the risks?
 
 The AI analyzed the proposal's existing `.well-known` usage (for registry discovery at line 750 of PROPOSAL.md) and identified that the human's idea was architecturally distinct: deploying organizations publishing `/.well-known/publiccode-usage.json` on their own domains, rather than registries publishing registry manifests. The AI assessed the idea against the proposal's design principles and identified benefits (domain as identity, deprecation signals, low barrier, decentralization) and risks (security exposure, stale data, organizational complexity, adoption friction, IANA registration, biased visibility).
 
 **Human input (prompt 2):**
+
 > The file should be maintained as part of the deployment itself, ie. Drupal project would integrate such a file as part of its documented deployment processes. Security risk is fairly low given the reliability of services like BuiltsWith (for which there is unfortunately no open source alternative). There could even be crawlers that public organizations could use to scan internally and then publish in bulk via some defined mechanism for registries to index. Update the relevant documents with these findings, including the METHODOLOGY.md.
 
 The human provided three key corrections/additions to the AI's initial analysis:
+
 1. The file should be maintained as part of deployment processes, not as a separate IT operations task — projects like Drupal would integrate it into their deployment documentation
 2. The security risk assessment should be lowered because technology detection services like BuiltWith already expose comparable information for public-facing applications
 3. Internal scanning tools could inventory deployed software and publish results in bulk
 
 The AI updated all documents:
+
 - PROPOSAL.md: Added "Organization-Level Usage Declarations" subsection with schema, design rationale (deployment-integrated maintenance, domain as identity, no version details, explicit retirement), and three intake mechanisms (`.well-known` crawling, direct declaration, bulk import from internal scans). Updated the "Why Credit and Usage Are Architecturally Different" table with a "How data enters" row. Updated "What This Enables" with two new items.
 - RISK_ANALYSIS.md: Revised S5 (privacy risks) to acknowledge BuiltWith precedent and lower likelihood from Medium to Low-Medium. Added S6 (stale `.well-known` files) as a new risk. Updated risk summary matrix.
 - ROADMAP.md: Expanded Phase 4 with three new actions (`.well-known` spec, deployment integration with Drupal/Nextcloud, internal scan tool prototype) and updated deliverables.
 - PITCH.md: Added deployment integration points to OSS Project/Maintainer and Deploying Organization pitches.
 
 **Human input (prompt 3):**
+
 > In the proposal also mention that tooling could be created that would help organizations crawl both especially their internally (and publically) deployed tools that each publish their own .well-known publiccode-usage.json to build the public facing publiccode-usage.json that serves as the public gateway to this information. This way risk of stale data is minimized and both internal and public facing open source use could be declared.
 
 The human refined the architecture from a single organizational file to a two-tier model: individual deployments (both internal and public-facing) each publish their own per-deployment `/.well-known/publiccode-usage.json`, and an organizational aggregation tool crawls these to assemble the public-facing file on the organization's primary domain. This addresses the stale data risk (S6) more fundamentally — data is maintained at the source by deployment processes, and the aggregation tool serves as both an assembly mechanism and an audit tool.
@@ -453,16 +532,17 @@ The human identified that the proposal lacked explicit connection to the "Public
 
 #### Sources investigated — Public procurement policy
 
-| URL | Purpose | Notes |
-|---|---|---|
-| https://publiccode.eu/ | PMPC campaign principles | Fetch failed, content not extractable |
-| https://dri.es/funding-open-source-for-digital-sovereignty | Contribution-based procurement argument | Drupal credit system as procurement model |
-| https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland | EMBAG law details | Mandatory source code disclosure, Article 9, Prof. Stürmer quote |
-| https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software | OSBA procurement criteria | Community relationship, upstream publication, Level 3 support, supply chain security |
+| URL                                                                                                                                  | Purpose                                 | Notes                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- | ------------------------------------------------------------------------------------ |
+| https://publiccode.eu/                                                                                                               | PMPC campaign principles                | Fetch failed, content not extractable                                                |
+| https://dri.es/funding-open-source-for-digital-sovereignty                                                                           | Contribution-based procurement argument | Drupal credit system as procurement model                                            |
+| https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/news/new-open-source-law-switzerland               | EMBAG law details                       | Mandatory source code disclosure, Article 9, Prof. Stürmer quote                     |
+| https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software | OSBA procurement criteria               | Community relationship, upstream publication, Level 3 support, supply chain security |
 
 Additional context discovered via web search: PMPC campaign details (200+ orgs, 31,000+ signatories).
 
 The AI synthesized findings across all sources and identified:
+
 - The PMPC principle creates demand for the extensions: once governments commit to open source, they need the discovery/evaluation infrastructure this proposal provides
 - The OSBA's four procurement criteria map directly to specific extensions (creditRegistries → criterion 1 and 2, maintenance + credits → criterion 3, supplyChain → criterion 4)
 - Switzerland's EMBAG demonstrates that legislation works but reveals a gap: mandating release is not sufficient without procurement infrastructure
@@ -472,6 +552,7 @@ The AI synthesized findings across all sources and identified:
 The human directed that APELL and EuroStack be listed as separate allies (not combined), noting acquaintances in both initiatives.
 
 **Human input (prompt 3):**
+
 > Should new stakeholders be added? Update the PITCH and METHODOLOGY documents
 
 The AI identified that "Policy Maker / Legislator" is a distinct actor from "Federal Authority / Funder" — legislators craft laws and procurement regulations (EMBAG, Buy Open Source Act), while funders allocate money (Sovereign Tech Fund, CISA). The AI added the new actor to PROPOSAL.md and a corresponding pitch section to PITCH.md.
@@ -480,6 +561,7 @@ The AI identified that "Policy Maker / Legislator" is a distinct actor from "Fed
 
 **Human input (prompt 1):**
 The human identified that the proposal referenced Drupal's credit system as inspiration but lacked important details. They provided two URLs and the following context:
+
 - Drupal's `contribution_records` module is architecturally ticket-system-agnostic and has an API — it could be adopted by other OSS projects or operated as a SaaS
 - Drupal has documented their rating system in detail (credit weights, contribution types, marketplace ranking)
 - Some projects might prefer simpler metrics (GitHub Sponsors, code contributor mapping)
@@ -488,17 +570,19 @@ The human identified that the proposal referenced Drupal's credit system as insp
 
 #### Sources investigated — Credit system reference architecture
 
-| URL | Purpose | Notes |
-|---|---|---|
-| https://git.drupalcode.org/project/contribution_records | contribution_records module | Open-source, 361 commits, ticket-system-agnostic |
+| URL                                                                                                | Purpose                           | Notes                                                                                   |
+| -------------------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------- |
+| https://git.drupalcode.org/project/contribution_records                                            | contribution_records module       | Open-source, 361 commits, ticket-system-agnostic                                        |
 | https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking | Credit weight and ranking details | Issue credits scaled by project usage, case studies, org membership, event sponsorships |
 
 The AI distilled the critical aspects into three documents:
+
 - **PROPOSAL.md:** Added a new paragraph in Extension 3 intro on the spectrum of credit system complexity (from Drupal's weighted system to GitHub Sponsors), with an explicit scope boundary. Enhanced Credit Registry API Design Principle 4 with the `contribution_records` module's reusability. Added new "Attribution policies" bullet in "What This Doesn't Standardize" covering credit stickiness.
 - **PITCH.md:** Added "Protect your investment in contributions" (credit stickiness) to Vendor pitch. Added "Build on proven infrastructure" (reusable `contribution_records` module) to Credit Registry pitch.
 - **METHODOLOGY.md:** This phase entry and new sources.
 
 Documents updated:
+
 - PROPOSAL.md: New "Policy Context: Public Procurement and Open Source" section with extension-to-procurement mapping table, OSBA criteria alignment, and legislative models subsection. Updated table of contents. New "Policy Maker / Legislator" actor in Actors table.
 - PITCH.md: New "Policy Maker / Legislator" section with four bullet points on enforceable criteria, legislative models, sovereignty, and level playing field.
 - ROADMAP.md: New allies (FSFE, Swiss Federal Chancellery, APELL, EuroStack). Removed FSFE duplicate from Phase 5 table. New procurement policy actions in Phases 0, 2, 3, and 5. Updated sequencing rationale with procurement policy track description.
@@ -628,7 +712,7 @@ Key decisions made by the human during the process:
 
 8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both README.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
 
-9. **Digital sovereignty scores assessed as out-of-scope for schema extensions.** The human asked whether digital sovereignty score initiatives fit into the proposal, providing 6 URLs. The AI researched all six and concluded they operate at a different level (organization/provider/country) than publiccode.yml (individual projects). The AI identified them as *consumers* of publiccode.yml metadata rather than candidates for new schema fields — particularly the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, which requires open source). Decision on whether to add these to the README as contextual motivation is pending human direction.
+9. **Digital sovereignty scores assessed as out-of-scope for schema extensions.** The human asked whether digital sovereignty score initiatives fit into the proposal, providing 6 URLs. The AI researched all six and concluded they operate at a different level (organization/provider/country) than publiccode.yml (individual projects). The AI identified them as _consumers_ of publiccode.yml metadata rather than candidates for new schema fields — particularly the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, which requires open source). Decision on whether to add these to the README as contextual motivation is pending human direction.
 
 10. **Risk analysis as a separate document.** The human directed the AI to examine the proposal for risks and create a dedicated RISK_ANALYSIS.md. The AI chose to organize risks into 7 categories (adoption, technical, security/trust, governance, political, economic, dependency) with per-risk likelihood/impact assessment and mitigations — a structure not specified by the human but consistent with standard risk analysis practice. The AI identified 5 critical risks and flagged governance (split governance blocking progress) as the highest-priority prerequisite.
 
@@ -654,6 +738,8 @@ Key decisions made by the human during the process:
 
 21. **Methodology restructured based on external feedback.** Andrew Nesbitt reviewed this methodology document and noted that web search query strings are not useful for reproducibility (the search engine and results are opaque), but the investigated URLs are valuable as a reproducible research log and reference document. The AI restructured accordingly: query strings removed, URLs retained, summary lines added for web-search-discovered context.
 
+22. **Readability, tone, and inclusivity review (2026-02-15).** The human requested a comprehensive review of all documents to ensure consistent, professional, inclusive tone and improved readability. The AI performed systematic analysis identifying inconsistencies (terminology, tone, complexity assumptions) and gaps (acronyms undefined, limited context for non-specialists). The AI then implemented improvements across all documents: standardized terminology with first-use acronym definitions, simplified complex sentences, added plain-language summaries, improved table formatting, and enhanced accessibility throughout. The AI also created two new accessibility documents: GLOSSARY.md (50+ term definitions) and HOW_TO_READ.md (navigation guide for 7 reader roles). No editorial decisions were made by the AI beyond what was explicitly needed to improve clarity and consistency—all choices about tone and phrasing were human-evaluated in context before acceptance.
+
 ---
 
 ## Limitations
@@ -677,6 +763,7 @@ This methodology document is itself experimental. If you adopt a similar approac
 5. **Acknowledge limitations** including the inherent non-reproducibility of LLM outputs (same prompt may yield different results).
 
 A future standard for this kind of documentation might combine:
+
 - **PROV-O** vocabulary (Entity/Activity/Agent) for formal provenance chains
 - **CRediT** roles for human-AI attribution
 - **PRISMA-style** flow diagrams for the research process

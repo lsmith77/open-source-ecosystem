@@ -1,6 +1,6 @@
-# Proposal: publiccode.yml v1.0 Extensions
+# Proposal: An Integrated Ecosystem for Decentralized Open Source Registry Infrastructure
 
-A concrete proposal for evolving publiccode.yml to address the gaps identified in the [evaluation](README.md). All proposed changes are backward-compatible additions — existing v0.x files remain valid.
+A concrete proposal for evolving publiccode.yml with five backward-compatible extensions, plus four companion standards (APIs, registries, discovery mechanisms) and supporting policy frameworks to address the gaps identified in the [evaluation](README.md). The extensions are backward-compatible — existing v0.x files remain valid — while the companion standards enable decentralized registries, standardized data formats, and verifiable trust networks for procurement and adoption decisions.
 
 ## Contents
 
@@ -21,13 +21,19 @@ A concrete proposal for evolving publiccode.yml to address the gaps identified i
 
 ## Design Principles
 
-1. **The publiccode.yml file is the authoritative anchor.** It lives in the repository and is maintained by the project. It describes the project and points to external systems where the project has authority; it does not replicate dynamic data.
-2. **Only slow-changing, human-authored data belongs in publiccode.yml.** Fields that change with every release (version numbers, release dates, dependency version constraints) belong in forge APIs, package registries, and SBOMs — not in a file that nobody remembers to update. The file should contain classification, contacts, legal, and registry pointers: data that humans must author and that doesn't become stale between releases.
-3. **Only project-authoritative data belongs in publiccode.yml.** The project can endorse credit registries (it knows who contributes). It cannot endorse usage registries (it doesn't control who uses it). Usage data flows independently.
-3. **Decentralized registries discover projects, not the other way around.** Usage registries index projects by their publiccode.yml `url` field. A companion [Registry Discovery Standard](#registry-discovery-standard) makes registries themselves crawlable.
-5. **External systems should implement standardized APIs.** So that crawlers (openCode.de, EU OSS Catalogue, Developers Italia) can aggregate data from any conforming provider, not just one.
-6. **Faceted classification replaces flat categories.** Enabling multi-dimensional discovery for procurement and supply chain analysis.
-7. **Future consideration: linked data representation.** Interoperability with the linked-data ecosystem (CodeMeta, schema.org, Software Heritage) via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/) is possible — crawlers can produce linked data from plain publiccode.yml by applying a canonical `@context` at indexing time — but is deferred from this proposal to reduce complexity.
+1. **publiccode.yml is the anchor point.** It lives in the repository and is maintained by the project team. It describes the project itself and points to external systems where appropriate; it doesn't duplicate dynamic data.
+
+2. **Keep only what changes rarely.** Store information that changes with every release (version numbers, release dates) elsewhere—in GitHub releases, package registries, and Software Bill of Materials (SBOMs). Keep only data that humans maintain and that doesn't age between releases: classification, contacts, legal information, and pointers to external registries.
+
+3. **Only include data the project controls.** A project can endorse which credit registries track its contributors (the project knows who contributes). A project cannot endorse usage registries (the project doesn't control who uses it). Usage data belongs entirely outside the file.
+
+4. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
+
+5. **All external systems use standardized APIs.** This allows catalogs (openCode.de, EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
+
+6. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
+
+7. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
 
 ---
 
@@ -39,13 +45,13 @@ This proposal answers that question. Each extension directly serves a procuremen
 
 ### How the Extensions Serve Procurement
 
-| Procurement need | Extension | What it enables |
-|---|---|---|
-| **Finding software that fits** | [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories) | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing |
-| **Assessing security posture** | [Extension 2: Supply Chain References](#extension-2-supply-chain-references) | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies |
-| **Evaluating vendor expertise** | [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery) | Verifiable contribution data — who actually maintains the software, not just who claims to |
-| **Checking peer adoption** | [Extension 4](#extension-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control |
-| **Trusting the metadata** | [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields) | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
+| Procurement need                | Extension                                                                                                                | What it enables                                                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| **Finding software that fits**  | [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories)                     | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing                            |
+| **Assessing security posture**  | [Extension 2: Supply Chain References](#extension-2-supply-chain-references)                                             | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies                  |
+| **Evaluating vendor expertise** | [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery)                               | Verifiable contribution data — who actually maintains the software, not just who claims to                          |
+| **Checking peer adoption**      | [Extension 4](#extension-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control                                   |
+| **Trusting the metadata**       | [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields)                                         | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
 
 ### Alignment with Procurement Criteria Frameworks
 
@@ -64,22 +70,20 @@ Legislation is creating demand for this infrastructure. Switzerland's [EMBAG law
 
 ## Actors and Relationships
 
-The ecosystem this proposal addresses has distinct actors with different authorities and information needs. Understanding who knows what — and who should assert what — drives the architecture. See [PITCH.md](PITCH.md) for what each actor gains economically and politically from this proposal.
+The ecosystem this proposal addresses brings together different actors, each with distinct authority and information needs. Here's who needs what, and why:
 
-### Actors
-
-| Actor                          | Role                                                                                                                                     | Example                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| **OSS Project**                | Publishes source code and publiccode.yml. Has authority over its own description, classification, and which contributions it recognizes. | Drupal, Nextcloud, OpenDesk                 |
-| **Maintainer**                 | Maintains the project day-to-day. Authors and commits the publiccode.yml file. May be employed by a vendor or an agency.                 | An individual or team                       |
-| **Vendor / Service Provider**  | Contributes to projects and sells expertise to procurement offices. Wants to be discoverable as knowledgeable for specific software.     | Acme GmbH, CivicActions                     |
-| **Procurement Office**         | Searches for software that meets a need, evaluates vendor expertise, assesses security posture and licensing compliance, and makes buying decisions. | A municipal IT department                   |
-| **Deploying Organization**     | Runs the software in production. May or may not be the same as the procurement office. Wants to declare what it uses.                    | Stadt München, Comune di Roma               |
-| **Federal Authority / Funder** | Steers money toward supply chain security, identifies ecosystem gaps, sets policy.                                                       | Sovereign Tech Fund, CISA, ZenDiS           |
-| **Policy Maker / Legislator**  | Drafts laws and procurement regulations that mandate or prioritize open source. Needs evidence infrastructure to make compliance verifiable. | Swiss Federal Chancellery (EMBAG), APELL, EuroStack |
-| **Credit Registry**            | Tracks who contributes to which projects. Endorsed by projects.                                                                          | Drupal.org Marketplace, ecosyste.ms         |
-| **Usage Registry**             | Tracks which organizations use which software. Operates independently of projects.                                                       | openCode.de, Developers Italia              |
-| **Software Catalog / Crawler** | Aggregates data from publiccode.yml files and registries into a searchable index.                                                        | EU OSS Catalogue, Developers Italia catalog |
+| Actor                          | Role                                                                                                                                   | Example                                                  |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Open Source Project**        | Publishes code and metadata. Decides project classification and which contributions it recognizes.                                     | Drupal, Nextcloud, OpenDesk                              |
+| **Maintainer**                 | Day-to-day steward who authors and commits the publiccode.yml file. May work for a vendor, agency, or as an independent contributor.   | An individual or core team                               |
+| **Vendor**                     | Contributes code to projects and sells related services. Wants to be findable to procurement professionals evaluating their expertise. | Consulting firms specializing in specific platforms      |
+| **Procurement Office**         | Searches for suitable software, evaluates vendor expertise and security, makes purchasing decisions.                                   | Municipal IT departments, federal agencies               |
+| **Deploying Organization**     | Actually runs the software in production. Wants to declare what it uses.                                                               | Cities, universities, government agencies                |
+| **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps.                                                                         | Sovereign Tech Fund, CISA, digital sovereignty offices   |
+| **Policy Maker / Legislator**  | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                       | National parliaments, EU Commission                      |
+| **Credit Registry**            | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                             | Drupal.org Marketplace, ecosyste.ms funding platforms    |
+| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | openCode.de, Developers Italia catalog                   |
+| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU Open Source Catalogue, openCode.de, Developers Italia |
 
 ### Who Asserts What
 
@@ -136,12 +140,16 @@ The architecture depends on each piece of data being asserted by the actor who a
 
 ### Why Credit and Usage Are Architecturally Different
 
-|                                | Credit registries                                                                                     | Usage registries                                                  |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Who has authority?**         | The project knows who contributes to it.                                                              | Deploying organizations know what they run. The project does not. |
-| **Listed in publiccode.yml?**  | Yes — as an endorsement by the project.                                                               | No — the project has no role in tracking its own adoption.        |
-| **Discovered by crawlers via** | publiccode.yml `creditRegistries` field + [Registry Discovery Standard](#registry-discovery-standard) | [Registry Discovery Standard](#registry-discovery-standard) only  |
-| **How data enters**            | Via the registry's tracking mechanisms (issue credits, commit attribution, manual curation)            | Via direct registry declarations, [`.well-known/publiccode-usage.json`](#organization-level-usage-declarations) on org domains, or bulk imports from internal scans |
+A critical distinction: **who has authority over the data**.
+
+|                                  | Credit registries                                                            | Usage registries                                                        |
+| -------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **What's tracked**               | Who contributes to projects and how much                                     | Which organizations deploy projects                                     |
+| **Who knows this?**              | The project maintainers                                                      | The deploying organizations                                             |
+| **Listed in publiccode.yml?**    | Yes — as endorsements                                                        | No — the project doesn't control this data                              |
+| **How crawlers find registries** | From publiccode.yml `creditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
+| **Data entry mechanism**         | Central registry maintains the data                                          | Direct declarations from deploying organizations and automated crawling |
+| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | openCode.de showing which German towns use Nextcloud                    |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
@@ -149,9 +157,9 @@ This separation keeps each actor in control of the claims they can actually back
 
 ## Extension 1: Faceted Classification (replacing flat `categories`)
 
-The current `categories` field is a flat list of ~100 values (e.g., `content-management`, `crm`, `hr`). This makes it impossible to express that a project is a "healthcare CRM library for backend use" — you'd pick `crm` and lose the rest.
+The current `categories` field is a flat list of ~100 values (like `content-management`, `crm`, `website`). This makes it impossible to express specific combinations. You can't say "a healthcare CRM that's a plugin library for backend use" — you'd pick `crm`, lose the other dimensions, and leave procurement officers guessing.
 
-**Proposal:** Replace `categories` with a `classification` section using faceted dimensions inspired by the [OSS Taxonomy](https://nesbitt.io/2025/11/29/oss-taxonomy.html). Keep `categories` as a deprecated alias during transition.
+**Proposal:** Replace `categories` with a `classification` section organized by the six dimensions from the OSS Taxonomy. Keep `categories` as a deprecated fallback during transition.
 
 ### Schema
 
@@ -215,13 +223,13 @@ classification:
 
 ### Why This Matters for Procurement
 
-A procurement officer searching for "CRM for healthcare that runs as a web application" can now query:
+Procurement officers need to answer questions like:
 
-```
-function=crm AND domain=healthcare AND role=standalone-web
-```
+- "Show me all content management systems suitable for public administration that run as web applications."
+- "Which of these CMS options has the most active vendor ecosystem?"
+- "How secure is this project? How up-to-date are its dependencies?"
 
-With the old flat `categories`, the best they could do was search for `crm` and manually filter — assuming the project even listed itself under `crm` rather than `healthcare`.
+With faceted classification, an officer can query with multiple dimensions simultaneously. With flat categories, they can only search one dimension at a time and manually filter the rest.
 
 ### Vocabulary Governance
 
@@ -355,11 +363,11 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 
 ### Fields to Deprecate
 
-| Field | Why it goes stale | Authoritative source |
-|---|---|---|
-| `softwareVersion` | Changes with every release; rarely updated in publiccode.yml | Forge API (GitHub releases, GitLab tags), package registry |
-| `releaseDate` | Same as above — coupled to `softwareVersion` | Forge API, package registry |
-| `dependsOn[].versionMin` | Dependency minimum versions evolve with each release | Package manager lockfiles, SBOM (already referenced in `supplyChain`) |
+| Field                    | Why it goes stale                                            | Authoritative source                                                  |
+| ------------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------- |
+| `softwareVersion`        | Changes with every release; rarely updated in publiccode.yml | Forge API (GitHub releases, GitLab tags), package registry            |
+| `releaseDate`            | Same as above — coupled to `softwareVersion`                 | Forge API, package registry                                           |
+| `dependsOn[].versionMin` | Dependency minimum versions evolve with each release         | Package manager lockfiles, SBOM (already referenced in `supplyChain`) |
 
 ### Schema Change
 
@@ -657,13 +665,13 @@ Usage registries are the canonical aggregation point for adoption data, but the 
 
 #### Key Fields
 
-| Field                 | Purpose                                                                                                                   |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `organization.url`    | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)           |
-| `software[].url`      | The project's canonical URL (matches the `url` field in publiccode.yml)                                                   |
-| `software[].status`   | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                      |
-| `software[].until`    | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                       |
-| `lastUpdated`         | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale |
+| Field               | Purpose                                                                                                                           |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `organization.url`  | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                  |
+| `software[].url`    | The project's canonical URL (matches the `url` field in publiccode.yml)                                                           |
+| `software[].status` | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                              |
+| `software[].until`  | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                               |
+| `lastUpdated`       | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale |
 
 The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
 
