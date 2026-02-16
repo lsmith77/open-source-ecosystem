@@ -166,70 +166,83 @@ The current `categories` field is a flat list of ~100 values (like `content-mana
 ```yaml
 # New faceted classification (replaces `categories`)
 classification:
-  # WHAT domain does this software serve?
+  # WHAT industry or field does this software serve?
   # Controlled vocabulary, multiple allowed.
+  # Examples: blockchain, cloud-computing, content-management, data-science,
+  # database, devops, embedded-systems, game-development, machine-learning, web-development
   domain:
-    - healthcare
-    - public-administration
-
-  # WHAT function does this software perform?
-  # Controlled vocabulary, multiple allowed. This is the closest
-  # successor to the old `categories` list.
-  function:
     - content-management
-    - crm
-    - identity-management
+    - web-development
 
   # WHAT role does this software play architecturally?
-  # Controlled vocabulary from softwareType evolution.
+  # Controlled vocabulary, multiple allowed.
+  # Examples: application, build-tool, cli-tool, framework, library,
+  # orchestrator, package-manager, plugin, platform
   role:
-    - standalone-web # was: standalone/web
-    - library
-    - addon
     - framework
     - platform
+    - library
 
-  # WHERE in the stack does it operate?
+  # WHAT specific capabilities or tasks does it enable?
+  # Controlled vocabulary, multiple allowed.
+  # Examples: api-development, authentication, caching, ci-cd,
+  # containerization, database-management, deployment, logging
+  function:
+    - authentication
+    - caching
+    - database-management
+
+  # WHERE in the technology stack does it operate?
+  # Controlled vocabulary, multiple allowed.
+  # Examples: backend, data-layer, frontend, full-stack, infrastructure,
+  # middleware, operating-system, platform
   layer:
     - backend
     - frontend
     - full-stack
 
   # WHO is the intended audience?
-  # Replaces and extends intendedAudience.scope
+  # Controlled vocabulary, multiple allowed.
+  # Examples: content-creator, data-scientist, designer, developer,
+  # educator, end-user, enterprise, researcher, student
   audience:
-    - public-administration
-    - enterprise
     - developer
-    - citizen
+    - enterprise
+
+  # WHAT technologies does this project use or support?
+  # Controlled vocabulary, multiple allowed.
+  # Examples: python, javascript, rust, c, cpp, aws, docker, kubernetes, postgresql
+  technology:
+    - php
+    - javascript
+    - postgresql
 
   # Free-form tags for anything not covered by the controlled
   # vocabularies above. Uses the namespace:value convention
   # from OSS Taxonomy for forward compatibility.
   tags:
-    - "technology:python"
-    - "technology:django"
+    - "compatibility:drupal"
     - "compliance:gdpr"
 ```
 
 ### Migration Path from Current Schema
 
-| Current field                | Maps to                                             | Notes                                                                           |
-| ---------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `categories`                 | `classification.function`                           | 1:1 mapping for most values. Old values become the initial function vocabulary. |
-| `softwareType`               | `classification.role`                               | Slash syntax (`standalone/web`) becomes hyphenated (`standalone-web`).          |
-| `intendedAudience.scope`     | `classification.audience` + `classification.domain` | Split scope values into the appropriate dimension.                              |
-| `intendedAudience.countries` | Remains as `intendedAudience.countries`             | Geographic scope is not a classification dimension.                             |
+| Current field              | Maps to                   | Notes                                                                                     |
+| -------------------------- | ------------------------- | ----------------------------------------------------------------------------------------- |
+| `categories`               | `classification.function` | Old values like "content-management", "authentication" become function vocabulary.        |
+| `softwareType`             | `classification.role`     | Map standalone/web → standalone-web, etc.                                                 |
+| `intendedAudience.scope`   | `classification.audience` | Existing scope values map to audience (e.g., "enterprise" → audience: enterprise).        |
+| New mapping (no old field) | `classification.domain`   | Industry/field the software serves. Determined from README, description, or OSS Taxonomy. |
 
 ### Why This Matters for Procurement
 
 Procurement officers need to answer questions like:
 
-- "Show me all content management systems suitable for public administration that run as web applications."
-- "Which of these CMS options has the most active vendor ecosystem?"
-- "How secure is this project? How up-to-date are its dependencies?"
+- "Show me all software in the content-management domain that runs as a full-stack platform for developers."
+- "Which authentication libraries have active vendor ecosystems supporting them?"
+- "What backend infrastructure tools are available for cloud-computing deployments?"
 
-With faceted classification, an officer can query with multiple dimensions simultaneously. With flat categories, they can only search one dimension at a time and manually filter the rest.
+With faceted classification, an officer can query across multiple dimensions simultaneously. With flat categories, they can only search one dimension at a time and manually filter the rest. The OSS Taxonomy's six dimensions (domain, role, function, layer, audience, technology) enable rich combinatorial discovery.
 
 ### Vocabulary Governance
 

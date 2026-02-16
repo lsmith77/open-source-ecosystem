@@ -76,21 +76,22 @@ We examined five metadata standards and specifications that could potentially se
 
 **What it is:** A faceted classification system for categorizing open source projects across six dimensions:
 
-- **Domain**: What field does the software serve? (e.g., healthcare, education)
-- **Function**: What does it do? (e.g., authentication, reporting)
-- **Technology**: What languages or frameworks does it use?
-- **Audience**: Who uses it? (developers, enterprises, citizens)
-- **Layer**: Where in the technology stack? (frontend, backend, infrastructure)
-- **Role**: What architectural role? (library, plugin, framework, application)
+- **Domain**: What industry or field does the software serve? (e.g., blockchain, cloud-computing, content-management, data-science, database, devops, embedded-systems, game-development, machine-learning) — describes the domain or problem space
+- **Role**: What role does this software play architecturally? (e.g., application, framework, library, cli-tool, build-tool, compiler, package-manager, orchestrator)
+- **Technology**: What technologies does it use or support? (e.g., python, javascript, rust, aws, docker, kubernetes, postgresql)
+- **Audience**: Who uses it? (developer, data-scientist, designer, educator, content-creator, end-user, enterprise, researcher)
+- **Layer**: Where in the technology stack? (backend, frontend, full-stack, infrastructure, data-layer, middleware, operating-system, hardware)
+- **Function**: What specific capabilities or tasks does it enable? (api-development, authentication, caching, ci-cd, containerization, database-management, deployment, logging, monitoring)
 
-The taxonomy is stored as YAML in a GitHub repository and designed to integrate with CodeMeta (another metadata standard listed below) through namespaced keywords like `"domain:web-development"`.
+The taxonomy is stored as YAML in a GitHub repository ([ecosyste-ms/oss-taxonomy](https://github.com/ecosyste-ms/oss-taxonomy)) and designed to integrate with CodeMeta through namespaced keywords. Each project can have multiple terms per facet — for example, a web framework might be classified as `domain: [web-development, api-development]`, `role: [framework, library]`, `function: [api-development, authentication, routing]`. Crawlers interpret these as data points that projects optionally assert about themselves.
 
 **Strengths:**
 
-- **Solves the taxonomy problem well.** Multi-faceted classification is far more expressive than flat category lists. A project can be `domain:healthcare`, `function:authentication`, `layer:backend`, `role:library` simultaneously.
-- **Designed for funding/gap analysis.** If "function:authentication" is widely depended on but has few maintained options, funders can identify this.
-- **Integrates with existing standards.** Designed to work as a layer on top of CodeMeta without schema changes — pure additive.
-- **Backed by ecosyste.ms infrastructure.** Andrew Nesbitt runs the [largest open dataset of OSS metadata](https://ecosyste.ms/), tracking packages, repos, and dependencies across ecosystems.
+- **Solves the taxonomy problem well.** Multi-faceted classification is far more expressive than flat category lists. A project can be tagged with multiple terms per facet: `domain: [content-management, web-development]`, `role: [framework, library]`, `function: [authentication, routing, caching]` simultaneously.
+- **Designed for discovery and gap analysis.** Filter by what industry/field a tool addresses (domain), what architectural role it plays (role), what specific functions it enables (function), who it's for (audience), where it fits in the stack (layer), or what technologies it uses (technology). If "role: library" and "function: authentication" is widely needed but has few maintained options, funders can identify that gap.
+- **Supports complex queries across dimensions.** A developer can ask: "Show me all framework and library options in the web-development domain that support authentication for the backend layer." Without faceted taxonomy, this query is impossible.
+- **Integrates with existing standards.** Designed to work as a layer on top of CodeMeta without schema changes — pure additive via namespaced keywords.
+- **Backed by ecosyste.ms infrastructure.** Andrew Nesbitt runs the [largest open dataset of OSS metadata](https://ecosyste.ms/), tracking packages, repos, and dependencies across ecosystems. The taxonomy is designed to classify those millions of projects systematically.
 
 **Weaknesses:**
 
