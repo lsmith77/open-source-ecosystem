@@ -1,6 +1,6 @@
 # Research Methodology and Provenance
 
-This document records how the analysis in [README.md](README.md) and [PROPOSAL.md](PROPOSAL.md) was produced, including AI tool usage, prompts, sources, and editorial decisions. Its purpose is transparency and reproducibility.
+This document records how the analysis in [RESEARCH.md](RESEARCH.md) and [PROPOSAL.md](PROPOSAL.md) was produced, including AI tool usage, prompts, sources, and editorial decisions. Its purpose is transparency and reproducibility.
 
 ## Why This Document Exists
 
@@ -37,7 +37,7 @@ Phase 3: ANALYSIS
   Input:  Collected source material + user-defined evaluation criteria
   Method: AI synthesis with human-specified framing (procurement, supply
           chain, vendor credits, usage declarations)
-  Output: Comparative evaluation (README.md)
+  Output: Comparative evaluation (RESEARCH.md)
 
 Phase 4: PROPOSAL DEVELOPMENT
   Input:  Gap analysis from Phase 3 + user requirements
@@ -46,14 +46,14 @@ Phase 4: PROPOSAL DEVELOPMENT
   Output: Concrete schema proposal (PROPOSAL.md)
 
 Phase 5: REFINEMENT (2026-02-08)
-  Input:  Completed README.md and PROPOSAL.md from Phases 1–4
+  Input:  Completed RESEARCH.md and PROPOSAL.md from Phases 1–4
   Method: Human-prompted gap analysis of the Goal section; AI identified
           a missing goal, human approved, AI updated both documents
   Output: New goal added (security and compliance assessment),
           PROPOSAL.md updated to connect Extension 2 to the new goal
 
 Phase 6: RISK ANALYSIS (2026-02-08)
-  Input:  All existing documents (README.md, PROPOSAL.md, PITCH.md,
+  Input:  All existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md,
           METHODOLOGY.md)
   Method: Human-prompted risk examination; AI performed systematic risk
           identification across 7 categories with likelihood/impact
@@ -103,7 +103,7 @@ Phase 9: TEMPORAL FIELD DEPRECATION (2026-02-10)
   Output: New Extension 5 in PROPOSAL.md (Deprecate Temporal Fields),
           new Design Principle 2 (slow-changing data only), updated full
           example, renumbered YAML-LD to Extension 6. New weakness in
-          README.md, new recommendation item. New risk A5 in
+          RESEARCH.md, new recommendation item. New risk A5 in
           RISK_ANALYSIS.md (renumbered A5→A6 for classification
           complexity), updated critical risks. New pitch point in
           PITCH.md (maintainer). ROADMAP.md Phase 1 expanded to include
@@ -183,7 +183,7 @@ Phase 13: METHODOLOGY REVIEW (2026-02-13)
           Evaluated section retained as reference document.
 
 Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
-  Input:  All existing documents (README.md, PROPOSAL.md, PITCH.md,
+  Input:  All existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md,
           RISK_ANALYSIS.md, ROADMAP.md, METHODOLOGY.md)
   Method: Human requested comprehensive review to ensure consistent,
           professional, inclusive tone and improved readability across
@@ -209,13 +209,13 @@ Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
           - GLOSSARY.md: 50+ term definitions (technical standards,
             organizational concepts, policy terminology, ecosystem
             actors, governance concepts, metadata concepts, use cases)
-          - HOW_TO_READ.md: Navigation guide with 7 reader roles
+          - README.md: Navigation guide with 7 reader roles
             (procurement professional, maintainer, vendor, legislator,
             researcher, funder, catalog operator) with recommended
             reading paths and estimated times
 
           Updated existing documents:
-          - README.md: Added navigation intro, clearer goal framing,
+          - RESEARCH.md: Added navigation intro, clearer goal framing,
             simplified standard descriptions, enhanced weakness
             explanations, expanded Digital Sovereignty section
           - PROPOSAL.md: Redesigned Design Principles with plainer
@@ -345,7 +345,7 @@ Additional sources discovered via web search: YAML-LD feasibility, Drupal API st
 
 **Human input (prompt 1):**
 
-> Is there an additional goal not yet mentioned in the Goal section of the README.md that would make sense putting into the scope of this proposal?
+> Is there an additional goal not yet mentioned in the Goal section of the RESEARCH.md that would make sense putting into the scope of this proposal?
 
 The AI analyzed the four existing goals against the full document (gap analysis, recommendation, complementary standards) and identified that "security and compliance assessment" was extensively discussed as infrastructure (Extension 2, OpenSSF Scorecard, SBOM, REUSE) but never stated as an explicit goal. The AI distinguished this from existing goal 3 (supply chain steering) by framing it as the demand-side procurement perspective rather than the supply-side funding authority perspective.
 
@@ -353,7 +353,7 @@ The AI analyzed the four existing goals against the full document (gap analysis,
 
 > OK add this new goal. Is there anything in the proposal that needs to be changed to account for this new goal?
 
-The AI added goal 5 to README.md and identified two framing gaps in PROPOSAL.md where Extension 2's schema was already sufficient but the narrative didn't connect it to procurement assessment. No new schema extensions were needed — only the Procurement Office actor description and a new "What This Enables" section for Extension 2.
+The AI added goal 5 to RESEARCH.md and identified two framing gaps in PROPOSAL.md where Extension 2's schema was already sufficient but the narrative didn't connect it to procurement assessment. No new schema extensions were needed — only the Procurement Office actor description and a new "What This Enables" section for Extension 2.
 
 No web searches were performed in this phase — the analysis was based entirely on the existing documents.
 
@@ -389,7 +389,7 @@ The AI concluded that sovereignty score initiatives operate at a different level
 
 > Add the findings into the README as relevant context. Also create a new document PITCH.md with a 300-500 characters pitch each of the stakeholders in PROPOSAL.md using bullet points as much as possible.
 
-The AI added the sovereignty score initiatives as a new "Digital Sovereignty Score Initiatives" subsection under "Other Relevant Standards and Initiatives" in README.md, with a table of 5 initiatives and framing text explaining why they are consumers of publiccode.yml metadata rather than competing standards. The AI also created PITCH.md with per-stakeholder pitches (one section per actor from the PROPOSAL.md Actors table). No web searches were performed — the analysis used previously retrieved research.
+The AI added the sovereignty score initiatives as a new "Digital Sovereignty Score Initiatives" subsection under "Other Relevant Standards and Initiatives" in RESEARCH.md, with a table of 5 initiatives and framing text explaining why they are consumers of publiccode.yml metadata rather than competing standards. The AI also created PITCH.md with per-stakeholder pitches (one section per actor from the PROPOSAL.md Actors table). No web searches were performed — the analysis used previously retrieved research.
 
 **Human input (prompt 5):**
 
@@ -401,7 +401,7 @@ The AI rewrote all 8 stakeholder pitches in PITCH.md to lead with economic and p
 
 > Examine the proposal for potential risks and create another document RISK_ANALYSIS.md
 
-The AI read all four existing documents (README.md, PROPOSAL.md, PITCH.md, METHODOLOGY.md) and produced a systematic risk analysis identifying 28 risks across 7 categories: adoption (5), technical (5), security/trust (5), governance (3), political/jurisdictional (3), economic/sustainability (4), and dependency/external (4). Each risk was assessed for likelihood and impact with proposed mitigations. The analysis highlighted 5 critical risks (high likelihood + high impact): branding deterring non-government adoption, chicken-and-egg bootstrapping for registries, registry API interoperability failures, credit gaming, and split governance blocking progress. No web searches were performed — the analysis was based entirely on close reading of the existing documents and domain knowledge.
+The AI read all four existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md, METHODOLOGY.md) and produced a systematic risk analysis identifying 28 risks across 7 categories: adoption (5), technical (5), security/trust (5), governance (3), political/jurisdictional (3), economic/sustainability (4), and dependency/external (4). Each risk was assessed for likelihood and impact with proposed mitigations. The analysis highlighted 5 critical risks (high likelihood + high impact): branding deterring non-government adoption, chicken-and-egg bootstrapping for registries, registry API interoperability failures, credit gaming, and split governance blocking progress. No web searches were performed — the analysis was based entirely on close reading of the existing documents and domain knowledge.
 
 ### Phase 7: Roadmap (2026-02-09)
 
@@ -421,7 +421,7 @@ The human then described the existing coalition landscape:
 
 The human asked two questions: (1) what could be a sensible plan toward the proposal, and (2) what other key players would be necessary.
 
-The AI read all existing documents (README.md, PROPOSAL.md, PITCH.md, RISK_ANALYSIS.md) and produced a phased implementation plan (ROADMAP.md) with 6 phases over ~24 months, sequenced to leverage existing relationships and address critical risks in order. The plan started with governance (the #1 risk from RISK_ANALYSIS.md), proceeded through schema-only extensions requiring no new infrastructure, then used Drupal's existing credit system to bootstrap the registry architecture, and deferred global scaling to the final phase. No web searches were performed.
+The AI read all existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md, RISK_ANALYSIS.md) and produced a phased implementation plan (ROADMAP.md) with 6 phases over ~24 months, sequenced to leverage existing relationships and address critical risks in order. The plan started with governance (the #1 risk from RISK_ANALYSIS.md), proceeded through schema-only extensions requiring no new infrastructure, then used Drupal's existing credit system to bootstrap the registry architecture, and deferred global scaling to the final phase. No web searches were performed.
 
 **Human correction 1:**
 The human corrected "BFH" to "BFH / CHopen" in the allies table, removed Switzerland as a separate ally (implicitly covered by ZenDiS connection), and trimmed some engagement pathway descriptions. These edits were made directly in the IDE.
@@ -449,7 +449,7 @@ The human provided a link to https://standard.publiccode.net/docs/review-templat
 
 This corrected a misunderstanding present across all documents since Phase 2: the AI had treated the two GitHub organizations (publiccodeyml and publiccodenet) as a "split governance" problem (risk G1), when in fact they are separate entities with different scopes. The AI updated all documents:
 
-- README.md: Reframed the weakness from "governance spread across multiple orgs" to "small governance community relative to institutional adoption"
+- RESEARCH.md: Reframed the weakness from "governance spread across multiple orgs" to "small governance community relative to institutional adoption"
 - RISK_ANALYSIS.md: Reframed G1 from "split governance creates confusion" to "small spec governance community relative to institutional adoption," updated the risk matrix row and critical risks summary
 - ROADMAP.md: Reframed the critical prerequisite from governance clarity to maintainer buy-in, updated Phase 0 actions to focus on capacity and support rather than determining which org is canonical, updated the Foundation for Public Code entry from "governance clarification" to "potential amplifier with no current connection"
 
@@ -475,7 +475,7 @@ The AI fetched the issue, analyzed the feedback against all existing documents, 
 The AI updated all documents:
 
 - **PROPOSAL.md:** Added Design Principle 2 ("only slow-changing, human-authored data"), renumbered subsequent principles. Added Extension 5 (Deprecate Temporal Fields) with schema, rationale, and the four-category framework from Andrew's feedback. Updated the full example to remove `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin`. Renumbered YAML-LD from Extension 5 to Extension 6.
-- **README.md:** Added "temporal fields cause widespread staleness" to publiccode.yml weaknesses with Andrew's empirical evidence. Added "deprecation of temporal fields" as recommendation item 5.
+- **RESEARCH.md:** Added "temporal fields cause widespread staleness" to publiccode.yml weaknesses with Andrew's empirical evidence. Added "deprecation of temporal fields" as recommendation item 5.
 - **RISK_ANALYSIS.md:** Added A5 (temporal field staleness, High/High) with ecosyste.ms evidence. Renumbered faceted classification complexity from A5 to A6. Added A5 to critical risks summary. Updated A3 mitigation to cross-reference A5. Updated Extension 5→6 references for YAML-LD risk T4.
 - **ROADMAP.md:** Expanded Phase 1 to include temporal field deprecation alongside supply chain references (they pair naturally — SBOM replaces `dependsOn.versionMin`). Updated risk reference A5→A6 for classification complexity. Updated Extension 5→6 reference for YAML-LD.
 
@@ -704,13 +704,13 @@ Key decisions made by the human during the process:
 
 4. **Proposal scope.** The human directed which extensions to develop (faceted classification, SBOM, scorecard, credit registries, usage registries, JSON-LD) and specified the boundary between in-scope (schema pointers) and out-of-scope (credit data itself, usage data itself). The human specifically directed that credit and usage data are "too much in flux" for git-committed files.
 
-5. **File structure.** The human directed that the proposal be a separate file (PROPOSAL.md) rather than appended to README.md.
+5. **File structure.** The human directed that the proposal be a separate file (PROPOSAL.md) rather than appended to RESEARCH.md.
 
 6. **API outlines.** The Credit Registry API and Usage Registry API rough outlines were developed by the AI based on the Drupal Contribution Records system as a reference architecture, with human direction on scope boundaries.
 
 7. **Removal of `usageRegistries` from publiccode.yml.** The initial AI draft included a `usageRegistries` field in publiccode.yml, mirroring `creditRegistries`. The human identified a fundamental asymmetry: projects have authority over credit endorsement (they know who contributes) but no authority over usage tracking (they don't control who uses them). Listing usage registries in a project file creates false gatekeeping. The AI then redesigned the architecture: usage registries are now fully decentralized, discovered via a companion Registry Discovery Standard rather than listed per-project. Credit registries remain in publiccode.yml because project endorsement is meaningful there.
 
-8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both README.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
+8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both RESEARCH.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
 
 9. **Digital sovereignty scores assessed as out-of-scope for schema extensions.** The human asked whether digital sovereignty score initiatives fit into the proposal, providing 6 URLs. The AI researched all six and concluded they operate at a different level (organization/provider/country) than publiccode.yml (individual projects). The AI identified them as _consumers_ of publiccode.yml metadata rather than candidates for new schema fields — particularly the EU CSF's SOV-5 (Supply Chain) and SOV-6 (Technology Sovereignty, which requires open source). Decision on whether to add these to the README as contextual motivation is pending human direction.
 
@@ -738,7 +738,7 @@ Key decisions made by the human during the process:
 
 21. **Methodology restructured based on external feedback.** Andrew Nesbitt reviewed this methodology document and noted that web search query strings are not useful for reproducibility (the search engine and results are opaque), but the investigated URLs are valuable as a reproducible research log and reference document. The AI restructured accordingly: query strings removed, URLs retained, summary lines added for web-search-discovered context.
 
-22. **Readability, tone, and inclusivity review (2026-02-15).** The human requested a comprehensive review of all documents to ensure consistent, professional, inclusive tone and improved readability. The AI performed systematic analysis identifying inconsistencies (terminology, tone, complexity assumptions) and gaps (acronyms undefined, limited context for non-specialists). The AI then implemented improvements across all documents: standardized terminology with first-use acronym definitions, simplified complex sentences, added plain-language summaries, improved table formatting, and enhanced accessibility throughout. The AI also created two new accessibility documents: GLOSSARY.md (50+ term definitions) and HOW_TO_READ.md (navigation guide for 7 reader roles). No editorial decisions were made by the AI beyond what was explicitly needed to improve clarity and consistency—all choices about tone and phrasing were human-evaluated in context before acceptance.
+22. **Readability, tone, and inclusivity review (2026-02-15).** The human requested a comprehensive review of all documents to ensure consistent, professional, inclusive tone and improved readability. The AI performed systematic analysis identifying inconsistencies (terminology, tone, complexity assumptions) and gaps (acronyms undefined, limited context for non-specialists). The AI then implemented improvements across all documents: standardized terminology with first-use acronym definitions, simplified complex sentences, added plain-language summaries, improved table formatting, and enhanced accessibility throughout. The AI also created two new accessibility documents: GLOSSARY.md (50+ term definitions) and README.md (navigation guide for 7 reader roles). No editorial decisions were made by the AI beyond what was explicitly needed to improve clarity and consistency—all choices about tone and phrasing were human-evaluated in context before acceptance.
 
 ---
 

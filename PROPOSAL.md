@@ -1,6 +1,6 @@
 # Proposal: An Integrated Ecosystem for Decentralized Open Source Registry Infrastructure
 
-A concrete proposal for evolving publiccode.yml with five backward-compatible extensions, plus four companion standards (APIs, registries, discovery mechanisms) and supporting policy frameworks to address the gaps identified in the [evaluation](README.md). The extensions are backward-compatible — existing v0.x files remain valid — while the companion standards enable decentralized registries, standardized data formats, and verifiable trust networks for procurement and adoption decisions.
+A concrete proposal for evolving publiccode.yml with five backward-compatible extensions, plus four companion standards (APIs, registries, discovery mechanisms) and supporting policy frameworks to address the gaps identified in the [evaluation](RESEARCH.md). The extensions are backward-compatible — existing v0.x files remain valid — while the companion standards enable decentralized registries, standardized data formats, and verifiable trust networks for procurement and adoption decisions.
 
 ## Contents
 
