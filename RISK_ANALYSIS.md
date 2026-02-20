@@ -12,13 +12,14 @@ We've organized risks into seven categories: adoption, technical, security/trust
 
 The name signals "government software." Mainstream open source projects (React, Django, curl) may not see themselves reflected in this standard, limiting ecosystem adoption to public-sector-specific software rather than reaching the full open source commons that procurement depends on.
 
-- **Likelihood:** High — the project analysis in README already identifies this as a weakness.
+- **Likelihood:** High — the project analysis in RESEARCH.md already identifies this as a weakness.
 - **Impact:** High — without broad adoption beyond government, procurement catalogs can only index a limited set of available software.
 - **Mitigations:**
 
-1. Create a neutral profile or alias (e.g., "softwarecode.yml") that maps 1-to-1 to publiccode.yml, with equivalent metadata structure.
-2. Launch an outreach campaign demonstrating that vendor credit systems and faceted classification benefit any project seeking commercial adoption—not just government-facing ones.
-3. Engage large open source foundations (Apache, Eclipse, Linux Foundation) to endorse the profile for their ecosystems.
+1. A name change or neutral alias is unlikely to happen — the publiccode.yml maintainers view the "public money → public code → publiccode.yml" framing as core to the project's identity and scope. The risk is real but not addressable by renaming.
+2. Focus instead on **careful communication**: consistently present the standard as valuable to any open source project that wants visibility with public sector buyers, not just projects built exclusively for government use.
+3. Make public-sector-specific fields optional while keeping the core useful for any project. The improvements proposed here (faceted classification, supply chain references, credit registries) benefit any open source project regardless of sector.
+4. Engage large open source foundations (Apache, Eclipse, Linux Foundation) through the value proposition of the improvements themselves — not through a rebranding exercise.
 
 ### A2. Chicken-and-egg problem for registries
 
@@ -145,7 +146,7 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 ### Critical risks (High likelihood + High impact)
 
 1. **G1 — Small spec governance community**: The single highest-priority prerequisite. The publiccode.yml spec's maintainer community is small relative to its institutional adoption. Without maintainer buy-in and capacity, the extensions remain a proposal indefinitely.
-2. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on solving both the perception problem (non-government projects) and the platform bootstrapping problem (registries need projects need registries).
+2. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on careful communication (a name change is off the table) and solving the platform bootstrapping problem (registries need projects need registries).
 3. **A5 — Temporal field staleness**: Empirically observed at scale — most existing publiccode.yml files are out of date because temporal fields aren't maintained between releases. This directly undermines ecosystem credibility and is addressed by Extension 5.
 4. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
 5. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
