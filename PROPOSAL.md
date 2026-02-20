@@ -254,6 +254,15 @@ The controlled vocabularies for `domain`, `function`, `role`, `layer`, and `audi
 
 The `tags` field is intentionally free-form to allow experimentation. Tags that gain traction get promoted into controlled vocabularies in future versions.
 
+### Reducing the Maintainer Classification Burden
+
+Faceted classification asks more of maintainers than the current flat `categories` list. Two mechanisms can reduce this friction:
+
+1. **AI-assisted tooling.** The [publiccode.yml editor](https://github.com/italia/publiccode-editor) could offer an AI-powered classification assistant that reads the repository README and description, proposes classification values, and lets the maintainer confirm or adjust. This lowers the burden from "fill in six fields from scratch" to "review and accept suggestions."
+2. **Crawler-assisted enrichment.** Catalog crawlers (openCode.de, the EU OSS Catalogue) can derive classification from existing metadata — README keywords, package registry tags, GitHub topics — and store it at the catalog layer without requiring the maintainer to maintain it in the file. This keeps the file minimal while making faceted search available to catalog users.
+
+Both approaches respect the principle that maintainers should only be asked to author data that genuinely requires their judgment.
+
 ---
 
 ## Extension 2: Supply Chain References
@@ -303,7 +312,7 @@ supplyChain:
 
 ---
 
-## Extension 3: Vendor Credit System Discovery
+## Improvement 3: Vendor Credit System Discovery
 
 The vendor/contributor credit data itself is too dynamic to live in a git-committed file. Instead, publiccode.yml points to one or more **credit registries** — external databases that track who contributes to the project and in what capacity.
 
