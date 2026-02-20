@@ -1,17 +1,17 @@
 # Proposal: An Integrated Ecosystem for Decentralized Open Source Registry Infrastructure
 
-A concrete proposal for evolving publiccode.yml with five backward-compatible extensions, plus four companion standards (APIs, registries, discovery mechanisms) and supporting policy frameworks to address the gaps identified in the [evaluation](RESEARCH.md). The extensions are backward-compatible — existing v0.x files remain valid — while the companion standards enable decentralized registries, standardized data formats, and verifiable trust networks for procurement and adoption decisions.
+A concrete proposal for evolving publiccode.yml with five backward-compatible improvements, plus four companion standards (APIs, registries, discovery mechanisms) and supporting policy frameworks to address the gaps identified in the [evaluation](RESEARCH.md). The improvements are backward-compatible — existing v0.x files remain valid — while the companion standards enable decentralized registries, standardized data formats, and verifiable trust networks for procurement and adoption decisions.
 
 ## Contents
 
 - [Design Principles](#design-principles)
 - [Policy Context: Public Procurement and Open Source](#policy-context-public-procurement-and-open-source)
 - [Actors and Relationships](#actors-and-relationships)
-- [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories)
-- [Extension 2: Supply Chain References](#extension-2-supply-chain-references)
-- [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery)
-- [Extension 4: Deprecate `usedBy`](#extension-4-deprecate-usedby)
-- [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields)
+- [Improvement 1: Faceted Classification](#improvement-1-faceted-classification-replacing-flat-categories)
+- [Improvement 2: Supply Chain References](#improvement-2-supply-chain-references)
+- [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-credit-system-discovery)
+- [Improvement 4: Deprecate `usedBy`](#improvement-4-deprecate-usedby)
+- [Improvement 5: Deprecate Temporal Fields](#improvement-5-deprecate-temporal-fields)
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
@@ -39,28 +39,28 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible ex
 
 ## Policy Context: Public Procurement and Open Source
 
-The extensions proposed here are not merely technical improvements to a metadata standard — they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under free and open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
+The improvements proposed here are not merely technical changes to a metadata standard — they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under free and open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
 
-This proposal answers that question. Each extension directly serves a procurement need that existing standards leave unmet.
+This proposal answers that question. Each improvement directly serves a procurement need that existing standards leave unmet.
 
-### How the Extensions Serve Procurement
+### How the Improvements Serve Procurement
 
-| Procurement need                | Extension                                                                                                                | What it enables                                                                                                     |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| **Finding software that fits**  | [Extension 1: Faceted Classification](#extension-1-faceted-classification-replacing-flat-categories)                     | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing                            |
-| **Assessing security posture**  | [Extension 2: Supply Chain References](#extension-2-supply-chain-references)                                             | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies                  |
-| **Evaluating vendor expertise** | [Extension 3: Vendor Credit System Discovery](#extension-3-vendor-credit-system-discovery)                               | Verifiable contribution data — who actually maintains the software, not just who claims to                          |
-| **Checking peer adoption**      | [Extension 4](#extension-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control                                   |
-| **Trusting the metadata**       | [Extension 5: Deprecate Temporal Fields](#extension-5-deprecate-temporal-fields)                                         | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
+| Procurement need                | Improvement                                                                                                                  | What it enables                                                                                                     |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Finding software that fits**  | [Improvement 1: Faceted Classification](#improvement-1-faceted-classification-replacing-flat-categories)                     | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing                            |
+| **Assessing security posture**  | [Improvement 2: Supply Chain References](#improvement-2-supply-chain-references)                                             | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies                  |
+| **Evaluating vendor expertise** | [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-credit-system-discovery)                               | Verifiable contribution data — who actually maintains the software, not just who claims to                          |
+| **Checking peer adoption**      | [Improvement 4](#improvement-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control                                   |
+| **Trusting the metadata**       | [Improvement 5: Deprecate Temporal Fields](#improvement-5-deprecate-temporal-fields)                                         | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
 
 ### Alignment with Procurement Criteria Frameworks
 
-The [OSBA's selection criteria for sustainable procurement of open source software](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) proposes four criteria that procurement offices should evaluate. The extensions provide the data infrastructure to make each criterion machine-verifiable:
+The [OSBA's selection criteria for sustainable procurement of open source software](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) proposes four criteria that procurement offices should evaluate. The improvements provide the data infrastructure to make each criterion machine-verifiable:
 
-1. **Relationship with software community.** The `creditRegistries` field (Extension 3) provides verifiable evidence of a vendor's upstream contributions — not self-reported claims, but project-endorsed credit data.
+1. **Relationship with software community.** The `creditRegistries` field (Improvement 3) provides verifiable evidence of a vendor's upstream contributions — not self-reported claims, but project-endorsed credit data.
 2. **Upstream publication of modifications.** Credit registries track contribution types (code, security, documentation). Procurement offices can verify that a vendor pushes patches upstream rather than maintaining proprietary forks.
 3. **High-quality Level 3 support.** The `maintenance` section (already in publiccode.yml) combined with credit data shows whether a vendor employs core developers or has contractual relationships with maintainers.
-4. **Supply chain security.** The `supplyChain` section (Extension 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
+4. **Supply chain security.** The `supplyChain` section (Improvement 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
 
 ### Legislative Models
 
@@ -155,7 +155,7 @@ This separation keeps each actor in control of the claims they can actually back
 
 ---
 
-## Extension 1: Faceted Classification (replacing flat `categories`)
+## Improvement 1: Faceted Classification (replacing flat `categories`)
 
 The current `categories` field is a flat list of ~100 values (like `content-management`, `crm`, `website`). This makes it impossible to express specific combinations. You can't say "a healthcare CRM that's a plugin library for backend use" — you'd pick `crm`, lose the other dimensions, and leave procurement officers guessing.
 
@@ -265,7 +265,7 @@ Both approaches respect the principle that maintainers should only be asked to a
 
 ---
 
-## Extension 2: Supply Chain References
+## Improvement 2: Supply Chain References
 
 New top-level section pointing to supply chain artifacts. These are URLs to externally-hosted resources, not inline data.
 
@@ -356,7 +356,7 @@ creditRegistries:
 
 ---
 
-## Extension 4: Deprecate `usedBy`
+## Improvement 4: Deprecate `usedBy`
 
 The current `usedBy` field is a simple list of organization names maintained by the project. This has fundamental problems:
 
@@ -380,12 +380,17 @@ usedBy:
 
 ---
 
-## Extension 5: Deprecate Temporal Fields
+## Improvement 5: Deprecate Temporal Fields
 
 Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are out of date because nobody remembers to update a metadata file between releases. The fields most responsible for staleness are those that track information already available from authoritative sources — forge APIs, package registries, and release artifacts.
 
 ### Fields to Deprecate
 
+| Field                             | Why it goes stale                                                                         | Authoritative source                                                   |
+| --------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `softwareVersion`                 | Changes with every release; rarely updated in publiccode.yml                              | Forge API (GitHub releases, GitLab tags), package registry             |
+| `releaseDate`                     | Same as above — coupled to `softwareVersion`                                              | Forge API, package registry                                            |
+| `dependsOn[].versionMin`          | Dependency minimum versions evolve with each release                                      | Package manager lockfiles, SBOM (already referenced in `supplyChain`)  |
 | `maintenance.contractors[].until` | Contract expiry dates are rarely updated; create a false impression of active maintenance | Internal contract management systems; out of scope for a metadata file |
 
 ### Schema Change
@@ -422,7 +427,7 @@ These are slow-changing, human-maintained fields. They don't become stale betwee
 
 ## Full Example
 
-Putting all extensions together:
+Putting all improvements together:
 
 ```yaml
 publiccodeYmlVersion: "1.0"
@@ -432,7 +437,7 @@ applicationSuite: MegaProductivitySuite
 url: https://github.com/example/medusa-cms
 landingURL: https://medusa-cms.example.org
 # softwareVersion and releaseDate removed — consumed from
-# forge API / package registry (see Extension 5)
+# forge API / package registry (see Improvement 5)
 logo: img/logo.svg
 platforms:
   - web
@@ -516,7 +521,7 @@ localisation:
     - fr
 
 # dependsOn retained for human-readable dependency names,
-# but versionMin/versionMax removed (see Extension 5).
+# but versionMin/versionMax removed (see Improvement 5).
 # Version constraints belong in the SBOM.
 dependsOn:
   open:

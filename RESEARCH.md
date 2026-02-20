@@ -46,7 +46,7 @@ We examined five metadata standards and specifications that could potentially se
 - **Purpose-built for procurement.** Has fields for `intendedAudience` (countries, scope), `categories` (controlled vocabulary like "content-management", "crm"), `softwareType` (standalone/web, library, addon, etc.), `maintenance` (internal/contract/community/none with contractor details and expiry dates), and `usedBy` (list of public administrations using the software).
 - **Federated crawling architecture.** National catalogs feed into the EU-wide catalog via public APIs — proven at scale.
 - **Human-readable YAML.** Low barrier for maintainers. Tooling exists: [publiccode.yml editor](https://editor.opencode.de/), validators, crawlers.
-- **Country-specific extensions.** The schema has a modular design where each country can define additional fields without breaking the core.
+- **Country-specific extensions (CSEs).** The schema has a modular design where each country can define additional fields without breaking the core. Note: the publiccode.yml maintainers are reconsidering CSEs — they are viewed as problematic because they give the wrong impression that arbitrary custom fields can be added, rather than being part of the governed standard. Italy's "IT" extension suffers from the same temporal field staleness problem described elsewhere. The planned `supports` key (a future PR) may replace CSEs with a more generic, standards-aligned mechanism for declaring policy compliance.
 - **Badge ecosystem proven.** openCode.de already runs [automated badges](https://badges.opencode.de/en/) for maintenance, reuse (Level 1–3 based on confirmed adopters), security, and open source compliance — directly relevant to procurement trust signals.
 
 **Weaknesses:**

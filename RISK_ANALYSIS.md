@@ -1,6 +1,6 @@
 # Risk Analysis
 
-An examination of significant risks to the [proposal](PROPOSAL.md) for an integrated ecosystem of standards, registries, and policy frameworks built around publiccode.yml. The proposal includes publiccode.yml extensions, companion registries (credit, usage), standardized APIs, decentralized discovery mechanisms, and policy frameworks for procurement. Each risk is assessed for likelihood (probability it will occur) and impact (consequences if it does), with proposed mitigations.
+An examination of significant risks to the [proposal](PROPOSAL.md) for an integrated ecosystem of standards, registries, and policy frameworks built around publiccode.yml. The proposal includes publiccode.yml improvements, companion registries (credit, usage), standardized APIs, decentralized discovery mechanisms, and policy frameworks for procurement. Each risk is assessed for likelihood (probability it will occur) and impact (consequences if it does), with proposed mitigations.
 
 We've organized risks into seven categories: adoption, technical, security/trust, governance, political, economic, and external dependencies.
 
@@ -27,7 +27,7 @@ Credit and usage registries need projects to have publiccode.yml files to index.
 
 - **Likelihood:** High — classic platform bootstrapping problem
 - **Impact:** High — the entire registry architecture remains theoretical without critical mass
-- **Mitigation:** Bootstrap with existing infrastructure. Drupal already has a credit system; ecosyste.ms already tracks contributions. The proposal should demonstrate the extensions working with these existing systems rather than requiring greenfield registries. openCode.de and Developers Italia can serve as initial usage registries.
+- **Mitigation:** Bootstrap with existing infrastructure. Drupal already has a credit system; ecosyste.ms already tracks contributions. The proposal should demonstrate the improvements working with these existing systems rather than requiring greenfield registries. openCode.de and Developers Italia can serve as initial usage registries.
 
 ### A5. Temporal fields cause widespread file staleness
 
@@ -35,7 +35,7 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 
 - **Likelihood:** High — empirically observed at scale by ecosyste.ms across existing publiccode.yml deployments
 - **Impact:** High — stale data undermines the credibility of the entire metadata ecosystem; procurement officers who encounter outdated fields lose trust in the file, and maintainers who notice their own files are stale may disengage from the standard entirely
-- **Mitigation:** Extension 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`, and `maintenance.contractors[].until`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
+- **Mitigation:** Improvement 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`, and `maintenance.contractors[].until`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
 
 ---
 
@@ -87,11 +87,11 @@ An organization (or vendor promoting its product) could create fake adopter decl
 
 ### G1. Small spec governance community relative to institutional adoption
 
-The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community. The proposed extensions represent a significant scope increase that the current maintainer community may lack capacity or appetite to absorb.
+The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community. The proposed improvements represent a significant scope increase that the current maintainer community may lack capacity or appetite to absorb.
 
 - **Likelihood:** High — the spec's institutional adoption (EU mandate, 640+ projects) outpaces its governance community size
-- **Impact:** High — without maintainer buy-in, the extensions remain a proposal indefinitely
-- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the extensions and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. Note: the governance model is currently a do-ocracy. Furthermore, every change to the spec must also be reflected in the tooling ecosystem (f.e. [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs must come bundled with tooling support to be viable.
+- **Impact:** High — without maintainer buy-in, the improvements remain a proposal indefinitely
+- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the improvements and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. Note: the governance model is currently a do-ocracy. Furthermore, every change to the spec must also be reflected in the tooling ecosystem (f.e. [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs must come bundled with tooling support to be viable.
 
 ---
 
@@ -145,9 +145,9 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 
 ### Critical risks (High likelihood + High impact)
 
-1. **G1 — Small spec governance community**: The single highest-priority prerequisite. The publiccode.yml spec's maintainer community is small relative to its institutional adoption. Without maintainer buy-in and capacity, the extensions remain a proposal indefinitely.
+1. **G1 — Small spec governance community**: The single highest-priority prerequisite. The publiccode.yml spec's maintainer community is small relative to its institutional adoption. Without maintainer buy-in and capacity, the improvements remain a proposal indefinitely.
 2. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on careful communication (a name change is off the table) and solving the platform bootstrapping problem (registries need projects need registries).
-3. **A5 — Temporal field staleness**: Empirically observed at scale — most existing publiccode.yml files are out of date because temporal fields aren't maintained between releases. This directly undermines ecosystem credibility and is addressed by Extension 5.
+3. **A5 — Temporal field staleness**: Empirically observed at scale — most existing publiccode.yml files are out of date because temporal fields aren't maintained between releases. This directly undermines ecosystem credibility and is addressed by Improvement 5.
 4. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
 5. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
 6. **E1 — Registry sustainability**: The architecture depends on registries existing and operating reliably. Without a sustainability model, the long-term viability of the ecosystem is uncertain.

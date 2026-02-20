@@ -1,6 +1,6 @@
 # Roadmap: From Proposal to Reality
 
-One possible phased implementation plan for the integrated ecosystem proposal: publiccode.yml extensions, companion registries and standards (Credit Registry API, Usage Registry API, Registry Discovery Standard, organization-level declarations), policy frameworks, and decentralized trust networks. The plan is sequenced to leverage existing relationships, build credibility through achievable wins, and address critical risks early.
+One possible phased implementation plan for the integrated ecosystem proposal: publiccode.yml improvements, companion registries and standards (Credit Registry API, Usage Registry API, Registry Discovery Standard, organization-level declarations), policy frameworks, and decentralized trust networks. The plan is sequenced to leverage existing relationships, build credibility through achievable wins, and address critical risks early.
 
 **Important:** This roadmap is illustrative, not prescriptive. It shows one plausible path forward based on current relationships and known allies. The actual implementation will depend on:
 
@@ -33,21 +33,21 @@ This roadmap assumes we can activate these existing relationships. Conversations
 
 ### Critical Prerequisite: Spec Maintainer Buy-in
 
-Risk G1 (small spec governance community) is the single highest-priority blocker. The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community relative to its institutional adoption. The proposed extensions represent a significant scope increase.
+Risk G1 (small spec governance community) is the single highest-priority blocker. The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community relative to its institutional adoption. The proposed improvements represent a significant scope increase.
 
 ---
 
 ## Phase 0: Coalition & Governance
 
-**Goal:** Establish who governs publiccode.yml extensions and build a working group with enough institutional weight to move the spec.
+**Goal:** Establish who governs publiccode.yml improvements and build a working group with enough institutional weight to move the spec.
 
 ### Actions
 
 1. **Secure publiccode.yml maintainer buy-in.** Through the existing acquaintance with publiccode.yml maintainers (the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) org), determine:
-   - What is the process for proposing v1.0 extensions?
+   - What is the process for proposing v1.0 improvements?
    - What capacity exists to review and absorb the proposed scope increase?
    - Is Developers Italia still actively involved in spec governance?
-   - What support (co-maintenance, tooling, migration scripts) would make the extensions acceptable?
+   - What support (co-maintenance, tooling, migration scripts) would make the improvements acceptable?
 
 2. **Form a working group** with academic, vendor, procurement, and registry operator perspectives — plus at least one publiccode.yml maintainer as spec liaison.
 
@@ -55,29 +55,29 @@ Risk G1 (small spec governance community) is the single highest-priority blocker
 
 4. **Engage the OSS Taxonomy author.** The faceted classification proposal directly builds on the [OSS Taxonomy](https://nesbitt.io/2025/11/29/oss-taxonomy.html) work, and ecosyste.ms brings data infrastructure as a potential credit registry.
 
-5. **Engage procurement policy stakeholders.** Position the proposed extensions as the data infrastructure that procurement policy initiatives (APELL, EuroStack, FSFE's Public Money? Public Code!) need. The extensions answer the practical "how do you actually procure open source?" question that follows from policy adoption.
+5. **Engage procurement policy stakeholders.** Position the proposed improvements as the data infrastructure that procurement policy initiatives (APELL, EuroStack, FSFE's Public Money? Public Code!) need. The improvements answer the practical "how do you actually procure open source?" question that follows from policy adoption.
 
 ### Deliverable
 
-A published working group charter with institutional commitments and at least one publiccode.yml maintainer. A clear understanding of the governance path for extensions. A mapping of active procurement policy initiatives to the extensions they require.
+A published working group charter with institutional commitments and at least one publiccode.yml maintainer. A clear understanding of the governance path for proposed improvements. A mapping of active procurement policy initiatives to the improvements they require.
 
 ---
 
 ## Phase 1: Supply Chain References & Temporal Field Deprecation
 
-**Goal:** Ship the simplest, least controversial extensions first. Build credibility and demonstrate the working group can deliver.
+**Goal:** Ship the simplest, least controversial improvements first. Build credibility and demonstrate the working group can deliver.
 
 ### Why Start Here
 
-- **Extension 2 (Supply Chain References)** requires no new infrastructure — it only adds URL fields to publiccode.yml pointing to things that already exist (SBOMs, Scorecard, REUSE, security policies).
-- **Extension 5 (Deprecate Temporal Fields)** pairs naturally with supply chain references. The SBOM reference in `supplyChain` replaces `dependsOn[].versionMin` as the authoritative source for dependency data. Removing `softwareVersion` and `releaseDate` addresses the most common source of stale data — empirically observed across thousands of files indexed by ecosyste.ms.
+- **Improvement 2 (Supply Chain References)** requires no new infrastructure — it only adds URL fields to publiccode.yml pointing to things that already exist (SBOMs, Scorecard, REUSE, security policies).
+- **Improvement 5 (Deprecate Temporal Fields)** pairs naturally with supply chain references. The SBOM reference in `supplyChain` replaces `dependsOn[].versionMin` as the authoritative source for dependency data. Removing `softwareVersion` and `releaseDate` addresses the most common source of stale data — empirically observed across thousands of files indexed by ecosyste.ms.
 - openCode.de already checks REUSE compliance and displays badges. Formalizing this in the schema is a natural next step.
 - Supply chain security aligns with funder priorities (e.g., Sovereign Tech Agency) and could unlock funding support.
 - No chicken-and-egg problem. No new registries needed.
 
 ### Actions
 
-1. **Draft the `supplyChain` schema extension** as a formal PR to the publiccode.yml spec.
+1. **Draft the `supplyChain` schema improvement** as a formal PR to the publiccode.yml spec.
 2. **Draft the temporal field deprecation** (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) as a companion PR, motivated by empirical evidence from ecosyste.ms indexing.
 3. **Update validators, editors, and client libraries in tandem.** Any spec PR must be accompanied by updates to the official publiccode.yml validator, editor tooling (IDE plugins, online editors), and known parsing libraries — broken tooling is a major adoption barrier and undermines spec credibility.
 4. **Implement support in at least two software indexes** (e.g., openCode.de, ossdirectory.com) — demonstrating multi-crawler interoperability from day one. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
@@ -86,7 +86,7 @@ A published working group charter with institutional commitments and at least on
 
 ### Deliverable
 
-Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecation. Updated validator, editor, and parser tooling released in step with the spec. At least two operational crawlers consuming supply chain data. A handful of real projects using the new fields without temporal fields.
+Accepted publiccode.yml improvements for `supplyChain` and temporal field deprecation. Updated validator, editor, and parser tooling released in step with the spec. At least two operational crawlers consuming supply chain data. A handful of real projects using the new fields without temporal fields.
 
 ---
 
@@ -106,11 +106,11 @@ Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecat
 2. **Update validators and build a classification wizard** in a publiccode.yml editor — the schema validator must support the new `classification` field, and the wizard reduces the complexity risk (A6) by guiding maintainers through facet selection.
 3. **Provide automated migration tooling** that converts existing `categories` + `softwareType` to the new `classification` structure for the 640+ projects in the EU OSS Catalogue.
 4. **Pilot faceted search on at least one catalog** — demonstrate the procurement discovery improvement ("show me a CRM for healthcare in the backend layer").
-5. **Draft procurement selection criteria** aligned with the [OSBA framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) that reference publiccode.yml extensions as evidence sources. Validate with a real procurement office. Publish as a companion guide: "How to use publiccode.yml metadata in procurement scoring."
+5. **Draft procurement selection criteria** aligned with the [OSBA framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) that reference publiccode.yml improvements as evidence sources. Validate with a real procurement office. Publish as a companion guide: "How to use publiccode.yml metadata in procurement scoring."
 
 ### Deliverable
 
-Accepted `classification` extension. Updated schema validator and migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process. Draft procurement selection criteria referencing publiccode.yml metadata.
+Accepted `classification` improvement. Updated schema validator and migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process. Draft procurement selection criteria referencing publiccode.yml metadata.
 
 ---
 
@@ -148,7 +148,7 @@ An assessment of `contribution_records` reusability with a concrete plan for pac
 
 - The credit system pilot (Phase 3) validates the registry API pattern. The usage registry API follows the same architectural model.
 - openCode.de's badge system already functions as a usage registry — it just needs a standardized API and manifest.
-- By this point, the working group has shipped three extensions and has credibility to propose the more ambitious companion specifications.
+- By this point, the working group has shipped three improvements and has credibility to propose the more ambitious companion specifications.
 
 ### Actions
 
@@ -174,7 +174,7 @@ Registry Discovery Standard published. Organization-level usage declaration spec
 
 ### Actions
 
-1. **Engage the EU Commission / Interoperable Europe** to adopt the extensions in the EU OSS Catalogue — this is the forcing function for broad adoption.
+1. **Engage the EU Commission / Interoperable Europe** to adopt the improvements in the EU OSS Catalogue — this is the forcing function for broad adoption.
 2. **Address the branding problem (A1).** Work with the publiccode.yml governance body on either:
    - A neutral alias/profile (e.g., "softwarecode.yml") that maps 1:1, or
    - A reframing campaign demonstrating the standard's value beyond government.
@@ -207,7 +207,7 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 | Player                         | Why they matter                                                                                                                                                                                                             |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                                                                                                               |
-| **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the extensions in their standard. |
+| **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the improvements in their standard. |
 | **APELL**                      | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria.                               |
 | **EuroStack**                  | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure.                                                                    |
 

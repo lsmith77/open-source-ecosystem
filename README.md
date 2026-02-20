@@ -6,7 +6,7 @@ This guide helps you navigate the documentation based on your role and what you 
 
 **What is this project?**
 
-This project evaluates metadata standards for open source software and proposes extensions to `publiccode.yml` as well as concrete standards for decentralized data collection (registry APIs, discovery mechanisms, usage declarations). This data will enable procurement offices, funders, and security teams to discover, evaluate, and confidently adopt open source projects—and to identify and fund critical open source infrastructure and maintenance in a sustainable manner.
+This project evaluates metadata standards for open source software and proposes improvements to `publiccode.yml` as well as concrete standards for decentralized data collection (registry APIs, discovery mechanisms, usage declarations). This data will enable procurement offices, funders, and security teams to discover, evaluate, and confidently adopt open source projects—and to identify and fund critical open source infrastructure and maintenance in a sustainable manner.
 
 **Why this matters:** The proposal pairs technical standards (metadata, APIs, registries) with a strategic push for public procurement policies that prefer open source. This creates a positive feedback loop:
 
@@ -28,7 +28,7 @@ This project evaluates metadata standards for open source software and proposes 
 
 A comprehensive ecosystem of standards and registries built around publiccode.yml:
 
-**Core Extensions to publiccode.yml:**
+**Proposed Improvements to publiccode.yml:**
 
 1. Faceted classification (better discovery across multiple dimensions)
 2. Supply chain references (security assessments, SBOMs, policies)
@@ -67,7 +67,7 @@ Together, these enable a **self-reinforcing, decentralized ecosystem** where pro
 | **[RESEARCH.md](RESEARCH.md)**           | Comparative analysis of 5 standards                                                                                                          | ~30 min | Researchers, policy makers, infrastructure decision-makers | You want to understand why publiccode.yml and not something else        |
 | **[DATA_FLOW.md](DATA_FLOW.md)**         | Ecosystem architecture and data flow diagram                                                                                                 | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
 | **[PITCH.md](PITCH.md)**                 | Why each actor benefits                                                                                                                      | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
-| **[PROPOSAL.md](PROPOSAL.md)**           | Detailed technical spec including 5 publiccode.yml extensions plus companion standards (registry APIs, discovery, organization declarations) | ~60 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
+| **[PROPOSAL.md](PROPOSAL.md)**           | Detailed technical spec including 5 publiccode.yml improvements plus companion standards (registry APIs, discovery, organization declarations) | ~60 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
 | **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)** | Identified risks and mitigations                                                                                                             | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
 | **[ROADMAP.md](ROADMAP.md)**             | Phased implementation plan                                                                                                                   | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
 | **[METHODOLOGY.md](METHODOLOGY.md)**     | Research process documented                                                                                                                  | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
@@ -85,7 +85,7 @@ _You're evaluating whether open source is right for your organization._
 
 1. [PITCH.md → Procurement Office](PITCH.md#procurement-office) (2 min) — Why this matters to you
 2. [RESEARCH.md → publiccode.yml strengths](RESEARCH.md#1-publiccodeyml) (10 min) — What you're getting
-3. [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) + [Extension 1](PROPOSAL.md#extension-1-faceted-classification-replacing-flat-categories) (15 min) — How discovery improves
+3. [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) + [Improvement 1](PROPOSAL.md#improvement-1-faceted-classification-replacing-flat-categories) (15 min) — How discovery improves
 4. [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source) (10 min) — How this connects to procurement frameworks
 5. [GLOSSARY.md](GLOSSARY.md) — As needed for unfamiliar terms
 
@@ -118,7 +118,7 @@ _You deliver expertise around specific open source projects._
 
 1. [PITCH.md → Vendor/Service Provider](PITCH.md#vendor--service-provider) (2 min) — Why it's good for business
 2. [RESEARCH.md → publiccode.yml → No vendor/contributor credit system](RESEARCH.md#1-publiccodeyml) (3 min) — The problem being solved
-3. [PROPOSAL.md → Extension 3: Vendor Credit System Discovery](PROPOSAL.md#extension-3-vendor-credit-system-discovery) (15 min) — How it works
+3. [PROPOSAL.md → Improvement 3: Vendor Credit System Discovery](PROPOSAL.md#improvement-3-vendor-credit-system-discovery) (15 min) — How it works
 4. [ROADMAP.md → Phase 3: Credit System Pilot with Drupal](ROADMAP.md#phase-3-credit-system-pilot-with-drupal) (10 min) — Timeline
 5. [GLOSSARY.md](GLOSSARY.md) — As needed
 
@@ -182,7 +182,7 @@ _You run openCode.de, Developers Italia, or another registry/index._
 
 1. [PITCH.md → Software Catalog/Crawler](PITCH.md#software-catalog--crawler) (2 min) — Why it matters to you
 2. [RESEARCH.md → Federated Architecture](RESEARCH.md#1-publiccodeyml) (5 min) — System design
-3. [PROPOSAL.md → Full Design | Extension 2 | Extension 4](PROPOSAL.md) (30 min) — What data you'd consume
+3. [PROPOSAL.md → Full Design | Improvement 2 | Improvement 4](PROPOSAL.md) (30 min) — What data you'd consume
 4. [PROPOSAL.md → Registry Discovery Standard](PROPOSAL.md#registry-discovery-standard-rough-outline) (15 min) — How registries interact
 5. [ROADMAP.md → Phase 4](ROADMAP.md#phase-4-registry-discovery--usage-registries) (10 min) — Timeline
 6. [GLOSSARY.md](GLOSSARY.md) — As needed
