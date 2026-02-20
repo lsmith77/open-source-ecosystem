@@ -35,7 +35,7 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 
 - **Likelihood:** High — empirically observed at scale by ecosyste.ms across existing publiccode.yml deployments
 - **Impact:** High — stale data undermines the credibility of the entire metadata ecosystem; procurement officers who encounter outdated fields lose trust in the file, and maintainers who notice their own files are stale may disengage from the standard entirely
-- **Mitigation:** Extension 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
+- **Mitigation:** Extension 5 proposes deprecating temporal fields (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`, and `maintenance.contractors[].until`) — keeping only slow-changing, human-authored data in the file. Forge APIs and package registries are the authoritative source for release data; the SBOM referenced in `supplyChain` captures dependency version constraints.
 
 ---
 

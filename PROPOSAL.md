@@ -386,11 +386,7 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 
 ### Fields to Deprecate
 
-| Field                    | Why it goes stale                                            | Authoritative source                                                  |
-| ------------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------- |
-| `softwareVersion`        | Changes with every release; rarely updated in publiccode.yml | Forge API (GitHub releases, GitLab tags), package registry            |
-| `releaseDate`            | Same as above — coupled to `softwareVersion`                 | Forge API, package registry                                           |
-| `dependsOn[].versionMin` | Dependency minimum versions evolve with each release         | Package manager lockfiles, SBOM (already referenced in `supplyChain`) |
+| `maintenance.contractors[].until` | Contract expiry dates are rarely updated; create a false impression of active maintenance | Internal contract management systems; out of scope for a metadata file |
 
 ### Schema Change
 
