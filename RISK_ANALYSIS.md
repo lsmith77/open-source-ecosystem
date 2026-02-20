@@ -81,6 +81,14 @@ An organization (or vendor promoting its product) could create fake adopter decl
 - **Impact:** High — inflated adoption data misleads procurement decisions and funding allocation
 - **Mitigation:** The trust model taxonomy (`verified-domain`, `signed-attestation`, `self-reported`) lets consumers filter by verification level. Catalogs should prominently display the trust model alongside adoption data. High-stakes decisions (funding allocation, procurement) should require `verified-domain` or `signed-attestation` data. For public procurement specifically, catalogs could restrict to declarations from known government domains within the relevant jurisdiction — an allowlist approach that sidesteps the Sybil problem entirely for the highest-stakes use case.
 
+### S3. Privacy and security exposure in usage declarations
+
+Usage registries and `.well-known/publiccode-usage.json` files expose which organizations use which software. This information could theoretically be exploited for targeted attacks or competitive intelligence.
+
+- **Likelihood:** Low-Medium — technology detection services like BuiltWith already expose comparable or greater detail for public-facing web applications. The incremental attack surface from a standardized usage declaration (which deliberately excludes version numbers, deployment architecture, and infrastructure details) is modest. The data is also partially public via job postings, conference talks, and procurement records.
+- **Impact:** Medium — primarily affects organizations with strict security postures (defense, critical infrastructure)
+- **Mitigation:** The `.well-known/publiccode-usage.json` schema excludes version numbers and infrastructure details by design — it answers "do you use this project?" not "how is it deployed?" Usage registries should allow organizations to control the granularity of their declarations. The `scope` field in adopter responses should be optional. Organizations dealing with sensitive infrastructure may choose not to participate.
+
 ---
 
 ## Governance Risks
@@ -138,6 +146,7 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 | T3  | Registry API interoperability failures                | High       | High   | Technical      |
 | S1  | Credit gaming and contribution inflation              | High       | High   | Security/Trust |
 | S2  | Sybil attacks on usage registries                     | Medium     | High   | Security/Trust |
+| S3  | Privacy and security exposure in usage declarations   | Low-Medium | Medium | Security/Trust |
 | G1  | Small spec governance community                       | High       | High   | Governance     |
 | P4  | Procurement policy momentum stalls                    | Medium     | High   | Political      |
 | P3  | Credit system creates perverse procurement incentives | Medium     | High   | Political      |
