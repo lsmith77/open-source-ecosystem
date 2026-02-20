@@ -79,13 +79,14 @@ A published working group charter with institutional commitments and at least on
 
 1. **Draft the `supplyChain` schema extension** as a formal PR to the publiccode.yml spec.
 2. **Draft the temporal field deprecation** (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) as a companion PR, motivated by empirical evidence from ecosyste.ms indexing.
-3. **Implement support in at least two software indexes** (e.g., openCode.de, ossdirectory.com) — demonstrating multi-crawler interoperability from day one. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
-4. **Pilot with 5-10 projects** that already have Scorecards and SBOMs.
-5. **Demonstrate supply chain visibility to funders** — the metadata enables exactly the investment decision support they need.
+3. **Update validators, editors, and client libraries in tandem.** Any spec PR must be accompanied by updates to the official publiccode.yml validator, editor tooling (IDE plugins, online editors), and known parsing libraries — broken tooling is a major adoption barrier and undermines spec credibility.
+4. **Implement support in at least two software indexes** (e.g., openCode.de, ossdirectory.com) — demonstrating multi-crawler interoperability from day one. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
+5. **Pilot with 5-10 projects** that already have Scorecards and SBOMs.
+6. **Demonstrate supply chain visibility to funders** — the metadata enables exactly the investment decision support they need.
 
 ### Deliverable
 
-Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecation. At least two operational crawlers consuming supply chain data. A handful of real projects using the new fields without temporal fields.
+Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecation. Updated validator, editor, and parser tooling released in step with the spec. At least two operational crawlers consuming supply chain data. A handful of real projects using the new fields without temporal fields.
 
 ---
 
@@ -102,14 +103,14 @@ Accepted publiccode.yml extensions for `supplyChain` and temporal field deprecat
 ### Actions
 
 1. **Align the `classification` schema with OSS Taxonomy dimensions.** Collaborate with the OSS Taxonomy author. Publish a joint vocabulary artifact.
-2. **Build a classification wizard** in a publiccode.yml editor — reducing the complexity risk (A6) by guiding maintainers through facet selection.
+2. **Update validators and build a classification wizard** in a publiccode.yml editor — the schema validator must support the new `classification` field, and the wizard reduces the complexity risk (A6) by guiding maintainers through facet selection.
 3. **Provide automated migration tooling** that converts existing `categories` + `softwareType` to the new `classification` structure for the 640+ projects in the EU OSS Catalogue.
 4. **Pilot faceted search on at least one catalog** — demonstrate the procurement discovery improvement ("show me a CRM for healthcare in the backend layer").
 5. **Draft procurement selection criteria** aligned with the [OSBA framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) that reference publiccode.yml extensions as evidence sources. Validate with a real procurement office. Publish as a companion guide: "How to use publiccode.yml metadata in procurement scoring."
 
 ### Deliverable
 
-Accepted `classification` extension. Migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process. Draft procurement selection criteria referencing publiccode.yml metadata.
+Accepted `classification` extension. Updated schema validator and migration tooling. Faceted search operational on at least one catalog. Published vocabulary with a community contribution process. Draft procurement selection criteria referencing publiccode.yml metadata.
 
 ---
 
@@ -158,7 +159,7 @@ An assessment of `contribution_records` reusability with a concrete plan for pac
 5. **Define the `/.well-known/publiccode-usage.json` specification** for organization-level usage declarations. Pilot with a small set of municipalities willing to publish their software usage on their domains.
 6. **Work with deployment-heavy projects** (e.g., Drupal, Nextcloud) to integrate usage declaration updates into their documented deployment processes.
 7. **Prototype an internal scan-and-publish tool** that organizations can run to inventory deployed software and generate a `.well-known/publiccode-usage.json` or bulk-import into a registry.
-8. **Deprecate `usedBy`** in the publiccode.yml spec (Extension 4) — now that proper mechanisms exist.
+8. **Deprecate `usedBy`** in the publiccode.yml spec (Improvement 4) — now that proper mechanisms exist. Update validators and tooling to warn on the deprecated field and guide migration to the new usage declaration mechanisms.
 9. **Demonstrate cross-registry aggregation in a crawler** — discovering registries, crawling `.well-known/publiccode-usage.json` files from organizational domains, and presenting a unified view.
 
 ### Deliverable
