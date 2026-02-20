@@ -303,6 +303,7 @@ supplyChain:
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field simply links to the canonical viewer URL. Crawlers can follow this to fetch the score programmatically via the [Scorecard API](https://api.scorecard.dev/).
 - **REUSE compliance** is already checked by openCode.de badges. Making it a first-class field in publiccode.yml formalizes what's already practiced.
+- **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed.
 
 ### What This Enables
 
@@ -363,7 +364,7 @@ The current `usedBy` field is a simple list of organization names maintained by 
 - **It's high-friction** — organizations must ask projects to update their file
 - **It's always stale** — organizations adopt and retire software without notifying projects
 
-As described in [Actors and Relationships](#actors-and-relationships), usage data is asserted by deploying organizations, not by projects. The project has no authority over who uses it. Usage tracking therefore lives entirely outside publiccode.yml, in decentralized [usage registries](#registry-discovery-standard) that index projects by their `url` field.
+As described in [Actors and Relationships](#actors-and-relationships), usage data is asserted by deploying organizations, not by projects. The project has no authority over who uses it. Usage tracking therefore lives entirely outside publiccode.yml, in decentralized [usage registries](#registry-discovery-standard) that index projects by their `url` field. This aligns with [publiccodeyml PR #187](https://github.com/publiccodeyml/publiccode.yml/pull/187), which proposes deprecating `usedBy` in the spec itself, with usage data moving to the catalog-api layer.
 
 ### Schema Change
 
