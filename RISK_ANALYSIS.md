@@ -91,7 +91,7 @@ The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/
 
 - **Likelihood:** High — the spec's institutional adoption (EU mandate, 640+ projects) outpaces its governance community size
 - **Impact:** High — without maintainer buy-in, the extensions remain a proposal indefinitely
-- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the extensions and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers.
+- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the extensions and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. Note: the governance model is currently a do-ocracy. Furthermore, every change to the spec must also be reflected in the tooling ecosystem (f.e. [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs must come bundled with tooling support to be viable.
 
 ---
 
