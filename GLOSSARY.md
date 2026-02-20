@@ -72,6 +72,10 @@ An organization that gives money to support open source development (e.g., Sover
 **Registry Operator**
 A person or organization that runs a registry—a database that tracks specific information about projects. Examples: Credit registry (who contributes), Usage registry (who uses it).
 
+For **credit registries**, the operator can be the OSS project itself, a generic third-party platform (e.g., GitHub Sponsors), or a SaaS provider. In all cases the project endorses the registry by listing it in `creditRegistries` — this endorsement is what gives the data authority. The sign-off process varies: some projects simply point at an existing platform URL; others (like Drupal) define a formal process for reviewing and approving credits.
+
+For **usage registries**, the operator is typically an independent organization (a national catalog, a sector registry) and has no endorsement relationship with the projects it tracks — deploying organizations declare their own usage.
+
 **Crawler / Catalog**
 A tool or service that automatically finds and indexes information about open source projects. Examples: GitHub search, libraries.io, EU Open Source Catalogue.
 
