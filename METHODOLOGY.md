@@ -678,6 +678,7 @@ All sources that informed the analysis, grouped by role.
 45. APELL initiative — https://apell.info/
 46. EuroStack coalition — https://eurostack.eu/
 47. Switzerland EMBAG law text — https://www.fedlex.admin.ch/eli/cc/2023/682/en
+58. CSIS Survey of Government Open Source Policies (2010) — https://www.csis.org/analysis/government-open-source-policies
 
 ### Credit system reference architecture (Phase 11)
 
