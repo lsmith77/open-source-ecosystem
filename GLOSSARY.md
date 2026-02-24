@@ -173,3 +173,17 @@ Identify which areas lack open source options or lack adequate funding. Example:
 **Software Heritage** - Non-profit long-term archive of all public source code. Accepts deposits in CodeMeta format.
 
 **Software Heritage SoftwareSourceCode** - The metadata model used to describe software in the Software Heritage archive.
+
+---
+
+## Repository-Level Policy File Conventions
+
+A growing pattern of named files in repository roots that make a specific policy dimension legible to humans and tools. None of these have reached formal standard status, but they are gaining traction through platform support and community adoption.
+
+**SECURITY.md** - A de facto convention popularized by GitHub, which renders it as a "Security policy" tab in a repository. Contains a project's vulnerability disclosure policy and contact information for reporting security issues. Has no formal specification — content is free-form prose. The more rigorous machine-parseable alternative is RFC 9116 `security.txt`.
+
+**RFC 9116 `security.txt`** - An IETF standard ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) defining a structured file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, policy URLs, and expiry dates for a domain. Unlike SECURITY.md, its format is formally specified and machine-parseable. Relevant to CRA steward obligations for vulnerability handling.
+
+**SUSTAINABILITY.md** - A [draft convention](https://github.com/mgifford/sustainability.md) for documenting a project's environmental commitments and targets, following the W3C Web Sustainability Guidelines. Covers product, code, and operational sustainability decisions, AI usage policies, and measurable metrics. Not yet a formal standard.
+
+**ACCESSIBILITY.md** - A [draft convention](https://github.com/mgifford/ACCESSIBILITY.md) for documenting a project's Web Content Accessibility Guidelines (WCAG) conformance levels, known accessibility gaps, contributor expectations, and CI/CD integration for automated accessibility checks. Not yet a formal standard.

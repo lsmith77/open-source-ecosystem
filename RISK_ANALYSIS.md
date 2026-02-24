@@ -121,6 +121,14 @@ Even if credit data is accurate (see S1 for data integrity), procurement regulat
 - **Impact:** High — distorts the open source contribution ecosystem and may disadvantage smaller vendors who do high-quality but less frequent work
 - **Mitigation:** Credit data should be presented as one input among many in procurement evaluation, not as a scoring system. The proposal should explicitly warn against reducing credit data to single numeric scores in procurement frameworks. Registries should expose contribution type (code, security, documentation) to allow qualitative assessment rather than simple numeric ranking.
 
+### P5. CRA guidance diverges from the proposal's supply chain model
+
+The Cyber Resilience Act's open-source provisions are still being clarified through guidance documents. If the final guidance defines steward obligations, SBOM format requirements, or vulnerability reporting mechanisms in ways that diverge from the standards the `supplyChain` fields reference — OpenSSF Scorecard, CycloneDX/SPDX SBOMs, vulnerability disclosure policies (whether GitHub SECURITY.md convention or [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116)) — the proposal's CRA compliance story weakens.
+
+- **Likelihood:** Low-Medium — the standards referenced are broadly aligned with what the OSS community and regulators are already treating as compliance evidence. The Open Regulatory Compliance Working Group explicitly cites OpenSSF Scorecard as a CRA compliance tool, and CycloneDX/SPDX are the dominant SBOM formats. Divergence is possible but would require regulators to reject the community's emerging consensus.
+- **Impact:** Medium — if guidance diverges, the `supplyChain` fields would need updating. The architecture (machine-discoverable pointers to external artifacts) is sound regardless of which specific artifacts are required, so the schema change would be evolutionary rather than structural.
+- **Mitigation:** The `supplyChain` field design is intentionally URL-based — pointing to external standards rather than encoding compliance claims inline — which makes it adaptable as requirements evolve without breaking existing files. Monitor guidance from the Open Regulatory Compliance Working Group and OpenSSF closely. The `supports` key under discussion in the publiccode.yml spec would complement `supplyChain` for forward-compatible compliance declarations.
+
 ---
 
 ## Economic Risks
@@ -150,6 +158,7 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 | G1  | Small spec governance community                       | High       | High   | Governance     |
 | P4  | Procurement policy momentum stalls                    | Medium     | High   | Political      |
 | P3  | Credit system creates perverse procurement incentives | Medium     | High   | Political      |
+| P5  | CRA guidance diverges from supply chain model         | Low-Medium | Medium | Political      |
 | E1  | Registry operation costs have no revenue model        | High       | High   | Economic       |
 
 ### Critical risks (High likelihood + High impact)

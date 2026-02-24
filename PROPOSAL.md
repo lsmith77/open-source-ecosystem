@@ -16,6 +16,8 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
   - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api) and [Organization-Level Usage Declarations](#organization-level-usage-declarations))
+- **Deferred improvements (pending regulatory guidance):**
+  - [Improvement 6: CRA Steward Declaration](#improvement-6-cra-steward-declaration-deferred)
 
 ---
 
@@ -65,6 +67,12 @@ The [OSBA's selection criteria for sustainable procurement of open source softwa
 ### Legislative Models
 
 Legislation is creating demand for this infrastructure. Switzerland's [EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) already mandates open source release of publicly financed software, but procurement offices still lack the discovery and evaluation tools to act on it. The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) are advancing similar mandates at the EU level, including making upstream contribution an explicit procurement criterion. The metadata proposed here — particularly credit registries and faceted classification — provides the evidence base these legislative efforts need to move from principles to enforceable criteria.
+
+Two EU directives create more immediate, binding demand for the **supply chain and security infrastructure** in Improvement 2:
+
+**[Cyber Resilience Act (CRA)](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source)** applies to FOSS placed on the market for commercial use, and introduces the *open-source software steward* — a legal entity providing sustained support to an OSS product intended for commercial use. Stewards must implement cybersecurity policies for secure development, operate a vulnerability handling and disclosure process, and report actively exploited vulnerabilities to authorities. The `supplyChain` fields proposed here are the natural machine-discoverable evidence layer for these obligations: `sbom` for component transparency, `securityPolicy` for the vulnerability disclosure process, and `scorecard` for demonstrating security development practices. As CRA guidance matures, a `steward` declaration field — identifying the legal entity assuming steward responsibilities — is a natural addition to the `maintenance` section. The credit registry infrastructure also maps onto the steward concept: a vendor with a sustained, project-endorsed contribution record in a credit registry is the empirical demonstration of what "providing sustained support" means in practice.
+
+**[NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)** operates on the user side of the supply chain. It requires organizations in 18 critical sectors — energy, health, transport, public administration, and others — to implement supply chain security risk management. For these organizations, adopting open source software without assessing its SBOM, security policy, and maintenance posture is a compliance risk. The `supplyChain` references give NIS2-covered deploying organizations the evidence they need for that assessment from a single metadata file. The usage declaration mechanism (`.well-known/publiccode-usage.json`) also complements NIS2 compliance internally — organizations maintaining a declared software inventory have a natural audit trail for their supply chain risk management obligations.
 
 ---
 
@@ -288,8 +296,10 @@ supplyChain:
   #   https://api.scorecard.dev/projects/github.com/{owner}/{repo}
   scorecard: https://scorecard.dev/viewer/?uri=github.com/example/project
 
-  # Security policy — URL to the project's SECURITY.md or
-  # equivalent vulnerability disclosure policy.
+  # Security policy — URL to the project's vulnerability disclosure
+  # policy. This may be a GitHub SECURITY.md (rendered at
+  # /security/policy), a .well-known/security.txt file per RFC 9116,
+  # a dedicated security page, or any equivalent resource.
   securityPolicy: https://github.com/example/project/security/policy
 
   # REUSE compliance — whether the project follows the FSFE REUSE
@@ -302,14 +312,17 @@ supplyChain:
 
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field simply links to the canonical viewer URL. Crawlers can follow this to fetch the score programmatically via the [Scorecard API](https://api.scorecard.dev/).
+- **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a de facto convention popularized by GitHub (which renders it as a "Security policy" tab), but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a GitHub SECURITY.md page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the GitHub convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
+- **`SECURITY.md` is part of a broader emerging pattern of repository-level policy files.** Similar conventions are developing for other dimensions: [`SUSTAINABILITY.md`](https://github.com/mgifford/sustainability.md) (currently in draft) documents a project's environmental commitments and targets, following the [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/); [`ACCESSIBILITY.md`](https://github.com/mgifford/ACCESSIBILITY.md) (currently in draft) documents Web Content Accessibility Guidelines (WCAG) conformance levels, known accessibility gaps, and contributor expectations. None of these have reached the status of formal standards yet, but they follow the same convention: a named file in the repository root that makes a policy dimension legible to humans and increasingly to tools. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts. Sustainability and accessibility declarations belong in the future `supports` key (see below) rather than as additional `supplyChain` subfields.
 - **REUSE compliance** is already checked by openCode.de badges. Making it a first-class field in publiccode.yml formalizes what's already practiced.
-- **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed.
+- **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supports` key is also the natural home for sustainability and accessibility policy declarations as those conventions mature.
 
 ### What This Enables
 
 1. **Procurement security assessment.** Before adopting software, a procurement officer can check its OpenSSF Scorecard, review the vulnerability disclosure policy, and verify SBOM availability — all from a single metadata file, without hunting across multiple external sources.
 2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
 3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
+4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
 
 ---
 
@@ -742,3 +755,49 @@ Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** p
 4. **The openCode.de reuse badge model scales globally.** openCode.de is one registry among many. A French equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
 5. **Deploying organizations can declare usage without intermediaries.** By publishing `/.well-known/publiccode-usage.json` on their domain, organizations assert usage with their domain as proof of identity — no registry account required. Registries crawl these files as one intake mechanism alongside direct declarations.
 6. **Deployment processes become the source of truth.** When open source projects integrate usage declaration updates into their deployment documentation, the `.well-known` file stays current with actual deployments. Retirement is explicitly signaled, giving the ecosystem a deprecation mechanism that manual registries lack.
+
+---
+
+## Improvement 6: CRA Steward Declaration *(Deferred)*
+
+> **Status: deferred pending CRA guidance.** The Cyber Resilience Act's open-source software steward obligations are still being clarified through guidance documents (see risk [P5](RISK_ANALYSIS.md)). This improvement is described here as a planned extension so that the design space is reserved and the intent is clear, but it should not be implemented until the regulatory semantics have settled.
+
+The [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) introduces the *open-source software steward* — a legal entity that provides sustained support to an OSS product intended for commercial use and assumes formal obligations for cybersecurity policy, vulnerability handling, and incident reporting. The existing `maintenance.contacts` and `maintenance.contractors` fields describe operational support arrangements but do not identify a legal entity accepting CRA steward responsibilities. This improvement adds a dedicated `steward` field under `maintenance` to fill that gap.
+
+### Design Rationale
+
+The field follows the pointer pattern established by `supplyChain`: it identifies and links to an external declaration rather than asserting a legal claim inline. A YAML file in a git repository is not an appropriate vehicle for a binding legal declaration — it can be wrong, stale, or set by someone who is not the steward. The `url` field should point to the steward entity's own published declaration (on their website, a regulatory register, or equivalent), with the publiccode.yml entry serving as a discovery mechanism.
+
+### Schema
+
+```yaml
+maintenance:
+  # Existing fields (contacts, contractors) unchanged.
+
+  # CRA open-source software steward — the legal entity that has
+  # assumed steward responsibilities under the Cyber Resilience Act.
+  # Points to an authoritative steward declaration rather than
+  # asserting the legal claim inline.
+  # DEFERRED: only add once CRA guidance has settled on required
+  # identifiers and declaration formats.
+  steward:
+    # Legal name of the steward entity.
+    name: Acme Foundation
+    # URL to the steward's own published CRA steward declaration
+    # or organizational page confirming steward responsibilities.
+    url: https://acme-foundation.org/cra-steward
+    # Stable legal identifier for the entity.
+    # Preferred: LEI (Legal Entity Identifier, ISO 17442).
+    # Alternatives: EU VAT number, national business register ID.
+    identifier: LEI:XXXXXXXXXXXXXXXXXXXX
+```
+
+### Relationship to Existing Fields
+
+The `maintenance.contractors` field already lists organizations providing contracted support. A CRA steward will often be one of those contractors, or the project's own foundation. The `steward` field is not a replacement — it makes the specific legal accountability claim explicit and machine-readable, separate from the operational listing. A project may have multiple contractors but only one (or a small number of) formally registered stewards.
+
+### What This Enables
+
+1. **Procurement officers** can identify which legal entity is accountable for CRA compliance — not inferred from contributor lists, but explicitly declared.
+2. **Regulators and market surveillance authorities** can discover who to contact for vulnerability reports and incident notifications from a standardized location.
+3. **Crawlers** can surface steward identity alongside `supplyChain` artifacts, giving procurement offices a complete CRA compliance picture in one place.
