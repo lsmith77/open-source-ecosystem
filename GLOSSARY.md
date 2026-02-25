@@ -148,34 +148,6 @@ The definitive, most-accurate place to find information. For software version nu
 
 ---
 
-## Use Cases Referenced
-
-**Procurement Discovery**
-Help procurement officers find open source software that meets their needs. Example: "Show me all CMS tools suitable for public administrations that run as web applications."
-
-**Vendor Evaluation**
-Assess whether a vendor has genuine expertise in a software project. Do they actually contribute code? How long have they been involved? Are they trusted by the project maintainers?
-
-**Supply Chain Assessment**
-Evaluate whether software is secure and maintainable. Does it have known vulnerabilities? Are dependencies well-maintained? Who controls the project?
-
-**Ecosystem Gap Analysis**
-Identify which areas lack open source options or lack adequate funding. Example: "Which widely-used functions in healthcare IT lack maintained open source alternatives?"
-
----
-
-## Related Standards (Brief References)
-
-**CITATION.cff** - Format for software citation metadata (author, version, publication date). Lightweight complement to CodeMeta.
-
-**schema.org** - Web standard for structured data. Provides shared vocabulary for everything from recipes to software. Many metadata standards build on schema.org.
-
-**Software Heritage** - Non-profit long-term archive of all public source code. Accepts deposits in CodeMeta format.
-
-**Software Heritage SoftwareSourceCode** - The metadata model used to describe software in the Software Heritage archive.
-
----
-
 ## Repository-Level Policy File Conventions
 
 A growing pattern of named files in repository roots that make a specific policy dimension legible to humans and tools. None of these have reached formal standard status, but they are gaining traction through platform support and community adoption.
@@ -184,6 +156,3 @@ A growing pattern of named files in repository roots that make a specific policy
 
 **RFC 9116 `security.txt`** - An IETF standard ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) defining a structured file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, policy URLs, and expiry dates for a domain. Unlike SECURITY.md, its format is formally specified and machine-parseable. Relevant to CRA steward obligations for vulnerability handling.
 
-**SUSTAINABILITY.md** - A [draft convention](https://github.com/mgifford/sustainability.md) for documenting a project's environmental commitments and targets, following the W3C Web Sustainability Guidelines. Covers product, code, and operational sustainability decisions, AI usage policies, and measurable metrics. Not yet a formal standard.
-
-**ACCESSIBILITY.md** - A [draft convention](https://github.com/mgifford/ACCESSIBILITY.md) for documenting a project's Web Content Accessibility Guidelines (WCAG) conformance levels, known accessibility gaps, contributor expectations, and CI/CD integration for automated accessibility checks. Not yet a formal standard.
