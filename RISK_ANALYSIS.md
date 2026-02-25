@@ -163,9 +163,10 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 
 ### Critical risks (High likelihood + High impact)
 
-1. **G1 — Small spec governance community**: The single highest-priority prerequisite. The publiccode.yml spec's maintainer community is small relative to its institutional adoption. Without maintainer buy-in and capacity, the improvements remain a proposal indefinitely.
-2. **A1 — Branding** and **A2 — Bootstrapping**: The proposal's reach depends on careful communication (a name change is off the table) and solving the platform bootstrapping problem (registries need projects need registries).
-3. **A5 — Temporal field staleness**: Empirically observed at scale — most existing publiccode.yml files are out of date because temporal fields aren't maintained between releases. This directly undermines ecosystem credibility and is addressed by Improvement 5.
-4. **T3 — API interoperability**: The federated registry architecture is the proposal's most ambitious element. Without a conformance test suite and reference implementation, interoperability will be aspirational.
-5. **S1 — Credit gaming**: The economic incentives created by linking contributions to procurement decisions will attract gaming. This is not solvable at the schema level — it requires registry-level countermeasures and procurement officer education.
-6. **E1 — Registry sustainability**: The architecture depends on registries existing and operating reliably. Without a sustainability model, the long-term viability of the ecosystem is uncertain.
+Below a summary of risks that combine High likelihood with High impact and define the critical path:
+
+1. **G1** (governance buy-in) is the single prerequisite — nothing advances without maintainer approval.
+2. **A1** and **A2** (branding and bootstrapping) constrain reach.
+3. **A5** (temporal staleness) is empirically observable now.
+4. **T3** (API interoperability) and **S1** (credit gaming) require registry-level countermeasures that cannot be solved at the schema level.
+5. **E1** (registry sustainability) requires institutional funding commitments before the ecosystem can rely on registries long-term.
