@@ -205,28 +205,6 @@ _You run openCode.de, Developers Italia, or another registry/index._
 
 ---
 
-## Common Questions to Guide You
-
-**"Is this really needed? Doesn't something like this already exist?"**
-→ Read [RESEARCH.md](RESEARCH.md) for the comparative analysis.
-
-**"What are the real risks and limitations?"**
-→ Read [RISK_ANALYSIS.md](RISK_ANALYSIS.md).
-
-**"How would we actually implement this?"**
-→ Read [ROADMAP.md](ROADMAP.md).
-
-**"What does the technical specification look like?"**
-→ Read [PROPOSAL.md → Full Example](PROPOSAL.md#full-example).
-
-**"How was this research done? Can I trust the conclusions?"**
-→ Read [METHODOLOGY.md](METHODOLOGY.md).
-
-**"What's the long-term vision beyond just metadata?"**
-→ Read [PITCH.md](PITCH.md) for positioning, then [RESEARCH.md → Other Relevant Standards](RESEARCH.md#other-relevant-standards-and-initiatives) for ecosystem context.
-
----
-
 ## How to Contribute Feedback
 
 This project is open for feedback and collaboration. Key places to raise ideas:
