@@ -116,8 +116,6 @@ The taxonomy is stored as YAML in a GitHub repository ([ecosyste-ms/oss-taxonomy
 
 ---
 
-### 4. gov-codejson (DSACMS / code.gov lineage)
-
 ### 4. gov-codejson (U.S. Federal Government)
 
 A JSON schema for U.S. federal agency software inventory, evolved from the code.gov `code.json` standard mandated by U.S. policy. The approach is narrow (U.S. federal context), small community (5 stars, 2 forks on GitHub), and fundamentally agency-centric (an internal inventory format rather than a discovery format for external procurement).
@@ -125,8 +123,6 @@ A JSON schema for U.S. federal agency software inventory, evolved from the code.
 It will persist as a U.S. federal compliance requirement but is not viable as a global standard. The natural path forward: U.S. agencies could adopt publiccode.yml with a U.S. country extension, as Italy and Germany have done.
 
 ---
-
-### 5. contribute.json (Mozilla)
 
 ### 5. contribute.json (Mozilla) — Archived
 
