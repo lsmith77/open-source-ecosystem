@@ -55,7 +55,7 @@ A comprehensive ecosystem of standards and registries built around publiccode.ym
 - **Trust is verifiable, not assumed.** Each registry declares its trust model (`verified-domain`, `signed-attestation`, `self-reported`) so consumers can choose data sources matching their risk tolerance.
 - **Data drives decisions, not politics.** By making vendor contributions, supply chain security, and software adoption transparently measurable, procurement and policy become evidence-based rather than relationship-based.
 
-Together, these enable a **self-reinforcing, decentralized ecosystem** where procurement demand drives adoption of open source standards, verified through trust networks, which in turn strengthens the vendors and projects within those ecosystems—all while maintaining independence and preventing gatekeeping.
+Together, these enable a **self-reinforcing, decentralized ecosystem** where procurement demand drives adoption of open source standards, verified through trust networks, which in turn strengthens the vendors, maintainers, and projects that sustain the digital commons—all while maintaining independence and preventing gatekeeping.
 
 ---
 
