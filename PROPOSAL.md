@@ -790,14 +790,24 @@ maintenance:
     # Preferred: LEI (Legal Entity Identifier, ISO 17442).
     # Alternatives: EU VAT number, national business register ID.
     identifier: LEI:XXXXXXXXXXXXXXXXXXXX
+    # URL to the steward's documented cybersecurity policy per
+    # CRA Article 24(1): the organizational policy covering secure
+    # development practices, vulnerability handling, and community
+    # disclosure processes. Distinct from supplyChain.securityPolicy,
+    # which is the project-level vulnerability disclosure policy.
+    # DEFERRED: field semantics depend on regulatory guidance on what
+    # constitutes a "verifiable" cybersecurity policy document.
+    cybersecurityPolicy: https://acme-foundation.org/cra-cybersecurity-policy
 ```
 
 ### Relationship to Existing Fields
 
 The `maintenance.contractors` field already lists organizations providing contracted support. A CRA steward will often be one of those contractors, or the project's own foundation. The `steward` field is not a replacement — it makes the specific legal accountability claim explicit and machine-readable, separate from the operational listing. A project may have multiple contractors but only one (or a small number of) formally registered stewards.
 
+The `cybersecurityPolicy` field is distinct from `supplyChain.securityPolicy`: the latter is a project-level vulnerability disclosure policy ("how to report a vulnerability in this software"), while `cybersecurityPolicy` is the steward's organizational policy document — broader in scope (covering secure development practices, internal processes, community coordination) and owned by the steward entity rather than the project. A project without a formal steward still benefits from `supplyChain.securityPolicy`; `cybersecurityPolicy` only applies when a steward exists.
+
 ### What This Enables
 
 1. **Procurement officers** can identify which legal entity is accountable for CRA compliance — not inferred from contributor lists, but explicitly declared.
-2. **Regulators and market surveillance authorities** can discover who to contact for vulnerability reports and incident notifications from a standardized location.
-3. **Crawlers** can surface steward identity alongside `supplyChain` artifacts, giving procurement offices a complete CRA compliance picture in one place.
+2. **Regulators and market surveillance authorities** can discover both the steward identity and their cybersecurity policy document from a single metadata file, directly supporting Article 24(2)'s requirement that stewards provide documentation on request.
+3. **Crawlers** can surface steward identity, cybersecurity policy, and `supplyChain` artifacts together, giving procurement offices a complete CRA compliance picture in one place.
