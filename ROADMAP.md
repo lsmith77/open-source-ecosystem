@@ -155,7 +155,7 @@ An assessment of `contribution_records` reusability with a concrete plan for pac
 1. **First registry publishes a `/.well-known/publiccode-registry.json` manifest** — becoming discoverable via the standard. openCode.de is the natural candidate given its existing badge system.
 2. **Implement the Usage Registry API** on the first registry — standardizing the adoption/reuse data that already powers its badge system.
 3. **Engage a second usage registry** (e.g., Developers Italia) to demonstrate cross-registry interoperability.
-4. **Publish the central registry directory** (bootstrap list) with initial entries.
+4. **Publish the central registry directory** (starter list) with initial entries.
 5. **Define the `/.well-known/publiccode-usage.json` specification** for organization-level usage declarations. Pilot with a small set of municipalities willing to publish their software usage on their domains.
 6. **Work with deployment-heavy projects** (e.g., Drupal, Nextcloud) to integrate usage declaration updates into their documented deployment processes.
 7. **Prototype an internal scan-and-publish tool** that organizations can run to inventory deployed software and generate a `.well-known/publiccode-usage.json` or bulk-import into a registry.

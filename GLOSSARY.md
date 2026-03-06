@@ -19,6 +19,30 @@ An automated security audit tool that checks open source projects for common sec
 **REUSE**
 A standard created by the Free Software Foundation Europe (FSFE) for making per-file licensing transparent. Every source file declares its license, making compliance auditable by machines.
 
+**Cyber Resilience Act (CRA)**
+An EU regulation establishing requirements for software security and liability. Introduces the "open source software steward" — an organization responsible for maintaining security and handling vulnerabilities in critical software. Requires stewards to publish security policies and software bill of materials (SBOMs).
+
+**NIS2 Directive**
+EU regulation requiring organizations in critical sectors (energy, health, transport, government) to assess and manage security risks in their software supply chain. For deploying organizations, this means evaluating the security, maintenance, and quality of software before adoption.
+
+**Upstream / Downstream Contributions**
+Describes the direction of contributions to open source projects:
+
+- **Upstream**: Contributing code back to the original project (generally considered good practice)
+- **Downstream**: Using a project's code but keeping modifications separate
+
+Example: A vendor contributes new features to Drupal (upstream). A hospital deploys Drupal with custom modifications (downstream).
+
+**Trust Model** (for registries)
+The method a registry uses to verify the accuracy of information it publishes:
+
+- **Self-reported**: Organizations declare information without registry verification (least verification)
+- **Verified-domain**: Registry confirms organization control of a domain before accepting declarations (medium verification)
+- **Signed-attestation**: Registry cryptographically verifies signatures on declarations (most verification)
+
+**Bootstrap / Bootstrapping**
+Starting a system using existing resources rather than building everything new. Example: "Bootstrap the credit registry using Drupal's existing system" means using Drupal as the foundation rather than building from scratch.
+
 **JSON-LD**
 A format that embeds structured data into JSON so that web crawlers and tools can understand it. Enables data interoperability across platforms.
 
@@ -154,5 +178,6 @@ A growing pattern of named files in repository roots that make a specific policy
 
 **SECURITY.md** - A de facto convention popularized by GitHub, which renders it as a "Security policy" tab in a repository. Contains a project's vulnerability disclosure policy and contact information for reporting security issues. Has no formal specification — content is free-form prose. The more rigorous machine-parseable alternative is RFC 9116 `security.txt`.
 
-**RFC 9116 `security.txt`** - An IETF standard ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) defining a structured file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, policy URLs, and expiry dates for a domain. Unlike SECURITY.md, its format is formally specified and machine-parseable. Relevant to CRA steward obligations for vulnerability handling.
+**RFC** - Request for Comments. Internet Engineering Task Force (IETF) standard documents that formally specify how internet systems should work. RFCs are numbered (e.g., RFC 9116) and become the official specifications that tools and systems implement.
 
+**RFC 9116 `security.txt`** - An IETF standard ([RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)) defining a structured file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, policy URLs, and expiry dates for a domain. Unlike SECURITY.md, its format is formally specified and machine-parseable. Relevant to CRA steward obligations for vulnerability handling.

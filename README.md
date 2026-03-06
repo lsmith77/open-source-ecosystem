@@ -99,7 +99,7 @@ _You're considering whether to adopt publiccode.yml metadata._
 
 **Start here:**
 
-1. [PITCH.md → OSS Project/Maintainer](PITCH.md#oss-project--maintainer) (2 min) — What you get
+1. [PITCH.md → Open Source Project/Maintainer](PITCH.md#open-source-project--maintainer) (2 min) — What you get
 2. [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml) (15 min) — How publiccode.yml works
 3. [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) (5 min) — Philosophy
 4. [PROPOSAL.md → Full Example](PROPOSAL.md#full-example) (15 min) — See what it looks like

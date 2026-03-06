@@ -25,9 +25,9 @@ The name signals "government software." Mainstream open source projects (React, 
 
 Credit and usage registries need projects to have publiccode.yml files to index. Projects need registries to exist before the `creditRegistries` field is useful. Neither side moves first.
 
-- **Likelihood:** High — classic platform bootstrapping problem
+- **Likelihood:** High — this is a classic "chicken-and-egg" problem in platform building
 - **Impact:** High — the entire registry architecture remains theoretical without critical mass
-- **Mitigation:** Bootstrap with existing infrastructure. Drupal already has a credit system; ecosyste.ms already tracks contributions. The proposal should demonstrate the improvements working with these existing systems rather than requiring greenfield registries. openCode.de and Developers Italia can serve as initial usage registries.
+- **Mitigation:** Start using existing infrastructure. Drupal already has a credit system; ecosyste.ms already tracks contributions. The proposal should demonstrate the improvements working with these existing systems rather than requiring entirely new registries. openCode.de and Developers Italia can serve as initial usage registries.
 
 ### A5. Temporal fields cause widespread file staleness
 
@@ -117,7 +117,7 @@ The proposal's value proposition depends heavily on procurement policies that ac
 
 Even if credit data is accurate (see S1 for data integrity), procurement regulations may misuse it. If regulations require or favor vendors with high credit scores, vendors may optimize for credit metrics rather than actual software quality. Procurement becomes a game of credit accumulation rather than demonstrated capability. This risk is about the **policy interpretation layer** — how procurement frameworks consume credit data — distinct from S1's concern about whether the underlying data can be trusted.
 
-- **Likelihood:** Medium — regulations tend to simplify complex signals into checkbox requirements. However, Drupal's credit system has operated for years with procurement-relevant credits without devolving into pure gaming — its process (maintainer sign-off, usage-weighted credits, organizational attribution, tiered marketplace) is sophisticated enough to resist it. The fact that this process is open source means other projects can adopt proven anti-gaming measures rather than designing from scratch.
+- **Likelihood:** Medium — regulations tend to simplify complex signals into simple checkboxes. However, Drupal's credit system has operated for years with procurement-relevant credits without becoming pure gaming. Its process (maintainer sign-off, usage-weighted credits, organizational attribution, tiered marketplace) is sophisticated enough to resist gaming. Because this process is open source, other projects can adopt proven safeguards rather than designing them from scratch.
 - **Impact:** High — distorts the open source contribution ecosystem and may disadvantage smaller vendors who do high-quality but less frequent work
 - **Mitigation:** Credit data should be presented as one input among many in procurement evaluation, not as a scoring system. The proposal should explicitly warn against reducing credit data to single numeric scores in procurement frameworks. Registries should expose contribution type (code, security, documentation) to allow qualitative assessment rather than simple numeric ranking.
 
@@ -127,7 +127,7 @@ The Cyber Resilience Act's open-source provisions are still being clarified thro
 
 - **Likelihood:** Low-Medium — the standards referenced are broadly aligned with what the OSS community and regulators are already treating as compliance evidence. The Open Regulatory Compliance Working Group explicitly cites OpenSSF Scorecard as a CRA compliance tool, and CycloneDX/SPDX are the dominant SBOM formats. Divergence is possible but would require regulators to reject the community's emerging consensus.
 - **Impact:** Medium — if guidance diverges, the `supplyChain` fields would need updating. The architecture (machine-discoverable pointers to external artifacts) is sound regardless of which specific artifacts are required, so the schema change would be evolutionary rather than structural.
-- **Mitigation:** The `supplyChain` field design is intentionally URL-based — pointing to external standards rather than encoding compliance claims inline — which makes it adaptable as requirements evolve without breaking existing files. Monitor guidance from the Open Regulatory Compliance Working Group and OpenSSF closely. The `supports` key under discussion in the publiccode.yml spec would complement `supplyChain` for forward-compatible compliance declarations.
+- **Mitigation:** The `supplyChain` field design is intentionally URL-based. It points to external standards rather than encoding compliance claims directly in the file. This makes it adaptable as requirements evolve without breaking existing files. Monitor guidance from the Open Regulatory Compliance Working Group and OpenSSF closely. The `supports` key (under discussion in the publiccode.yml spec) would complement `supplyChain` for forward-compatible compliance declarations.
 
 ---
 

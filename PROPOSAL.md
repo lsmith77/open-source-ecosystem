@@ -35,11 +35,11 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 6. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
 
-7. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. Where a companion standard addresses the same concept from a different perspective (e.g., a deploying organization asserting its use case rather than a project author asserting capabilities), the same field name is reused with an explicit note on the assertion authority — not a new name for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
+7. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. When a companion standard addresses the same concept from a different perspective (for example, a deploying organization declaring its use case rather than a project author declaring capabilities), we reuse the same field name with an explicit note about who is making the assertion. This avoids creating new names for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
 
-8. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add requirements beyond what those laws impose. Every field and mechanism described here is either optional or a technical means to satisfy obligations that already exist in law. Participation at any level of the trust hierarchy is voluntary; higher trust levels unlock richer catalog filter capabilities but carry no legal mandate.
+8. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add new requirements beyond what those laws already impose. Every field and mechanism described here is either optional or a technical way to meet obligations that already exist in law. Participation is voluntary at every level; higher trust levels unlock richer catalog filters but carry no legal requirements.
 
-9. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
+9. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity.
 
 ---
 
@@ -665,7 +665,7 @@ Inverse query: given an organization, return all projects they have credits in. 
 
 ## Registry Discovery Standard (Rough Outline)
 
-This is a **companion specification** to publiccode.yml. It solves a bootstrapping problem: if usage registries are decentralized and not listed in project files, how do crawlers find them?
+This is a **companion specification** to publiccode.yml. It solves a chicken-and-egg problem: if usage registries are decentralized and not listed in project files, how do crawlers find them?
 
 The same standard also covers credit registries — even though projects _can_ list those in publiccode.yml, a global crawler shouldn't have to read every project file to discover that a registry exists. Registries should be independently discoverable.
 
@@ -719,7 +719,7 @@ Crawlers discover registries through multiple complementary channels:
 
 1. **Well-known URL probing.** Crawlers can probe known domains for `/.well-known/publiccode-registry.json`. Useful for discovering registries at domains already known to the ecosystem (opencode.de, developers.italia.it, etc.).
 
-2. **Central directory (bootstrap list).** A community-maintained list of known registry manifest URLs, similar to how browsers ship a root certificate store. Maintained via pull requests (like a browser's CA inclusion process) and published at a stable URL. Any registry operator can request inclusion.
+2. **Central directory (starter list).** A community-maintained list of known registry manifest URLs, similar to how browsers ship a root certificate store. Maintained via pull requests (like a browser's CA inclusion process) and published at a stable URL. Any registry operator can request inclusion.
 
 3. **DNS TXT records (future).** A registry could publish a TXT record at `_publiccode-registry.opencode.de` pointing to its manifest URL. This enables fully decentralized discovery without any central directory.
 
