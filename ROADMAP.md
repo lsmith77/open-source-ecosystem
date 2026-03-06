@@ -204,12 +204,23 @@ Players not yet in the coalition but necessary for the proposal to succeed. (Pla
 
 ### Valuable Potential Allies
 
-| Player                         | Why they matter                                                                                                                                                                                                             |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **OpenSSF**                    | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                                                                                                               |
-| **Foundation for Public Code** | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the improvements in their standard. |
-| **APELL**                      | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria.                               |
-| **EuroStack**                  | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure.                                                                    |
+| Player                                   | Why they matter                                                                                                                                                                                                               |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **OpenSSF**                              | Scorecard integration in `supplyChain`. Credibility on supply chain security.                                                                                                                                                 |
+| **Foundation for Public Code**           | Dutch foundation maintaining [The Standard for Public Code](https://standard.publiccode.net/) — a broader framework that recommends publiccode.yml. Could amplify adoption by referencing the improvements in their standard. |
+| **APELL**                                | [Proposes](https://apell.info/) making upstream contribution an explicit procurement criterion. Needs credit and classification metadata as evidence infrastructure for enforceable criteria.                                 |
+| **EuroStack**                            | [Coalition](https://eurostack.eu/) of 260+ companies advocating a "Buy Open Source Act" at EU level. Needs the same procurement metadata infrastructure.                                                                      |
+| **Digital Public Goods Alliance**        | [Alliance](https://www.digitalpublicgoods.net/) assessing open source digital solutions for global development. Metadata standards align with their evaluation criteria.                                                      |
+| **EC Open Source Program Office (OSPO)** | [European Commission initiative](https://interoperable-europe.ec.europa.eu/collection/ec-ospo) supporting open source adoption in EU institutions. Natural ally for publiccode.yml promotion.                                 |
+| **Open Forum Europe**                    | [Organization](https://openforumeurope.org/) advocating for open standards and open source in European policy. Bridges procurement policy and standards communities.                                                          |
+
+### Potential Funding Sources / Allies
+
+| Funder                                      | Relevance                                                                                                                                                                                  |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Sovereign Tech Fund**                     | German government funding for critical open source. Direct fit for registry infrastructure and CRA compliance work.                                                                        |
+| **Endowment for Democracy / endowment.dev** | [Fund](https://endowment.dev/) supporting digital infrastructure for social good. Metadata standards are foundational infrastructure for procurement and transparency.                     |
+| **NLnet Foundation**                        | [Dutch foundation](https://nlnet.nl/) supporting open internet infrastructure and digital freedom. History of funding metadata and standards work. EU-based, understands policy landscape. |
 
 ### Important for Global Scale (Phase 5)
 
