@@ -35,7 +35,9 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 6. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
 
-7. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
+7. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. Where a companion standard addresses the same concept from a different perspective (e.g., a deploying organization asserting its use case rather than a project author asserting capabilities), the same field name is reused with an explicit note on the assertion authority — not a new name for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
+
+8. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
 
 ---
 
@@ -714,15 +716,50 @@ Usage registries are the canonical aggregation point for adoption data, but the 
 
 #### Key Fields
 
-| Field               | Purpose                                                                                                                           |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `organization.url`  | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                  |
-| `software[].url`    | The project's canonical URL (matches the `url` field in publiccode.yml)                                                           |
-| `software[].status` | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                              |
-| `software[].until`  | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                               |
-| `lastUpdated`       | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale |
+| Field                          | Purpose                                                                                                                                                                      |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `organization.url`             | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                                                             |
+| `organization.sector`          | The organization's sector, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`). Optional.                                 |
+| `software[].url`               | The project's canonical URL (matches the `url` field in publiccode.yml)                                                                                                      |
+| `software[].status`            | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                                                                        |
+| `software[].until`             | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                                                                          |
+| `software[].classification`    | Which classification facets apply to this organization's specific use, using publiccode.yml's `classification` vocabulary. The `domain` and `function` facets are most meaningful here; `role`, `layer`, `technology`, and `audience` are not recommended in this context. Optional. |
+| `lastUpdated`                  | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale                                            |
 
-The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
+The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project, and for what purpose?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
+
+#### Classification in Usage Declarations
+
+The `software[].classification` field reuses publiccode.yml's `classification` vocabulary but carries a different assertion authority: **publiccode.yml's `classification` is asserted by the project author** ("this software supports content management and CRM"); **the usage declaration's `classification` is asserted by the deploying organization** ("we use it specifically for content management"). Same controlled vocabulary, different perspective — consistent with the broader pattern in this ecosystem where each actor declares only what they can directly verify.
+
+This distinction is valuable for procurement. A project listing `classification.domain: [content-management, crm]` tells potential adopters what the software *can* do. A municipality listing `classification.domain: [content-management]` in their usage declaration tells peers what a comparable organization *actually uses it for* — a more reliable signal for adoption decisions.
+
+```json
+{
+  "organization": {
+    "url": "https://muenchen.de",
+    "sector": "government"
+  },
+  "software": [
+    {
+      "url": "https://github.com/drupal/drupal",
+      "status": "production",
+      "classification": {
+        "domain": ["content-management"],
+        "function": ["authentication", "caching"]
+      }
+    },
+    {
+      "url": "https://github.com/nextcloud/server",
+      "status": "production",
+      "classification": {
+        "domain": ["file-management", "collaboration"]
+      }
+    }
+  ],
+  "lastUpdated": "2025-09-01"
+}
+```
 
 #### Design Principles
 
