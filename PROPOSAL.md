@@ -37,7 +37,9 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 7. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. Where a companion standard addresses the same concept from a different perspective (e.g., a deploying organization asserting its use case rather than a project author asserting capabilities), the same field name is reused with an explicit note on the assertion authority — not a new name for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
 
-8. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
+8. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add requirements beyond what those laws impose. Every field and mechanism described here is either optional or a technical means to satisfy obligations that already exist in law. Participation at any level of the trust hierarchy is voluntary; higher trust levels unlock richer catalog filter capabilities but carry no legal mandate.
+
+9. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could interoperate with publiccode.yml via [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could produce linked data from plain YAML by applying a standard context—but this is deferred to reduce complexity.
 
 ---
 
@@ -435,6 +437,17 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 #   open:
 #     - name: PostgreSQL
 #       versionMin: "14"
+
+# contractors[].until deprecated — contract expiry dates are rarely
+# maintained and create false impressions of active support.
+# contractors[].identifier added (optional) — links inline contractor
+# declarations to credit registry profiles.
+maintenance:
+  contractors:
+    - name: Acme GmbH
+      website: https://acme.example.org
+      identifier: "LEI:XXXXXXXXXXXXXXXXXXXX"  # new optional field
+      # until: "2027-12-31"                   # deprecated
 ```
 
 ### Design Rationale
@@ -449,6 +462,25 @@ Across the thousands of publiccode.yml files indexed by ecosyste.ms, most are ou
 These are slow-changing, human-maintained fields. They don't become stale between releases because they don't change with releases. Removing temporal fields reduces the maintenance burden on maintainers (addressing risk A3) and eliminates the most common source of inaccurate data in the ecosystem.
 
 **Note:** The `dependsOn` field retains value as a human-readable indicator of major runtime dependencies (e.g., "this software needs PostgreSQL") even without version constraints. Projects may choose to keep `dependsOn` with dependency names but without `versionMin`/`versionMax` — the version detail belongs in the SBOM referenced by `supplyChain.sbom`.
+
+**`contractors[]` as the minimal inline credit registry.** The `usedBy` field (deprecated in Improvement 4) and `contractors[]` might look similar — both list external entities inline. But `usedBy` listed something externally observable (which organizations deploy the software), making the inline declaration redundant. `contractors[]` lists a support relationship that only the project can declare.
+
+Structurally, `contractors[]` is the inline, project-asserted minimal form of a credit registry entry. A contractor is simply an entity with a `support-contract` relationship to the project — equivalent to a credit registry entry with `roles: ["support-contract"]`. For projects that do not operate or endorse a credit registry, `contractors[]` is the appropriate lightweight mechanism. For projects that do have a credit registry, support contractors should be listed there (with `roles: ["support-contract"]`) and `contractors[]` may be omitted or used as a convenience mirror. The Credit Registry API includes `support-contract` as a valid role type alongside `code`, `maintainer`, `funding`, and others (see [Credit Registry API](#credit-registry-api-rough-outline)).
+
+Only `contractors[].until` is deprecated because contract expiry dates create a false impression of maintenance status while being essentially unmaintained in practice.
+
+**Adding optional contractor identifiers.** For consistency with `maintenance.steward.identifier` and credit registry entity records, this improvement adds an optional `identifier` field to contractor entries. This allows a contractor's inline declaration to be cross-referenced with their credit registry profile — useful when both exist. The field follows the same `SCHEME:VALUE` convention used elsewhere:
+
+```yaml
+maintenance:
+  contractors:
+    - name: Acme GmbH
+      website: https://acme.example.org
+      identifier: "LEI:529900T8BM49AURSDO55"  # optional; LEI preferred for legal entities
+      # until: "2027-12-31" — deprecated, see Fields to Deprecate above
+```
+
+This is a non-breaking addition; existing files that omit `identifier` remain valid.
 
 ---
 
@@ -533,8 +565,9 @@ maintenance:
   type: contract
   contractors:
     - name: Acme GmbH
-      until: "2027-12-31"
       website: https://acme.example.org
+      identifier: "LEI:529900T8BM49AURSDO55"  # optional; see Improvement 5
+      # until: "2027-12-31" — deprecated; see Improvement 5
   contacts:
     - name: Jane Maintainer
       email: jane@medusa-cms.example.org
@@ -610,10 +643,10 @@ The response identifies the project and registry, then lists credited entities w
 | Field                   | Purpose                                                                                                                 |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `entity.type`           | `organization` or `individual`                                                                                          |
-| `entity.identifier`     | Stable identifier — URL, ROR ID, Wikidata QID, etc.                                                                     |
+| `entity.identifier`     | Stable identifier — URL, ROR ID, Wikidata QID, LEI, etc. See [Entity Identity](#entity-identity) for recommended schemes and how verification trust should be carried through API responses. |
 | `summary.totalCredits`  | All-time credit count (registry-defined unit)                                                                           |
 | `summary.periodCredits` | Credits in the requested time window                                                                                    |
-| `summary.roles`         | Types of contributions: `code`, `documentation`, `security`, `translation`, `maintainer`, `funding`, `triage`, `design` |
+| `summary.roles`         | Types of contributions: `code`, `documentation`, `security`, `translation`, `maintainer`, `funding`, `triage`, `design`, `support-contract` |
 | `ranking.position`      | Rank among all credited entities for this project                                                                       |
 | `ranking.tier`          | Registry-defined tier (e.g., `platinum`, `gold`, `silver` — or Drupal's `premium`, `certified`, `contributing`)         |
 
@@ -678,7 +711,7 @@ The manifest describes the registry's identity, operator, capabilities, API loca
 | `trustModel`          | How the registry verifies claims: `verified-domain`, `signed-attestation`, `self-reported`   |
 | `api.conformsTo`      | Which standardized API specs the registry implements (see below)                             |
 | `scope.jurisdictions` | Which countries/regions the registry covers (ISO 3166-1)                                     |
-| `scope.sectors`       | Which sectors: `public-administration`, `enterprise`, `education`, `ngo`, etc.               |
+| `scope.sectors`       | Which sectors the registry covers, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`, `research`) |
 
 #### Discovery Mechanisms
 
@@ -783,6 +816,61 @@ Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** p
 | `verified-domain`    | Organization controls the declared domain (DNS validation or institutional account)     | openCode.de, Developers Italia       |
 | `signed-attestation` | Organization signs a machine-readable statement (e.g., with a code-signing certificate) | Future: EU eIDAS-backed attestations |
 | `self-reported`      | No verification, organization self-declares                                             | Low-trust community registries       |
+
+### Entity Identity
+
+Both credit registries and usage registries track entities — vendors contributing to projects, and organizations deploying them. Without stable, shared identifiers, cross-registry aggregation breaks down: "Acme GmbH", "ACME GmbH", and "Acme" in three different registries may be the same legal entity or three different ones. There is no way to know without a canonical reference.
+
+Three classes of entities benefit from resolvable identifiers across the ecosystem:
+
+| Entity class | Where it appears | Problem without stable IDs |
+| --- | --- | --- |
+| **Vendors / contributors / contractors** | Credit registry `entity.identifier`; publiccode.yml `maintenance.contractors[].identifier` | Contribution records cannot be aggregated across registries; inline contractor declarations cannot be linked to credit registry profiles without a stable identifier |
+| **Deploying organizations** | Usage registry adopter entries; `.well-known` declarations | The same municipality appears under different names in different registries; sector classification cannot be verified |
+| **CRA stewards** | publiccode.yml `maintenance.steward.identifier` | A legal entity assuming CRA steward obligations must be unambiguously identifiable by regulators and market surveillance authorities |
+
+The CRA steward already has an `identifier` field in the proposed schema. The `organisation` field (the project-owning organization) already has a `uri` field serving the same purpose. Improvement 5 adds an optional `identifier` field to `maintenance.contractors[]` following the same pattern. Contractors and credit registry vendors are the same entity class viewed through different lenses — `contractors[]` is the inline, project-asserted form; a credit registry entry with `roles: ["support-contract"]` is the registry-asserted form. The `identifier` field makes them cross-referenceable, completing the entity identity picture across the ecosystem.
+
+The fact that LEI is the preferred identifier across stewards, credit registry entities, and deploying organizations is intentional: a single legal entity identifier scheme spans the whole ecosystem.
+
+#### Recommended Identifier Schemes
+
+Rather than defining a new identifier, the ecosystem composes existing stable schemes. All are optional enrichments on top of the baseline domain URL — no law requires an organization to obtain or publish any of them:
+
+| Scheme | Coverage | Best for |
+| --- | --- | --- |
+| [LEI](https://www.gleif.org/) (ISO 17442) | Global legal entities, maintained by GLEIF | Companies, foundations; already referenced in the CRA steward section |
+| [ROR](https://ror.org/) | Research and academic organizations | Universities, research institutes |
+| [Wikidata QID](https://www.wikidata.org/) | Broad; includes municipalities, government bodies, NGOs | Public sector organizations and any entity with a Wikidata entry |
+| Domain URL | Any entity with a web presence | Baseline; already the identity anchor in `.well-known` declarations |
+
+The domain URL is the lowest-bar identifier and the starting point for all deploying organizations (domain control = proof of authority). Stable identifiers enrich that baseline voluntarily: a municipality that also publishes a Wikidata QID gives crawlers enough to resolve it unambiguously across registries, but this is an improvement in data quality, not a requirement.
+
+Where an organization does provide a stable identifier, registry APIs should include the identifier scheme alongside the value — `LEI:XXXX`, `ROR:XXXX`, `wikidata:QXXXX`, or a plain URL — so that crawlers can perform cross-registry entity resolution without guessing the scheme.
+
+#### Organization Classification and Verification
+
+Self-declared sector classification (via `organization.sector` in the usage declaration, or `scope.sectors` in the registry manifest) provides useful signal, but its value depends on whether it has been verified. openCode.de's practice of verifying public sector status via email domain matching against a known list is one implementation pattern for registry-level verification. The exact mechanism is an implementation detail; what matters for the ecosystem is that registries expose *how* a sector claim was verified, not just the claim itself.
+
+This maps onto the existing trust model:
+
+| Verification level | Sector claim reliability | Example |
+| --- | --- | --- |
+| `self-reported` | Low — organization asserts its own sector | A company declaring itself `government` without verification |
+| `verified-domain` | Medium — domain control confirmed, sector inferred from domain list | openCode.de's Keycloak email domain matching |
+| `signed-attestation` | High — formal attestation, e.g., eIDAS-backed institutional credential | Future EU digital identity infrastructure |
+
+#### Trust Chain to Catalog Filters
+
+The trust information established at each layer — entity identity, sector verification, domain control — is only useful if it reaches the procurement decision-maker. Catalog UIs that surface this data can offer trust-aware filters; catalogs that discard it cannot. This is a capability question, not a compliance obligation: no law requires a catalog to offer these filters, but catalogs that do give procurement officers a meaningfully richer decision environment.
+
+Concretely, the Usage Registry API's `/software/{url}/adopters` response and the Credit Registry API's `/projects/{url}/credits` response may include, per entity:
+
+- The organization's stable identifier (and scheme), if one was provided
+- The trust model used to verify their identity (`verified-domain`, `signed-attestation`, `self-reported`)
+- The verification method used to confirm their sector classification, if the registry performed one
+
+This enables catalog UIs to offer filters such as "show only government-verified deployers", "show only contributions from LEI-identified organizations", or "exclude self-reported data" — filters that are only possible if the underlying trust data flows through. Registries that expose this data produce more useful catalog results; those that don't still participate in the ecosystem at a lower trust level.
 
 ### What This Enables
 
