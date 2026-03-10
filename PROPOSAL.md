@@ -74,7 +74,7 @@ Government OSS preference and procurement policies have been documented across 8
 
 Two EU directives create more immediate, binding demand for the **supply chain and security infrastructure** in Improvement 2:
 
-**[Cyber Resilience Act (CRA)](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source)** applies to FOSS placed on the market for commercial use, and introduces the *open-source software steward* — a legal entity providing sustained support to an OSS product intended for commercial use. Stewards must implement cybersecurity policies for secure development, operate a vulnerability handling and disclosure process, and report actively exploited vulnerabilities to authorities. The `supplyChain` fields proposed here are the natural machine-discoverable evidence layer for these obligations: `sbom` for component transparency, `securityPolicy` for the vulnerability disclosure process, and `scorecard` for demonstrating security development practices. As CRA guidance matures, a `steward` declaration field — identifying the legal entity assuming steward responsibilities — is a natural addition to the `maintenance` section. The credit registry infrastructure also maps onto the steward concept: a vendor with a sustained, project-endorsed contribution record in a credit registry is the empirical demonstration of what "providing sustained support" means in practice.
+**[Cyber Resilience Act (CRA)](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source)** applies to FOSS placed on the market for commercial use, and introduces the _open-source software steward_ — a legal entity providing sustained support to an OSS product intended for commercial use. Stewards must implement cybersecurity policies for secure development, operate a vulnerability handling and disclosure process, and report actively exploited vulnerabilities to authorities. The `supplyChain` fields proposed here are the natural machine-discoverable evidence layer for these obligations: `sbom` for component transparency, `securityPolicy` for the vulnerability disclosure process, and `scorecard` for demonstrating security development practices. As CRA guidance matures, a `steward` declaration field — identifying the legal entity assuming steward responsibilities — is a natural addition to the `maintenance` section. The credit registry infrastructure also maps onto the steward concept: a vendor with a sustained, project-endorsed contribution record in a credit registry is the empirical demonstration of what "providing sustained support" means in practice.
 
 **[NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)** operates on the user side of the supply chain. It requires organizations in 18 critical sectors — energy, health, transport, public administration, and others — to implement supply chain security risk management. For these organizations, adopting open source software without assessing its SBOM, security policy, and maintenance posture is a compliance risk. The `supplyChain` references give NIS2-covered deploying organizations the evidence they need for that assessment from a single metadata file. The usage declaration mechanism (`.well-known/publiccode-usage.json`) also complements NIS2 compliance internally — organizations maintaining a declared software inventory have a natural audit trail for their supply chain risk management obligations.
 
@@ -340,11 +340,11 @@ Projects vary widely in how they track contributions. Drupal operates the most m
 
 A credit registry can be operated by the project itself, by a generic third-party platform, or by a SaaS provider. What matters is that the OSS project **endorses** it — by listing it in `creditRegistries`, the project signals "we consider this data authoritative for our contributors."
 
-| Operator | Example | Sign-off requirement |
-| -------- | ------- | -------------------- |
-| **The project itself** | Drupal.org Marketplace, a self-hosted `contribution_records` instance | Project defines its own process for reviewing and approving credits |
-| **Generic third-party platform** | GitHub Sponsors | Pointing at the GitHub Sponsors URL is sufficient; no additional setup required |
-| **SaaS / shared installation** | A hosted `contribution_records` instance configured per-project, or a common credit platform that multiple projects opt into | Depends on what the platform offers; may range from fully automated to requiring maintainer sign-off |
+| Operator                         | Example                                                                                                                      | Sign-off requirement                                                                                 |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **The project itself**           | Drupal.org Marketplace, a self-hosted `contribution_records` instance                                                        | Project defines its own process for reviewing and approving credits                                  |
+| **Generic third-party platform** | GitHub Sponsors                                                                                                              | Pointing at the GitHub Sponsors URL is sufficient; no additional setup required                      |
+| **SaaS / shared installation**   | A hosted `contribution_records` instance configured per-project, or a common credit platform that multiple projects opt into | Depends on what the platform offers; may range from fully automated to requiring maintainer sign-off |
 
 The required depth of involvement scales with the registry's sophistication, but the spectrum is not flat — project sign-off is the goal, not just one option among equals. A project that points at a GitHub Sponsors page is endorsing a third-party platform's data without reviewing the underlying attribution: it is a low-friction starting point, not the intended end state. The ideal is for the project to take active responsibility for credit: deciding what contribution types count (code, testing, design, organization, documentation, etc.), reviewing whether the data accurately reflects who sustains the project, and defining a process for sign-off. Projects that invest in this — whether through a custom registry, a SaaS platform with maintainer review, or a formal credit policy — produce data that is meaningfully more trustworthy for procurement decisions and fairer to the full range of contributors.
 
@@ -446,7 +446,7 @@ maintenance:
   contractors:
     - name: Acme GmbH
       website: https://acme.example.org
-      identifier: "LEI:XXXXXXXXXXXXXXXXXXXX"  # new optional field
+      identifier: "LEI:XXXXXXXXXXXXXXXXXXXX" # new optional field
       # until: "2027-12-31"                   # deprecated
 ```
 
@@ -476,7 +476,7 @@ maintenance:
   contractors:
     - name: Acme GmbH
       website: https://acme.example.org
-      identifier: "LEI:529900T8BM49AURSDO55"  # optional; LEI preferred for legal entities
+      identifier: "LEI:529900T8BM49AURSDO55" # optional; LEI preferred for legal entities
       # until: "2027-12-31" — deprecated, see Fields to Deprecate above
 ```
 
@@ -566,7 +566,7 @@ maintenance:
   contractors:
     - name: Acme GmbH
       website: https://acme.example.org
-      identifier: "LEI:529900T8BM49AURSDO55"  # optional; see Improvement 5
+      identifier: "LEI:529900T8BM49AURSDO55" # optional; see Improvement 5
       # until: "2027-12-31" — deprecated; see Improvement 5
   contacts:
     - name: Jane Maintainer
@@ -640,15 +640,15 @@ GET /projects/github.com%2Fexample%2Fmedusa-cms/credits?since=2025-01-01
 
 The response identifies the project and registry, then lists credited entities with the following key fields per entity:
 
-| Field                   | Purpose                                                                                                                 |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `entity.type`           | `organization` or `individual`                                                                                          |
+| Field                   | Purpose                                                                                                                                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entity.type`           | `organization` or `individual`                                                                                                                                                               |
 | `entity.identifier`     | Stable identifier — URL, ROR ID, Wikidata QID, LEI, etc. See [Entity Identity](#entity-identity) for recommended schemes and how verification trust should be carried through API responses. |
-| `summary.totalCredits`  | All-time credit count (registry-defined unit)                                                                           |
-| `summary.periodCredits` | Credits in the requested time window                                                                                    |
-| `summary.roles`         | Types of contributions: `code`, `documentation`, `security`, `translation`, `maintainer`, `funding`, `triage`, `design`, `support-contract` |
-| `ranking.position`      | Rank among all credited entities for this project                                                                       |
-| `ranking.tier`          | Registry-defined tier (e.g., `platinum`, `gold`, `silver` — or Drupal's `premium`, `certified`, `contributing`)         |
+| `summary.totalCredits`  | All-time credit count (registry-defined unit)                                                                                                                                                |
+| `summary.periodCredits` | Credits in the requested time window                                                                                                                                                         |
+| `summary.roles`         | Types of contributions: `code`, `documentation`, `security`, `translation`, `maintainer`, `funding`, `triage`, `design`, `support-contract`                                                  |
+| `ranking.position`      | Rank among all credited entities for this project                                                                                                                                            |
+| `ranking.tier`          | Registry-defined tier (e.g., `platinum`, `gold`, `silver` — or Drupal's `premium`, `certified`, `contributing`)                                                                              |
 
 #### `GET /organizations/{org-identifier}/credits`
 
@@ -705,12 +705,12 @@ https://{registry-domain}/.well-known/publiccode-registry.json
 
 The manifest describes the registry's identity, operator, capabilities, API location, and scope. Key fields:
 
-| Field                 | Purpose                                                                                      |
-| --------------------- | -------------------------------------------------------------------------------------------- |
-| `capabilities`        | What the registry tracks: `usage` (who uses what), `credits` (who contributes what), or both |
-| `trustModel`          | How the registry verifies claims: `verified-domain`, `signed-attestation`, `self-reported`   |
-| `api.conformsTo`      | Which standardized API specs the registry implements (see below)                             |
-| `scope.jurisdictions` | Which countries/regions the registry covers (ISO 3166-1)                                     |
+| Field                 | Purpose                                                                                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `capabilities`        | What the registry tracks: `usage` (who uses what), `credits` (who contributes what), or both                                                          |
+| `trustModel`          | How the registry verifies claims: `verified-domain`, `signed-attestation`, `self-reported`                                                            |
+| `api.conformsTo`      | Which standardized API specs the registry implements (see below)                                                                                      |
+| `scope.jurisdictions` | Which countries/regions the registry covers (ISO 3166-1)                                                                                              |
 | `scope.sectors`       | Which sectors the registry covers, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`, `research`) |
 
 #### Discovery Mechanisms
@@ -749,15 +749,15 @@ Usage registries are the canonical aggregation point for adoption data, but the 
 
 #### Key Fields
 
-| Field                          | Purpose                                                                                                                                                                      |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organization.url`             | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                                                             |
-| `organization.sector`          | The organization's sector, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`). Optional.                                 |
-| `software[].url`               | The project's canonical URL (matches the `url` field in publiccode.yml)                                                                                                      |
-| `software[].status`            | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                                                                        |
-| `software[].until`             | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                                                                          |
-| `software[].classification`    | Which classification facets apply to this organization's specific use, using publiccode.yml's `classification` vocabulary. The `domain` and `function` facets are most meaningful here; `role`, `layer`, `technology`, and `audience` are not recommended in this context. Optional. |
-| `lastUpdated`                  | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale                                            |
+| Field                       | Purpose                                                                                                                                                                                                                                                                              |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `organization.url`          | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                                                                                                                                                                     |
+| `organization.sector`       | The organization's sector, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`). Optional.                                                                                                                                         |
+| `software[].url`            | The project's canonical URL (matches the `url` field in publiccode.yml)                                                                                                                                                                                                              |
+| `software[].status`         | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                                                                                                                                                                                 |
+| `software[].until`          | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                                                                                                                                                                                  |
+| `software[].classification` | Which classification facets apply to this organization's specific use, using publiccode.yml's `classification` vocabulary. The `domain` and `function` facets are most meaningful here; `role`, `layer`, `technology`, and `audience` are not recommended in this context. Optional. |
+| `lastUpdated`               | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale                                                                                                                                                    |
 
 The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project, and for what purpose?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
 
@@ -765,7 +765,7 @@ The schema deliberately excludes software version numbers and infrastructure det
 
 The `software[].classification` field reuses publiccode.yml's `classification` vocabulary but carries a different assertion authority: **publiccode.yml's `classification` is asserted by the project author** ("this software supports content management and CRM"); **the usage declaration's `classification` is asserted by the deploying organization** ("we use it specifically for content management"). Same controlled vocabulary, different perspective — consistent with the broader pattern in this ecosystem where each actor declares only what they can directly verify.
 
-This distinction is valuable for procurement. A project listing `classification.domain: [content-management, crm]` tells potential adopters what the software *can* do. A municipality listing `classification.domain: [content-management]` in their usage declaration tells peers what a comparable organization *actually uses it for* — a more reliable signal for adoption decisions.
+This distinction is valuable for procurement. A project listing `classification.domain: [content-management, crm]` tells potential adopters what the software _can_ do. A municipality listing `classification.domain: [content-management]` in their usage declaration tells peers what a comparable organization _actually uses it for_ — a more reliable signal for adoption decisions.
 
 ```json
 {
@@ -823,11 +823,11 @@ Both credit registries and usage registries track entities — vendors contribut
 
 Three classes of entities benefit from resolvable identifiers across the ecosystem:
 
-| Entity class | Where it appears | Problem without stable IDs |
-| --- | --- | --- |
+| Entity class                             | Where it appears                                                                           | Problem without stable IDs                                                                                                                                           |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Vendors / contributors / contractors** | Credit registry `entity.identifier`; publiccode.yml `maintenance.contractors[].identifier` | Contribution records cannot be aggregated across registries; inline contractor declarations cannot be linked to credit registry profiles without a stable identifier |
-| **Deploying organizations** | Usage registry adopter entries; `.well-known` declarations | The same municipality appears under different names in different registries; sector classification cannot be verified |
-| **CRA stewards** | publiccode.yml `maintenance.steward.identifier` | A legal entity assuming CRA steward obligations must be unambiguously identifiable by regulators and market surveillance authorities |
+| **Deploying organizations**              | Usage registry adopter entries; `.well-known` declarations                                 | The same municipality appears under different names in different registries; sector classification cannot be verified                                                |
+| **CRA stewards**                         | publiccode.yml `maintenance.steward.identifier`                                            | A legal entity assuming CRA steward obligations must be unambiguously identifiable by regulators and market surveillance authorities                                 |
 
 The CRA steward already has an `identifier` field in the proposed schema. The `organisation` field (the project-owning organization) already has a `uri` field serving the same purpose. Improvement 5 adds an optional `identifier` field to `maintenance.contractors[]` following the same pattern. Contractors and credit registry vendors are the same entity class viewed through different lenses — `contractors[]` is the inline, project-asserted form; a credit registry entry with `roles: ["support-contract"]` is the registry-asserted form. The `identifier` field makes them cross-referenceable, completing the entity identity picture across the ecosystem.
 
@@ -837,12 +837,12 @@ The fact that LEI is the preferred identifier across stewards, credit registry e
 
 Rather than defining a new identifier, the ecosystem composes existing stable schemes. All are optional enrichments on top of the baseline domain URL — no law requires an organization to obtain or publish any of them:
 
-| Scheme | Coverage | Best for |
-| --- | --- | --- |
-| [LEI](https://www.gleif.org/) (ISO 17442) | Global legal entities, maintained by GLEIF | Companies, foundations; already referenced in the CRA steward section |
-| [ROR](https://ror.org/) | Research and academic organizations | Universities, research institutes |
-| [Wikidata QID](https://www.wikidata.org/) | Broad; includes municipalities, government bodies, NGOs | Public sector organizations and any entity with a Wikidata entry |
-| Domain URL | Any entity with a web presence | Baseline; already the identity anchor in `.well-known` declarations |
+| Scheme                                    | Coverage                                                | Best for                                                              |
+| ----------------------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------- |
+| [LEI](https://www.gleif.org/) (ISO 17442) | Global legal entities, maintained by GLEIF              | Companies, foundations; already referenced in the CRA steward section |
+| [ROR](https://ror.org/)                   | Research and academic organizations                     | Universities, research institutes                                     |
+| [Wikidata QID](https://www.wikidata.org/) | Broad; includes municipalities, government bodies, NGOs | Public sector organizations and any entity with a Wikidata entry      |
+| Domain URL                                | Any entity with a web presence                          | Baseline; already the identity anchor in `.well-known` declarations   |
 
 The domain URL is the lowest-bar identifier and the starting point for all deploying organizations (domain control = proof of authority). Stable identifiers enrich that baseline voluntarily: a municipality that also publishes a Wikidata QID gives crawlers enough to resolve it unambiguously across registries, but this is an improvement in data quality, not a requirement.
 
@@ -850,15 +850,15 @@ Where an organization does provide a stable identifier, registry APIs should inc
 
 #### Organization Classification and Verification
 
-Self-declared sector classification (via `organization.sector` in the usage declaration, or `scope.sectors` in the registry manifest) provides useful signal, but its value depends on whether it has been verified. openCode.de's practice of verifying public sector status via email domain matching against a known list is one implementation pattern for registry-level verification. The exact mechanism is an implementation detail; what matters for the ecosystem is that registries expose *how* a sector claim was verified, not just the claim itself.
+Self-declared sector classification (via `organization.sector` in the usage declaration, or `scope.sectors` in the registry manifest) provides useful signal, but its value depends on whether it has been verified. openCode.de's practice of verifying public sector status via email domain matching against a known list is one implementation pattern for registry-level verification. The exact mechanism is an implementation detail; what matters for the ecosystem is that registries expose _how_ a sector claim was verified, not just the claim itself.
 
 This maps onto the existing trust model:
 
-| Verification level | Sector claim reliability | Example |
-| --- | --- | --- |
-| `self-reported` | Low — organization asserts its own sector | A company declaring itself `government` without verification |
-| `verified-domain` | Medium — domain control confirmed, sector inferred from domain list | openCode.de's Keycloak email domain matching |
-| `signed-attestation` | High — formal attestation, e.g., eIDAS-backed institutional credential | Future EU digital identity infrastructure |
+| Verification level   | Sector claim reliability                                               | Example                                                      |
+| -------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `self-reported`      | Low — organization asserts its own sector                              | A company declaring itself `government` without verification |
+| `verified-domain`    | Medium — domain control confirmed, sector inferred from domain list    | openCode.de's Keycloak email domain matching                 |
+| `signed-attestation` | High — formal attestation, e.g., eIDAS-backed institutional credential | Future EU digital identity infrastructure                    |
 
 #### Trust Chain to Catalog Filters
 
@@ -883,11 +883,11 @@ This enables catalog UIs to offer filters such as "show only government-verified
 
 ---
 
-## Improvement 6: CRA Steward Declaration *(Deferred)*
+## Improvement 6: CRA Steward Declaration _(Deferred)_
 
 > **Status: deferred pending CRA guidance.** The Cyber Resilience Act's open-source software steward obligations are still being clarified through guidance documents (see risk [P5](RISK_ANALYSIS.md)). This improvement is described here as a planned extension so that the design space is reserved and the intent is clear, but it should not be implemented until the regulatory semantics have settled.
 
-The [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) introduces the *open-source software steward* — a legal entity that provides sustained support to an OSS product intended for commercial use and assumes formal obligations for cybersecurity policy, vulnerability handling, and incident reporting. The existing `maintenance.contacts` and `maintenance.contractors` fields describe operational support arrangements but do not identify a legal entity accepting CRA steward responsibilities. This improvement adds a dedicated `steward` field under `maintenance` to fill that gap.
+The [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) introduces the _open-source software steward_ — a legal entity that provides sustained support to an OSS product intended for commercial use and assumes formal obligations for cybersecurity policy, vulnerability handling, and incident reporting. The existing `maintenance.contacts` and `maintenance.contractors` fields describe operational support arrangements but do not identify a legal entity accepting CRA steward responsibilities. This improvement adds a dedicated `steward` field under `maintenance` to fill that gap.
 
 ### Design Rationale
 
