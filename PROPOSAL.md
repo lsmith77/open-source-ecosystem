@@ -68,15 +68,67 @@ The [OSBA's selection criteria for sustainable procurement of open source softwa
 3. **High-quality Level 3 support.** The `maintenance` section (already in publiccode.yml) combined with credit data shows whether a vendor employs core developers or has contractual relationships with maintainers.
 4. **Supply chain security.** The `supplyChain` section (Improvement 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
 
+### Digital Commons & Digital Sovereignty: Government as Steward
+
+This data infrastructure is not just about procurement efficiency—it is critical for government engagement as a steward of the digital commons and builder of digital sovereignty.
+
+Governments creating open source policies and defending digital independence need visibility into three dimensions that this proposal addresses:
+
+1. **Evidence of policy enforcement.** "Public Money, Public Code" mandates are aspirational without auditable evidence. Usage and credit registries turn policy into practice by making reuse and upstream contribution visible.
+
+2. **Supply chain health and independence.** Resilient digital sovereignty requires knowing which software is widely deployed, which has fragile vendor ecosystems, and which critical infrastructure lacks sufficient upstream support. The metadata infrastructure proposed here makes this visible.
+
+3. **Evidence-based investment.** Funding allocation can shift from anecdote-driven ("project X is important") to data-driven ("X is deployed by 47 public agencies"). Usage registries and credit registries enable this transparency.
+
+This is a distinct role from the CRA stewards discussed in the Legislative Models section below. While the Cyber Resilience Act assigns stewardship responsibilities to _commercial entities_ maintaining individual OSS projects, governments stewarding shared infrastructure need ecosystem-wide visibility—not just individual project compliance, but cross-cutting health, adoption patterns, and sustainability.
+
 ### Legislative Models
 
-Government OSS preference and procurement policies have been documented across 80+ countries for over 15 years [(CSIS, 2010)](https://www.csis.org/analysis/government-open-source-policies); the EU legislative wave of the 2020s is the most binding expression of a longstanding global policy direction. Legislation is creating demand for this infrastructure. Switzerland's [EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) already mandates open source release of publicly financed software, but procurement offices still lack the discovery and evaluation tools to act on it. The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) are advancing similar mandates at the EU level, including making upstream contribution an explicit procurement criterion. The metadata proposed here — particularly credit registries and faceted classification — provides the evidence base these legislative efforts need to move from principles to enforceable criteria.
+Government OSS preference and procurement policies have been documented across 80+ countries for over 15 years [(CSIS, 2010)](https://www.csis.org/analysis/government-open-source-policies); the EU legislative wave of the 2020s is the most binding expression of a longstanding global policy direction. Several legislative initiatives create immediate demand for the infrastructure proposed here:
 
-Two EU directives create more immediate, binding demand for the **supply chain and security infrastructure** in Improvement 2:
+**Mandate-driven policy:** Switzerland's [EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) mandates open source release of publicly financed software. The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) advance similar EU-level mandates. **The problem:** these mandates are unenforceable without metadata infrastructure. Procurement offices cannot operationalize "prefer open source" without discovery and evaluation tools. **The infrastructure this proposal provides:** faceted classification and supply chain references make the mandate actionable.
 
-**[Cyber Resilience Act (CRA)](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source)** applies to FOSS placed on the market for commercial use, and introduces the _open-source software steward_ — a legal entity providing sustained support to an OSS product intended for commercial use. Stewards must implement cybersecurity policies for secure development, operate a vulnerability handling and disclosure process, and report actively exploited vulnerabilities to authorities. The `supplyChain` fields proposed here are the natural machine-discoverable evidence layer for these obligations: `sbom` for component transparency, `securityPolicy` for the vulnerability disclosure process, and `scorecard` for demonstrating security development practices. As CRA guidance matures, a `steward` declaration field — identifying the legal entity assuming steward responsibilities — is a natural addition to the `maintenance` section. The credit registry infrastructure also maps onto the steward concept: a vendor with a sustained, project-endorsed contribution record in a credit registry is the empirical demonstration of what "providing sustained support" means in practice.
+**Compliance-driven obligation: Cyber Resilience Act (CRA).** The [CRA](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) applies to FOSS placed on the market for commercial use. It introduces the _open-source software steward_ — a legal entity that:
 
-**[NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)** operates on the user side of the supply chain. It requires organizations in 18 critical sectors — energy, health, transport, public administration, and others — to implement supply chain security risk management. For these organizations, adopting open source software without assessing its SBOM, security policy, and maintenance posture is a compliance risk. The `supplyChain` references give NIS2-covered deploying organizations the evidence they need for that assessment from a single metadata file. The usage declaration mechanism (`.well-known/publiccode-usage.json`) also complements NIS2 compliance internally — organizations maintaining a declared software inventory have a natural audit trail for their supply chain risk management obligations.
+- Implements cybersecurity policies for secure development
+- Operates a vulnerability handling and disclosure process
+- Reports actively exploited vulnerabilities to authorities
+
+A steward must demonstrate these commitments when requested by regulators. **The infrastructure this proposal provides:** the `supplyChain` fields (`sbom`, `securityPolicy`, `scorecard`) are the natural machine-discoverable evidence layer for these obligations. A vendor with a sustained, project-endorsed contribution record in a credit registry provides empirical evidence of "providing sustained support." This is discussed further in [Improvement 6: CRA Steward Declaration](#improvement-6-cra-steward-declaration-deferred).
+
+**Supply chain risk mandate: NIS2 Directive.** The [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) requires organizations in 18 critical sectors — energy, health, transport, public administration, and others — to implement supply chain security risk management. For these organizations, **the obligation is clear:** assess the supply chain security of software you adopt. **The problem:** without standardized metadata, assessment is expensive or impossible. **The infrastructure this proposal provides:** the `supplyChain` references allow a deploying organization to fetch SBOM, security policy, and maintenance evidence from a single entry point. The usage declaration mechanism (`.well-known/publiccode-usage.json`) also benefits internal compliance: organizations maintaining a declared software inventory have a natural audit trail for their supply chain risk management obligations.
+
+### Sustainable Business Model Alignment
+
+Open source infrastructure faces a critical funding problem—both _visibility_ of infrastructure costs and _disconnection_ of funding from usage. [Dries Buytaert's recent analysis (March 2026)](https://dri.es/open-source-infrastructure-deserves-a-business-model) shows the result: PyPI depends on donor sponsorships from Fastly, AWS, and Google Cloud; npm was acquired by Microsoft; WordPress infrastructure depends on Automattic's continued success; GNOME was forced to outsource bandwidth costs to GitHub to reduce spending.
+
+**The core insight: Most open source infrastructure does not have a real business model. It survives through donations, corporate sponsorship, and community fundraising, rather than revenue tied to the value it delivers.**
+
+This proposal's metadata infrastructure directly enables a sustainable alternative: **a value exchange model where infrastructure funding is connected to usage and organizational benefit**, not dependent on donor goodwill.
+
+#### Metadata as the Foundation for Value Exchange
+
+Dries proposes: "Keep core infrastructure free for individuals and small projects, while organizations using it at scale help pay for what they consume." This is not possible without visibility into _who_ uses what, _how much_ they rely on it, and _what value_ they extract.
+
+The proposed infrastructure provides this foundation:
+
+- **Usage registries** make consumption visible: which organizations deploy what software, at what scale. Infrastructure operators and funders can see which projects have broad organizational adoption and justify investment proportionally.
+- **Credit registries** tie vendor benefit to visible contribution. Organizations that extract value through commercial offerings (consulting, managed hosting, SaaS) demonstrate that value through auditable upstream investment—creating a traceable chain from organizational benefit to ecosystem stewardship.
+- **Supply chain references** (SBOMs, security policies, Scorecard) reduce the cost of compliance verification for large organizations. This compliance value can be monetized through tiered services: free metadata for individuals, auditable compliance attestation services for organizations above a threshold.
+- **Faceted classification** enables usage-based metrics: "how many organizations deploy this healthcare software versus that one?" Data-driven funding allocation replaces guesswork.
+
+#### Enabling Sustainable Funding Models
+
+Once this infrastructure exists, sustainable funding models become possible:
+
+1. **Infrastructure operators can charge tiered fees** linked to organizational consumption (downloads, API calls, registrations) — without centralizing power, because the standard APIs allow multiple registries to operate in parallel.
+2. **Vendors can justify investment** in maintaining infrastructure by pointing to verified adoption and contribution data visible through credit registries — creating a clear ROI case to their leadership.
+3. **Funders can allocate resources** based on usage data rather than anecdotes — improving effectiveness and accountability.
+4. **Legislation can mandate infrastructure funding** by tying it to publicly visible metrics (e.g., "organizations deploying this software above this scale contribute to maintenance") rather than relying on moral persuasion.
+
+Without standardized, decentralized metadata infrastructure, the funding problem persists: costs remain invisible, adoption remains anecdotal, and every project must reinvent its own fragile sponsorship arrangement.
+
+With it, sustainable business models become possible—and open source infrastructure can transition from a patchwork of donations to a genuine ecosystem.
 
 ---
 

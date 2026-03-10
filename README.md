@@ -8,12 +8,12 @@ This guide helps you navigate the documentation based on your role and what you 
 
 This project evaluates metadata standards for open source software and proposes improvements to `publiccode.yml` as well as concrete standards for decentralized data collection (registry APIs, discovery mechanisms, usage declarations). This data will enable procurement offices, funders, and security teams to discover, evaluate, and confidently adopt open source projects—and to identify and fund critical open source infrastructure and maintenance in a sustainable manner.
 
-**Why this matters:** The proposal pairs technical standards (metadata, APIs, registries) with a strategic push for public procurement policies that prefer open source. This creates a positive feedback loop:
+**Why this matters:** The proposal pairs technical standards (metadata, APIs, registries) with a strategic push for public procurement policies that prefer open source—and for government stewardship of the digital commons and digital sovereignty. This creates a positive feedback loop:
 
-→ procurement policies create demand for standardized project metadata
+→ procurement policies and sovereignty mandates create demand for standardized project metadata
 → projects and vendors adopt the extended standard
-→ procurement offices get better visibility and evaluation tools
-→ more confident open source adoption
+→ governments gain auditable evidence for policy enforcement, supply chain security assessment, and investment decisions
+→ more confident, sustainable, and resilient open source adoption
 
 **Who's it for?**
 
@@ -61,17 +61,17 @@ Together, these enable a **self-reinforcing, decentralized ecosystem** where pro
 
 ## Documents at a Glance
 
-| Document                                 | Purpose                                                                                                                                      | Length  | Best for                                                   | Start here if…                                                          |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------- | ----------------------------------------------------------------------- |
-| **[GLOSSARY.md](GLOSSARY.md)**           | Key terms explained                                                                                                                          | ~20 min | Everyone                                                   | You encounter unfamiliar terms or acronyms                              |
-| **[RESEARCH.md](RESEARCH.md)**           | Comparative analysis of 5 standards                                                                                                          | ~30 min | Researchers, policy makers, infrastructure decision-makers | You want to understand why publiccode.yml and not something else        |
-| **[DATA_FLOW.md](DATA_FLOW.md)**         | Ecosystem architecture and data flow diagram                                                                                                 | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
-| **[PITCH.md](PITCH.md)**                 | Why each actor benefits                                                                                                                      | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
+| Document                                 | Purpose                                                                                                                                        | Length  | Best for                                                   | Start here if…                                                          |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **[GLOSSARY.md](GLOSSARY.md)**           | Key terms explained                                                                                                                            | ~20 min | Everyone                                                   | You encounter unfamiliar terms or acronyms                              |
+| **[RESEARCH.md](RESEARCH.md)**           | Comparative analysis of 5 standards                                                                                                            | ~30 min | Researchers, policy makers, infrastructure decision-makers | You want to understand why publiccode.yml and not something else        |
+| **[DATA_FLOW.md](DATA_FLOW.md)**         | Ecosystem architecture and data flow diagram                                                                                                   | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
+| **[PITCH.md](PITCH.md)**                 | Why each actor benefits                                                                                                                        | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
 | **[PROPOSAL.md](PROPOSAL.md)**           | Detailed technical spec including 5 publiccode.yml improvements plus companion standards (registry APIs, discovery, organization declarations) | ~60 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
-| **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)** | Identified risks and mitigations                                                                                                             | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
-| **[ROADMAP.md](ROADMAP.md)**             | Phased implementation plan                                                                                                                   | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
-| **[METHODOLOGY.md](METHODOLOGY.md)**     | Research process documented                                                                                                                  | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
-| **[LICENSE](LICENSE)**                   | CC-BY-SA 4.0                                                                                                                                 | 2 min   | Everyone                                                   | You need reuse permissions                                              |
+| **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)** | Identified risks and mitigations                                                                                                               | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
+| **[ROADMAP.md](ROADMAP.md)**             | Phased implementation plan                                                                                                                     | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
+| **[METHODOLOGY.md](METHODOLOGY.md)**     | Research process documented                                                                                                                    | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
+| **[LICENSE](LICENSE)**                   | CC-BY-SA 4.0                                                                                                                                   | 2 min   | Everyone                                                   | You need reuse permissions                                              |
 
 ---
 
