@@ -93,13 +93,13 @@ Usage registries and `.well-known/publiccode-usage.json` files expose which orga
 
 ## Governance Risks
 
-### G1. Small spec governance community relative to institutional adoption
+### G1. Governance structure and community capacity
 
-The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community. The proposed improvements represent a significant scope increase that the current maintainer community may lack capacity or appetite to absorb.
+The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization. Since 2021, a formal [governance charter](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/charter.md) has defined the project's decision-making structure, roles, and responsibilities. While this provides a lightweight but explicit governance framework, the active maintainer community remains small relative to the spec's institutional adoption (EU mandate).
 
-- **Likelihood:** High — the spec's institutional adoption (EU mandate, 640+ projects) outpaces its governance community size
-- **Impact:** High — without maintainer buy-in, the improvements remain a proposal indefinitely
-- **Mitigation:** The proposal must be brought to the publiccodeyml maintainers with a clear champion and institutional backing (working group). Offering to co-maintain the improvements and providing implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. Note: the governance model is currently a do-ocracy. Furthermore, every change to the spec must also be reflected in the tooling ecosystem (f.e. [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs must come bundled with tooling support to be viable.
+- **Likelihood:** Medium — the governance charter clarifies processes and responsibilities, but its lightweight nature may not provide mechanisms for resolving severe internal disagreements or deadlocks among maintainers.
+- **Impact:** High — without sufficient maintainer engagement, substantial improvements may remain proposals indefinitely, especially if they require coordinated updates to the spec and tooling ecosystem.
+- **Mitigation:** Proposals should be brought to the publiccodeyml maintainers with a clear champion and, ideally, institutional backing (e.g., a working group). Offering to co-maintain improvements and provide implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. All changes must be reflected in the tooling ecosystem (see [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs should bundle spec and tooling updates. The governance charter provides a path for onboarding new maintainers or working groups if institutional interest is sustained.
 
 ---
 
