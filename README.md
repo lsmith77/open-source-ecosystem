@@ -45,6 +45,8 @@ A comprehensive ecosystem of standards and registries built around publiccode.ym
 
 **Policy Layer:**
 
+**Primer for policy makers:** For those new to open source policy, see Mirko Boehm. "How Open Source Coordinates: A Guide for Policy Makers." SSRN, 2026. [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038)
+
 - **Public procurement policies** (modeled on "Public Money, Public Code") that prefer open source and require standardized evaluation criteria
 - **Procurement selection frameworks** that use publiccode.yml metadata as evidence for vendor expertise, supply chain security, and community health
 - **Legislative models** and best practices (including Switzerland's EMBAG law as a reference) for mandating open source in government
