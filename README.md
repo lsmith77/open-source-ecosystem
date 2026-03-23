@@ -70,6 +70,7 @@ Together, these enable a **self-reinforcing, decentralized ecosystem** where pro
 | **[DATA_FLOW.md](DATA_FLOW.md)**         | Ecosystem architecture and data flow diagram                                                                                                   | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
 | **[PITCH.md](PITCH.md)**                 | Why each actor benefits                                                                                                                        | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
 | **[PROPOSAL.md](PROPOSAL.md)**           | Detailed technical spec including 5 publiccode.yml improvements plus companion standards (registry APIs, discovery, organization declarations) | ~60 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
+| **[EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md)** | How this proposal relates to CRA, NIS2, Interoperable Europe Act, and the Public Procurement Act                                         | ~20 min | Policy makers, legal teams, procurement professionals      | You want to understand the regulatory landscape and legislative hooks   |
 | **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)** | Identified risks and mitigations                                                                                                               | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
 | **[ROADMAP.md](ROADMAP.md)**             | Phased implementation plan                                                                                                                     | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
 | **[METHODOLOGY.md](METHODOLOGY.md)**     | Research process documented                                                                                                                    | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
@@ -134,13 +135,14 @@ _You're drafting open source procurement requirements or digital sovereignty man
 
 **Start here:**
 
-1. [PITCH.md → Policy Maker/Legislator](PITCH.md#policy-maker--legislator) (2 min) — Policy opportunities
-2. [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source) (15 min) — Connection to legislation
-3. [RESEARCH.md → Other Relevant Standards: Digital Sovereignty Score Initiatives](RESEARCH.md#digital-sovereignty-score-initiatives) (10 min) — Policy landscape
-4. [ROADMAP.md → Phases 0, 2, 3, 5](ROADMAP.md) (20 min) — How this would be adopted
-5. [GLOSSARY.md](GLOSSARY.md) — As needed
+1. [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md) (20 min) — CRA, NIS2, Interoperable Europe Act, Public Procurement Act, EMBAG
+2. [PITCH.md → Policy Maker/Legislator](PITCH.md#policy-maker--legislator) (2 min) — Why this matters for your role
+3. [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source) (15 min) — How each improvement serves procurement needs
+4. [RESEARCH.md → Other Relevant Standards: Digital Sovereignty Score Initiatives](RESEARCH.md#digital-sovereignty-score-initiatives) (10 min) — Broader policy landscape
+5. [ROADMAP.md → Phases 0, 2, 3, 5](ROADMAP.md) (20 min) — How this would be adopted
+6. [GLOSSARY.md](GLOSSARY.md) — As needed
 
-**Expected time:** 50 minutes
+**Expected time:** 70 minutes
 
 ---
 

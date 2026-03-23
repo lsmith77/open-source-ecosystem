@@ -182,6 +182,51 @@ Phase 13: METHODOLOGY REVIEW (2026-02-13)
           summary lines for web-search-discovered context. Sources
           Evaluated section retained as reference document.
 
+Phase 15: EU POLICY CONTEXT RESEARCH (2026-03-23)
+  Input:  All existing documents + human question about how the EU
+          Public Procurement Act relates to the proposal
+  Method: Human asked: "How does the Procurement Act relate to this
+          proposal? Does it hold an opportunity to realize (parts of)
+          this proposal?" and provided the EP Legislative Train URL.
+          AI fetched the EP Legislative Train page, then ran parallel
+          web searches and page fetches across: EuroStack's position
+          paper on EU procurement for open source digital sovereignty,
+          the Interoperable Europe Portal's OSS procurement guidance
+          (OSOR), a Clever Cloud position paper on the procurement
+          directive revision, and a Euronews article on the Made in
+          Europe proposal delay. AI synthesized findings across all
+          sources against the existing proposal documents.
+
+          Key findings:
+          (1) The Procurement Act is pre-legislative (proposal Q2 2026);
+              five specific leverage points were identified: "Made in
+              Europe" evidence for software, operationalizing non-price
+              criteria, SME discoverability via credit registries,
+              "Public Money, Public Code" enforcement infrastructure,
+              and software reuse as a measurable criterion.
+          (2) The Interoperable Europe Act (in force July 2024) is a
+              more immediate legislative hook: publiccode.yml is already
+              the EU OSS Catalogue onboarding standard, and this
+              proposal's improvements directly extend infrastructure
+              serving an active legal obligation.
+          (3) CRA and NIS2 (previously noted in PROPOSAL.md) warrant
+              their own dedicated treatment alongside the procurement
+              legislation; EMBAG was added as the enacted Swiss template
+              for EU-level mandates being pursued by EuroStack/APELL.
+
+          Human then requested a dedicated policy tracking document.
+          AI created EU_POLICY_CONTEXT.md covering CRA, NIS2,
+          Interoperable Europe Act, Public Procurement Act, and EMBAG,
+          and added cross-references across all documents.
+
+  Output: New EU_POLICY_CONTEXT.md (5 legislative initiatives with
+          status, provisions, and specific hooks into this proposal).
+          Cross-references added to PROPOSAL.md (Legislative Models),
+          PITCH.md (Policy Maker section), ROADMAP.md (Phase 5
+          legislative engagement). README.md updated: EU_POLICY_CONTEXT.md
+          added to document table and made the first entry in the Policy
+          Maker reading path.
+
 Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
   Input:  All existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md,
           RISK_ANALYSIS.md, ROADMAP.md, METHODOLOGY.md)
@@ -248,8 +293,8 @@ Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
 
 | Component                 | Details                                                                                                         |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **AI model**              | Claude Opus 4.6 via Claude Code VS Code extension                                                               |
-| **Research dates**        | Original: 2026-02-07; subsequent rounds: 2026-02-08 through 2026-02-13                                          |
+| **AI model**              | Claude Opus 4.6 (Phases 1–14) and Claude Sonnet 4.6 (Phase 15) via Claude Code VS Code extension               |
+| **Research dates**        | Original: 2026-02-07; subsequent rounds: 2026-02-08 through 2026-02-13; policy research: 2026-03-23            |
 | **Knowledge cutoff**      | May 2025 (supplemented with live web search for current information)                                            |
 | **Web search & fetching** | Built-in capabilities for discovering and retrieving source documents                                           |
 | **Human role**            | Problem framing, candidate selection, evaluation criteria, editorial oversight, and final review of all outputs |
@@ -692,6 +737,16 @@ All sources that informed the analysis, grouped by role.
 55. RFC 9116 security.txt (IETF standard) — https://www.rfc-editor.org/rfc/rfc9116
 56. sustainability.md draft convention (mgifford) — https://github.com/mgifford/sustainability.md
 57. ACCESSIBILITY.md draft convention (mgifford) — https://github.com/mgifford/ACCESSIBILITY.md
+
+### EU policy context research (Phase 15)
+
+59. EP Legislative Train — Public Procurement Act — https://www.europarl.europa.eu/legislative-train/theme-a-new-plan-for-europe-s-sustainable-prosperity-and-competitiveness/file-public-procurement-act
+60. EuroStack position paper on EU procurement for open source digital sovereignty — https://euro-stack.com/blog/2025/3/eu-procurement-for-open-source-digital-sovereignty-final
+61. OSOR public procurement of open source software guidance — https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/public-procurement-open-source-software
+62. Clever Cloud position paper on revision of EU public procurement rules — https://www.clever.cloud/blog/company/2026/01/27/position-paper-revision-of-the-eu-public-procurement-rules/
+63. Euronews — EU's Made in Europe proposal delay — https://www.euronews.com/my-europe/2026/02/23/eus-made-in-europe-proposal-suffers-another-delay
+64. Interoperable Europe Act — Regulation (EU) 2024/903 — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202400903
+65. Interoperable Europe Portal — Open Source Software — https://interoperable-europe.ec.europa.eu/topic/ict/open-source-software
 
 ### Sources consulted but not directly cited
 

@@ -65,6 +65,8 @@ Why each actor in this ecosystem benefits from the proposed integrated infrastru
 - **Create a level playing field for European vendors** — procurement criteria based on verified upstream contributions (as APELL and EuroStack propose) reward companies that invest in open source, rather than incumbents who simply resell it.
 - **Operationalize CRA and NIS2 in the open source context** — the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) requires stewards to document security practices and handle vulnerabilities; the [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) requires critical-sector organizations to assess software supply chains. Both directives need an evidence layer to move from legal text to operational practice. The `supplyChain` references and usage declaration mechanism proposed here provide exactly that layer for the open source ecosystem — without creating new reporting bureaucracy.
 
+Note: For a structured overview of how this proposal relates to CRA, NIS2, the Interoperable Europe Act, the forthcoming Public Procurement Act, and Switzerland's EMBAG, see [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md).
+
 ---
 
 ## Credit Registry
