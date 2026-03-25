@@ -227,6 +227,47 @@ Phase 15: EU POLICY CONTEXT RESEARCH (2026-03-23)
           added to document table and made the first entry in the Policy
           Maker reading path.
 
+Phase 16: EXPANDED EU POLICY RESEARCH (2026-03-24)
+  Input:  EU_POLICY_CONTEXT.md (first version) + human request to find
+          additional relevant EU policies. Human suggested
+          https://apell.info/category/news/ as a source.
+  Method: AI launched a comprehensive parallel research session fetching
+          primary sources and APELL news. Sources investigated:
+          apell.info (current positions and news), euro-stack.com
+          (EuroStack coalition positions), EU AI Act overview, DORA
+          summary, EU Data Act overview, EHDS summary, EUCS ENISA
+          documentation, EU Competitiveness Compass, Draghi Report
+          landing page. Training knowledge supplemented primary sources
+          for AI Act and DORA details (official regulation texts).
+
+          Key new findings:
+          (1) DORA (in force Jan 2025) creates the strongest new demand
+              signal for supply chain metadata — financial entities must
+              register all ICT contracts including open source dependencies
+              they have no formal contract for; the proposal fills this gap.
+          (2) EU AI Act (GPAI obligations from Aug 2025) creates an Annex
+              XII supply chain documentation requirement structurally
+              identical to the SBOM/CRA requirement but for AI components.
+          (3) APELL's "100% Open Source by 2035" target (CADA consultation
+              July 2025) and Declaration of Digital Independence (Nov 2025,
+              100+ entities) provide strong political framing.
+          (4) EuroStack's "contribution to European OSS ecosystem" criterion
+              explicitly requires credit registry infrastructure to be
+              measurable — direct validation of Improvement 3.
+          (5) Digital Omnibus (proposed 2026) creates both a threat (weaker
+              NIS2/CRA demand) and the strongest simplification argument for
+              standardized metadata.
+
+  Output: EU_POLICY_CONTEXT.md expanded from 5 to 10 regulatory initiatives
+          + Policy Environment section (Competitiveness Compass + Draghi,
+          CADA, Digital Omnibus) + expanded Cross-Cutting Themes. New
+          entries: EU AI Act, DORA, EU Data Act, EHDS, EUCS. Overview
+          table updated with 5 new rows. EuroStack and APELL were
+          researched as sources and inform the procurement sections but
+          are not included as named sections (they are stakeholders
+          covered in ROADMAP.md, not legislative frameworks).
+          Sources 66–78 added to Sources Evaluated in this document.
+
 Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
   Input:  All existing documents (RESEARCH.md, PROPOSAL.md, PITCH.md,
           RISK_ANALYSIS.md, ROADMAP.md, METHODOLOGY.md)
@@ -291,13 +332,13 @@ Phase 14: READABILITY, TONE, AND INCLUSIVITY REVIEW (2026-02-15)
 
 ## Tools and Models
 
-| Component                 | Details                                                                                                         |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **AI model**              | Claude Opus 4.6 (Phases 1–14) and Claude Sonnet 4.6 (Phase 15) via Claude Code VS Code extension               |
-| **Research dates**        | Original: 2026-02-07; subsequent rounds: 2026-02-08 through 2026-02-13; policy research: 2026-03-23            |
-| **Knowledge cutoff**      | May 2025 (supplemented with live web search for current information)                                            |
-| **Web search & fetching** | Built-in capabilities for discovering and retrieving source documents                                           |
-| **Human role**            | Problem framing, candidate selection, evaluation criteria, editorial oversight, and final review of all outputs |
+| Component                 | Details                                                                                                                |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **AI model**              | Claude Opus 4.6 (Phases 1–14) and Claude Sonnet 4.6 (Phase 15) via Claude Code VS Code extension                       |
+| **Research dates**        | Original: 2026-02-07; subsequent rounds: 2026-02-08 through 2026-02-13; policy research: 2026-03-23 through 2026-03-24 |
+| **Knowledge cutoff**      | May 2025 (supplemented with live web search for current information)                                                   |
+| **Web search & fetching** | Built-in capabilities for discovering and retrieving source documents                                                  |
+| **Human role**            | Problem framing, candidate selection, evaluation criteria, editorial oversight, and final review of all outputs        |
 
 ---
 
@@ -647,6 +688,25 @@ The human performed a comprehensive manual edit pass across PROPOSAL.md, ROADMAP
 
 The AI restructured the "Research Prompts and Queries" section accordingly: web search query strings were removed from the batch tables, investigated URLs were retained as the reproducible trail, and brief summary lines note what additional context was discovered via web search without recording the non-reproducible queries. The "Sources Evaluated" section was retained as the compiled reference document.
 
+### Phase 16: Expanded EU Policy Research (2026-03-24)
+
+**Human input:**
+
+> Do some more research to find recent and current and in discussion EU policies related to digital sovereignty, IT security, public procurement, open source and other related topics to add to EU_POLICY_CONTEXT.md. https://apell.info/category/news/ could be a good source.
+
+The AI fetched APELL's news archive and main page, EuroStack's coalition site, and Commission overview pages for the EU AI Act, DORA, EU Data Act, EHDS, EUCS, AI Continent Action Plan, and the Competitiveness Compass. Training knowledge supplemented primary sources for AI Act and DORA regulation details (official texts too large to fetch). The Declaration of Digital Independence (digitalindependence.eu) was fetched for APELL positioning.
+
+Key editorial decisions:
+
+- DORA was assessed as the strongest new demand signal since it creates compliance obligations for open source supply chain documentation from a financial sector not previously in scope.
+- The EU AI Act's Annex XII supply chain documentation was identified as structurally identical to the CRA/SBOM requirement — a cross-regulatory unification argument strengthening the proposal.
+- EuroStack's "contribution to European OSS ecosystem" procurement criterion is a direct validation of the credit registry (Improvement 3) — added to the Policy Environment section as evidence that the proposal fills an explicitly articulated policy gap.
+- The Digital Omnibus was treated as both a political threat and the strongest possible simplification argument — this dual framing was maintained to reflect genuine uncertainty about the package's impact.
+- `software[].contractors[]` was promoted from a speculative future extension to a fully specified, included field in the usage declaration schema, motivated by DORA Articles 28 and 30: the field records which vendor holds the _deploying organization's_ support contract for a given OSS component, filling the gap DORA creates for open source ICT dependencies that carry no upstream contract. The corresponding deprecation note for `maintenance.contractors[].until` was updated to redirect to this field, making the separation of concerns explicit: publiccode.yml asserts project-level support options; the usage declaration asserts deployment-level contractual relationships.
+- The tension between "European preference" in procurement and open source's nature as a non-discriminatory global commons was added as a dedicated subsection in EU_POLICY_CONTEXT.md, drawing on Thierry Carrez's OSI blog post (November 2025). The key editorial judgment: the Competitiveness Compass's "European preference" goal is conceptually ill-formed as applied to released open source artifacts (which carry no-discrimination clauses by definition), but is coherent as an _upstream_ question about who authors and governs software before release. The cross-cutting theme on "European origin" was updated to reflect this distinction and anchor the credit registry's relevance to the right version of the sovereignty question.
+
+Updates in this phase span PROPOSAL.md (schema table, deprecation rationale, JSON example) and EU_POLICY_CONTEXT.md (DORA section, Competitiveness Compass section, cross-cutting themes).
+
 ---
 
 ## Sources Evaluated
@@ -723,7 +783,7 @@ All sources that informed the analysis, grouped by role.
 45. APELL initiative — https://apell.info/
 46. EuroStack coalition — https://eurostack.eu/
 47. Switzerland EMBAG law text — https://www.fedlex.admin.ch/eli/cc/2023/682/en
-58. CSIS Survey of Government Open Source Policies (2010) — https://www.csis.org/analysis/government-open-source-policies
+48. CSIS Survey of Government Open Source Policies (2010) — https://www.csis.org/analysis/government-open-source-policies
 
 ### Credit system reference architecture (Phase 11)
 
@@ -747,6 +807,22 @@ All sources that informed the analysis, grouped by role.
 63. Euronews — EU's Made in Europe proposal delay — https://www.euronews.com/my-europe/2026/02/23/eus-made-in-europe-proposal-suffers-another-delay
 64. Interoperable Europe Act — Regulation (EU) 2024/903 — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202400903
 65. Interoperable Europe Portal — Open Source Software — https://interoperable-europe.ec.europa.eu/topic/ict/open-source-software
+
+### Expanded EU policy research (Phase 16)
+
+66. APELL — current positions and news — https://apell.info/
+67. APELL — news archive — https://apell.info/category/news/
+68. EuroStack coalition — https://euro-stack.com/
+69. EU AI Act — Commission overview — https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence
+70. DORA — EUR-Lex full text — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554
+71. EU Data Act — Commission overview — https://digital-strategy.ec.europa.eu/en/policies/data-act
+72. European Health Data Space — https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en
+73. EUCS — ENISA cloud security scheme — https://www.enisa.europa.eu/topics/cloud-and-big-data/cloud-security/eucs-cloud-service-scheme
+74. AI Continent Action Plan — https://digital-strategy.ec.europa.eu/en/news/commission-launches-aicontinent-action-plan-make-europe-global-hub-artificial-intelligence
+75. EU Competitiveness Compass — https://commission.europa.eu/topics/eu-competitiveness_en
+76. Draghi Report — https://commission.europa.eu/topics/eu-competitiveness/draghi-report_en
+77. Declaration of Digital Independence — https://digitalindependence.eu/
+78. EuroStack — position on European standardisation — https://euro-stack.com/blog/2025/3/european-public-procurement-for-oss
 
 ### Sources consulted but not directly cited
 
