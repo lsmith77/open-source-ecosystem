@@ -70,6 +70,12 @@ The [OSBA's selection criteria for sustainable procurement of open source softwa
 3. **High-quality Level 3 support.** The `maintenance` section (already in publiccode.yml) combined with credit data shows whether a vendor employs core developers or has contractual relationships with maintainers.
 4. **Supply chain security.** The `supplyChain` section (Improvement 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
 
+### Why Verifiable Data Matters More Than Legal Permission
+
+The Public Procurement Directives already allow contracting authorities to include qualitative criteria in award decisions. In practice, procurement remains price-driven — not because qualitative criteria are illegal, but because they are expensive to defend. Subjective vendor assessments create legal exposure: a disappointed bidder can challenge the basis of a qualitative judgment. The result is a structural bias toward price, where the evidentiary bar is clear and uncontestable.
+
+Machine-verifiable registry data shifts this calculus. A procurement decision backed by an auditable credit registry query, a linked SBOM, and a domain-verified peer adoption count is defensible in a way that a narrative vendor evaluation is not. This proposal does not merely provide data for criteria that authorities already use — it lowers the legal and administrative cost of criteria they currently avoid. The limiting factor for qualitative criteria is institutional, not legal; standardized evidence removes the institutional barrier.
+
 ### Digital Commons & Digital Sovereignty: Government as Steward
 
 This data infrastructure is not just about procurement efficiency—it is critical for government engagement as a steward of the digital commons and builder of digital sovereignty.

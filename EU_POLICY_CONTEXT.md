@@ -18,6 +18,9 @@ This document tracks EU legislative initiatives relevant to this proposal and ex
 | [EU Data Act](#eu-data-act)                             | Applicable Sep 2025                                  | Cloud switching interoperability; open API mandate                                          | Registry open API architecture aligns with interoperability obligations  |
 | [EHDS](#european-health-data-space-ehds)                | In force Mar 2025; phased application to 2031        | EHR certification; health sector interoperability                                           | supplyChain fields + steward declaration support EHR conformity evidence |
 | [EUCS](#eu-cybersecurity-certification-scheme-eucs)     | Candidate scheme; formal adoption pending            | Cloud security certification; tiered assurance levels                                       | supplyChain metadata supports conformity assessment evidence             |
+| [European Competitiveness Fund](#european-competitiveness-fund) | Proposal [COM(2025) 16 final](https://commission.europa.eu/publications/european-competitiveness-fund_en), under negotiation | Procurement as "integrated financial toolbox" for technological sovereignty; InvestEU de-risking | Registry infrastructure operationalizes ECF's sovereignty procurement objectives |
+| [Council Conclusions on European Competitiveness in the Digital Decade](#council-conclusions-on-european-competitiveness-in-the-digital-decade) | [Adopted 2025 (ST‑16430‑2025‑INIT)](https://data.consilium.europa.eu/doc/document/ST-16430-2025-INIT/en/pdf) | Open standards, open source, interoperability to reduce vendor lock-in; strategic procurement for R&I | Provides political mandate for the metadata infrastructure this proposal delivers |
+| [Digital Decade Policy Programme](#digital-decade-policy-programme) | [In force (Regulation (EU) 2022/2481)](https://digital-strategy.ec.europa.eu/en/policies/digital-decade-policy-programme); targets for 2030 | All key public services online by 2030; public administration digital transformation | Usage registries + sovereignty metrics track whether digitalization builds or deepens dependency |
 
 ---
 
@@ -145,6 +148,8 @@ Non-price criteria collapse back to price in practice because subjective criteri
 | Vendor expertise              | Credit Registries (Improvement 3)       | Upstream contributions, not self-reported claims |
 | Community health / resilience | Usage Registries (Improvement 4)        | Peer deployments, verified by domain control     |
 | Sector fit                    | Faceted Classification (Improvement 1)  | Multi-dimensional classification                 |
+
+The Directives already permit these criteria — the barrier to using them is institutional, not legal. Machine-verifiable registry data lowers the legal risk of qualitative award decisions in a way that narrative vendor assessments cannot. See [Cross-Cutting Themes](#cross-cutting-themes).
 
 #### 3. SME discoverability
 
@@ -359,11 +364,19 @@ Open source satisfies all three by default — but only if the _supply chain_ is
 
 **Implication for this proposal:** The credit registry (Improvement 3) provides the infrastructure to answer the upstream sovereignty question in a technically credible, non-gameable way. Verified contribution data tied to EU-registered entities is the only mechanism that can distinguish "software developed by a European community" from "software developed abroad and merely used in Europe." The "European preference" policy goal, properly understood, requires exactly this kind of measurement infrastructure.
 
+#### WTO Government Procurement Agreement (GPA) compatibility
+
+EU preferencing in public procurement must be designed to remain consistent with the EU's obligations under the WTO Government Procurement Agreement, which covers IT services and prohibits discrimination against GPA signatories' suppliers. A blanket "EU providers only" rule for software would raise compliance questions.
+
+The credit registry approach is structurally more GPA-compatible than a nationality restriction: it establishes a quality criterion (verified upstream maintenance contribution) that any provider — EU or non-EU — can satisfy by making substantive, project-endorsed contributions. This is a performance-based criterion, not a nationality restriction. It rewards the behavior the policy actually seeks (sustainable, accountable software development) rather than the organizational attribute of being EU-incorporated. Procurement preferences structured around contribution evidence, security posture, and ecosystem health criteria can be applied in a transparent and proportionate manner consistent with the GPA framework — as other GPA signatories have demonstrated when applying strategic criteria around critical infrastructure.
+
 ### CADA — Cloud and AI Development Act
 
 **Status:** Public consultation completed mid-2025. No formal legislative proposal as of early 2026.
 
 The Commission's **AI Continent Action Plan** (February 2025) established CADA as the vehicle for building European cloud and AI infrastructure capacity. If CADA includes open source AI development provisions, the supply chain documentation and discovery infrastructure proposed here becomes directly relevant to AI model governance — extending the scope of this proposal's applicability.
+
+**Scope boundary:** This proposal operates at the software and metadata layer — publiccode.yml, credit registries, usage declarations, supply chain references. It does not address cloud infrastructure sovereignty (i.e., where software physically runs, under whose legal jurisdiction, and on whose hardware). Even with widespread open source software adoption enabled by this proposal, dependency on non-EU hyperscaler infrastructure persists unless addressed separately at the infrastructure layer. CADA is the natural vehicle for that complementary requirement; the two layers are independent and both necessary for full digital sovereignty.
 
 ### Digital Omnibus — EU Digital Simplification Package
 
@@ -376,6 +389,74 @@ The EU Commission's Digital Omnibus proposes simplifying digital regulation by a
 _Risk:_ If NIS2 size thresholds are raised or CRA conformity assessment is simplified, the regulatory demand for supply chain metadata that this proposal targets may be reduced.
 
 _Opportunity:_ The simplification frame creates the strongest possible argument for standardized metadata. A single publiccode.yml supply chain reference satisfying CRA, NIS2, DORA, AI Act, and EHDS evidence requirements simultaneously is less costly than bespoke per-regime documentation. **Standardized metadata is a form of regulatory simplification that does not weaken protection** — the most politically defensible kind.
+
+---
+
+### European Competitiveness Fund
+
+**Reference:** [Proposal for a Regulation on establishing the European Competitiveness Fund, COM(2025) 16 final, 2025/0007 (COD)](https://commission.europa.eu/publications/european-competitiveness-fund_en)
+**Status:** Legislative proposal under negotiation; part of the proposed 2028–2034 Multiannual Financial Framework.
+
+#### What it does
+
+The European Competitiveness Fund (ECF) is a proposed MFF instrument consolidating several existing EU funding mechanisms. It explicitly positions procurement as part of an **"integrated financial toolbox"** for achieving technological sovereignty — one of the few EU legislative instruments to treat procurement and investment as coordinated levers rather than separate policy tracks.
+
+The ECF's InvestEU instrument provides loans, guarantees, and equity to de-risk uptake of innovative alternatives to incumbent providers. The "instrument-neutral award procedures" allow applicants to propose solutions without being constrained to a specific funding model — including open source solutions that do not fit traditional licensing cost structures.
+
+#### How this proposal relates
+
+The ECF's framing of procurement as a sovereignty tool creates a direct mandate for the kind of metadata infrastructure this proposal describes. If the ECF is to channel demand toward sovereign alternatives, those alternatives must be discoverable and their sovereignty-relevant properties (EU maintenance, open supply chain, peer adoption) must be verifiable. Without that infrastructure, "sovereignty-oriented procurement" remains a stated objective with no operational mechanism.
+
+The credit registry and usage registry components directly support ECF investment targeting: funders can identify which widely-deployed open source infrastructure is under-resourced (critical gap) and which has a healthy vendor ecosystem (lower investment priority), allocating capital where it creates maximum leverage.
+
+**Key insight:** The ECF is the first EU instrument to explicitly link procurement and investment as coordinated tools for sovereignty. This proposal is the technical infrastructure that makes that linkage operational at the software layer.
+
+---
+
+### Council Conclusions on European Competitiveness in the Digital Decade
+
+**Reference:** [Council of the European Union, ST‑16430‑2025‑INIT](https://data.consilium.europa.eu/doc/document/ST-16430-2025-INIT/en/pdf)
+**Status:** Adopted 2025. Council Conclusions are politically binding on the Commission's agenda but do not create directly applicable law.
+
+#### What it does
+
+These Council Conclusions explicitly identify **open standards, open source, and interoperability** as mechanisms to enhance transparency and competition while reducing vendor lock-in and reliance on single providers. Paragraph 27 specifically recognizes strategic public procurement as a tool to support research and innovation and the deployment of EU suppliers.
+
+This is significant because Council Conclusions reflect consensus among all 27 Member States — making the open source and interoperability framing a political baseline, not just a Commission position.
+
+#### How this proposal relates
+
+The Conclusions' framing of open source as a tool for reducing vendor lock-in maps directly to this proposal's credit registry and usage registry components:
+
+- Vendor lock-in reduction requires knowing whether a software choice has multiple independent support providers — exactly what credit registries reveal.
+- Reducing reliance on single providers requires procurement criteria that reward multi-vendor ecosystems — criteria this infrastructure makes machine-verifiable.
+
+The Conclusions' endorsement of strategic procurement as an R&I tool also provides political grounding for the pre-commercial procurement mechanisms this proposal can support: credit registry data showing early-stage vendor investment in a project is evidence that public procurement dollars create R&I leverage, not just purchasing.
+
+**Key insight:** The Council Conclusions provide the inter-institutional political mandate for open source procurement preferences that the Commission's proposals are beginning to operationalize. This proposal is the technical layer between the political mandate and enforceable criteria.
+
+---
+
+### Digital Decade Policy Programme
+
+**Reference:** [Regulation (EU) 2022/2481 of the European Parliament and of the Council of 14 December 2022](https://digital-strategy.ec.europa.eu/en/policies/digital-decade-policy-programme)
+**Status:** In force. Targets set for 2030; annual progress reporting mechanism in place.
+
+#### What it does
+
+The Digital Decade Policy Programme establishes the EU's framework for digital transformation through 2030, including a target of moving all key public services online. It creates a monitoring and reporting mechanism with annual State of the Digital Decade reports tracking progress against quantitative targets.
+
+The Programme's public administration digitalization targets create a structural demand driver: as more public services move online, the software infrastructure supporting them becomes more consequential — and the question of whether that infrastructure is open, interoperable, and sovereignty-compatible becomes more urgent.
+
+#### How this proposal relates
+
+The Digital Decade Programme sets targets for digital transformation but does not currently include sovereignty-oriented metrics for how that transformation is achieved. A public service moved online on a proprietary non-EU platform satisfies the Programme's target; the same service on an open, interoperable, EU-maintained platform satisfies it equally — but the two outcomes are not equivalent from a sovereignty standpoint.
+
+This creates a measurement gap: the Programme tracks whether services are digital, not whether the digitalization strengthens or weakens EU autonomy. Usage registries — which can capture the technology stack underlying declared public service deployments — are the natural data source for adding sovereignty-oriented metrics to Digital Decade reporting.
+
+Specifically, the Open Future procurement brief identifies a direct dependency: the Digital Decade's 2030 public service targets, absent a framework prioritizing open source and interoperability, will default toward proprietary technology procurement. This proposal's infrastructure gives the Programme the measurement tools to track and incentivize the alternative path.
+
+**Key insight:** Digital Decade targets create a procurement wave for public sector digitalization through 2030. Without sovereignty metrics embedded in that programme's reporting, the wave will flow toward incumbent providers by default. Usage registry data can close this measurement gap without requiring new legislative authority.
 
 ---
 
@@ -394,3 +475,5 @@ Several observations apply across all initiatives covered in this document:
 **Evidence-based compliance is better than checkbox compliance.** Machine-readable supply chain references, contribution records, and usage declarations enable regulators and procurement officers to verify claims rather than accept them. This raises the bar for all participants and creates a self-reinforcing quality incentive.
 
 **Standardized metadata is a form of regulatory simplification.** The Digital Omnibus creates pressure to reduce regulatory compliance costs. One machine-readable metadata entry satisfying CRA, NIS2, DORA, AI Act, and EHDS evidence requirements simultaneously is cheaper than bespoke documentation for each regime — framing this proposal as an enabler of the Commission's own simplification agenda, without weakening any protection.
+
+**The barrier to qualitative procurement criteria is institutional, not legal.** The existing Public Procurement Directives already permit non-price and qualitative award criteria. The reason procurement remains price-dominated is that subjective qualitative assessments are expensive to defend against legal challenge and require technical expertise most contracting authorities lack. Machine-verifiable registry data changes this: a procurement decision backed by an auditable credit registry query is defensible in a way that a narrative vendor evaluation is not. This proposal reduces the institutional cost of using criteria that are already legally available — which matters more than introducing new legal authority to use them.
