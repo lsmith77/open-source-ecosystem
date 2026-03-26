@@ -78,7 +78,7 @@ A published working group charter with institutional commitments and at least on
 ### Actions
 
 1. **Draft the `supplyChain` schema improvement** as a formal PR to the publiccode.yml spec.
-2. **Draft the temporal field deprecation** (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`) as a companion PR, motivated by empirical evidence from ecosyste.ms indexing.
+2. **Draft the temporal field deprecation** (`softwareVersion`, `releaseDate`, `dependsOn[].versionMin`, `maintenance.contractors[].until`) as a companion PR, motivated by empirical evidence from ecosyste.ms indexing.
 3. **Update validators, editors, and client libraries in tandem.** Any spec PR must be accompanied by updates to the official publiccode.yml validator, editor tooling (IDE plugins, online editors), and known parsing libraries — broken tooling is a major adoption barrier and undermines spec credibility.
 4. **Implement support in at least two software indexes** (e.g., openCode.de, ossdirectory.com) — demonstrating multi-crawler interoperability from day one. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
 5. **Pilot with 5-10 projects** that already have Scorecards and SBOMs.
@@ -247,3 +247,5 @@ The phases are ordered to:
 A **procurement policy track** runs in parallel across the phases: stakeholder mapping (Phase 0), draft criteria (Phase 2), procurement pilot with credit data (Phase 3), and formal criteria publication with legislative engagement (Phase 5). This mirrors the technical sequencing — you can't write procurement criteria for credit data before credit registries exist, and you can't run a procurement pilot before the data is real.
 
 Each phase produces tangible, demonstrable results that justify the next phase to funders and stakeholders. No phase depends on solving the hardest problems first.
+
+**Deferred improvement:** [Improvement 6: CRA Steward Declaration](PROPOSAL.md#improvement-6-cra-steward-declaration-deferred) is explicitly excluded from this roadmap. It is designed and reserved in PROPOSAL.md but should not be implemented until CRA regulatory guidance has settled on required identifiers and declaration formats (see risk [P5](RISK_ANALYSIS.md)).

@@ -1,6 +1,6 @@
 # Evaluation of Software Metadata Standards for a Global Open Source Index
 
-An analysis of emerging standards for describing open source software in source repositories, plus a comprehensive proposal for a decentralized ecosystem of metadata registries and procurement policies to make evidence-based open source adoption at scale.
+A comparative analysis of five metadata standards for describing open source software in source repositories, with a recommendation to use publiccode.yml as the foundation for a decentralized registry ecosystem. The full proposal is in [PROPOSAL.md](PROPOSAL.md).
 
 Our goal: create an integrated infrastructure enabling procurement offices, security researchers, and funders to discover, evaluate, and confidently adopt open source projects at scale—particularly within the public sector, where public money should support maintainable, transparent software.
 

@@ -96,49 +96,24 @@ Government OSS preference and procurement policies have been documented across 8
 
 **Mandate-driven policy:** Switzerland's [EMBAG law](https://www.fedlex.admin.ch/eli/cc/2023/682/en) (2023) mandates open source release of publicly financed software. The [APELL initiative](https://apell.info/) and [EuroStack coalition](https://eurostack.eu/) advance similar EU-level mandates. **The problem:** these mandates are unenforceable without metadata infrastructure. Procurement offices cannot operationalize "prefer open source" without discovery and evaluation tools. **The infrastructure this proposal provides:** faceted classification and supply chain references make the mandate actionable.
 
-**Compliance-driven obligation: Cyber Resilience Act (CRA).** The [CRA](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) applies to FOSS placed on the market for commercial use. It introduces the _open-source software steward_ — a legal entity that:
+**Compliance-driven obligation: Cyber Resilience Act (CRA).** The [CRA](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) introduces the _open-source software steward_ — a legal entity that must demonstrate cybersecurity policy, vulnerability handling, and incident reporting to regulators on request. The `supplyChain` fields (`sbom`, `securityPolicy`, `scorecard`) are the natural machine-discoverable evidence layer; a project-endorsed credit registry record provides empirical evidence of "providing sustained support." This is discussed further in [Improvement 6: CRA Steward Declaration](#improvement-6-cra-steward-declaration-deferred).
 
-- Implements cybersecurity policies for secure development
-- Operates a vulnerability handling and disclosure process
-- Reports actively exploited vulnerabilities to authorities
-
-A steward must demonstrate these commitments when requested by regulators. **The infrastructure this proposal provides:** the `supplyChain` fields (`sbom`, `securityPolicy`, `scorecard`) are the natural machine-discoverable evidence layer for these obligations. A vendor with a sustained, project-endorsed contribution record in a credit registry provides empirical evidence of "providing sustained support." This is discussed further in [Improvement 6: CRA Steward Declaration](#improvement-6-cra-steward-declaration-deferred).
-
-**Supply chain risk mandate: NIS2 Directive.** The [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) requires organizations in 18 critical sectors — energy, health, transport, public administration, and others — to implement supply chain security risk management. For these organizations, **the obligation is clear:** assess the supply chain security of software you adopt. **The problem:** without standardized metadata, assessment is expensive or impossible. **The infrastructure this proposal provides:** the `supplyChain` references allow a deploying organization to fetch SBOM, security policy, and maintenance evidence from a single entry point. The usage declaration mechanism (`.well-known/publiccode-usage.json`) also benefits internal compliance: organizations maintaining a declared software inventory have a natural audit trail for their supply chain risk management obligations.
+**Supply chain risk mandate: NIS2 Directive.** The [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) requires organizations in 18 critical sectors to assess the supply chain security of software they adopt. Without standardized metadata, that assessment is expensive or impossible. The `supplyChain` references (SBOM, security policy, Scorecard) provide structured evidence from a single entry point; the `.well-known/publiccode-usage.json` declaration gives organizations a natural audit trail for their software inventory obligations.
 
 For a detailed treatment of each initiative — including the forthcoming Public Procurement Act and the Interoperable Europe Act already in force — see [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md).
 
 ### Sustainable Business Model Alignment
 
-Open source infrastructure faces a critical funding problem—both _visibility_ of infrastructure costs and _disconnection_ of funding from usage. [Dries Buytaert's recent analysis (March 2026)](https://dri.es/open-source-infrastructure-deserves-a-business-model) shows the result: PyPI depends on donor sponsorships from Fastly, AWS, and Google Cloud; npm was acquired by Microsoft; WordPress infrastructure depends on Automattic's continued success; GNOME was forced to outsource bandwidth costs to GitHub to reduce spending.
+Open source infrastructure has no direct business model through license fees — it survives through donations and corporate sponsorship rather than revenue tied to the value it delivers or indirect funding through support and development contracts allows companies to direct some funds to maintenance. [Analysis of this structural problem](https://dri.es/open-source-infrastructure-deserves-a-business-model) points to a clear solution: connect infrastructure funding to usage and organizational benefit. This is not possible without visibility into _who_ uses what and at what scale.
 
-**The core insight: Most open source infrastructure does not have a real business model. It survives through donations, corporate sponsorship, and community fundraising, rather than revenue tied to the value it delivers.**
+The proposed infrastructure provides the necessary foundation:
 
-This proposal's metadata infrastructure directly enables a sustainable alternative: **a value exchange model where infrastructure funding is connected to usage and organizational benefit**, not dependent on donor goodwill.
+- **Usage registries** make organizational consumption visible — data driven procurement decisions.
+- **Credit registries** create a traceable chain from organizational benefit to ecosystem stewardship: vendors demonstrate value through auditable upstream contribution, giving them an ROI case for maintenance investment.
+- **Supply chain references** (SBOMs, Scorecard, security policies) reduce compliance verification costs for organizations with formal audit obligations.
+- **Faceted classification** enables efficient filtering across the available open source landscape.
 
-#### Metadata as the Foundation for Value Exchange
-
-Dries proposes: "Keep core infrastructure free for individuals and small projects, while organizations using it at scale help pay for what they consume." This is not possible without visibility into _who_ uses what, _how much_ they rely on it, and _what value_ they extract.
-
-The proposed infrastructure provides this foundation:
-
-- **Usage registries** make consumption visible: which organizations deploy what software, at what scale. Infrastructure operators and funders can see which projects have broad organizational adoption and justify investment proportionally.
-- **Credit registries** tie vendor benefit to visible contribution. Organizations that extract value through commercial offerings (consulting, managed hosting, SaaS) demonstrate that value through auditable upstream investment—creating a traceable chain from organizational benefit to ecosystem stewardship.
-- **Supply chain references** (SBOMs, security policies, Scorecard) reduce the cost of compliance verification for large organizations. This compliance value can be monetized through tiered services: free metadata for individuals, auditable compliance attestation services for organizations above a threshold.
-- **Faceted classification** enables usage-based metrics: "how many organizations deploy this healthcare software versus that one?" Data-driven funding allocation replaces guesswork.
-
-#### Enabling Sustainable Funding Models
-
-Once this infrastructure exists, sustainable funding models become possible:
-
-1. **Infrastructure operators can charge tiered fees** linked to organizational consumption (downloads, API calls, registrations) — without centralizing power, because the standard APIs allow multiple registries to operate in parallel.
-2. **Vendors can justify investment** in maintaining infrastructure by pointing to verified adoption and contribution data visible through credit registries — creating a clear ROI case to their leadership.
-3. **Funders can allocate resources** based on usage data rather than anecdotes — improving effectiveness and accountability.
-4. **Legislation can mandate infrastructure funding** by tying it to publicly visible metrics (e.g., "organizations deploying this software above this scale contribute to maintenance") rather than relying on moral persuasion.
-
-Without standardized, decentralized metadata infrastructure, the funding problem persists: costs remain invisible, adoption remains anecdotal, and every project must reinvent its own fragile sponsorship arrangement.
-
-With it, sustainable business models become possible—and open source infrastructure can transition from a patchwork of donations to a genuine ecosystem.
+Without this infrastructure, open source procurement remains inefficient. Short term price-driven procurement favors large proprietary vendors - further entrenching lock-in and foreign influence and control, where open source would allow for sovereignty.
 
 ---
 
@@ -379,9 +354,8 @@ supplyChain:
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field simply links to the canonical viewer URL. Crawlers can follow this to fetch the score programmatically via the [Scorecard API](https://api.scorecard.dev/).
 - **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a de facto convention popularized by GitHub (which renders it as a "Security policy" tab), but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a GitHub SECURITY.md page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the GitHub convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
-- **`SECURITY.md` is part of a broader emerging pattern of repository-level policy files.** Similar conventions are developing for other dimensions: [`SUSTAINABILITY.md`](https://github.com/mgifford/sustainability.md) (currently in draft) documents a project's environmental commitments and targets, following the [Web Sustainability Guidelines](https://w3c.github.io/sustyweb/); [`ACCESSIBILITY.md`](https://github.com/mgifford/ACCESSIBILITY.md) (currently in draft) documents Web Content Accessibility Guidelines (WCAG) conformance levels, known accessibility gaps, and contributor expectations. None of these have reached the status of formal standards yet, but they follow the same convention: a named file in the repository root that makes a policy dimension legible to humans and increasingly to tools. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts. Sustainability and accessibility declarations belong in the future `supports` key (see below) rather than as additional `supplyChain` subfields.
 - **REUSE compliance** is already checked by openCode.de badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
-- **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supports` key is also the natural home for sustainability and accessibility policy declarations as those conventions mature.
+- **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts; sustainability and accessibility policy declarations (emerging conventions such as `SUSTAINABILITY.md` and `ACCESSIBILITY.md`) belong in `supports` rather than as additional `supplyChain` subfields.
 
 ### What This Enables
 
