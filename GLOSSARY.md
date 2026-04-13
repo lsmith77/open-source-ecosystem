@@ -4,8 +4,11 @@ This glossary explains technical and domain-specific terms used throughout the p
 
 ## Technical Standards & Acronyms
 
+**Open Source Software (OSS)**
+"Open source" is the preferred term throughout this documentation. "OSS" is used as an abbreviation in some standards and legacy documents, but always defined at first use. Alternatives: FOSS (Free and Open Source Software), FLOSS (Free/Libre and Open Source Software). All refer to software released under licenses that allow use, modification, and redistribution.
+
 **SBOM (Software Bill of Materials)**
-A complete list of all software components, libraries, and dependencies included in a piece of software. Similar to a food label that lists all ingredients. Required by U.S. executive order and increasingly by EU regulations for supply chain security.
+A complete list of all software components, libraries, and dependencies included in a piece of open source software. Similar to a food label that lists all ingredients. Required by U.S. executive order and increasingly by EU regulations for supply chain security.
 
 **SPDX**
 A standardized format for declaring software licenses and components. Maintained by the Linux Foundation. Makes licensing information machine-readable.
@@ -20,10 +23,10 @@ An automated security audit tool that checks open source projects for common sec
 A standard created by the Free Software Foundation Europe (FSFE) for making per-file licensing transparent. Every source file declares its license, making compliance auditable by machines.
 
 **Cyber Resilience Act (CRA)**
-An EU regulation establishing requirements for software security and liability. Introduces the "open source software steward" — an organization responsible for maintaining security and handling vulnerabilities in critical software. Requires stewards to publish security policies and software bill of materials (SBOMs).
+An EU regulation establishing requirements for open source software security and liability. Introduces the "open source software steward"—an organization responsible for maintaining security and handling vulnerabilities in critical software. Requires stewards to publish security policies and software bill of materials (SBOMs).
 
 **NIS2 Directive**
-EU regulation requiring organizations in critical sectors (energy, health, transport, government) to assess and manage security risks in their software supply chain. For deploying organizations, this means evaluating the security, maintenance, and quality of software before adoption.
+EU regulation requiring organizations in critical sectors (energy, health, transport, government) to assess and manage security risks in their open source software supply chain. For deploying organizations, this means evaluating the security, maintenance, and quality of software before adoption.
 
 **Upstream / Downstream Contributions**
 Describes the direction of contributions to open source projects:
@@ -52,8 +55,8 @@ YAML version of JSON-LD. A way to combine YAML's readability with semantic web s
 **CodeMeta**
 A standard schema for research software metadata, emphasizing citation and reproducibility. Built on JSON-LD and schema.org.
 
-**OSS Taxonomy**
-A multi-dimensional classification system for open source projects (domain, function, technology, role, layer, audience). Designed to enable rich, faceted discovery and gap analysis across the ecosystem.
+**Open Source Taxonomy (OSS Taxonomy)**
+A multi-dimensional classification system for open source projects (domain, function, technology, role, layer, audience). Designed to enable rich, faceted discovery and gap analysis across the ecosystem. Sometimes called "OSS Taxonomy" in external sources.
 
 ---
 

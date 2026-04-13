@@ -2,6 +2,8 @@
 
 Guidelines for AI agents working on this repository.
 
+The PROPOSAL.md is the core document. All other document exist to support this document by adding additional details, perspectives and addressing different audiences.
+
 ## Document Index
 
 | File                   | Purpose                                                                                                                                                      |
@@ -15,7 +17,7 @@ Guidelines for AI agents working on this repository.
 | `RISK_ANALYSIS.md`     | Risk register across adoption, technical, governance, political, and economic dimensions                                                                     |
 | `DATA_FLOW.md`         | Mermaid architecture diagram showing how data flows between ecosystem components                                                                             |
 | `GLOSSARY.md`          | Definitions of key terms, acronyms, and concepts used across all documents                                                                                   |
-| `METHODOLOGY.md`       | Research provenance log — AI tool usage, phases, prompts, sources evaluated                                                                                  |
+| `METHODOLOGY.md`       | Research provenance log — AI tool usage, phases, prompts, sources evaluated. Update this document whenever doing deep research prompts                       |
 | `AGENTS.md`            | This file                                                                                                                                                    |
 
 ## URL Validation
