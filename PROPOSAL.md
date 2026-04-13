@@ -58,6 +58,8 @@ Across the EU and globally, a consistent gap exists between open source policy a
 
 Catalogs, registries, and standards like publiccode.yml, SBOM, and credit/usage registries are the essential infrastructure that operationalizes these laws. Without them, policy remains aspirational and difficult to enforce or measure.
 
+This is also the mechanism for changing procurement behavior in practice: a data-driven evidence layer makes it easier and safer for procurement officers to deviate from incumbent proprietary defaults, because decisions can be justified through auditable criteria rather than relationship-based precedent.
+
 The improvements proposed here are not merely technical changes to a metadata standard—they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
 
 This proposal answers that question. Each improvement directly serves a procurement need that existing standards leave unmet.
@@ -65,6 +67,8 @@ This proposal answers that question. Each improvement directly serves a procurem
 ### 2. Measurement and Impact
 
 The standards and infrastructure proposed—catalogs, registries, publiccode.yml, SBOMs, credit and usage registries—are precisely what enable measurement and impact assessment. They provide the machine-verifiable data needed for procurement scoring, compliance audits, and policy evaluation. The proposal's improvements are designed to make these processes reliable, scalable, and defensible.
+
+In short, this proposal does not just improve metadata quality; it lowers the institutional and legal risk of open source procurement by making qualitative selection criteria evidence-backed and challenge-resistant.
 
 ### 3. Policy Gaps and Integration
 
