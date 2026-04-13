@@ -47,11 +47,47 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 ## Policy Context: Public Procurement and Open Source
 
-The improvements proposed here are not merely technical changes to a metadata standard — they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under free and open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
+### 1. The Infrastructure Gap
+
+Across the EU and globally, a consistent gap exists between open source policy ambitions and practical implementation. Laws and mandates (e.g., "Public Money, Public Code", EMBAG, CRA, NIS2) require or encourage open source adoption, but **lack the technical infrastructure** to make these requirements actionable. This gap is not just about missing software—it is about missing, standardized, machine-readable metadata and discovery mechanisms that enable:
+
+- Procurement offices to find, evaluate, and compare open source solutions
+- Auditable evidence for compliance with legal and policy requirements
+- Visibility into supply chain health, security, and sustainability
+- Data-driven funding and policy decisions
+
+Catalogs, registries, and standards like publiccode.yml, SBOM, and credit/usage registries are the essential infrastructure that operationalizes these laws. Without them, policy remains aspirational and difficult to enforce or measure.
+
+The improvements proposed here are not merely technical changes to a metadata standard—they are infrastructure for implementing the **"Public Money, Public Code"** principle at scale. The [FSFE's Public Money? Public Code! campaign](https://publiccode.eu/) demands that publicly financed software be released under open source licenses. Over 200 civil society organizations and more than 31,000 individuals have signed their open letter. But the principle creates a follow-on problem: once governments commit to open source, how do procurement offices actually **find, evaluate, and responsibly adopt** it?
 
 This proposal answers that question. Each improvement directly serves a procurement need that existing standards leave unmet.
 
+### 2. Measurement and Impact
+
+The standards and infrastructure proposed—catalogs, registries, publiccode.yml, SBOMs, credit and usage registries—are precisely what enable measurement and impact assessment. They provide the machine-verifiable data needed for procurement scoring, compliance audits, and policy evaluation. The proposal's improvements are designed to make these processes reliable, scalable, and defensible.
+
+### 3. Policy Gaps and Integration
+
+While this proposal is designed to serve as the technical implementation layer for many existing and emerging laws (see Legislative Models below), there remain **policy gaps** that require attention. For example, most procurement frameworks still structurally favor price over qualitative criteria such as open source preference, security posture, or vendor expertise—even when such criteria are legally permitted. The proposal provides the evidence base to support these criteria, but policy changes may still be needed to ensure they are weighted appropriately in practice. Other gaps include the lack of explicit mandates for open source preference in some jurisdictions, and insufficient incentives for maintaining high-quality metadata.
+
+---
+
 ### How the Improvements Serve Procurement
+
+---
+
+## Stakeholder Engagement and Governance
+
+The success of this proposal depends on broad stakeholder engagement and robust governance. The following process is recommended:
+
+1. **Spec Maintainer Buy-in:** Secure the involvement of publiccode.yml maintainers and other core specification stewards early. Determine the process for proposing and reviewing improvements, and ensure capacity for governance.
+2. **Working Group Formation:** Establish a working group with representation from academic, vendor, procurement, registry operator, and policy communities, plus at least one publiccode.yml maintainer as liaison.
+3. **Open Consultation:** Conduct open consultations with affected communities (e.g., through public calls, RFCs, or workshops) to gather feedback and build consensus.
+4. **Transparent Decision-Making:** Publish a working group charter, meeting notes, and decision records. Use open platforms (e.g., GitHub, mailing lists) for proposals and discussions.
+5. **Iterative Piloting:** Pilot improvements with real projects, registries, and procurement offices. Use feedback to refine the standards and processes before broad rollout.
+6. **Ongoing Governance:** Define a clear process for future changes, dispute resolution, and onboarding of new stakeholders. Ensure governance remains transparent, inclusive, and adaptable as the ecosystem evolves.
+
+This process is further detailed in the ROADMAP.md Phase 0 section and is critical for legitimacy, adoption, and long-term sustainability.
 
 | Procurement need                | Improvement                                                                                                                  | What it enables                                                                                                     |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
