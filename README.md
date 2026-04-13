@@ -2,60 +2,78 @@
 
 This guide helps you navigate the documentation based on your role and what you need to learn.
 
-## Quick Start: 2-Minute Overview
+## Quick Start: 60-Second Summary
 
-**What is this project?**
+### What This Is
 
-This project evaluates metadata standards for open source software and proposes improvements to `publiccode.yml` as well as concrete standards for decentralized data collection (registry APIs, discovery mechanisms, usage declarations). This data will enable procurement offices, funders, and security teams to discover, evaluate, and confidently adopt open source projects—and to identify and fund critical open source infrastructure and maintenance in a sustainable manner.
+- A proposal to improve `publiccode.yml` and related ecosystem standards.
+- A practical path to make open source easier to discover, assess, and procure in the public sector.
+- A bridge between technical metadata standards and procurement/policy enforcement.
 
-**Why this matters:** Despite widespread political commitment to digital sovereignty, public sector procurement continues to favor proprietary vendors in practice. Framework agreements are established and familiar; open source's breadth creates apparent choice paralysis compared to a short list of known vendors; security is perceived as a proprietary advantage—despite approximately 96% of all software products already containing open source components (OSBA). Most critically, individual procurement officers face real institutional risk for departing from established patterns with no matching incentive to advance the broader sovereignty agenda. The result: digital sovereignty policies are passed, but the lever of public procurement is not actually pulled. This proposal directly addresses the missing infrastructure. It pairs technical standards (metadata, APIs, registries) with a strategic push for public procurement policies that prefer open source—and for government stewardship of the digital commons and digital sovereignty. This creates a positive feedback loop:
+### Why It Matters
 
-→ procurement policies and sovereignty mandates create demand for standardized project metadata
-→ projects and vendors adopt the extended standard
-→ governments gain auditable evidence for policy enforcement, supply chain security assessment, and investment decisions
-→ more confident, sustainable, and resilient open source adoption
+- Public institutions often support digital sovereignty in principle, but procurement still defaults to proprietary vendors.
+- Procurement officers face institutional risk when deviating from familiar frameworks.
+- Security is often perceived as a proprietary advantage, even though roughly 96% of software products already include open source components (OSBA).
+- Missing piece: reliable, comparable, auditable infrastructure for evaluating open source options at scale.
+- A data-driven approach lowers perceived personal and institutional risk by replacing relationship-based choices with documented evidence, making it easier and safer to deviate from proprietary-first defaults.
 
-**Who's it for?**
+### What This Project Adds
 
-- **Procurement professionals** considering open source adoption
-- **Open source project maintainers** seeking visibility with public sector buyers
-- **Policy makers** designing procurement requirements or digital sovereignty mandates
-- **Vendors/service providers** wanting to demonstrate expertise
-- **Researchers** studying open source governance and digital sovereignty
-- **Funders** allocating resources to critical open source infrastructure
+- Better project metadata and discovery standards.
+- Registry APIs and discovery mechanisms for decentralized evidence collection.
+- Policy-aligned structures so procurement decisions can be transparent and defensible.
+- A data-driven basis for procurement decisions that supports justified deviation from incumbent proprietary norms.
 
-**What's proposed?**
+### Positive Feedback Loop (Design Intent)
 
-A comprehensive ecosystem of standards and registries built around publiccode.yml:
+1. Procurement policies and sovereignty mandates create demand for standardized metadata.
+2. Projects and vendors adopt the extended standards.
+3. Governments gain auditable evidence for procurement, security, and funding decisions.
+4. Open source adoption becomes more confident, sustainable, and resilient.
 
-**Proposed Improvements to publiccode.yml:**
+### Who This Is For
 
-1. Faceted classification (better discovery across multiple dimensions)
-2. Supply chain references (security assessments, SBOMs, policies)
-3. Credit system discovery (vendor contribution tracking)
-4. Usage tracking via external registries (verified, decentralized adoption data)
-5. Temporal field deprecation (cleaner, more trustworthy data)
+- Procurement professionals
+- Open source maintainers
+- Policy makers and legislators
+- Vendors and service providers
+- Researchers and standards specialists
+- Funders and grant managers
+- Software catalog operators
 
-_(Improvement 6: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance — see [PROPOSAL.md](PROPOSAL.md#improvement-6-cra-steward-declaration-deferred).)_
+### Core Proposal Components
 
-**Companion Specifications:**
+**Improvements to `publiccode.yml`:**
 
-- **Credit Registry API** — Standardized interface for how registries expose vendor/contributor credit data
-- **Usage Registry API** — Standardized interface for how registries expose software adoption data
-- **Registry Discovery Standard** — How registry operators advertise their existence and capabilities so crawlers can discover them automatically (`/.well-known/publiccode-registry.json`)
-- **Organization-Level Usage Declarations** — Standard format for organizations to declare what software they deploy (`.well-known/publiccode-usage.json`)
+1. Faceted classification (multi-dimensional discovery)
+2. Supply chain references (SBOMs, policies, security evidence)
+3. Credit system discovery (vendor and contributor visibility)
+4. Usage tracking via external registries (verified decentralized adoption signals)
+5. Temporal field deprecation (cleaner and more trustworthy data)
 
-**Policy Layer:**
+_(Improvement 6: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance. See [PROPOSAL.md](PROPOSAL.md#improvement-6-cra-steward-declaration-deferred).)_
 
-**Primer for policy makers:** For those new to open source policy, see Mirko Boehm. "How Open Source Coordinates: A Guide for Policy Makers." SSRN, 2026. [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038)
+**Companion specifications:**
 
-- **Public procurement policies** (modeled on "Public Money, Public Code") that prefer open source and require standardized evaluation criteria
-- **Procurement selection frameworks** that use publiccode.yml metadata as evidence for vendor expertise, supply chain security, and community health
-- **Legislative models** and best practices (including Switzerland's EMBAG law as a reference) for mandating open source in government
+- Credit Registry API
+- Usage Registry API
+- Registry Discovery Standard (`/.well-known/publiccode-registry.json`)
+- Organization-Level Usage Declarations (`.well-known/publiccode-usage.json`)
 
-**Decentralized Trust Networks:** Registries operate independently across jurisdictions and sectors using standard APIs and discovery mechanisms. Each registry declares its trust model (`verified-domain`, `signed-attestation`, `self-reported`) so consumers can choose sources matching their risk tolerance, making procurement and policy evidence-based rather than relationship-based. See [Design Principles](PROPOSAL.md#design-principles) for the architectural rationale.
+**Policy layer and governance alignment:**
 
-Together, these enable a **self-reinforcing, decentralized ecosystem** where procurement demand drives adoption of open source standards, verified through trust networks, which in turn strengthens the vendors, maintainers, and projects that sustain the digital commons—all while maintaining independence and preventing gatekeeping.
+- Procurement policies that prefer open source and use standardized criteria
+- Selection frameworks based on metadata-backed evidence
+- Legislative reference models (including Switzerland's EMBAG law)
+
+### Policy Primer (Optional)
+
+For policy makers new to open source policy: Mirko Boehm, "How Open Source Coordinates: A Guide for Policy Makers" (SSRN, 2026): [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6303038)
+
+### Trust Model in One Line
+
+- Independent registries expose standardized data and declare trust models (`verified-domain`, `signed-attestation`, `self-reported`) so evidence consumers can choose risk-appropriate sources. See [Design Principles](PROPOSAL.md#design-principles).
 
 ---
 
@@ -78,19 +96,25 @@ Together, these enable a **self-reinforcing, decentralized ecosystem** where pro
 
 ## Reading Paths by Role
 
+Pick the track that matches your available time:
+
+- **Quick path:** 10-20 minutes for orientation and decisions
+- **Deep dive:** 35-120 minutes for implementation and policy detail
+
 ### 1. Procurement Professional
 
 _You're evaluating whether open source is right for your organization._
 
-**Start here:**
+**Quick path (12-15 min):**
 
-1. [PITCH.md → Procurement Office](PITCH.md#procurement-office) (2 min) — Why this matters to you
-2. [RESEARCH.md → publiccode.yml strengths](RESEARCH.md#1-publiccodeyml) (10 min) — What you're getting
-3. [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) + [Improvement 1](PROPOSAL.md#improvement-1-faceted-classification-replacing-flat-categories) (15 min) — How discovery improves
-4. [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source) (10 min) — How this connects to procurement frameworks
-5. [GLOSSARY.md](GLOSSARY.md) — As needed for unfamiliar terms
+- [PITCH.md → Procurement Office](PITCH.md#procurement-office)
+- [RESEARCH.md → publiccode.yml strengths](RESEARCH.md#1-publiccodeyml)
+- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source)
 
-**Expected time:** 40 minutes
+**Deep dive (40 min):**
+
+- Add [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) and [Improvement 1](PROPOSAL.md#improvement-1-faceted-classification-replacing-flat-categories)
+- Use [GLOSSARY.md](GLOSSARY.md) for unfamiliar terms
 
 ---
 
@@ -98,16 +122,17 @@ _You're evaluating whether open source is right for your organization._
 
 _You're considering whether to adopt publiccode.yml metadata._
 
-**Start here:**
+**Quick path (15-20 min):**
 
-1. [PITCH.md → Open Source Project/Maintainer](PITCH.md#open-source-project--maintainer) (2 min) — What you get
-2. [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml) (15 min) — How publiccode.yml works
-3. [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles) (5 min) — Philosophy
-4. [PROPOSAL.md → Full Example](PROPOSAL.md#full-example) (15 min) — See what it looks like
-5. [ROADMAP.md → Phase 1](ROADMAP.md#phase-1-supply-chain-references--temporal-field-deprecation) (5 min) — Earliest opportunities
-6. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [PITCH.md → Open Source Project/Maintainer](PITCH.md#open-source-project--maintainer)
+- [PROPOSAL.md → Full Example](PROPOSAL.md#full-example)
+- [ROADMAP.md → Phase 1](ROADMAP.md#phase-1-supply-chain-references--temporal-field-deprecation)
 
-**Expected time:** 50 minutes
+**Deep dive (50 min):**
+
+- Add [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml)
+- Add [PROPOSAL.md → Design Principles](PROPOSAL.md#design-principles)
+- Use [GLOSSARY.md](GLOSSARY.md) as needed
 
 ---
 
@@ -115,15 +140,16 @@ _You're considering whether to adopt publiccode.yml metadata._
 
 _You deliver expertise around specific open source projects._
 
-**Start here:**
+**Quick path (12-15 min):**
 
-1. [PITCH.md → Vendor/Service Provider](PITCH.md#vendor--service-provider) (2 min) — Why it's good for business
-2. [RESEARCH.md → publiccode.yml → No vendor/contributor credit system](RESEARCH.md#1-publiccodeyml) (3 min) — The problem being solved
-3. [PROPOSAL.md → Improvement 3: Vendor Credit System Discovery](PROPOSAL.md#improvement-3-vendor-credit-system-discovery) (15 min) — How it works
-4. [ROADMAP.md → Phase 3: Credit System Pilot with Drupal](ROADMAP.md#phase-3-credit-system-pilot-with-drupal) (10 min) — Timeline
-5. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [PITCH.md → Vendor/Service Provider](PITCH.md#vendor--service-provider)
+- [PROPOSAL.md → Improvement 3: Vendor Credit System Discovery](PROPOSAL.md#improvement-3-vendor-credit-system-discovery)
+- [ROADMAP.md → Phase 3](ROADMAP.md#phase-3-credit-system-pilot-with-drupal)
 
-**Expected time:** 35 minutes
+**Deep dive (35 min):**
+
+- Add [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml) for background
+- Use [GLOSSARY.md](GLOSSARY.md) for terminology
 
 ---
 
@@ -131,16 +157,17 @@ _You deliver expertise around specific open source projects._
 
 _You're drafting open source procurement requirements or digital sovereignty mandates._
 
-**Start here:**
+**Quick path (20-25 min):**
 
-1. [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md) (20 min) — CRA, NIS2, Interoperable Europe Act, Public Procurement Act, EMBAG
-2. [PITCH.md → Policy Maker/Legislator](PITCH.md#policy-maker--legislator) (2 min) — Why this matters for your role
-3. [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source) (15 min) — How each improvement serves procurement needs
-4. [RESEARCH.md → Other Relevant Standards: Digital Sovereignty Score Initiatives](RESEARCH.md#digital-sovereignty-score-initiatives) (10 min) — Broader policy landscape
-5. [ROADMAP.md → Phases 0, 2, 3, 5](ROADMAP.md) (20 min) — How this would be adopted
-6. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md)
+- [PITCH.md → Policy Maker/Legislator](PITCH.md#policy-maker--legislator)
+- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source)
 
-**Expected time:** 70 minutes
+**Deep dive (70 min):**
+
+- Add [RESEARCH.md → Digital Sovereignty Score Initiatives](RESEARCH.md#digital-sovereignty-score-initiatives)
+- Add [ROADMAP.md](ROADMAP.md) (focus on Phases 0, 2, 3, and 5)
+- Use [GLOSSARY.md](GLOSSARY.md) as needed
 
 ---
 
@@ -148,15 +175,16 @@ _You're drafting open source procurement requirements or digital sovereignty man
 
 _You're studying open source governance, metadata standards, or supply chain transparency._
 
-**Start here:**
+**Quick path (20-30 min):**
 
-1. [METHODOLOGY.md](METHODOLOGY.md) (40 min) — How conclusions were reached
-2. [RESEARCH.md](RESEARCH.md) (30 min) — Comparative analysis of standards
-3. [PROPOSAL.md](PROPOSAL.md) (30 min) — Design decisions
-4. [RISK_ANALYSIS.md](RISK_ANALYSIS.md) (15 min) — Risk landscape
-5. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [RESEARCH.md](RESEARCH.md)
+- [PROPOSAL.md](PROPOSAL.md)
+- [RISK_ANALYSIS.md](RISK_ANALYSIS.md)
 
-**Expected time:** 120 minutes
+**Deep dive (120 min):**
+
+- Add [METHODOLOGY.md](METHODOLOGY.md) first for provenance and process
+- Use [GLOSSARY.md](GLOSSARY.md) for terminology normalization
 
 ---
 
@@ -164,15 +192,16 @@ _You're studying open source governance, metadata standards, or supply chain tra
 
 _You allocate money to open source infrastructure and want to understand this proposal._
 
-**Start here:**
+**Quick path (15-20 min):**
 
-1. [PITCH.md → Federal Authority/Funder](PITCH.md#federal-authority--funder) (2 min) — Funding decisions
-2. [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml) (15 min) — The infrastructure
-3. [RISK_ANALYSIS.md → Critical Risks](RISK_ANALYSIS.md#critical-risks-high-likelihood--high-impact) (10 min) — Where funding is most needed
-4. [ROADMAP.md](ROADMAP.md) (20 min) — Phases and milestones for funding decisions
-5. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [PITCH.md → Federal Authority/Funder](PITCH.md#federal-authority--funder)
+- [RISK_ANALYSIS.md → Critical Risks](RISK_ANALYSIS.md#critical-risks-high-likelihood--high-impact)
+- [ROADMAP.md](ROADMAP.md)
 
-**Expected time:** 50 minutes
+**Deep dive (50 min):**
+
+- Add [RESEARCH.md → publiccode.yml](RESEARCH.md#1-publiccodeyml)
+- Use [GLOSSARY.md](GLOSSARY.md) as needed
 
 ---
 
@@ -180,16 +209,17 @@ _You allocate money to open source infrastructure and want to understand this pr
 
 _You run openCode.de, Developers Italia, or another registry/index._
 
-**Start here:**
+**Quick path (15-20 min):**
 
-1. [PITCH.md → Software Catalog/Crawler](PITCH.md#software-catalog--crawler) (2 min) — Why it matters to you
-2. [RESEARCH.md → Federated Architecture](RESEARCH.md#1-publiccodeyml) (5 min) — System design
-3. [PROPOSAL.md → Full Design | Improvement 2 | Improvement 4](PROPOSAL.md) (30 min) — What data you'd consume
-4. [PROPOSAL.md → Registry Discovery Standard](PROPOSAL.md#registry-discovery-standard-rough-outline) (15 min) — How registries interact
-5. [ROADMAP.md → Phase 4](ROADMAP.md#phase-4-registry-discovery--usage-registries) (10 min) — Timeline
-6. [GLOSSARY.md](GLOSSARY.md) — As needed
+- [PITCH.md → Software Catalog/Crawler](PITCH.md#software-catalog--crawler)
+- [PROPOSAL.md → Registry Discovery Standard](PROPOSAL.md#registry-discovery-standard-rough-outline)
+- [ROADMAP.md → Phase 4](ROADMAP.md#phase-4-registry-discovery--usage-registries)
 
-**Expected time:** 65 minutes
+**Deep dive (65 min):**
+
+- Add [RESEARCH.md → Federated Architecture](RESEARCH.md#1-publiccodeyml)
+- Add [PROPOSAL.md](PROPOSAL.md) (focus on Improvement 2 and Improvement 4)
+- Use [GLOSSARY.md](GLOSSARY.md) as needed
 
 ---
 
