@@ -29,19 +29,21 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 3. **Only include data the project controls.** A project can endorse which credit registries track its contributors (the project knows who contributes). A project cannot endorse usage registries (the project doesn't control who uses it). Usage data belongs entirely outside the file.
 
-4. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
+4. **All publiccode.yml metadata are project assertions.** Fields in publiccode.yml are statements made by the project or its maintainers. Validation, verification, and trust scoring may be added by catalogs, registries, or other consumers, but those layers sit on top of the published metadata rather than changing its meaning in the file itself.
 
-5. **All external systems use standardized APIs.** This allows catalogs (openCode.de, EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
+5. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
 
-6. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
+6. **All external systems use standardized APIs.** This allows catalogs (openCode.de, EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
 
-7. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. When a companion standard addresses the same concept from a different perspective (for example, a deploying organization declaring its use case rather than a project author declaring capabilities), we reuse the same field name with an explicit note about who is making the assertion. This avoids creating new names for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
+7. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
 
-8. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add new requirements beyond what those laws already impose. Every field and mechanism described here is either optional or a technical way to meet obligations that already exist in law. Participation is voluntary at every level; higher trust levels unlock richer catalog filters but carry no legal requirements.
+8. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. When a companion standard addresses the same concept from a different perspective (for example, a deploying organization declaring its use case rather than a project author declaring capabilities), we reuse the same field name with an explicit note about who is making the assertion. This avoids creating new names for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
 
-9. **Duplicate/conflicting metadata.** Catalogs and aggregators should detect and clearly present duplicate or conflicting publiccode.yml files for the same open source project, notify users, and provide a process for maintainers to resolve such conflicts.
+9. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add new requirements beyond what those laws already impose. Every field and mechanism described here is either optional or a technical way to meet obligations that already exist in law. Participation is voluntary at every level; higher trust levels unlock richer catalog filters but carry no legal requirements.
 
-10. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity.
+10. **Duplicate/conflicting metadata.** Catalogs and aggregators should detect and clearly present duplicate or conflicting publiccode.yml files for the same open source project, notify users, and provide a process for maintainers to resolve such conflicts.
+
+11. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity.
 
 ---
 
@@ -397,12 +399,66 @@ supplyChain:
 - **REUSE compliance** is already checked by openCode.de badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
 - **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts; sustainability and accessibility policy declarations (emerging conventions such as `SUSTAINABILITY.md` and `ACCESSIBILITY.md`) belong in `supports` rather than as additional `supplyChain` subfields.
 
+### Accessibility Declaration Profile (for `supports`)
+
+The accessibility use case raised by public-sector catalogs is a strong fit for the future `supports` key. As with all publiccode.yml fields, accessibility metadata is a maintainer assertion by default. The design goal here is **progressive detail**: a simple summary for most projects, with optional per-surface overrides only when needed.
+
+```yaml
+supports:
+  accessibility:
+    # Summary for quick declaration and simple catalog filtering.
+    # Example values: full | partial
+    coverage: partial
+
+    # Defaults apply unless overridden in assertions[].
+    defaults:
+      # Example values: EN-301-549, WCAG-2.1, WCAG-2.2
+      standard: EN-301-549
+      # Example values: A, AA, AAA, equivalent-national-profile
+      level: AA
+      # Example values: self-assessment, third-party-audit, public-authority-audit
+      reviewerType: self-assessment
+
+    # Optional per-surface overrides for mixed-standard or mixed-level reality.
+    # If omitted, catalogs and consumers use defaults.
+    assertions:
+      - # Example values: web-ui, mobile-ios, mobile-android, desktop-ui, docs,
+        # pdf-outputs, email-templates
+        surface: web-ui
+        standard: WCAG-2.2
+        level: AA
+        reviewerType: third-party-audit
+        evidence:
+          - type: test-report
+            reference: docs/a11y/web-audit-2026-03.md
+
+      - surface: docs
+        standard: WCAG-2.1
+        level: A
+
+    # Human-readable statement location, relative or absolute.
+    # A project may point to ACCESSIBILITY.md or an equivalent statement.
+    statement: ACCESSIBILITY.md
+
+    # Date of the latest assertion update.
+    lastReviewed: 2026-03-01
+```
+
+The declaration model should remain simple and deterministic:
+
+- If a surface is missing in `assertions[]`, `defaults` applies.
+- If a surface appears in `assertions[]`, that entry overrides `defaults` for that surface only.
+- If `assertions[]` is omitted entirely, the declaration is still valid and interpreted from `defaults`.
+
+This keeps the standard compact while still allowing catalogs and procurement tools to build simplified views on top of it.
+
 ### What This Enables
 
 1. **Procurement security assessment.** Before adopting software, a procurement officer can check its OpenSSF Scorecard, review the vulnerability disclosure policy, and verify SBOM availability — all from a single metadata file, without hunting across multiple external sources.
 2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
 3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
+5. **Accessibility pre-screening in catalogs.** Paired with a structured `supports.accessibility` declaration, catalogs can present comparable accessibility claims in a consistent format, reducing the risk of selecting software that fails barrier-free requirements.
 
 ---
 

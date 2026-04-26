@@ -29,6 +29,7 @@ This roadmap assumes we can activate these existing relationships. Conversations
 | **Andrew Nesbitt / ecosyste.ms**                | Created OSS Taxonomy. Operate the largest open source metadata dataset (100K+ projects, 10M+ packages). Direct expertise in federated indexing.                          | Feedback contributor; existing relationship      |
 | **CHAOSS**                                      | Community Health Analytics—defines metrics for open source project health. Work on contribution attribution.                                                             | Direct contact                                   |
 | **FSFE (Free Software Foundation Europe)**      | Run the "Public Money? Public Code!" campaign (200+ organizations backing it). Maintain REUSE standard (already integrated into openCode.de). European advocacy network. | Emerging connection                              |
+| **Accessibility competence centers**            | Public-sector accessibility expertise; direct insight into barrier-free procurement constraints and verification practice.                                               | New outreach target                              |
 | **publiccode.yml maintainers**                  | Control the specification. Any extension must receive their approval.                                                                                                    | Acquaintance; first contact needed               |
 
 ### Critical Prerequisite: Spec Maintainer Buy-in
@@ -56,6 +57,7 @@ Risk G1 (small spec governance community) is the single highest-priority blocker
 4. **Engage the OSS Taxonomy author.** The faceted classification proposal directly builds on the [OSS Taxonomy](https://nesbitt.io/2025/11/29/oss-taxonomy.html) work, and ecosyste.ms brings data infrastructure as a potential credit registry.
 
 5. **Engage procurement policy stakeholders.** Position the proposed improvements as the data infrastructure that procurement policy initiatives (APELL, EuroStack, FSFE's Public Money? Public Code!) need. The improvements answer the practical "how do you actually procure open source?" question that follows from policy adoption.
+6. **Engage accessibility stakeholders early.** Include public-sector accessibility competence centers and catalog operators in the working group conversation so that a11y declarations are designed as usable procurement evidence from day one.
 
 ### Deliverable
 
@@ -70,6 +72,7 @@ A published working group charter with institutional commitments and at least on
 ### Why Start Here
 
 - **Improvement 2 (Supply Chain References)** requires no new infrastructure — it only adds URL fields to publiccode.yml pointing to things that already exist (SBOMs, Scorecard, REUSE, security policies).
+- **Accessibility declarations can be integrated in parallel** via decentralized `supports.accessibility` metadata, with catalogs performing independent validation and trust assessment on top of maintainer assertions.
 - **Improvement 5 (Deprecate Temporal Fields)** pairs naturally with supply chain references. The SBOM reference in `supplyChain` replaces `dependsOn[].versionMin` as the authoritative source for dependency data. Removing `softwareVersion` and `releaseDate` addresses the most common source of stale data — empirically observed across thousands of files indexed by ecosyste.ms.
 - openCode.de already checks REUSE compliance and displays badges. Formalizing this in the schema is a natural next step.
 - Supply chain security aligns with funder priorities (e.g., Sovereign Tech Agency) and could unlock funding support.
@@ -83,10 +86,13 @@ A published working group charter with institutional commitments and at least on
 4. **Implement support in at least two software indexes** (e.g., openCode.de, ossdirectory.com) — demonstrating multi-crawler interoperability from day one. Crawlers stop relying on `softwareVersion` and pull release data from forge APIs instead.
 5. **Pilot with 5-10 projects** that already have Scorecards and SBOMs.
 6. **Demonstrate supply chain visibility to funders** — the metadata enables exactly the investment decision support they need.
+7. **Pilot decentralized accessibility declaration ingestion in at least one catalog** (for example, OSS Directory), including catalog-side validation workflows and transparent verification states (`unverified`, `spot-checked`, `verified`).
 
 ### Deliverable
 
 Accepted publiccode.yml improvements for `supplyChain` and temporal field deprecation. Updated validator, editor, and parser tooling released in step with the spec. At least two operational crawlers consuming supply chain data. A handful of real projects using the new fields without temporal fields.
+
+In parallel: a tested decentralized accessibility declaration flow (`supports.accessibility` assertions + catalog validation state) that procurement offices can use for initial barrier-free pre-screening.
 
 ---
 
