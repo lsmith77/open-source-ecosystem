@@ -364,38 +364,54 @@ New top-level section pointing to supply chain artifacts. These are URLs to exte
 
 ```yaml
 supplyChain:
-  # SBOM location(s) — can be a URL to a published SBOM file or
-  # an API endpoint that serves the current SBOM.
+  # SBOM location(s) — SBOMs are release-specific artifacts, so two
+  # URL forms are supported:
+  #
+  #   latest:    stable pointer to the most recent release's SBOM.
+  #              GitHub:   releases/latest/download/{filename}
+  #              GitLab:   -/releases/permalink/latest/downloads/{filename}
+  #              Forgejo/Codeberg: releases/download/latest/{filename}
+  #
+  #   versioned: URL template for a specific release. Use {version} as
+  #              the placeholder; consumers substitute the tag they are
+  #              evaluating. Works identically on GitHub, GitLab,
+  #              Codeberg/Forgejo, and any forge that uses standard
+  #              release attachments.
+  #
+  # Both fields are optional; provide whichever your release process
+  # publishes. Omit the block entirely if you do not publish SBOMs.
   sbom:
-    - url: https://github.com/example/project/releases/latest/download/sbom.cdx.json
-      format: CycloneDX # CycloneDX | SPDX
-    - url: https://github.com/example/project/releases/latest/download/sbom.spdx.json
-      format: SPDX
+    - format: CycloneDX # CycloneDX | SPDX
+      latest: https://forge.example.org/owner/project/releases/latest/sbom.cdx.json
+      versioned: https://forge.example.org/owner/project/releases/{version}/sbom.cdx.json
+    - format: SPDX
+      latest: https://forge.example.org/owner/project/releases/latest/sbom.spdx.json
+      versioned: https://forge.example.org/owner/project/releases/{version}/sbom.spdx.json
 
-  # OpenSSF Scorecard — URL to the project's scorecard results.
-  # The canonical pattern is:
-  #   https://scorecard.dev/viewer/?uri=github.com/{owner}/{repo}
-  # Alternatively, a direct API URL:
-  #   https://api.scorecard.dev/projects/github.com/{owner}/{repo}
-  scorecard: https://scorecard.dev/viewer/?uri=github.com/example/project
+  # OpenSSF Scorecard — machine-readable API URL to the project's scorecard
+  # results. Scorecard supports GitHub and GitLab hosted projects:
+  #   https://api.scorecard.dev/projects/{forge}/{owner}/{repo}
+  # Human-readable viewer: https://scorecard.dev/viewer/?uri={forge}/{owner}/{repo}
+  scorecard: https://api.scorecard.dev/projects/forge.example.org/owner/project
 
-  # Security policy — URL to the project's vulnerability disclosure
-  # policy. This may be a GitHub SECURITY.md (rendered at
-  # /security/policy), a .well-known/security.txt file per RFC 9116,
-  # a dedicated security page, or any equivalent resource.
-  securityPolicy: https://github.com/example/project/security/policy
+  # Security policy — URL to the project's vulnerability disclosure policy.
+  # Prefer the RFC 9116 well-known endpoint (machine-parseable, forge-agnostic):
+  #   https://example.org/.well-known/security.txt
+  # Acceptable fallbacks: a forge security page, a SECURITY.md, or any
+  # dedicated security page — but RFC 9116 is the only standardized,
+  # machine-readable format.
+  securityPolicy: https://example.org/.well-known/security.txt
 
-  # REUSE compliance — whether the project follows the FSFE REUSE
-  # specification (https://reuse.software/). Boolean or URL to
-  # the REUSE lint results.
-  reuse: https://api.reuse.software/status/github.com/example/project
+  # REUSE compliance — URL to the machine-readable REUSE lint API result.
+  # Pattern: https://api.reuse.software/status/{forge}/{owner}/{repo}
+  reuse: https://api.reuse.software/status/forge.example.org/owner/project
 ```
 
 ### Design Rationale
 
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
-- **Scorecard results are computed externally** by the OpenSSF infrastructure. The field simply links to the canonical viewer URL. Crawlers can follow this to fetch the score programmatically via the [Scorecard API](https://api.scorecard.dev/).
-- **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a de facto convention popularized by GitHub (which renders it as a "Security policy" tab), but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a GitHub SECURITY.md page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the GitHub convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
+- **Scorecard results are computed externally** by the OpenSSF infrastructure. The field points directly to the machine-readable [Scorecard API](https://api.scorecard.dev/), which returns structured JSON. The human-readable viewer is documented in the comment for maintainers who want to verify their score manually.
+- **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a widely-adopted convention for documenting vulnerability disclosure procedures, but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a forge security page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the `SECURITY.md` convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
 - **REUSE compliance** is already checked by openCode.de badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
 - **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts; sustainability and accessibility policy declarations (emerging conventions such as `SUSTAINABILITY.md` and `ACCESSIBILITY.md`) belong in `supports` rather than as additional `supplyChain` subfields.
 
@@ -499,8 +515,8 @@ creditRegistries:
     type: contribution-credits # contribution-credits | vendor-directory | funding
 
   - name: ecosyste.ms
-    url: https://ecosyste.ms/projects/lookup?url=https://github.com/example/project
-    apiUrl: https://funds.ecosyste.ms/api/v1/projects/github.com/example/project
+    url: https://ecosyste.ms/projects/lookup?url=https://forge.example.org/owner/project
+    apiUrl: https://funds.ecosyste.ms/api/v1/projects/forge.example.org/owner/project
     type: funding
 
   - name: Open Source Pledge
@@ -625,7 +641,7 @@ publiccodeYmlVersion: "1.0"
 
 name: MedusaCMS
 applicationSuite: MegaProductivitySuite
-url: https://github.com/example/medusa-cms
+url: https://forge.example.org/owner/medusa-cms
 landingURL: https://medusa-cms.example.org
 # softwareVersion and releaseDate removed — consumed from
 # forge API / package registry (see Improvement 5)
@@ -722,11 +738,12 @@ dependsOn:
 # ===== NEW: Supply chain references =====
 supplyChain:
   sbom:
-    - url: https://github.com/example/medusa-cms/releases/latest/download/sbom.cdx.json
-      format: CycloneDX
-  scorecard: https://scorecard.dev/viewer/?uri=github.com/example/medusa-cms
-  securityPolicy: https://github.com/example/medusa-cms/security/policy
-  reuse: https://api.reuse.software/status/github.com/example/medusa-cms
+    - format: CycloneDX
+      latest: https://forge.example.org/owner/medusa-cms/releases/latest/sbom.cdx.json
+      versioned: https://forge.example.org/owner/medusa-cms/releases/{version}/sbom.cdx.json
+  scorecard: https://api.scorecard.dev/projects/forge.example.org/owner/medusa-cms
+  securityPolicy: https://medusa-cms.example.org/.well-known/security.txt
+  reuse: https://api.reuse.software/status/forge.example.org/owner/medusa-cms
 
 # ===== NEW: Credit registry discovery =====
 creditRegistries:
@@ -735,8 +752,8 @@ creditRegistries:
     apiUrl: https://medusa-cms.example.org/api/v1/credits
     type: contribution-credits
   - name: ecosyste.ms
-    url: https://ecosyste.ms/projects/lookup?url=https://github.com/example/medusa-cms
-    apiUrl: https://packages.ecosyste.ms/api/v1/packages/lookup?repository_url=https://github.com/example/medusa-cms
+    url: https://ecosyste.ms/projects/lookup?url=https://forge.example.org/owner/medusa-cms
+    apiUrl: https://packages.ecosyste.ms/api/v1/packages/lookup?repository_url=https://forge.example.org/owner/medusa-cms
     type: funding
 
 # Deprecated — usage data comes from external registries that
@@ -767,7 +784,7 @@ This is a **separate specification** from publiccode.yml. It defines the API tha
 Returns all credited entities for a project. Supports a `since` parameter for time-windowed queries.
 
 ```
-GET /projects/github.com%2Fexample%2Fmedusa-cms/credits?since=2025-01-01
+GET /projects/forge.example.org%2Fowner%2Fmedusa-cms/credits?since=2025-01-01
 ```
 
 The response identifies the project and registry, then lists credited entities with the following key fields per entity:
@@ -864,7 +881,7 @@ Registries with `"capabilities": ["usage"]` must implement these endpoints.
 Given a project URL (the `url` field from publiccode.yml, URL-encoded), return all organizations that have declared they use it. Each adopter entry includes the organization's identity (name, domain, jurisdiction), adoption status (`production`, `pilot`, `evaluation`, `retired`), and when they adopted.
 
 ```
-GET /v1/software/github.com%2Fexample%2Fmedusa-cms/adopters
+GET /v1/software/forge.example.org%2Fowner%2Fmedusa-cms/adopters
 ```
 
 #### `GET /organizations/{org-identifier}/software`
@@ -908,7 +925,7 @@ This distinction is valuable for procurement. A project listing `classification.
   },
   "software": [
     {
-      "url": "https://github.com/drupal/drupal",
+      "url": "https://forge.example.org/drupal/drupal",
       "status": "production",
       "classification": {
         "domain": ["content-management"],
@@ -916,7 +933,7 @@ This distinction is valuable for procurement. A project listing `classification.
       }
     },
     {
-      "url": "https://github.com/nextcloud/server",
+      "url": "https://forge.example.org/nextcloud/server",
       "status": "production",
       "classification": {
         "domain": ["file-management", "collaboration"]
