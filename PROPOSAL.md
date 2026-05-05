@@ -12,12 +12,14 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 - [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-credit-system-discovery)
 - [Improvement 4: Deprecate `usedBy`](#improvement-4-deprecate-usedby)
 - [Improvement 5: Deprecate Temporal Fields](#improvement-5-deprecate-temporal-fields)
+- [Improvement 6: Package Distribution References](#improvement-6-package-distribution-references)
+- [Improvement 7: Sanctioned Mirror Declarations](#improvement-7-sanctioned-mirror-declarations)
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
   - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api) and [Organization-Level Usage Declarations](#organization-level-usage-declarations))
 - **Deferred improvements (pending regulatory guidance):**
-  - [Improvement 6: CRA Steward Declaration](#improvement-6-cra-steward-declaration-deferred)
+  - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred)
 
 ---
 
@@ -43,7 +45,7 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 10. **Duplicate/conflicting metadata.** Catalogs and aggregators should detect and clearly present duplicate or conflicting publiccode.yml files for the same open source project, notify users, and provide a process for maintainers to resolve such conflicts.
 
-11. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity.
+11. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity. The `url` field and any sanctioned mirrors (see [Improvement 7](#improvement-7-sanctioned-mirror-declarations)) are already dereferenceable identifiers suitable as `schema:sameAs` targets in news article entity markup — enabling any project with a publiccode.yml to be referenced from external sources without requiring a Wikidata entry. Wikidata QIDs, where they exist, are complementary aliases the catalog aggregates; they are enrichments, not prerequisites for visibility.
 
 ---
 
@@ -475,6 +477,7 @@ This keeps the standard compact while still allowing catalogs and procurement to
 3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
 5. **Accessibility pre-screening in catalogs.** Paired with a structured `supports.accessibility` declaration, catalogs can present comparable accessibility claims in a consistent format, reducing the risk of selecting software that fails barrier-free requirements.
+5. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
 
 ---
 
@@ -632,6 +635,84 @@ This is a non-breaking addition; existing files that omit `identifier` remain va
 
 ---
 
+## Improvement 6: Package Distribution References
+
+An open source project is not the same thing as a package. Nextcloud Server is a project; `pkg:deb/debian/nextcloud-server`, `pkg:docker/nextcloud/nextcloud`, and `pkg:github/nextcloud/server` are three distributions of that project across different delivery channels. Anyone can publish a package using a well-known project's name — including malicious actors creating typosquat packages or unofficial forks. Today, there is no machine-readable way to distinguish an official distribution from an unauthorized one.
+
+At the same time, the catalog and SBOM worlds use incompatible identifiers for the same underlying software:
+
+- **Catalogs and usage registries** identify projects by their source repository URL (the `url` field in publiccode.yml).
+- **SBOMs** (CycloneDX, SPDX) and **dependency graphs** identify components by [PURL (Package URL, ECMA-424)](https://github.com/package-url/purl-spec) — a standard notation encoding the ecosystem, package name, and optionally version: `pkg:type/namespace/name@version`.
+
+Without a bridge between these two identifier spaces, it is impossible to automatically determine whether the `pkg:deb/debian/nextcloud-server` component in an NIS2 supply chain audit is the same software as the Nextcloud entry in a procurement catalog. A vulnerability advisory for a npm package cannot be traced to which catalogued projects are affected. An SBOM consumer cannot cross-reference a component to its procurement or vendor metadata.
+
+**Proposal:** Add an optional `distributions` field that lists the project's own, officially endorsed package distributions as PURLs. Because this list lives in the project's source repository — alongside the code it describes — it carries the same authorial authority as the rest of publiccode.yml.
+
+### Schema
+
+```yaml
+# Project-sanctioned package distributions, identified by PURL
+# (Package URL, ECMA-424). Each entry represents an official
+# distribution controlled or endorsed by the project.
+#
+# This list does not need to be exhaustive — auto-discovery via
+# ecosyste.ms and deps.dev fills in gaps at catalog-crawl time.
+# Include entries for distributions auto-discovery is unlikely to
+# find: container images, OS packages, or releases under a different
+# name than the source repository.
+distributions:
+  - purl: pkg:github/nextcloud/server      # source repository
+  - purl: pkg:docker/nextcloud/nextcloud   # official container image
+  - purl: pkg:deb/debian/nextcloud-server  # Debian/Ubuntu package
+  - purl: pkg:brew/nextcloud               # Homebrew formula
+  - purl: pkg:npm/nextcloud                # project no longer publishes here
+    status: deprecated
+```
+
+`status` is optional and defaults to `active`. The only other defined value is `deprecated` — signalling that the project no longer maintains or endorses this distribution. Catalogs should surface deprecated entries as a warning rather than silently dropping them, since consuming organisations may still be using the package and need to know support has ended.
+
+### Design Rationale
+
+**The authority is what makes this useful.** Because `distributions` is asserted by the project in its own repository, it becomes the canonical list of official distributions — exactly the data that auto-discovery services cannot provide. ecosyste.ms and deps.dev can tell you that a package named `nextcloud-server` exists on Debian; they cannot tell you whether the project team endorses it. The `distributions` field answers that question.
+
+Catalogs should treat the four categories of distribution evidence differently:
+
+| Source | Status | How to present |
+|--------|--------|----------------|
+| Listed in `distributions`, `status: active` (default) | Project-endorsed | Shown as official |
+| Listed in `distributions`, `status: deprecated` | Officially retired | Warning: project no longer maintains this distribution |
+| Auto-discovered via ecosyste.ms/deps.dev, matches `url` | Probable match, unendorsed | Shown with caveat |
+| Auto-discovered, does not match any `url` in catalog | Unknown provenance | Not linked to catalog entry |
+
+This distinction matters for security: an unofficial Debian package or a lookalike npm package that is not in the `distributions` list can be flagged for manual review rather than silently linked to the project's trust record.
+
+**PURL as the cross-ecosystem glue.** PURL is already the component identity standard in the SBOM ecosystem — CycloneDX and SPDX both support it, and the CRA's technical standards reference CycloneDX. By publishing PURLs in publiccode.yml, a project creates machine-readable links between:
+
+1. Its **procurement identity** — catalog entry indexed by `url`
+2. Its **supply chain identity** — SBOM component identified by PURL
+3. Its **package ecosystem presence** — npm, PyPI, Debian, Homebrew, Docker Hub, and others
+
+These links are also the natural foundation for linked data representations: two PURLs for the same project can be related with `owl:sameAs` or `schema:sameAs`, enabling full interoperability with the broader knowledge graph. Wikidata already carries cross-ecosystem package links for well-known projects; the `distributions` field makes those links explicit and crawlable for any project, without requiring a Wikidata entry.
+
+**Auto-discovery complements the declared list.** Catalog crawlers should query [ecosyste.ms](https://packages.ecosyste.ms) (100+ registries, OS packages, funding data) and [deps.dev](https://deps.dev) (6 language ecosystems, full transitive graphs, CVE integration) using the `url` field as the lookup key. Auto-discovered packages that match a `distributions` entry confirm the endorsed link; those with no match are presented as unendorsed. Maintainers only need to declare what auto-discovery will miss.
+
+**Why the field still matters even with auto-discovery.** Several distribution types are systematically under-represented in both services:
+
+- Container images (Docker Hub, GHCR, Quay.io) — not all image registries expose structured metadata
+- OS packages where the package name diverges from the repository name
+- Projects too new or niche to be indexed yet
+- Privately hosted packages in enterprise artifact registries
+
+### What This Enables
+
+1. **Official vs. unofficial distribution signal.** Procurement officers and security teams can distinguish project-endorsed packages from community-packaged or potentially malicious distributions — a distinction that is invisible to SBOM scanners without this field.
+2. **SBOM-to-catalog bridging.** Given a CycloneDX or SPDX SBOM, a tool can look up each component's PURL against the catalog to retrieve procurement metadata, usage data, and vendor credit information — connecting the security compliance world to the procurement world in a single step.
+3. **Cross-ecosystem vulnerability tracing.** A CVE against `pkg:deb/debian/nextcloud-server` resolves to the publiccode.yml entry for Nextcloud, and from there to all deploying organizations that declared usage via `.well-known/publiccode-usage.json` — enabling targeted notification without manual project matching.
+4. **Richer NIS2 supply chain assessment.** Organizations with supply chain risk assessment obligations can map SBOM components to catalog entries, usage registries, and credit registries through a single PURL lookup rather than manually resolving package names to projects.
+5. **Catalog completeness without maintainer burden.** Crawlers combining ecosyste.ms and deps.dev lookups with the declared `distributions` field can build a complete, trust-stratified cross-ecosystem package map for every catalogued project.
+
+---
+
 ## Full Example
 
 Putting all improvements together:
@@ -642,6 +723,13 @@ publiccodeYmlVersion: "1.0"
 name: MedusaCMS
 applicationSuite: MegaProductivitySuite
 url: https://forge.example.org/owner/medusa-cms
+# ===== NEW: Sanctioned mirrors and migration history =====
+previousUrls:
+  - https://old-forge.example.org/owner/medusa-cms
+mirrors:
+  - url: https://mirror.example.org/owner/medusa-cms
+  - url: https://legacy-mirror.example.org/owner/medusa-cms
+    status: deprecated
 landingURL: https://medusa-cms.example.org
 # softwareVersion and releaseDate removed — consumed from
 # forge API / package registry (see Improvement 5)
@@ -734,6 +822,16 @@ localisation:
 dependsOn:
   open:
     - name: PostgreSQL
+
+# ===== NEW: Package distribution references =====
+# Project-endorsed official distributions. Catalogs distinguish
+# these from auto-discovered (unendorsed) packages.
+distributions:
+  - purl: pkg:github/example/medusa-cms      # source repository
+  - purl: pkg:docker/example/medusa-cms      # official container image
+  - purl: pkg:deb/debian/medusa-cms          # Debian package (name differs from repo)
+  - purl: pkg:npm/medusa-cms                 # project no longer publishes here
+    status: deprecated
 
 # ===== NEW: Supply chain references =====
 supplyChain:
@@ -1040,7 +1138,62 @@ This enables catalog UIs to offer filters such as "show only government-verified
 
 ---
 
-## Improvement 6: CRA Steward Declaration _(Deferred)_
+## Improvement 7: Sanctioned Mirror Declarations
+
+The `url` field is publiccode.yml's canonical project identity anchor — the key used by catalogs, usage registries, credit registries, and SBOM resolvers to identify a project unambiguously. A single forge URL is however brittle as a long-term identifier: projects may maintain official mirrors on multiple forges in preparation for a migration, or use internal infrastructure for development while publishing to a public-facing forge for end-user access.
+
+Without a machine-readable way to declare official mirrors, catalogs cannot distinguish a project's own sanctioned mirrors from unofficial forks, and a forge URL change silently breaks all existing references — usage declarations, news article entity links, SBOM-to-catalog lookups — until each consuming system is manually updated.
+
+**Proposal:** Add an optional `mirrors` field listing officially sanctioned alternative repository locations for the same project.
+
+### Schema
+
+```yaml
+# Canonical identity anchor — used as the primary key across all
+# ecosystem components (usage registries, credit registries, SBOMs).
+url: https://forge.example.org/owner/project
+
+# Previous canonical URLs, in chronological order (oldest first).
+# Populated when the project migrates forges. Allows catalogs to
+# merge stale references using the old URL with the current entry,
+# and lets usage declarations written against the old URL remain valid.
+previousUrls:
+  - https://old-forge.example.org/owner/project
+
+# Project-endorsed alternative repository locations.
+# Each entry is an object with a required url and an optional status.
+# status: active (default) | deprecated
+# Catalogs treat active mirror URLs as equivalent to the canonical url
+# for identity resolution. Deprecated mirrors are retained so catalogs
+# can warn consumers still referencing the old location.
+mirrors:
+  - url: https://mirror1.example.org/owner/project
+  - url: https://mirror2.example.org/owner/project
+  - url: https://decommissioned.example.org/owner/project
+    status: deprecated
+```
+
+### Design Rationale
+
+**Authority via source control.** The mirrors list and `previousUrls` are committed to the repository alongside the rest of publiccode.yml — they carry the same authorial trust. An unofficial fork cannot add itself to a project's mirrors list; only the maintainers who control the canonical repository can endorse alternative locations or declare migration history.
+
+**Lifecycle coverage.** Three distinct scenarios require explicit signalling rather than silent deletion:
+
+- *Mirror decommissioned.* Mark the entry `status: deprecated` rather than removing it. Removing it silently breaks any consumer that cached the URL; a deprecated entry lets catalogs surface a warning to those consumers instead.
+- *Forge migration.* Add the destination as a mirror before migrating, then after completing the move update `url` to the new location, move the old URL to `previousUrls`, and remove it from `mirrors`. The `previousUrls` chain means catalogs can merge stale references from usage declarations, news article entity links, and SBOM resolvers written against the old URL — without requiring every downstream system to be updated manually.
+- *Old forge goes dark before migration is complete.* If the canonical repository becomes inaccessible, the new publiccode.yml at the new location should carry `previousUrls` so crawlers discovering the new entry can identify and retire the orphaned old catalog entry rather than leaving both live as duplicates.
+
+**Forge migration readiness.** The recommended migration sequence is: (1) add destination as a mirror, (2) complete the migration, (3) update `url`, move old URL to `previousUrls`, clear mirrors. Usage declarations and other downstream references to the old URL remain resolvable throughout, since the catalog normalises all known aliases to the current canonical `url`.
+
+**Development vs. public access.** Projects using internal forge infrastructure for development but publishing to a public forge for end-user access can declare the public-facing URL as canonical while listing the internal location in mirrors — without ambiguity about which URL external systems should use.
+
+**Entity anchor for news article linking.** News outlets embedding Schema.org `mentions` with a `sameAs` value can reference any of a project's sanctioned URLs — canonical, mirror, or previous — and a catalog lookup resolves them to the same entry. This avoids the Wikidata chicken-and-egg problem: any project with a publiccode.yml has a resolvable identity anchor from day one. Wikidata QIDs, where they exist, are aggregated as additional aliases rather than acting as a prerequisite for visibility.
+
+**Duplicate detection.** Catalogs that encounter publiccode.yml files at multiple URLs should check `url`, `mirrors`, and `previousUrls` before flagging a duplicate. If a known mirror or previous URL appears as the `url` in a separately crawled file, the catalog can surface a conflict notice to the maintainer rather than silently creating a duplicate entry.
+
+---
+
+## Improvement 8: CRA Steward Declaration _(Deferred)_
 
 > **Status: deferred pending CRA guidance.** The Cyber Resilience Act's open-source software steward obligations are still being clarified through guidance documents (see risk [P5](RISK_ANALYSIS.md)). This improvement is described here as a planned extension so that the design space is reserved and the intent is clear, but it should not be implemented until the regulatory semantics have settled.
 
