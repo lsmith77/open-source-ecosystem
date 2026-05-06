@@ -646,55 +646,67 @@ At the same time, the catalog and SBOM worlds use incompatible identifiers for t
 
 Without a bridge between these two identifier spaces, it is impossible to automatically determine whether the `pkg:deb/debian/nextcloud-server` component in an NIS2 supply chain audit is the same software as the Nextcloud entry in a procurement catalog. A vulnerability advisory for a npm package cannot be traced to which catalogued projects are affected. An SBOM consumer cannot cross-reference a component to its procurement or vendor metadata.
 
-**Proposal:** Add an optional `distributions` field that lists the project's own, officially endorsed package distributions as PURLs. Because this list lives in the project's source repository — alongside the code it describes — it carries the same authorial authority as the rest of publiccode.yml.
+**Proposal:** Add an optional `package_repositories` field that lists the project's own, officially endorsed package repositories and distributions. Because this list lives in the project's source repository — alongside the code it describes — it carries the same authorial authority as the rest of publiccode.yml. The syntax is progressive: maintainers can start with minimal PURLs and add optional detail (distro versions, repository URLs, architecture support) as needed.
 
 ### Schema
 
 ```yaml
-# Project-sanctioned package distributions, identified by PURL
-# (Package URL, ECMA-424). Each entry represents an official
-# distribution controlled or endorsed by the project.
-#
-# This list does not need to be exhaustive — auto-discovery via
-# ecosyste.ms and deps.dev fills in gaps at catalog-crawl time.
-# Include entries for distributions auto-discovery is unlikely to
-# find: container images, OS packages, or releases under a different
-# name than the source repository.
-distributions:
-  - purl: pkg:github/nextcloud/server # source repository
-  - purl: pkg:docker/nextcloud/nextcloud # official container image
-  - purl: pkg:deb/debian/nextcloud-server # Debian/Ubuntu package
-  - purl: pkg:brew/nextcloud # Homebrew formula
-  - purl: pkg:npm/nextcloud # project no longer publishes here
+package_repositories:
+  # Required: PURL identifying the official distribution.
+  # Optional: distros (list of release versions), repository (non-default repo URL),
+  # status (active | deprecated).
+  - purl: pkg:npm/nextcloud
+  - purl: pkg:docker/nextcloud/nextcloud
+
+  # With optional distro list for Debian/OS packages:
+  - purl: pkg:deb/debian/nextcloud-server
+    distros: [bullseye, bookworm, trixie]
+
+  # With optional custom repository URL:
+  - purl: pkg:deb/ubuntu/nextcloud
+    repository: https://ppa.launchpad.net/nextcloud-team/releases/ubuntu
+    distros: [focal, jammy, noble]
+
+  # With detailed distro support matrix (optional):
+  - purl: pkg:deb/debian/postgresql
+    distros:
+      - bullseye
+      - name: bookworm
+        architectures: [amd64, arm64]
+        version_constraint: ">=13.0"
+
+  # Optional status field for deprecated distributions:
+  - purl: pkg:npm/nextcloud-legacy
     status: deprecated
 ```
 
-`status` is optional and defaults to `active`. The only other defined value is `deprecated` — signalling that the project no longer maintains or endorses this distribution. Catalogs should surface deprecated entries as a warning rather than silently dropping them, since consuming organisations may still be using the package and need to know support has ended.
+Catalogs should surface deprecated entries as a warning rather than silently dropping them, since consuming organisations may still be using the package and need to know support has ended.
 
 ### Design Rationale
 
-**The authority is what makes this useful.** Because `distributions` is asserted by the project in its own repository, it becomes the canonical list of official distributions — exactly the data that auto-discovery services cannot provide. ecosyste.ms and deps.dev can tell you that a package named `nextcloud-server` exists on Debian; they cannot tell you whether the project team endorses it. The `distributions` field answers that question.
+**Authority via source control.** Because `package_repositories` is asserted by the project in its own repository, it becomes the canonical list of official distributions — exactly the data that auto-discovery services cannot provide. ecosyste.ms and deps.dev can tell you that a package named `nextcloud-server` exists on Debian and which distros it covers; they cannot tell you whether the project team endorses it or which distros the project _itself_ tests. The `package_repositories` field answers that question.
 
 Catalogs should treat the four categories of distribution evidence differently:
 
-| Source                                                  | Status                     | How to present                                         |
-| ------------------------------------------------------- | -------------------------- | ------------------------------------------------------ |
-| Listed in `distributions`, `status: active` (default)   | Project-endorsed           | Shown as official                                      |
-| Listed in `distributions`, `status: deprecated`         | Officially retired         | Warning: project no longer maintains this distribution |
-| Auto-discovered via ecosyste.ms/deps.dev, matches `url` | Probable match, unendorsed | Shown with caveat                                      |
-| Auto-discovered, does not match any `url` in catalog    | Unknown provenance         | Not linked to catalog entry                            |
+| Source                                                       | Status                     | How to present                                         |
+| ------------------------------------------------------------ | -------------------------- | ------------------------------------------------------ |
+| Listed in `package_repositories`, `status: active` (default) | Project-endorsed           | Shown as official                                      |
+| Listed in `package_repositories`, `status: deprecated`       | Officially retired         | Warning: project no longer maintains this distribution |
+| Auto-discovered via ecosyste.ms/deps.dev, matches `url`      | Probable match, unendorsed | Shown with caveat                                      |
+| Auto-discovered, does not match any `url` in catalog         | Unknown provenance         | Not linked to catalog entry                            |
 
-This distinction matters for security: an unofficial Debian package or a lookalike npm package that is not in the `distributions` list can be flagged for manual review rather than silently linked to the project's trust record.
+This distinction matters for security: an unofficial Debian package or a lookalike npm package that is not in the `package_repositories` list can be flagged for manual review rather than silently linked to the project's trust record.
 
 **PURL as the cross-ecosystem glue.** PURL is already the component identity standard in the SBOM ecosystem — CycloneDX and SPDX both support it, and the CRA's technical standards reference CycloneDX. By publishing PURLs in publiccode.yml, a project creates machine-readable links between:
 
 1. Its **procurement identity** — catalog entry indexed by `url`
 2. Its **supply chain identity** — SBOM component identified by PURL
 3. Its **package ecosystem presence** — npm, PyPI, Debian, Homebrew, Docker Hub, and others
+4. Its **distro support matrix** — which releases of which OSes the project officially supports (via optional `distros` field)
 
-These links are also the natural foundation for linked data representations: two PURLs for the same project can be related with `owl:sameAs` or `schema:sameAs`, enabling full interoperability with the broader knowledge graph. Wikidata already carries cross-ecosystem package links for well-known projects; the `distributions` field makes those links explicit and crawlable for any project, without requiring a Wikidata entry.
+These links are also the natural foundation for linked data representations: two PURLs for the same project can be related with `owl:sameAs` or `schema:sameAs`, enabling full interoperability with the broader knowledge graph. Wikidata already carries cross-ecosystem package links for well-known projects; the `package_repositories` field makes those links explicit and crawlable for any project, without requiring a Wikidata entry.
 
-**Auto-discovery complements the declared list.** Catalog crawlers should query [ecosyste.ms](https://packages.ecosyste.ms) (100+ registries, OS packages, funding data) and [deps.dev](https://deps.dev) (6 language ecosystems, full transitive graphs, CVE integration) using the `url` field as the lookup key. Auto-discovered packages that match a `distributions` entry confirm the endorsed link; those with no match are presented as unendorsed. Maintainers only need to declare what auto-discovery will miss.
+**Auto-discovery complements the declared list.** Catalog crawlers should query [ecosyste.ms](https://packages.ecosyste.ms) (100+ registries, OS packages, funding data) and [deps.dev](https://deps.dev) (6 language ecosystems, full transitive graphs, CVE integration) using the `url` field as the lookup key. Auto-discovered packages that match a `package_repositories` entry confirm the endorsed link; those with no match are presented as unendorsed. Maintainers only need to declare what auto-discovery will miss.
 
 **Why the field still matters even with auto-discovery.** Several distribution types are systematically under-represented in both services:
 
@@ -702,14 +714,16 @@ These links are also the natural foundation for linked data representations: two
 - OS packages where the package name diverges from the repository name
 - Projects too new or niche to be indexed yet
 - Privately hosted packages in enterprise artifact registries
+- Non-standard distro versions or custom repository URLs that require explicit endorsement
 
 ### What This Enables
 
 1. **Official vs. unofficial distribution signal.** Procurement officers and security teams can distinguish project-endorsed packages from community-packaged or potentially malicious distributions — a distinction that is invisible to SBOM scanners without this field.
-2. **SBOM-to-catalog bridging.** Given a CycloneDX or SPDX SBOM, a tool can look up each component's PURL against the catalog to retrieve procurement metadata, usage data, and vendor credit information — connecting the security compliance world to the procurement world in a single step.
-3. **Cross-ecosystem vulnerability tracing.** A CVE against `pkg:deb/debian/nextcloud-server` resolves to the publiccode.yml entry for Nextcloud, and from there to all deploying organizations that declared usage via `.well-known/publiccode-usage.json` — enabling targeted notification without manual project matching.
-4. **Richer NIS2 supply chain assessment.** Organizations with supply chain risk assessment obligations can map SBOM components to catalog entries, usage registries, and credit registries through a single PURL lookup rather than manually resolving package names to projects.
-5. **Catalog completeness without maintainer burden.** Crawlers combining ecosyste.ms and deps.dev lookups with the declared `distributions` field can build a complete, trust-stratified cross-ecosystem package map for every catalogued project.
+2. **SBOM-to-catalog bridging.** Given a CycloneDX or SPDX SBOM, a tool can look up each component's PURL against the catalog to retrieve procurement metadata, usage data, vendor credit information, and official distro support — connecting the security compliance world to the procurement world in a single step.
+3. **Cross-ecosystem vulnerability tracing.** A CVE against `pkg:deb/debian/nextcloud-server@13.0` resolves to the publiccode.yml entry for Nextcloud, confirms which Debian releases are affected (via the `distros` list), and from there identifies all deploying organizations that declared usage of those specific versions.
+4. **Richer NIS2 supply chain assessment.** Organizations with supply chain risk assessment obligations can map SBOM components to catalog entries, usage registries, credit registries, and official distro support matrices through a single PURL lookup.
+5. **Catalog completeness without maintainer burden.** A minimal list of PURLs is friction-free; documenting distro versions is optional and can grow with project maturity.
+6. **Distro support matrix queries.** Organizations can ask: "Which Debian releases does this project officially support?" and get a definitive answer from the project itself, rather than inferring from package metadata or forums.
 
 ---
 
@@ -823,14 +837,21 @@ dependsOn:
   open:
     - name: PostgreSQL
 
-# ===== NEW: Package distribution references =====
+# ===== NEW: Package repository references =====
 # Project-endorsed official distributions. Catalogs distinguish
 # these from auto-discovered (unendorsed) packages.
-distributions:
-  - purl: pkg:github/example/medusa-cms # source repository
-  - purl: pkg:docker/example/medusa-cms # official container image
-  - purl: pkg:deb/debian/medusa-cms # Debian package (name differs from repo)
-  - purl: pkg:npm/medusa-cms # project no longer publishes here
+package_repositories:
+  # Simple: just PURL
+  - purl: pkg:npm/medusa-cms
+  - purl: pkg:docker/example/medusa-cms
+  - purl: pkg:github/example/medusa-cms
+
+  # Enhanced: add distro versions
+  - purl: pkg:deb/debian/medusa-cms
+    distros: [bookworm, trixie] # official Debian support
+
+  # Deprecated: project no longer maintains this distribution
+  - purl: pkg:npm/medusa-cms-legacy
     status: deprecated
 
 # ===== NEW: Supply chain references =====
