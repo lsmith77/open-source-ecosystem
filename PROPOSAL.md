@@ -477,7 +477,7 @@ This keeps the standard compact while still allowing catalogs and procurement to
 3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
 5. **Accessibility pre-screening in catalogs.** Paired with a structured `supports.accessibility` declaration, catalogs can present comparable accessibility claims in a consistent format, reducing the risk of selecting software that fails barrier-free requirements.
-5. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
+6. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
 
 ---
 
@@ -661,11 +661,11 @@ Without a bridge between these two identifier spaces, it is impossible to automa
 # find: container images, OS packages, or releases under a different
 # name than the source repository.
 distributions:
-  - purl: pkg:github/nextcloud/server      # source repository
-  - purl: pkg:docker/nextcloud/nextcloud   # official container image
-  - purl: pkg:deb/debian/nextcloud-server  # Debian/Ubuntu package
-  - purl: pkg:brew/nextcloud               # Homebrew formula
-  - purl: pkg:npm/nextcloud                # project no longer publishes here
+  - purl: pkg:github/nextcloud/server # source repository
+  - purl: pkg:docker/nextcloud/nextcloud # official container image
+  - purl: pkg:deb/debian/nextcloud-server # Debian/Ubuntu package
+  - purl: pkg:brew/nextcloud # Homebrew formula
+  - purl: pkg:npm/nextcloud # project no longer publishes here
     status: deprecated
 ```
 
@@ -677,12 +677,12 @@ distributions:
 
 Catalogs should treat the four categories of distribution evidence differently:
 
-| Source | Status | How to present |
-|--------|--------|----------------|
-| Listed in `distributions`, `status: active` (default) | Project-endorsed | Shown as official |
-| Listed in `distributions`, `status: deprecated` | Officially retired | Warning: project no longer maintains this distribution |
-| Auto-discovered via ecosyste.ms/deps.dev, matches `url` | Probable match, unendorsed | Shown with caveat |
-| Auto-discovered, does not match any `url` in catalog | Unknown provenance | Not linked to catalog entry |
+| Source                                                  | Status                     | How to present                                         |
+| ------------------------------------------------------- | -------------------------- | ------------------------------------------------------ |
+| Listed in `distributions`, `status: active` (default)   | Project-endorsed           | Shown as official                                      |
+| Listed in `distributions`, `status: deprecated`         | Officially retired         | Warning: project no longer maintains this distribution |
+| Auto-discovered via ecosyste.ms/deps.dev, matches `url` | Probable match, unendorsed | Shown with caveat                                      |
+| Auto-discovered, does not match any `url` in catalog    | Unknown provenance         | Not linked to catalog entry                            |
 
 This distinction matters for security: an unofficial Debian package or a lookalike npm package that is not in the `distributions` list can be flagged for manual review rather than silently linked to the project's trust record.
 
@@ -827,10 +827,10 @@ dependsOn:
 # Project-endorsed official distributions. Catalogs distinguish
 # these from auto-discovered (unendorsed) packages.
 distributions:
-  - purl: pkg:github/example/medusa-cms      # source repository
-  - purl: pkg:docker/example/medusa-cms      # official container image
-  - purl: pkg:deb/debian/medusa-cms          # Debian package (name differs from repo)
-  - purl: pkg:npm/medusa-cms                 # project no longer publishes here
+  - purl: pkg:github/example/medusa-cms # source repository
+  - purl: pkg:docker/example/medusa-cms # official container image
+  - purl: pkg:deb/debian/medusa-cms # Debian package (name differs from repo)
+  - purl: pkg:npm/medusa-cms # project no longer publishes here
     status: deprecated
 
 # ===== NEW: Supply chain references =====
@@ -1179,9 +1179,9 @@ mirrors:
 
 **Lifecycle coverage.** Three distinct scenarios require explicit signalling rather than silent deletion:
 
-- *Mirror decommissioned.* Mark the entry `status: deprecated` rather than removing it. Removing it silently breaks any consumer that cached the URL; a deprecated entry lets catalogs surface a warning to those consumers instead.
-- *Forge migration.* Add the destination as a mirror before migrating, then after completing the move update `url` to the new location, move the old URL to `previousUrls`, and remove it from `mirrors`. The `previousUrls` chain means catalogs can merge stale references from usage declarations, news article entity links, and SBOM resolvers written against the old URL — without requiring every downstream system to be updated manually.
-- *Old forge goes dark before migration is complete.* If the canonical repository becomes inaccessible, the new publiccode.yml at the new location should carry `previousUrls` so crawlers discovering the new entry can identify and retire the orphaned old catalog entry rather than leaving both live as duplicates.
+- _Mirror decommissioned._ Mark the entry `status: deprecated` rather than removing it. Removing it silently breaks any consumer that cached the URL; a deprecated entry lets catalogs surface a warning to those consumers instead.
+- _Forge migration._ Add the destination as a mirror before migrating, then after completing the move update `url` to the new location, move the old URL to `previousUrls`, and remove it from `mirrors`. The `previousUrls` chain means catalogs can merge stale references from usage declarations, news article entity links, and SBOM resolvers written against the old URL — without requiring every downstream system to be updated manually.
+- _Old forge goes dark before migration is complete._ If the canonical repository becomes inaccessible, the new publiccode.yml at the new location should carry `previousUrls` so crawlers discovering the new entry can identify and retire the orphaned old catalog entry rather than leaving both live as duplicates.
 
 **Forge migration readiness.** The recommended migration sequence is: (1) add destination as a mirror, (2) complete the migration, (3) update `url`, move old URL to `previousUrls`, clear mirrors. Usage declarations and other downstream references to the old URL remain resolvable throughout, since the catalog normalises all known aliases to the current canonical `url`.
 
