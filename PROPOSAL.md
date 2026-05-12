@@ -165,18 +165,18 @@ Without this infrastructure, open source procurement remains inefficient. Short 
 
 The ecosystem this proposal addresses brings together different actors, each with distinct authority and information needs. Here's who needs what, and why:
 
-| Actor                          | Role                                                                                                                                   | Example                                                  |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| **Open Source Project**        | Publishes code and metadata. Decides project classification and which contributions it recognizes.                                     | Drupal, Nextcloud, OpenDesk                              |
-| **Maintainer**                 | Day-to-day steward who authors and commits the publiccode.yml file. May work for a vendor, agency, or as an independent contributor.   | An individual or core team                               |
-| **Vendor**                     | Contributes code to projects and sells related services. Wants to be findable to procurement professionals evaluating their expertise. | Consulting firms specializing in specific platforms      |
-| **Procurement Office**         | Searches for suitable software, evaluates vendor expertise and security, makes purchasing decisions.                                   | Municipal IT departments, federal agencies               |
-| **Deploying Organization**     | Actually runs the software in production. Wants to declare what it uses.                                                               | Cities, universities, government agencies                |
-| **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps.                                                                         | Sovereign Tech Fund, CISA, digital sovereignty offices   |
-| **Policy Maker / Legislator**  | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                       | National parliaments, EU Commission                      |
-| **Credit Registry**            | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                             | Drupal.org Marketplace, ecosyste.ms funding platforms    |
-| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | Developers Italia, EU OSS Catalogue                      |
-| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU OSS Catalogue, Developers Italia                      |
+| Actor                          | Role                                                                                                                                   | Example                                                |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| **Open Source Project**        | Publishes code and metadata. Decides project classification and which contributions it recognizes.                                     | Drupal, Nextcloud, OpenDesk                            |
+| **Maintainer**                 | Day-to-day steward who authors and commits the publiccode.yml file. May work for a vendor, agency, or as an independent contributor.   | An individual or core team                             |
+| **Vendor**                     | Contributes code to projects and sells related services. Wants to be findable to procurement professionals evaluating their expertise. | Consulting firms specializing in specific platforms    |
+| **Procurement Office**         | Searches for suitable software, evaluates vendor expertise and security, makes purchasing decisions.                                   | Municipal IT departments, federal agencies             |
+| **Deploying Organization**     | Actually runs the software in production. Wants to declare what it uses.                                                               | Cities, universities, government agencies              |
+| **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps.                                                                         | Sovereign Tech Fund, CISA, digital sovereignty offices |
+| **Policy Maker / Legislator**  | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                       | National parliaments, EU Commission                    |
+| **Credit Registry**            | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                             | Drupal.org Marketplace, ecosyste.ms funding platforms  |
+| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | Developers Italia, EU OSS Catalogue                    |
+| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU OSS Catalogue, Developers Italia                    |
 
 ### Who Asserts What
 
@@ -242,7 +242,7 @@ A critical distinction: **who has authority over the data**.
 | **Listed in publiccode.yml?**    | Yes — as endorsements                                                        | No — the project doesn't control this data                              |
 | **How crawlers find registries** | From publiccode.yml `creditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
 | **Data entry mechanism**         | Central registry maintains the data                                          | Direct declarations from deploying organizations and automated crawling |
-| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | Developers Italia showing which Italian municipalities use Nextcloud                    |
+| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | Developers Italia showing which Italian municipalities use Nextcloud    |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
@@ -685,6 +685,8 @@ Catalogs should surface deprecated entries as a warning rather than silently dro
 ### Design Rationale
 
 **Authority via source control.** Because `package_repositories` is asserted by the project in its own repository, it becomes the canonical list of official distributions — exactly the data that auto-discovery services cannot provide. ecosyste.ms and deps.dev can tell you that a package named `nextcloud-server` exists on Debian and which distros it covers; they cannot tell you whether the project team endorses it or which distros the project _itself_ tests. The `package_repositories` field answers that question.
+
+**Relationship to PGP artifact signing.** PGP signatures (f.e. required by Maven Central) verify that a specific artifact binary and its POM were not modified after signing — useful, but distinct from project endorsement of a distribution channel. Two gaps remain: the web-of-trust problem means a valid signature only proves the artifact was signed with a particular key, not that the key belongs to the claimed entity; and PGP covers only compiled artifacts and POM metadata, not scripts, config templates, or install hooks that ship in a distribution. The `package_repositories` field uses source repository control as its trust anchor, which does not fully eliminate the web-of-trust problem either — forge accounts can be hijacked — but the repository URL is more corroborated: it is already cross-referenced by package registries, SBOMs, documentation, and news articles across independent systems, making forgery significantly harder than uploading a fake key to a key server.
 
 Catalogs should treat the four categories of distribution evidence differently:
 
@@ -1133,7 +1135,7 @@ This maps onto the existing trust model:
 | Verification level   | Sector claim reliability                                               | Example                                                      |
 | -------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
 | `self-reported`      | Low — organization asserts its own sector                              | A company declaring itself `government` without verification |
-| `verified-domain`    | Medium — domain control confirmed, sector inferred from domain list    | Email domain matching against known public sector list        |
+| `verified-domain`    | Medium — domain control confirmed, sector inferred from domain list    | Email domain matching against known public sector list       |
 | `signed-attestation` | High — formal attestation, e.g., eIDAS-backed institutional credential | Future EU digital identity infrastructure                    |
 
 #### Trust Chain to Catalog Filters
