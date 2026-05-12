@@ -35,7 +35,7 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 
 5. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
 
-6. **All external systems use standardized APIs.** This allows catalogs (openCode.de, EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
+6. **All external systems use standardized APIs.** This allows catalogs (EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
 
 7. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
 
@@ -175,8 +175,8 @@ The ecosystem this proposal addresses brings together different actors, each wit
 | **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps.                                                                         | Sovereign Tech Fund, CISA, digital sovereignty offices   |
 | **Policy Maker / Legislator**  | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                       | National parliaments, EU Commission                      |
 | **Credit Registry**            | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                             | Drupal.org Marketplace, ecosyste.ms funding platforms    |
-| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | openCode.de, Developers Italia catalog                   |
-| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU Open Source Catalogue, openCode.de, Developers Italia |
+| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | Developers Italia, EU OSS Catalogue                      |
+| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU OSS Catalogue, Developers Italia                      |
 
 ### Who Asserts What
 
@@ -242,7 +242,7 @@ A critical distinction: **who has authority over the data**.
 | **Listed in publiccode.yml?**    | Yes — as endorsements                                                        | No — the project doesn't control this data                              |
 | **How crawlers find registries** | From publiccode.yml `creditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
 | **Data entry mechanism**         | Central registry maintains the data                                          | Direct declarations from deploying organizations and automated crawling |
-| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | openCode.de showing which German towns use Nextcloud                    |
+| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | Developers Italia showing which Italian municipalities use Nextcloud                    |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
@@ -352,7 +352,7 @@ The `tags` field is intentionally free-form to allow experimentation. Tags that 
 Faceted classification asks more of maintainers than the current flat `categories` list. Two mechanisms can reduce this friction:
 
 1. **AI-assisted tooling.** The [publiccode.yml editor](https://github.com/italia/publiccode-editor) could offer an AI-powered classification assistant that reads the repository README and description, proposes classification values, and lets the maintainer confirm or adjust. This lowers the burden from "fill in six fields from scratch" to "review and accept suggestions."
-2. **Crawler-assisted enrichment.** Catalog crawlers (openCode.de, the EU OSS Catalogue) can derive classification from existing metadata — README keywords, package registry tags, GitHub topics — and store it at the catalog layer without requiring the maintainer to maintain it in the file. This keeps the file minimal while making faceted search available to catalog users.
+2. **Crawler-assisted enrichment.** Catalog crawlers (the EU OSS Catalogue, Developers Italia) can derive classification from existing metadata — README keywords, package registry tags, GitHub topics — and store it at the catalog layer without requiring the maintainer to maintain it in the file. This keeps the file minimal while making faceted search available to catalog users.
 
 Both approaches respect the principle that maintainers should only be asked to author data that genuinely requires their judgment.
 
@@ -414,7 +414,7 @@ supplyChain:
 - **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field points directly to the machine-readable [Scorecard API](https://api.scorecard.dev/), which returns structured JSON. The human-readable viewer is documented in the comment for maintainers who want to verify their score manually.
 - **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a widely-adopted convention for documenting vulnerability disclosure procedures, but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a forge security page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the `SECURITY.md` convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
-- **REUSE compliance** is already checked by openCode.de badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
+- **REUSE compliance** is already checked by Developers Italia badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
 - **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts; sustainability and accessibility policy declarations (emerging conventions such as `SUSTAINABILITY.md` and `ACCESSIBILITY.md`) belong in `supports` rather than as additional `supplyChain` subfields.
 
 ### Accessibility Declaration Profile (for `supports`)
@@ -474,7 +474,7 @@ This keeps the standard compact while still allowing catalogs and procurement to
 
 1. **Procurement security assessment.** Before adopting software, a procurement officer can check its OpenSSF Scorecard, review the vulnerability disclosure policy, and verify SBOM availability — all from a single metadata file, without hunting across multiple external sources.
 2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
-3. **Automated trust signals.** Crawlers (openCode.de, EU OSS Catalogue) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
+3. **Automated trust signals.** Crawlers (EU OSS Catalogue, Developers Italia) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
 5. **Accessibility pre-screening in catalogs.** Paired with a structured `supports.accessibility` declaration, catalogs can present comparable accessibility claims in a consistent format, reducing the risk of selecting software that fails barrier-free requirements.
 6. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
@@ -531,7 +531,7 @@ creditRegistries:
 ### What This Enables
 
 1. **Procurement officers** can follow the `creditRegistries` links to see which vendors actively contribute to the software they're evaluating — similar to checking the [Drupal Marketplace](https://www.drupal.org/drupalorg/docs/marketplace) before hiring an agency.
-2. **Crawlers** (openCode.de, EU OSS Catalogue) can aggregate credit data across registries to build composite vendor profiles.
+2. **Crawlers** (EU OSS Catalogue, Developers Italia) can aggregate credit data across registries to build composite vendor profiles.
 3. **Projects** control which registries they recognize by listing them in their publiccode.yml — this is a form of endorsement by the project maintainers.
 
 ---
@@ -951,8 +951,8 @@ The same standard also covers credit registries — even though projects _can_ l
            ┌───────────────┼───────────────┐
            ▼               ▼               ▼
     ┌──────────┐    ┌──────────┐    ┌──────────┐
-    │openCode  │    │Developers│    │ Future   │
-    │.de       │    │Italia    │    │ registry │
+    │nat. reg. │    │Developers│    │ Future   │
+    │(DE)      │    │Italia    │    │ registry │
     │(usage)   │    │(usage)   │    │          │
     └──────────┘    └──────────┘    └──────────┘
 ```
@@ -1089,7 +1089,7 @@ Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** p
 
 | Model                | Verification                                                                            | Example                              |
 | -------------------- | --------------------------------------------------------------------------------------- | ------------------------------------ |
-| `verified-domain`    | Organization controls the declared domain (DNS validation or institutional account)     | openCode.de, Developers Italia       |
+| `verified-domain`    | Organization controls the declared domain (DNS validation or institutional account)     | Developers Italia, EU OSS Catalogue  |
 | `signed-attestation` | Organization signs a machine-readable statement (e.g., with a code-signing certificate) | Future: EU eIDAS-backed attestations |
 | `self-reported`      | No verification, organization self-declares                                             | Low-trust community registries       |
 
@@ -1126,14 +1126,14 @@ Where an organization does provide a stable identifier, registry APIs should inc
 
 #### Organization Classification and Verification
 
-Self-declared sector classification (via `organization.sector` in the usage declaration, or `scope.sectors` in the registry manifest) provides useful signal, but its value depends on whether it has been verified. openCode.de's practice of verifying public sector status via email domain matching against a known list is one implementation pattern for registry-level verification. The exact mechanism is an implementation detail; what matters for the ecosystem is that registries expose _how_ a sector claim was verified, not just the claim itself.
+Self-declared sector classification (via `organization.sector` in the usage declaration, or `scope.sectors` in the registry manifest) provides useful signal, but its value depends on whether it has been verified. Email domain matching against a known public sector domain list is one implementation pattern for registry-level verification. The exact mechanism is an implementation detail; what matters for the ecosystem is that registries expose _how_ a sector claim was verified, not just the claim itself.
 
 This maps onto the existing trust model:
 
 | Verification level   | Sector claim reliability                                               | Example                                                      |
 | -------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
 | `self-reported`      | Low — organization asserts its own sector                              | A company declaring itself `government` without verification |
-| `verified-domain`    | Medium — domain control confirmed, sector inferred from domain list    | openCode.de's Keycloak email domain matching                 |
+| `verified-domain`    | Medium — domain control confirmed, sector inferred from domain list    | Email domain matching against known public sector list        |
 | `signed-attestation` | High — formal attestation, e.g., eIDAS-backed institutional credential | Future EU digital identity infrastructure                    |
 
 #### Trust Chain to Catalog Filters
@@ -1153,7 +1153,7 @@ This enables catalog UIs to offer filters such as "show only government-verified
 1. **Any organization can start a usage registry** for its jurisdiction or sector without needing buy-in from every project.
 2. **Crawlers discover registries, not projects.** The EU OSS Catalogue crawler checks the central directory, fetches all registry manifests, then queries each registry's API. No per-project configuration needed.
 3. **Projects remain in control of credit endorsement** via `creditRegistries` in publiccode.yml, while usage data flows independently.
-4. **The openCode.de reuse badge model scales globally.** openCode.de is one registry among many. A French equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
+4. **The Developers Italia adoption model scales globally.** Developers Italia is one registry among many. A German equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
 5. **Deploying organizations can declare usage without intermediaries.** By publishing `/.well-known/publiccode-usage.json` on their domain, organizations assert usage with their domain as proof of identity — no registry account required. Registries crawl these files as one intake mechanism alongside direct declarations.
 6. **Deployment processes become the source of truth.** When open source projects integrate usage declaration updates into their deployment documentation, the `.well-known` file stays current with actual deployments. Retirement is explicitly signaled, giving the ecosystem a deprecation mechanism that manual registries lack.
 
