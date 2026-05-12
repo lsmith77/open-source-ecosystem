@@ -165,18 +165,18 @@ Without this infrastructure, open source procurement remains inefficient. Short 
 
 The ecosystem this proposal addresses brings together different actors, each with distinct authority and information needs. Here's who needs what, and why:
 
-| Actor                          | Role                                                                                                                                   | Example                                                |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **Open Source Project**        | Publishes code and metadata. Decides project classification and which contributions it recognizes.                                     | Drupal, Nextcloud, OpenDesk                            |
-| **Maintainer**                 | Day-to-day steward who authors and commits the publiccode.yml file. May work for a vendor, agency, or as an independent contributor.   | An individual or core team                             |
-| **Vendor**                     | Contributes code to projects and sells related services. Wants to be findable to procurement professionals evaluating their expertise. | Consulting firms specializing in specific platforms    |
-| **Procurement Office**         | Searches for suitable software, evaluates vendor expertise and security, makes purchasing decisions.                                   | Municipal IT departments, federal agencies             |
-| **Deploying Organization**     | Actually runs the software in production. Wants to declare what it uses.                                                               | Cities, universities, government agencies              |
-| **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps.                                                                         | Sovereign Tech Fund, CISA, digital sovereignty offices |
-| **Policy Maker / Legislator**  | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                       | National parliaments, EU Commission                    |
-| **Credit Registry**            | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                             | Drupal.org Marketplace, ecosyste.ms funding platforms  |
-| **Usage Registry**             | Tracks which organizations deploy which software. Independent from projects.                                                           | Developers Italia, EU OSS Catalogue                    |
-| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy.                                                                | EU OSS Catalogue, Developers Italia                    |
+| Actor | Role | Example |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| **Open Source Project** | Publishes code and metadata. Decides project classification and which contributions it recognizes. | Drupal, Nextcloud, OpenDesk |
+| **Maintainer** | Day-to-day steward who authors and commits the publiccode.yml file. May work for a vendor, agency, or as an independent contributor. | An individual or core team |
+| **Vendor** | Contributes code to projects and sells related services. Wants to be findable to procurement professionals evaluating their expertise. | Consulting firms specializing in specific platforms |
+| **Procurement Office** | Searches for suitable software, evaluates vendor expertise and security, makes purchasing decisions. | Municipal IT departments, federal agencies |
+| **Deploying Organization** | Actually runs the software in production. Wants to declare what it uses. | Cities, universities, government agencies |
+| **Federal Authority / Funder** | Allocates money, influences policy, identifies ecosystem gaps. | Sovereign Tech Fund, CISA, digital sovereignty offices |
+| **Policy Maker / Legislator** | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable. | National parliaments, EU Commission |
+| **Credit Registry** | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects. | Drupal.org Marketplace, ecosyste.ms funding platforms |
+| **Usage Registry** | Tracks which organizations deploy which software. Independent from projects. | Developers Italia, EU OSS Catalogue |
+| **Software Catalog / Crawler** | Aggregates metadata into searchable indexes for procurement and policy. | EU OSS Catalogue, Developers Italia |
 
 ### Who Asserts What
 
@@ -242,7 +242,8 @@ A critical distinction: **who has authority over the data**.
 | **Listed in publiccode.yml?**    | Yes — as endorsements                                                        | No — the project doesn't control this data                              |
 | **How crawlers find registries** | From publiccode.yml `creditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
 | **Data entry mechanism**         | Central registry maintains the data                                          | Direct declarations from deploying organizations and automated crawling |
-| **Example**                      | Drupal.org credits showing which vendors employ core contributors            | Developers Italia showing which Italian municipalities use Nextcloud    |
+
+| **Example** | Drupal.org credits showing which vendors employ core contributors | Developers Italia showing which Italian municipalities use Nextcloud |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
