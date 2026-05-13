@@ -419,14 +419,31 @@ supplyChain:
 
 ### Accessibility Declaration Profile (for `supports`)
 
-The accessibility use case raised by public-sector catalogs is a strong fit for the future `supports` key. As with all publiccode.yml fields, accessibility metadata is a maintainer assertion by default. The design goal here is **progressive detail**: a simple summary for most projects, with optional per-surface overrides only when needed.
+The accessibility use case raised by public-sector catalogs is a strong fit for the future `supports` key. As with all publiccode.yml fields, accessibility metadata is a maintainer assertion by default.
+
+**OSS as a baseline, not a finished product.** Open source software is rarely deployed without customization: agencies configure, theme, and extend it before going live. A CMS adopted by a ministry is not the same product as the upstream OSS project. This distinction matters for procurement: a "Product Accessibility Baseline" should capture what the project delivers out of the box, what it enables implementers to build on, and what evidence exists from real deployments — not just a summary claim. This profile is designed to express all three layers, so that procurement offices can assess risk and residual implementation effort before custom development begins.
+
+The design goal is **progressive detail**: a simple summary for most projects, with optional fields for the additional information procurement offices need when assessing complex, multi-surface software.
 
 ```yaml
 supports:
   accessibility:
-    # Summary for quick declaration and simple catalog filtering.
+    # Summary for quick catalog filtering.
     # Example values: full | partial
     coverage: partial
+
+    # VPAT/ACR — link to a Voluntary Product Accessibility Template or
+    # Accessibility Conformance Report. The gold standard for procurement offices.
+    # May be a repository-relative path or an absolute URL.
+    vpat: docs/a11y/VPAT-2026-03.md
+
+    # Direct link to the project's issue tracker filtered to accessibility issues.
+    # Signals transparency; lets procurement offices assess the known-bug backlog.
+    issueQueue: https://github.com/example/project/issues?label=accessibility
+
+    # Who procurement offices can contact for accessibility questions.
+    # May be a role address, a named maintainer, or a team alias.
+    maintainerContact: accessibility@example.org
 
     # Defaults apply unless overridden in assertions[].
     defaults:
@@ -439,10 +456,10 @@ supports:
 
     # Optional per-surface overrides for mixed-standard or mixed-level reality.
     # If omitted, catalogs and consumers use defaults.
+    # Surface vocabulary: web-ui, mobile-ios, mobile-android, desktop-ui, docs,
+    # pdf-outputs, email-templates, starter-theme, admin-ui
     assertions:
-      - # Example values: web-ui, mobile-ios, mobile-android, desktop-ui, docs,
-        # pdf-outputs, email-templates
-        surface: web-ui
+      - surface: web-ui
         standard: WCAG-2.2
         level: AA
         reviewerType: third-party-audit
@@ -454,12 +471,47 @@ supports:
         standard: WCAG-2.1
         level: A
 
+      # starter-theme captures the "out-of-the-box" state a new deployment inherits.
+      - surface: starter-theme
+        standard: WCAG-2.2
+        level: AA
+        reviewerType: self-assessment
+        evidence:
+          - type: test-report
+            reference: docs/a11y/starter-theme-audit-2026.md
+
     # Human-readable statement location, relative or absolute.
     # A project may point to ACCESSIBILITY.md or an equivalent statement.
     statement: ACCESSIBILITY.md
 
-    # Date of the latest assertion update.
+    # Date and software version of the latest assertion update.
+    # lastReviewedVersion anchors the audit to a specific release, preventing
+    # stale claims from being applied to later versions.
     lastReviewed: 2026-03-01
+    lastReviewedVersion: "10.2.0"
+
+    # Automated testing — whether the CI/CD pipeline runs accessibility checks.
+    # Presence of this block signals that regressions are actively prevented.
+    automatedTesting:
+      # Example values: axe-core, pa11y, playwright-axe, deque-cli
+      tool: axe-core
+      # Path or URL to the CI configuration running the checks.
+      ciReference: .github/workflows/accessibility.yml
+
+    # Implementation enablement — how the project supports implementers in
+    # building accessible deployments. Relevant when the OSS is a "base" that
+    # agencies configure, theme, or extend before going live.
+    implementation:
+      # Does the admin/authoring interface enforce or guide accessible content
+      # creation? (e.g., requiring alt text on images, validating heading structure)
+      # Example values: yes | partial | no
+      authoringToolSupport: partial
+      # Component library or design system accessibility documentation URL.
+      componentLibraryUrl: https://design.example.org/accessibility
+
+    # URL to a milestone, roadmap issue, or equivalent live tracking artifact
+    # for known critical accessibility issues.
+    remediationRoadmap: https://github.com/example/project/milestone/42
 ```
 
 The declaration model should remain simple and deterministic:
@@ -467,8 +519,17 @@ The declaration model should remain simple and deterministic:
 - If a surface is missing in `assertions[]`, `defaults` applies.
 - If a surface appears in `assertions[]`, that entry overrides `defaults` for that surface only.
 - If `assertions[]` is omitted entirely, the declaration is still valid and interpreted from `defaults`.
+- All fields beyond `coverage` and `defaults` are optional; their presence signals maturity and transparency, not compliance.
 
 This keeps the standard compact while still allowing catalogs and procurement tools to build simplified views on top of it.
+
+### Design Rationale (Accessibility)
+
+- **`vpat` carries more weight than structured fields for procurement.** ACRs/VPATs are the document type legal teams know how to evaluate; a pointer to one — even if partial — is a stronger signal than any set of machine-readable fields.
+- **`issueQueue` signals transparency, not failure.** A project with a labeled issue queue is demonstrably tracking bugs. A project without one may have zero issues or no process — the absence is ambiguous; catalogs should surface the distinction.
+- **`lastReviewedVersion` prevents stale reliance.** A `lastReviewed` date without a version anchor is meaningless when applied to a later release.
+- **`automatedTesting` is a process signal; result artifacts belong in `assertions[].evidence`.** The block indicates that CI prevents regressions — not that all issues are resolved. Reports produced by automated runs can be linked as `type: automated-test-report` under the relevant surface assertion.
+- **`remediationRoadmap` is a URL, not a date.** A target date in a static file goes stale the moment the roadmap slips; the milestone URL always reflects current status.
 
 ### What This Enables
 
@@ -476,7 +537,7 @@ This keeps the standard compact while still allowing catalogs and procurement to
 2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
 3. **Automated trust signals.** Crawlers (EU OSS Catalogue, Developers Italia) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
-5. **Accessibility pre-screening in catalogs.** Paired with a structured `supports.accessibility` declaration, catalogs can present comparable accessibility claims in a consistent format, reducing the risk of selecting software that fails barrier-free requirements.
+5. **Accessibility pre-screening and procurement risk assessment.** The `supports.accessibility` declaration gives procurement offices a structured "Product Accessibility Baseline" — covering the project's out-of-the-box conformance (`coverage`, `defaults`, `vpat`), what it enables implementers to build on (`implementation`, `starter-theme` surface), and what testing prevents regressions (`automatedTesting`). Catalogs can present this as a comparable, filterable signal, reducing the risk of adopting software that fails barrier-free requirements and clarifying what residual work falls to the implementer.
 6. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
 
 ---
@@ -865,6 +926,42 @@ supplyChain:
   scorecard: https://api.scorecard.dev/projects/forge.example.org/owner/medusa-cms
   securityPolicy: https://medusa-cms.example.org/.well-known/security.txt
   reuse: https://api.reuse.software/status/forge.example.org/owner/medusa-cms
+
+# ===== NEW: Accessibility declaration =====
+supports:
+  accessibility:
+    coverage: partial
+    vpat: docs/a11y/VPAT-2026-03.md
+    issueQueue: https://forge.example.org/owner/medusa-cms/issues?label=accessibility
+    maintainerContact: accessibility@medusa-cms.example.org
+    defaults:
+      standard: EN-301-549
+      level: AA
+      reviewerType: third-party-audit
+    assertions:
+      - surface: web-ui
+        standard: WCAG-2.2
+        level: AA
+        evidence:
+          - type: test-report
+            reference: docs/a11y/web-audit-2026-03.md
+      - surface: starter-theme
+        standard: WCAG-2.2
+        level: AA
+        reviewerType: self-assessment
+        evidence:
+          - type: test-report
+            reference: docs/a11y/starter-theme-audit-2026.md
+    statement: ACCESSIBILITY.md
+    lastReviewed: 2026-03-01
+    lastReviewedVersion: "10.2.0"
+    automatedTesting:
+      tool: axe-core
+      ciReference: .github/workflows/accessibility.yml
+    implementation:
+      authoringToolSupport: partial
+      componentLibraryUrl: https://design.medusa-cms.example.org/accessibility
+    remediationRoadmap: https://forge.example.org/owner/medusa-cms/milestone/42
 
 # ===== NEW: Credit registry discovery =====
 creditRegistries:
