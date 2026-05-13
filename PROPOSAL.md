@@ -367,29 +367,32 @@ New top-level section pointing to supply chain artifacts. These are URLs to exte
 
 ```yaml
 supplyChain:
-  # SBOM location(s) — SBOMs are release-specific artifacts, so two
-  # URL forms are supported:
+  # SBOM attestation(s) — one entry per SBOM format you publish.
+  # Fields mirror the Security Insights #Attestation type so a project
+  # publishing both files can use consistent vocabulary:
   #
-  #   latest:    stable pointer to the most recent release's SBOM.
-  #              GitHub:   releases/latest/download/{filename}
-  #              GitLab:   -/releases/permalink/latest/downloads/{filename}
-  #              Forgejo/Codeberg: releases/download/latest/{filename}
+  #   name:         Human-readable label (e.g. "Release SBOM (CycloneDX)")
+  #   predicate-uri: URI identifying the attestation type:
+  #                   CycloneDX → https://cyclonedx.org/bom
+  #                   SPDX      → https://spdx.dev/Document
+  #   location:     URL template for the artifact. Use {version} as the
+  #                 placeholder; consumers substitute the tag they are
+  #                 evaluating. Works identically on GitHub, GitLab,
+  #                 Codeberg/Forgejo, and any forge using standard
+  #                 release attachments. Document the latest-release
+  #                 stable URL in the comment field.
+  #   comment:      Optional notes — document the `latest` stable URL here.
   #
-  #   versioned: URL template for a specific release. Use {version} as
-  #              the placeholder; consumers substitute the tag they are
-  #              evaluating. Works identically on GitHub, GitLab,
-  #              Codeberg/Forgejo, and any forge that uses standard
-  #              release attachments.
-  #
-  # Both fields are optional; provide whichever your release process
-  # publishes. Omit the block entirely if you do not publish SBOMs.
+  # Omit the block entirely if you do not publish SBOMs.
   sbom:
-    - format: CycloneDX # CycloneDX | SPDX
-      latest: https://forge.example.org/owner/project/releases/latest/sbom.cdx.json
-      versioned: https://forge.example.org/owner/project/releases/{version}/sbom.cdx.json
-    - format: SPDX
-      latest: https://forge.example.org/owner/project/releases/latest/sbom.spdx.json
-      versioned: https://forge.example.org/owner/project/releases/{version}/sbom.spdx.json
+    - name: Release SBOM (CycloneDX)
+      predicate-uri: https://cyclonedx.org/bom
+      location: https://forge.example.org/owner/project/releases/{version}/sbom.cdx.json
+      comment: Replace {version} with the release tag. Latest always at releases/latest/sbom.cdx.json
+    - name: Release SBOM (SPDX)
+      predicate-uri: https://spdx.dev/Document
+      location: https://forge.example.org/owner/project/releases/{version}/sbom.spdx.json
+      comment: Replace {version} with the release tag. Latest always at releases/latest/sbom.spdx.json
 
   # OpenSSF Scorecard — machine-readable API URL to the project's scorecard
   # results. Scorecard supports GitHub and GitLab hosted projects:
@@ -412,9 +415,9 @@ supplyChain:
 
 ### Design Rationale
 
-- **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found.
+- **SBOMs are release artifacts**, not source-tree files. They change with every release. The `sbom` field points to where the latest SBOM can always be found. The per-entry structure (`name`, `predicate-uri`, `location`, `comment`) mirrors the in-toto `#Attestation` type used in [Security Insights](https://github.com/ossf/security-insights) `repository.release.attestations`, so a project that publishes both files can express SBOM attestations consistently across both schemas. Standard predicate URIs: `https://cyclonedx.org/bom` for CycloneDX, `https://spdx.dev/Document` for SPDX. The `location` field is a plain URL; SBOMs stored in OCI registries and discovered via the [manifest referrers API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers) are out of scope — their discovery requires OCI-native tooling rather than a simple HTTP fetch.
 - **Scorecard results are computed externally** by the OpenSSF infrastructure. The field points directly to the machine-readable [Scorecard API](https://api.scorecard.dev/), which returns structured JSON. The human-readable viewer is documented in the comment for maintainers who want to verify their score manually.
-- **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a widely-adopted convention for documenting vulnerability disclosure procedures, but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a forge security page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the `SECURITY.md` convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint.
+- **`securityPolicy` is intentionally format-agnostic.** `SECURITY.md` is a widely-adopted convention for documenting vulnerability disclosure procedures, but it has no formal specification — its content is free-form prose. The more rigorous alternative is [RFC 9116 `security.txt`](https://www.rfc-editor.org/rfc/rfc9116), an IETF standard that defines a machine-parseable file at `/.well-known/security.txt` for declaring vulnerability disclosure contacts, preferred languages, and policy URLs for a domain. The `securityPolicy` field accepts any URL — a forge security page, a `/.well-known/security.txt` endpoint, or a project's dedicated security page — because prescribing the format would exclude projects that follow RFC 9116 rather than the `SECURITY.md` convention. Crawlers that want to parse disclosure metadata programmatically should prefer projects that publish an RFC 9116-compliant endpoint. Projects that also publish a Security Insights file should use the same URL for both `supplyChain.securityPolicy` here and `project.vulnerability-reporting.policy` there.
 - **REUSE compliance** is already checked by Developers Italia badges. Making it an explicit field in publiccode.yml formalizes what's already practiced.
 - **Relationship to the upcoming `supports` key.** The publiccode.yml maintainers are considering a generic `supports` key for declaring policy compliance and security frameworks in a future spec version. The `supplyChain` fields proposed here are intentionally URL-based and reference external standards (SBOMs, Scorecard, REUSE) rather than defining new inline vocabulary — making them compatible with whatever form `supports` takes when it is proposed. The `supplyChain` section is intentionally scoped to supply-chain and compliance artifacts; sustainability and accessibility policy declarations (emerging conventions such as `SUSTAINABILITY.md` and `ACCESSIBILITY.md`) belong in `supports` rather than as additional `supplyChain` subfields.
 
@@ -538,8 +541,19 @@ This keeps the standard compact while still allowing catalogs and procurement to
 2. **Compliance verification.** The `reuse` field lets procurement offices confirm FSFE REUSE compliance (per-file licensing) as part of their legal due diligence, and the `securityPolicy` field confirms the project has a responsible disclosure process.
 3. **Automated trust signals.** Crawlers (EU OSS Catalogue, Developers Italia) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
+
+   The [OpenSSF OSPS Baseline](https://baseline.openssf.org/) makes this mapping concrete: it defines tiered security controls (maturity levels 1–3) that explicitly cross-reference CRA, NIS2, DORA, SLSA, SSDF, NIST 800-161, and BSI TR-03185-2. The [OSPS Baseline Scanner](https://github.com/ossf/security-baseline) reads `security-insights.yml` to assess compliance. The `supplyChain` fields map directly to specific OSPS controls:
+
+   | `supplyChain` field   | OSPS control                                                     | Regulatory mapping   |
+   | --------------------- | ---------------------------------------------------------------- | -------------------- |
+   | `securityPolicy`      | OSPS-VM-01 — Publish Coordinated Vulnerability Disclosure Policy | CRA Art. 2.1–2.8     |
+   | `scorecard`           | OSPS-SA — Security Assessment                                    | CRA Annex I, SSDF RV |
+   | `sbom` (attestations) | OSPS-BR-06 — Include Signatures and Hashes With Release          | CRA Annex I §2, SLSA |
+
+   For projects that publish a `security-insights.yml`, that file is the authoritative source for all of this data and catalog crawlers should read it directly. The `supplyChain` section here serves two more limited purposes: it is a lower-friction first step for projects that have not yet adopted `security-insights.yml` (four lines in an existing file, no new schema to learn), and a fallback for catalog crawlers that support publiccode.yml but are not yet capable of ingesting `security-insights.yml`. Maintaining the same URLs in both files is low effort given the aligned attestation shape (`name`, `predicate-uri`, `location`, `comment` — identical to the `#Attestation` type in Security Insights `repository.release.attestations`), and may be worthwhile.
+
 5. **Accessibility pre-screening and procurement risk assessment.** The `supports.accessibility` declaration gives procurement offices a structured "Product Accessibility Baseline" — covering the project's out-of-the-box conformance (`coverage`, `defaults`, `vpat`), what it enables implementers to build on (`implementation`, `starter-theme` surface), and what testing prevents regressions (`automatedTesting`). Catalogs can present this as a comparable, filterable signal, reducing the risk of adopting software that fails barrier-free requirements and clarifying what residual work falls to the implementer.
-6. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `distributions` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
+6. **Vulnerability advisory routing.** Vulnerability databases ([EUVD](https://euvd.enisa.europa.eu), [CVE](https://www.cve.org), [OSV](https://osv.dev)) increasingly identify affected software by PURL. The `package_repositories` field (Improvement 6) is the link that closes the loop: advisory PURL → catalog entry → usage registry → deploying organizations. An NIS2-covered organization that has published `.well-known/publiccode-usage.json` can receive targeted advisory notifications for the exact packages it runs, without manual SBOM matching. This chain is currently impossible at scale; the proposal's infrastructure makes it a straightforward crawl query.
 
 ---
 
@@ -748,6 +762,8 @@ Catalogs should surface deprecated entries as a warning rather than silently dro
 
 **Authority via source control.** Because `package_repositories` is asserted by the project in its own repository, it becomes the canonical list of official distributions — exactly the data that auto-discovery services cannot provide. ecosyste.ms and deps.dev can tell you that a package named `nextcloud-server` exists on Debian and which distros it covers; they cannot tell you whether the project team endorses it or which distros the project _itself_ tests. The `package_repositories` field answers that question.
 
+**Relationship to Security Insights `distribution-points`.** [Security Insights](https://github.com/ossf/security-insights) `repository.release.distribution-points` uses the same concept: a list of `{uri, comment}` entries where `uri` may be a PURL (e.g., `pkg:npm/foobar`). `package_repositories` is a PURL-typed, semantically richer extension of that idea: the `purl` field plays the role of `uri`, and the additional fields (`distros`, `architectures`, `status`) carry detail that security-insights leaves to prose comments. Projects publishing both files can derive their `distribution-points` list directly from their `package_repositories` entries.
+
 **Relationship to PGP artifact signing.** PGP signatures (f.e. required by Maven Central) verify that a specific artifact binary and its POM were not modified after signing — useful, but distinct from project endorsement of a distribution channel. Two gaps remain: the web-of-trust problem means a valid signature only proves the artifact was signed with a particular key, not that the key belongs to the claimed entity; and PGP covers only compiled artifacts and POM metadata, not scripts, config templates, or install hooks that ship in a distribution. The `package_repositories` field uses source repository control as its trust anchor, which does not fully eliminate the web-of-trust problem either — forge accounts can be hijacked — but the repository URL is more corroborated: it is already cross-referenced by package registries, SBOMs, documentation, and news articles across independent systems, making forgery significantly harder than uploading a fake key to a key server.
 
 Catalogs should treat the four categories of distribution evidence differently:
@@ -921,9 +937,10 @@ package_repositories:
 # ===== NEW: Supply chain references =====
 supplyChain:
   sbom:
-    - format: CycloneDX
-      latest: https://forge.example.org/owner/medusa-cms/releases/latest/sbom.cdx.json
-      versioned: https://forge.example.org/owner/medusa-cms/releases/{version}/sbom.cdx.json
+    - name: Release SBOM (CycloneDX)
+      predicate-uri: https://cyclonedx.org/bom
+      location: https://forge.example.org/owner/medusa-cms/releases/{version}/sbom.cdx.json
+      comment: Replace {version} with the release tag. Latest at releases/latest/sbom.cdx.json
   scorecard: https://api.scorecard.dev/projects/forge.example.org/owner/medusa-cms
   securityPolicy: https://medusa-cms.example.org/.well-known/security.txt
   reuse: https://api.reuse.software/status/forge.example.org/owner/medusa-cms
