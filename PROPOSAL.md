@@ -17,7 +17,7 @@ A concrete proposal for evolving publiccode.yml with five backward-compatible im
 - [Full Example](#full-example)
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
-  - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api) and [Organization-Level Usage Declarations](#organization-level-usage-declarations))
+  - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api), [Organization-Level Usage Declarations](#organization-level-usage-declarations), and [Project-Level Funding Declarations](#project-level-funding-declarations))
 - **Deferred improvements (pending regulatory guidance):**
   - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred)
 
@@ -1274,6 +1274,106 @@ This enables catalog UIs to offer filters such as "show only government-verified
 4. **The Developers Italia adoption model scales globally.** Developers Italia is one registry among many. A German equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
 5. **Deploying organizations can declare usage without intermediaries.** By publishing `/.well-known/publiccode-usage.json` on their domain, organizations assert usage with their domain as proof of identity — no registry account required. Registries crawl these files as one intake mechanism alongside direct declarations.
 6. **Deployment processes become the source of truth.** When open source projects integrate usage declaration updates into their deployment documentation, the `.well-known` file stays current with actual deployments. Retirement is explicitly signaled, giving the ecosystem a deprecation mechanism that manual registries lack.
+
+### Project-Level Funding Declarations
+
+Following the same pattern, OSS projects can publish a standardized `.well-known` file declaring their funding sources, making that information discoverable and aggregable by crawlers without requiring centralized registry maintenance.
+
+#### Design & Schema
+
+Each OSS project publishes an optional funding declaration at:
+
+```
+https://{project-domain}/.well-known/publiccode-funding.json
+```
+
+This enables procurement offices and funding allocators to assess project sustainability — knowing whether a project is grant-funded, commercially sponsored, community-supported, or a mix. The format is intentionally flexible, allowing projects to declare whatever funding relationships they wish to make public.
+
+```json
+{
+  "project": {
+    "url": "https://forge.example.org/owner/medusa-cms",
+    "name": "Medusa CMS"
+  },
+  "funding": [
+    {
+      "source": "European Commission",
+      "program": "Horizon Europe / NGI Forward",
+      "type": "public-grant",
+      "url": "https://ngi.eu/projects/medusa-cms/",
+      "period": {
+        "from": "2024-01-01",
+        "to": "2025-12-31"
+      },
+      "description": "Core maintenance and feature development"
+    },
+    {
+      "source": "Acme Corporation",
+      "type": "corporate-sponsorship",
+      "url": "https://acme-corp.org/sponsorships",
+      "ongoing": true,
+      "description": "Sustaining member supporting full-time core developer"
+    },
+    {
+      "source": "Open Source Collective",
+      "type": "crowdfunding",
+      "url": "https://opencollective.com/medusa-cms",
+      "description": "Community donations processed through Open Collective"
+    }
+  ],
+  "lastUpdated": "2025-09-15"
+}
+```
+
+#### Key Fields
+
+| Field                   | Purpose                                                                                                              | Required |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
+| `project.url`           | The canonical project URL from publiccode.yml — enables crawlers to link funding data to project metadata            | Yes      |
+| `project.name`          | Human-readable project name for convenience                                                                          | No       |
+| `funding[].source`      | Name of the funding source or organization                                                                           | Yes      |
+| `funding[].type`        | Category: `public-grant`, `corporate-sponsorship`, `endowment`, `crowdfunding`, `service-revenue`, `other`           | Yes      |
+| `funding[].url`         | URL to the funder's own page describing the project or funding relationship                                          | No       |
+| `funding[].period`      | Time-bounded grants: `from` and `to` dates (ISO 8601). Omitted for ongoing support.                                  | No       |
+| `funding[].ongoing`     | Boolean; set to `true` for recurring or indefinite sponsorship                                                       | No       |
+| `funding[].amount`      | Monetary amount for transparency (optional, rarely disclosed by recipients)                                          | No       |
+| `funding[].description` | Human-readable purpose or scope of funding — e.g., "core maintainer salary", "security audit", "feature development" | No       |
+| `lastUpdated`           | ISO 8601 date of the last update — helps crawlers detect stale declarations                                          | Yes      |
+
+#### Design Rationale
+
+- **Projects own their funding narrative.** Funding declarations come from the project (or its primary operator), not from an external registry, ensuring accuracy and up-to-date information.
+- **Published outside source control.** Unlike `fundingjson.org` (which lives in the repository), `.well-known/publiccode-funding.json` is published on the project's domain. Funding changes (sponsorships end, grants begin) can be updated independently without repository commits, keeping frequently-changing data out of git history — consistent with the principle that publiccode.yml should "keep only what changes rarely."
+- **Procurement risk assessment.** Procurement offices can evaluate whether a project has diversified funding, is dependent on a single funder, or is at risk of abandonment due to funding gaps.
+- **Conflict of interest transparency.** When a government procurement office evaluates a project and also evaluates bids for implementation services, the funding declaration signals whether the bidder/vendor is also the primary funder — a structural conflict that scoring systems should flag.
+- **Data-driven allocation.** Ecosystem funds (e.g., Sovereign Tech Fund, Open Source Endowment) can query funded projects to identify gaps — projects with usage but no recorded funding, or projects from specific regions/sectors that are under-resourced.
+- **Voluntary disclosure.** Projects are not obligated to publish this file. Its absence does not imply zero funding; it means the project has chosen not to declare its funding publicly. Catalogs should not penalize projects for non-disclosure.
+- **Temporal accuracy.** Time-bounded grants include explicit period ranges; ongoing sponsorships are marked as such. The `lastUpdated` field prevents stale claims from being attributed to current project status.
+
+#### Discovery & Aggregation
+
+Crawlers can discover funding declarations through:
+
+1. **Direct .well-known probing** (opportunistic) — if a project's publiccode.yml URL is known, a crawler can check the same domain for `/.well-known/publiccode-funding.json`.
+2. **Registry Discovery Standard** — a funding registry manifest can declare itself in the central registry of registries, allowing crawlers to discover and query funding aggregators that collect project funding data.
+3. **Explicit pointers** (optional) — projects that want to ensure their funding declaration is found can include a `fundingUrl` field in publiccode.yml (a light-weight field pointing to the .well-known location or an aggregator URL).
+
+#### Relationship to fundingjson.org
+
+Both standards can describe **received funding**, but at different depths:
+
+- **fundingjson.org** — comprehensive financial accounting (fundraising channels, payment plans, detailed income/expense/tax history by year). Best for full financial transparency and attracting donors.
+- **publiccode-funding.json** — lightweight snapshot of current funding relationships with optional time-bounded periods. Best for procurement/funder assessment of project sustainability.
+
+Projects can publish both: fundingjson.org for donors and accountability; `publiccode-funding.json` for catalog visibility and procurement risk assessment. Catalogs can ingest and surface both standards, presenting detailed financial history or streamlined funding summaries depending on the consumer's needs.
+
+#### What This Enables
+
+1. **Procurement sustainability checks.** Before adopting software, an office can quickly assess whether the project is funded and by whom — answering "Will this project still be maintained in 3 years?"
+2. **Funding gap analysis.** A funder can query all projects in a domain (e.g., healthcare, climate), identify those with significant adoption but minimal funding, and target grants to high-impact but under-resourced projects.
+3. **Vendor transparency.** When a vendor bids on a project implementation, their role as a primary funder (if disclosed in the funding declaration) becomes visible to procurement officers — enabling proper conflict-of-interest assessment.
+4. **Ecosystem health dashboards.** Catalogs and policy dashboards can display funding concentration (e.g., "What % of our critical digital infrastructure is dependent on a single funder?"), identifying systemic risks.
+5. **Evidence for policy mandates.** The [EMBAG](https://www.fedlex.admin.ch/eli/cc/2023/682/en) and related mandates encourage public investment in open source. Funding declarations provide auditable evidence that public money is reaching intended projects.
 
 ---
 
