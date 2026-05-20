@@ -1135,16 +1135,17 @@ Usage registries are the canonical aggregation point for adoption data, but the 
 
 #### Key Fields
 
-| Field                       | Purpose                                                                                                                                                                                                                                                                                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `organization.url`          | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                                                                                                                                                                                                                           |
-| `organization.sector`       | The organization's sector, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`). Optional.                                                                                                                                                                                               |
-| `software[].url`            | The project's canonical URL (matches the `url` field in publiccode.yml)                                                                                                                                                                                                                                                                    |
-| `software[].status`         | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                                                                                                                                                                                                                                       |
-| `software[].until`          | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                                                                                                                                                                                                                                        |
-| `software[].classification` | Which classification facets apply to this organization's specific use, using publiccode.yml's `classification` vocabulary. The `domain` and `function` facets are most meaningful here; `role`, `layer`, `technology`, and `audience` are not recommended in this context. Optional.                                                       |
-| `software[].contractors[]`  | Contracted support providers for this specific deployment — each entry carries `name`, `website`, and an optional `identifier` (same `SCHEME:VALUE` pattern as `maintenance.contractors[]` in publiccode.yml). Optional; intended for organizations with supply chain contract documentation obligations (e.g., DORA Article 28 register). |
-| `lastUpdated`               | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale                                                                                                                                                                                                          |
+| Field                         | Purpose                                                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `organization.url`            | The declaring organization's domain — also serves as its verified identity (domain control = proof of authority)                                                                                                                                                                                                                                            |
+| `organization.sector`         | The organization's sector, using publiccode.yml's `intendedAudience.scope` vocabulary (e.g., `government`, `health`, `education`). Optional.                                                                                                                                                                                                                |
+| `software[].url`              | The project's canonical URL (matches the `url` field in publiccode.yml)                                                                                                                                                                                                                                                                                     |
+| `software[].status`           | Deployment status: `production`, `pilot`, `evaluation`, or `retired`                                                                                                                                                                                                                                                                                        |
+| `software[].until`            | When the software was retired (only for `retired` status) — provides an explicit deprecation signal                                                                                                                                                                                                                                                         |
+| `software[].classification`   | Which classification facets apply to this organization's specific use, using publiccode.yml's `classification` vocabulary. The `domain` and `function` facets are most meaningful here; `role`, `layer`, `technology`, and `audience` are not recommended in this context. Optional.                                                                        |
+| `software[].contractors[]`    | Contracted support providers for this specific deployment — each entry carries `name`, `website`, and an optional `identifier` (same `SCHEME:VALUE` pattern as `maintenance.contractors[]` in publiccode.yml). Optional; intended for organizations with supply chain contract documentation obligations (e.g., DORA Article 28 register).                  |
+| `software[].certifications[]` | Certifications and audits obtained by the deploying organization for this specific deployment — each entry carries `type` (`accessibility`, `security`, `privacy`, `quality`), `standard` (e.g., `WCAG 2.1`, `ISO 27001`), optional `level` (e.g., `AA`, `High`), `issued` date, optional `expires` date, `issuer`, and optional `reference` URL. Optional. |
+| `lastUpdated`                 | When this file was last modified — crawlers flag files older than a configurable threshold (e.g., 12 months) as potentially stale                                                                                                                                                                                                                           |
 
 The schema deliberately excludes software version numbers and infrastructure details — the declaration answers "do you use this project, and for what purpose?" not "how is it deployed?" Technology detection services like BuiltWith already expose comparable detail for public-facing web applications.
 
@@ -1153,6 +1154,10 @@ The schema deliberately excludes software version numbers and infrastructure det
 The `software[].classification` field reuses publiccode.yml's `classification` vocabulary but carries a different assertion authority: **publiccode.yml's `classification` is asserted by the project author** ("this software supports content management and CRM"); **the usage declaration's `classification` is asserted by the deploying organization** ("we use it specifically for content management"). Same controlled vocabulary, different perspective — consistent with the broader pattern in this ecosystem where each actor declares only what they can directly verify.
 
 This distinction is valuable for procurement. A project listing `classification.domain: [content-management, crm]` tells potential adopters what the software _can_ do. A municipality listing `classification.domain: [content-management]` in their usage declaration tells peers what a comparable organization _actually uses it for_ — a more reliable signal for adoption decisions.
+
+#### Deployment Certifications
+
+The `software[].certifications[]` field records certifications the **deploying organization** has obtained for their specific deployment — distinct from any claims the project makes in `publiccode.yml`'s `supports.accessibility` or `supplyChain` fields. Each entry carries `type` (`accessibility`, `security`, `privacy`, `compliance`), `standard`, optional `level`, `issued`, optional `expires`, `issuer`, and optional `reference` URL. Common standards: EN 301 549 / WCAG (accessibility); ISO 27001, BSI C5, EUCS, Common Criteria (security); ISO 27701, EuroPriSe (privacy); NIS2 audit attestations (compliance).
 
 ```json
 {
@@ -1167,7 +1172,32 @@ This distinction is valuable for procurement. A project listing `classification.
       "classification": {
         "domain": ["content-management"],
         "function": ["authentication", "caching"]
-      }
+      },
+      "certifications": [
+        {
+          "type": "accessibility",
+          "standard": "EN 301 549",
+          "level": "AA",
+          "issued": "2025-03-10",
+          "expires": "2026-03-10",
+          "issuer": "Acme Accessibility Auditors GmbH",
+          "reference": "https://muenchen.de/docs/en301549-audit-2025.pdf"
+        },
+        {
+          "type": "security",
+          "standard": "BSI C5",
+          "level": "Basic",
+          "issued": "2024-11-01",
+          "issuer": "TÜV Rheinland",
+          "reference": "https://muenchen.de/docs/bsi-c5-2024.pdf"
+        },
+        {
+          "type": "privacy",
+          "standard": "ISO 27701",
+          "issued": "2024-06-15",
+          "issuer": "DQS GmbH"
+        }
+      ]
     },
     {
       "url": "https://forge.example.org/nextcloud/server",
