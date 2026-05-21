@@ -52,7 +52,7 @@ This guide helps you navigate the documentation based on your role and what you 
 4. Usage tracking via external registries (verified decentralized adoption signals)
 5. Temporal field deprecation (cleaner and more trustworthy data)
 
-_(Improvement 6: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance. See [PROPOSAL.md](PROPOSAL.md#improvement-6-cra-steward-declaration-deferred).)_
+_(Improvement 8: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance. See [PROPOSAL.md](PROPOSAL.md#improvement-8-cra-steward-declaration-deferred).)_
 
 **Companion specifications:**
 

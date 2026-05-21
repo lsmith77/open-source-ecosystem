@@ -254,4 +254,4 @@ A **procurement policy track** runs in parallel across the phases: stakeholder m
 
 Each phase produces tangible, demonstrable results that justify the next phase to funders and stakeholders. No phase depends on solving the hardest problems first.
 
-**Deferred improvement:** [Improvement 6: CRA Steward Declaration](PROPOSAL.md#improvement-6-cra-steward-declaration-deferred) is explicitly excluded from this roadmap. It is designed and reserved in PROPOSAL.md but should not be implemented until CRA regulatory guidance has settled on required identifiers and declaration formats (see risk [P5](RISK_ANALYSIS.md)).
+**Deferred improvement:** [Improvement 8: CRA Steward Declaration](PROPOSAL.md#improvement-8-cra-steward-declaration-deferred) is explicitly excluded from this roadmap. It is designed and reserved in PROPOSAL.md but should not be implemented until CRA regulatory guidance has settled on required identifiers and declaration formats (see risk [P5](RISK_ANALYSIS.md)).
