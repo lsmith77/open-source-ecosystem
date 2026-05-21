@@ -22,6 +22,12 @@ An automated security audit tool that checks open source projects for common sec
 **REUSE**
 A standard created by the Free Software Foundation Europe (FSFE) for making per-file licensing transparent. Every source file declares its license, making compliance auditable by machines.
 
+**Vendor Lock-in (or Vendor Lockin)**
+A situation where a customer becomes dependent on a single vendor and cannot switch to alternatives without significant cost, effort, or loss of functionality. For open source software, lock-in can occur at the architectural level—for example, when a project requires proprietary cloud features (e.g., AWS RDS Aurora-specific extensions, Azure Cosmos DB functionality) that are unavailable in open-source equivalents. Declared in [Improvement 8: Platform Lock-in Declaration](PROPOSAL.md#improvement-8-platform-lock-in-declaration-proposed).
+
+**Platform Lock-in**
+A specific form of vendor lock-in where software requires deployment on a proprietary platform (e.g., AWS, Azure, Google Cloud) or requires platform-specific features not available in open-source alternatives. Projects should declare required platforms and lock-in risks in publiccode.yml so procurement offices and Sovereignty Checks can assess true portability.
+
 **Cyber Resilience Act (CRA)**
 An EU regulation establishing requirements for open source software security and liability. Introduces the "open source software steward"—an organization responsible for maintaining security and handling vulnerabilities in critical software. Requires stewards to publish security policies and software bill of materials (SBOMs).
 
@@ -118,10 +124,14 @@ A database or service that tracks specific information about projects:
 
 - **Credit Registry**: Tracks who contributes and how much
 - **Usage Registry**: Tracks which organizations use which software
+- **Assessment Registry**: Publishes results of compliance or sovereignty assessments conducted by regional authorities (e.g., ZenDiS Sovereignty Check results from Germany, DPI validation results from India). See [Assessment Registry API](PROPOSAL.md#assessment-registry-api-proposed).
 - **Package Registry**: Hosts downloadable packages (npm, PyPI, Maven, etc.)
 
 **API**
 Application Programming Interface. A standard way for different software systems to request and share data. Think of it as a plug that any compatible tool can use.
+
+**Sovereignty Check**
+A formal assessment process that evaluates whether software meets specific digital sovereignty requirements. Examples: ZenDiS Sovereignty Check (Germany) evaluates whether solutions meet digital sovereignty needs of German public administration. Assessors publish findings via [Assessment Registries](PROPOSAL.md#assessment-registry-api-proposed) so that procurement offices across jurisdictions can discover and compare assessment results. See [Assessment Registry API](PROPOSAL.md#assessment-registry-api-proposed).
 
 **Conformance**
 Meeting a standard. A registry that "conforms to the Registry API" implements all required fields and behaviors so that any crawler can use it.
