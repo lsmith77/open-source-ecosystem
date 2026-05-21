@@ -4,6 +4,12 @@ This guide helps you navigate the documentation based on your role and what you 
 
 ## Quick Start: 60-Second Summary
 
+### The Core Idea
+
+Open source procurement is held back not by the absence of good software, but by the absence of shared, machine-readable evidence — the foundation of **data-driven** procurement decisions rather than purely relationship-driven ones. The north star of this project is **decentralized metadata exchange**: every stakeholder — projects, vendors, deploying organizations, registries — publishes structured data from their own domain. That data can be crawled independently by any catalog or procurement tool, and further annotated with external verification, trust labels, or policy signals. No central authority controls what gets published or how it is interpreted.
+
+Every step toward this vision has value on its own terms. If some components of this proposal are adopted, others handled by adjacent standards, and still others deferred or never needed — the ecosystem still moves in the right direction. Read the proposal's breadth as a concrete map toward that destination, not a prerequisite checklist.
+
 ### What This Is
 
 - A proposal to improve `publiccode.yml` and related ecosystem standards.
