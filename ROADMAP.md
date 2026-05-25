@@ -1,6 +1,6 @@
 # Roadmap: From Proposal to Reality
 
-One possible phased implementation plan for the integrated ecosystem proposal: publiccode.yml improvements, companion registries and standards (Credit Registry API, Usage Registry API, Registry Discovery Standard, organization-level declarations), policy frameworks, and decentralized trust networks. The plan is sequenced to leverage existing relationships, build credibility through achievable wins, and address critical risks early.
+One possible phased implementation plan for the integrated ecosystem proposal: publiccode.yml improvements, companion registries and standards (Credit Registry API, Usage Registry API, Assessment Registry API, Registry Discovery Standard, organization-level declarations), policy frameworks, and decentralized trust networks. The plan is sequenced to leverage existing relationships, build credibility through achievable wins, and address critical risks early.
 
 **Important:** This roadmap is illustrative, not prescriptive. It shows one plausible path forward based on current relationships and known allies. The actual implementation will depend on:
 

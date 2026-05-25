@@ -40,8 +40,8 @@ The second layer emerges **when procurement does reach open source**: inadequate
 
 - **Reduce procurement risk** — Evaluate security posture (via supply chain references and SBOMs), vendor ecosystem (via credit registries), peer adoption (via decentralized usage registries), and compliance posture before making a purchase commitment, not after. All evidence is verifiable and auditable, not vendor-provided marketing.
 - **Make deviation defensible through evidence** — A data-driven procurement baseline gives officers documented justification for selecting open source options when they outperform incumbent proprietary offers on transparency, resilience, and policy alignment.
-- **Meet digital sovereignty requirements** — Regulations like the EU Cloud Sovereignty Framework (SOV-5, SOV-6) and national mandates (Munich SDS) require supply chain transparency and open source preference. Standardized metadata, decentralized registries, and trust model declarations make compliance verifiable and auditable without centralized gatekeeping.
-- **Avoid vendor lock-in** — Identify software with multiple active vendors across decentralized credit registries and strong maintenance culture before you commit, not when a single contractor walks away. Registries operated independently prevent consolidation risks.
+- **Meet digital sovereignty requirements** — Regulations like the EU Cloud Sovereignty Framework (SOV-5, SOV-6) and national mandates (Munich SDS) require supply chain transparency and open source preference. Standardized metadata, decentralized registries, and trust model declarations make compliance verifiable and auditable without centralized gatekeeping. Assessment Registries (published by regional Sovereignty Check bodies like ZenDiS) let you see which solutions have been formally evaluated for your jurisdiction's sovereignty criteria.
+- **Evaluate platform portability and architecture** — [Platform lock-in declarations](PROPOSAL.md#improvement-8-platform-lock-in-declaration-proposed) in publiccode.yml make vendor dependencies visible at procurement time. Know upfront whether a solution requires proprietary cloud features or can run on open-source infrastructure in your jurisdiction.
 - **Use proven selection criteria** — The [OSBA's procurement framework](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) defines four evaluation criteria: community relationship, upstream contributions, professional support, and supply chain security. These criteria map directly to publiccode.yml metadata and the companion registries. You don't need to invent evaluation criteria from scratch for each procurement process.
 - **Satisfy NIS2 supply chain obligations** — if your organization falls under the [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) (public administration, health, energy, transport, and other critical sectors), you are required to assess and manage the cybersecurity risks in your software supply chain. The `supplyChain` references in publiccode.yml — SBOMs, OpenSSF Scorecard, vulnerability disclosure policy — give you documented, machine-readable evidence for that assessment from a standardized location, rather than hunting across individual project repositories.
 - **Pre-screen accessibility without excluding open source by default** — accessibility self-declarations plus catalog-side verification labels let procurement teams filter for barrier-free candidates early and then escalate to deeper audits where needed, reducing the false trade-off between open source adoption and accessibility requirements.
@@ -80,6 +80,16 @@ Note: For a structured overview of how this proposal relates to CRA, NIS2, the I
 
 ---
 
+## Beyond Europe: Universal Applications
+
+The European frameworks are reusable blueprints. The same metadata layer that makes open source auditable under CRA and NIS2 addresses three concerns that procurement teams face on every continent.
+
+- **Mitigating vendor lock-in**: Faceted classification and standardized credit registry APIs give procurement teams the auditable framework to demand true multi-cloud interoperability rather than marketing claims — a pressing concern wherever proprietary cloud vendors dominate (U.S. enterprises, regulated sectors globally).
+- **Jurisdictional control and data residency**: The `supplyChain` references and standardized registry APIs let organizations continuously audit where data flows and which vendors maintain which systems — directly supporting strict physical separation requirements (Japan, regulated EU member states, government sectors in many jurisdictions).
+- **Validating open source for digital public infrastructure**: The Registry Discovery Standard and Credit Registry trust models provide reusable blueprints for validating transparency and sustainability at scale, without building custom assessment processes for each procurement — applicable wherever DPI strategies depend on open source (India, emerging-market governments, multilateral institutions).
+
+---
+
 ## Credit Registry
 
 - **Become procurement infrastructure** — public sector buyers increasingly need vendor expertise data. A standardized API makes your registry part of every EU-wide catalog, not an isolated silo.
@@ -94,6 +104,16 @@ Note: For a structured overview of how this proposal relates to CRA, NIS2, the I
 - **Become the authoritative source for your jurisdiction or sector** — Governments need a verifiable inventory of deployed software. A standardized registry API makes your data consumable by every catalog and policy analysis tool in the ecosystem.
 - **Enable evidence-based policy** — Usage data drives reuse badges, sovereignty scores, and funding allocation. Without registries, policymakers act on anecdotes instead of evidence.
 - **Federate without fragmenting** — Each country, sector, or city can operate its own registry while using a common API standard. This means national data sovereignty combined with international interoperability.
+
+---
+
+## Assessment Registry
+
+- **Publish Sovereignty Check results at global scale** — Regional authorities conducting Sovereignty Checks (ZenDiS in Germany, DPI validators in India, data residency assessors in Japan) can publish findings using a standardized API. Your assessment results become discoverable by procurement offices across jurisdictions without rebuilding infrastructure in each region.
+- **Operate independently, aggregate globally** — Each assessment authority controls its own registry and criteria, but catalogs and procurement systems discover and aggregate results using standardized APIs. Regional sovereignty is preserved while enabling cross-border visibility.
+- **Build verified compliance infrastructure** — Procurement offices can filter solutions by "Passes ZenDiS Sovereignty Check" or "Certified for India DPI" directly from assessment registries, making compliance criteria actionable rather than aspirational.
+- **Enable transparent disagreement** — When assessment findings conflict with a project's publiccode.yml claims (e.g., "Project says no vendor lock-in, but assessment found AWS RDS dependency"), Assessment Registries publish the dispute evidence so projects and assessors can work toward resolution.
+- **Support evidence-based policy** — Governments implementing digital sovereignty mandates can aggregate assessment findings across multiple registries to measure ecosystem health: which solutions are sovereignty-ready? Which regional frameworks are most demanding? Which projects need guidance?
 
 ---
 

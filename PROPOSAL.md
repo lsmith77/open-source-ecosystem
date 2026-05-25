@@ -18,8 +18,11 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 - **Companion specifications:**
   - [Credit Registry API](#credit-registry-api-rough-outline)
   - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api), [Organization-Level Usage Declarations](#organization-level-usage-declarations), and [Project-Level Funding Declarations](#project-level-funding-declarations))
+  - [Assessment Registry API](#assessment-registry-api-proposed)
 - **Deferred improvements (pending regulatory guidance):**
   - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred)
+- **Proposed improvements (pending community input):**
+  - [Improvement 9: Platform Lock-in Declaration](#improvement-9-platform-lock-in-declaration-proposed)
 
 ---
 
@@ -49,7 +52,18 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 
 ---
 
-## Policy Context: Public Procurement and Open Source
+## Global Applicability
+
+While this proposal is motivated by EU policy contexts (CRA, NIS2, CAIDA), the underlying principles are universal and region-agnostic:
+
+- **Decentralized discovery**: Registries do not require centralized authority. Any country, organization, or coalition can operate registries using the Registry Discovery Standard.
+- **Standardized APIs**: A country implementing its own procurement requirements (US lock-in mitigation, Japan data residency rules, India DPI validation) can use the same API contracts to aggregate data from independent registries.
+- **Reusable methodologies**: The Credit Registry trust model, faceted classification schema, and supply chain reference taxonomy are blueprints that can be adapted for any jurisdiction's risk profile.
+- **No central gatekeeper**: publiccode.yml remains decentralized. Each region can define its own classification facets, trust models, and policy mappings while using the same underlying YAML schema.
+
+---
+
+## Policy Context: Public Procurement and Open Source (Global and Regional)
 
 ### 1. The Infrastructure Gap
 
@@ -1407,6 +1421,157 @@ Projects can publish both: fundingjson.org for donors and accountability; `publi
 
 ---
 
+## Assessment Registry API _(Proposed)_
+
+**Status**: Identified as gap for operationalizing Sovereignty Checks and regional compliance assessments globally; needs community input on design and trust model.
+
+This is a **separate specification** from publiccode.yml. It defines the API that assessment registries (regional Sovereignty Checks, compliance assessments, etc.) publish so that catalogs can aggregate assessment findings alongside publiccode.yml metadata.
+
+### Design Rationale
+
+Regional authorities conducting Sovereignty Checks (ZenDiS Sovereignty Check in Germany, DPI validation frameworks in India, data residency assessments in Japan, etc.) need a standardized way to publish their findings so that:
+
+1. Projects discover assessments relevant to their jurisdiction
+2. Procurement offices see all applicable assessments in one place
+3. Assessment results are decentralized—each region operates its own registry without centralized gatekeeping
+4. Catalogs aggregate assessment data without custom integration per assessment framework
+
+### Schema
+
+Assessment registries publish standardized assessment results:
+
+```json
+{
+  "assessor": "zendis",
+  "assessorURL": "https://zendis.de",
+  "assessorJurisdiction": "de",
+  "projectURL": "https://github.com/example/project",
+  "framework": "ZenDiS Sovereignty Check v1",
+  "frameworkURL": "https://zendis.de/sovereignty-check-criteria",
+  "timestamp": "2026-05-21",
+  "validUntil": "2027-05-21",
+  "criteria": {
+    "supportsOnPremiseDeployment": {
+      "status": "PASS",
+      "finding": "Can be deployed on any Linux server"
+    },
+    "platformLockIn": {
+      "status": "DISPUTE",
+      "projectClaim": "No vendor lock-in; can run on any cloud",
+      "assessmentFinding": "Project requires AWS RDS Aurora features not available in standard PostgreSQL",
+      "evidence": "main.tf lines 245-250 show hardcoded RDS Aurora parameters",
+      "recommendation": "Update publiccode.yml requiredPlatforms field to declare AWS RDS dependency",
+      "confidence": 0.95
+    },
+    "dataResidency": {
+      "status": "PASS",
+      "finding": "Supports on-premise deployment with all data stored locally"
+    },
+    "auditability": {
+      "status": "PASS",
+      "finding": "Source code is public; no obfuscation"
+    }
+  }
+}
+```
+
+### Key Features
+
+**1. Dispute Resolution**: Assessment results can indicate `DISPUTE` status when assessment findings conflict with project claims in publiccode.yml. This maintains the separation of concerns—the project's claim remains in publiccode.yml, but the assessment registry flags the disagreement with evidence.
+
+**2. Confidence Scoring**: Assessments can include confidence levels (0-1) so catalogs can highlight high-confidence findings vs. preliminary assessments.
+
+**3. Recommendation Loop**: Assessment findings can include recommendations (e.g., "Project should update publiccode.yml to declare AWS RDS dependency"), creating a feedback loop for project improvement.
+
+**4. Status Vocabulary**: Standardized status values:
+
+- `PASS` — Project meets the assessment criterion
+- `FAIL` — Project does not meet the criterion
+- `DISPUTE` — Assessment finding contradicts project claim; requires resolution
+- `INCONCLUSIVE` — Assessor cannot determine status with current evidence
+- `NOT_APPLICABLE` — Criterion does not apply to this project
+
+### API Endpoints
+
+#### `GET /assessments/{project-url}`
+
+Returns all assessments published for a given project URL.
+
+```json
+[
+  {
+    "assessor": "zendis",
+    "assessorJurisdiction": "de",
+    "timestamp": "2026-05-21",
+    "criteria": { ... }
+  },
+  {
+    "assessor": "india-dpi-validation",
+    "assessorJurisdiction": "in",
+    "timestamp": "2026-04-15",
+    "criteria": { ... }
+  }
+]
+```
+
+#### `GET /assessors`
+
+Returns metadata about all assessment authorities publishing to this registry.
+
+```json
+[
+  {
+    "assessor": "zendis",
+    "name": "Zentrum für Digitale Souveränität der Öffentlichen Verwaltung",
+    "country": "de",
+    "framework": "ZenDiS Sovereignty Check",
+    "frameworkURL": "https://zendis.de/sovereignty-criteria",
+    "criteria": ["supportsOnPremiseDeployment", "platformLockIn", "dataResidency", ...]
+  }
+]
+```
+
+#### `GET /frameworks`
+
+Returns all assessment frameworks known to catalogs for filtering and discovery.
+
+```json
+[
+  {
+    "id": "zendis-sovereignty-check-v1",
+    "name": "ZenDiS Sovereignty Check",
+    "description": "German assessment for digital sovereignty in public administration",
+    "country": "de",
+    "criteria": [ "supportsOnPremiseDeployment", "platformLockIn", "dataResidency", ... ]
+  },
+  {
+    "id": "india-dpi-validation-v1",
+    "name": "India Digital Public Infrastructure Validation",
+    "description": "Assessment for suitability in Indian DPI deployments",
+    "country": "in",
+    "criteria": [ "openStandards", "interoperability", "scalability", ... ]
+  }
+]
+```
+
+### What This Enables
+
+1. **Decentralized Sovereignty Checks**: Each region (Germany, Japan, India, etc.) operates its own Assessment Registry publishing to a standard API. Catalogs aggregate findings without fragmentation.
+2. **Procurement Filtering**: Procurement offices filter "Show me projects that PASS the India DPI validation" or "Which projects have DISPUTES in the ZenDiS assessment?"
+3. **Transparent Disagreement**: Projects and assessors can address disputes through the registry rather than silently conflicting.
+4. **Trust Building**: Over time, catalogs track which assessment frameworks are reliable, which projects have high dispute rates, and which assessors have high confidence scores.
+5. **Cross-Regional Learning**: Procurement offices across jurisdictions see which assessment criteria matter, enabling harmonization or informed divergence based on local policy.
+
+### Design Questions for Community
+
+1. Should Assessment Registries be centralized (one global registry of all assessments) or federated (each assessor publishes independently and catalogs aggregate)?
+2. How do catalogs discover Assessment Registry URLs? Via Registry Discovery Standard manifest, or separate mechanism?
+3. Should projects be able to embed assessment results in publiccode.yml (like `supplyChain` links to SBOMs), or should catalogs discover them only via Assessment Registry queries?
+4. How should disputes be resolved? Should Assessment Registries support comment/response mechanisms, or should they remain unidirectional (assessor publishes, projects respond separately)?
+5. Should there be a governance body reviewing assessment frameworks for quality/bias, or should all frameworks be equally discoverable?
+
+---
+
 ## Improvement 7: Sanctioned Mirror Declarations
 
 The `url` field is publiccode.yml's canonical project identity anchor — the key used by catalogs, usage registries, credit registries, and SBOM resolvers to identify a project unambiguously. A single forge URL is however brittle as a long-term identifier: projects may maintain official mirrors on multiple forges in preparation for a migration, or use internal infrastructure for development while publishing to a public-facing forge for end-user access.
@@ -1515,3 +1680,49 @@ The `cybersecurityPolicy` field is distinct from `supplyChain.securityPolicy`: t
 1. **Procurement officers** can identify which legal entity is accountable for CRA compliance — not inferred from contributor lists, but explicitly declared.
 2. **Regulators and market surveillance authorities** can discover both the steward identity and their cybersecurity policy document from a single metadata file, directly supporting Article 24(2)'s requirement that stewards provide documentation on request.
 3. **Crawlers** can surface steward identity, cybersecurity policy, and `supplyChain` artifacts together, giving procurement offices a complete CRA compliance picture in one place.
+
+---
+
+## Improvement 9: Platform Lock-in Declaration _(Proposed)_
+
+**Status**: Identified as gap for Sovereignty Checks and procurement evaluation; needs community input on design.
+
+Projects should be able to declare which platforms they require and assess vendor lock-in risk. This enables Sovereignty Checks (like ZenDiS Sovereignty Check) to evaluate whether a project can be deployed independently or has hard dependencies on proprietary platforms.
+
+### Design Rationale
+
+While Software Bill of Materials (SBOM) documents code-level dependencies, it cannot capture architectural platform requirements. A project may declare that it uses only open-source libraries, but still require deployment on AWS RDS with RDS-specific extensions, or require Azure Cosmos DB proprietary features. This architectural lock-in is invisible to procurement offices and Sovereignty Checks unless explicitly declared.
+
+### Schema
+
+```yaml
+requiredPlatforms:
+  - name: "PostgreSQL"
+    vendor: "Any (open source compatible)"
+    lockIn: false
+  - name: "AWS RDS with Aurora-specific features"
+    vendor: "AWS"
+    lockIn: true
+    comment: "Requires RDS Aurora extensions not available in standard PostgreSQL"
+    featuresMissingInOpenSource:
+      ["Auto-scaling groups", "Multi-AZ automatic failover"]
+  - name: "On-premise Linux"
+    vendor: "Any"
+    lockIn: false
+    optional: true
+    comment: "Can be deployed on any Linux distribution; not required"
+```
+
+### What This Enables
+
+1. **Sovereignty assessment**: Sovereignty Checks can programmatically identify whether a project has hard dependencies on proprietary platforms, and which features cause that dependency.
+2. **Procurement filtering**: Procurement offices can filter "Show me projects that don't require AWS-specific features" or "Which projects can run entirely on-premise?"
+3. **Alternative evaluation**: Vendors bidding on public sector work can quickly identify which open-source projects are genuinely deployable in their jurisdiction's infrastructure constraints.
+4. **Vendor transparency**: When a vendor recommends a tool, the explicit platform lock-in declaration prevents hidden architectural dependencies from emerging after procurement.
+
+### Design Questions for Community
+
+1. Should this field live in `supplyChain` (where platform vendor information semantically belongs) or as a separate `platformDependencies` section at the top level?
+2. How specific should "vendor" names be? (e.g., "AWS", "Amazon Web Services", "AWS RDS", "Amazon Aurora")
+3. Should there be a controlled vocabulary of common platform vendors and lock-in features, or is free-text acceptable?
+4. How should projects track when a required proprietary feature becomes available in an open-source equivalent, triggering a change from `lockIn: true` to `lockIn: false`?

@@ -57,6 +57,9 @@ Every step toward this vision has value on its own terms. If some components of 
 3. Credit system discovery (vendor and contributor visibility)
 4. Usage tracking via external registries (verified decentralized adoption signals)
 5. Temporal field deprecation (cleaner and more trustworthy data)
+6. Package distribution references (npm, PyPI, Maven, etc.)
+7. Sanctioned mirror declarations (handling forge migration and mirrors)
+9. Platform lock-in declaration (architectural vendor dependency visibility)
 
 _(Improvement 8: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance. See [PROPOSAL.md](PROPOSAL.md#improvement-8-cra-steward-declaration-deferred).)_
 
@@ -64,6 +67,7 @@ _(Improvement 8: CRA Steward Declaration is designed but deferred pending CRA re
 
 - Credit Registry API
 - Usage Registry API
+- Assessment Registry API (for Sovereignty Checks and regional compliance assessments)
 - Registry Discovery Standard (`/.well-known/publiccode-registry.json`)
 - Organization-Level Usage Declarations (`.well-known/publiccode-usage.json`)
 
@@ -85,18 +89,18 @@ For policy makers new to open source policy: Mirko Boehm, "How Open Source Coord
 
 ## Documents at a Glance
 
-| Document                                         | Purpose                                                                                                                                        | Length  | Best for                                                   | Start here if…                                                          |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------- | ----------------------------------------------------------------------- |
-| **[GLOSSARY.md](GLOSSARY.md)**                   | Key terms explained                                                                                                                            | ~20 min | Everyone                                                   | You encounter unfamiliar terms or acronyms                              |
-| **[RESEARCH.md](RESEARCH.md)**                   | Comparative analysis of 5 standards                                                                                                            | ~30 min | Researchers, policy makers, infrastructure decision-makers | You want to understand why publiccode.yml and not something else        |
-| **[DATA_FLOW.md](DATA_FLOW.md)**                 | Ecosystem architecture and data flow diagram                                                                                                   | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
-| **[PITCH.md](PITCH.md)**                         | Why each actor benefits                                                                                                                        | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
-| **[PROPOSAL.md](PROPOSAL.md)**                   | Detailed technical spec including 5 publiccode.yml improvements plus companion standards (registry APIs, discovery, organization declarations) | ~60 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
-| **[EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md)** | How this proposal relates to CRA, NIS2, Interoperable Europe Act, and the Public Procurement Act                                               | ~20 min | Policy makers, legal teams, procurement professionals      | You want to understand the regulatory landscape and legislative hooks   |
-| **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)**         | Identified risks and mitigations                                                                                                               | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
-| **[ROADMAP.md](ROADMAP.md)**                     | Phased implementation plan                                                                                                                     | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
-| **[METHODOLOGY.md](METHODOLOGY.md)**             | Research process documented                                                                                                                    | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
-| **[LICENSE](LICENSE)**                           | CC-BY-SA 4.0                                                                                                                                   | 2 min   | Everyone                                                   | You need reuse permissions                                              |
+| Document                                         | Purpose                                                                                                                                                                 | Length  | Best for                                                   | Start here if…                                                          |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **[GLOSSARY.md](GLOSSARY.md)**                   | Key terms explained                                                                                                                                                     | ~20 min | Everyone                                                   | You encounter unfamiliar terms or acronyms                              |
+| **[RESEARCH.md](RESEARCH.md)**                   | Comparative analysis of 5 standards                                                                                                                                     | ~30 min | Researchers, policy makers, infrastructure decision-makers | You want to understand why publiccode.yml and not something else        |
+| **[DATA_FLOW.md](DATA_FLOW.md)**                 | Ecosystem architecture and data flow diagram                                                                                                                            | ~15 min | Architects, system designers, visual learners              | You want to see how the ecosystem connects together                     |
+| **[PITCH.md](PITCH.md)**                         | Why each actor benefits                                                                                                                                                 | 10 min  | Practitioners in each role                                 | You want to know "what's in it for me?"                                 |
+| **[PROPOSAL.md](PROPOSAL.md)**                   | Detailed technical spec including 8 publiccode.yml improvements plus 5 companion standards (registry APIs, discovery, organization declarations, assessment registries) | ~75 min | Maintainers, spec authors, technical implementers          | You want the concrete technical specification and full ecosystem design |
+| **[EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md)** | How this proposal relates to CRA, NIS2, Interoperable Europe Act, and the Public Procurement Act                                                                        | ~20 min | Policy makers, legal teams, procurement professionals      | You want to understand the regulatory landscape and legislative hooks   |
+| **[RISK_ANALYSIS.md](RISK_ANALYSIS.md)**         | Identified risks and mitigations                                                                                                                                        | ~20 min | Risk managers, decision-makers                             | You need to understand what could go wrong                              |
+| **[ROADMAP.md](ROADMAP.md)**                     | Phased implementation plan                                                                                                                                              | ~20 min | Project managers, funders, coalition builders              | You're thinking about how to make this real                             |
+| **[METHODOLOGY.md](METHODOLOGY.md)**             | Research process documented                                                                                                                                             | ~40 min | Meta/research/reproducibility-focused readers              | You want to understand how conclusions were reached                     |
+| **[LICENSE](LICENSE)**                           | CC-BY-SA 4.0                                                                                                                                                            | 2 min   | Everyone                                                   | You need reuse permissions                                              |
 
 ---
 
