@@ -50,7 +50,7 @@ The method a registry uses to verify the accuracy of information it publishes:
 - **Signed-attestation**: Registry cryptographically verifies signatures on declarations (most verification)
 
 **Bootstrap / Bootstrapping**
-Starting a system using existing resources rather than building everything new. Example: "Bootstrap the credit registry using Drupal's existing system" means using Drupal as the foundation rather than building from scratch.
+Starting a system using existing resources rather than building everything new. Example: "Bootstrap the contribution credit registry using Drupal's existing system" means using Drupal as the foundation rather than building from scratch.
 
 **JSON-LD**
 A format that embeds structured data into JSON so that web crawlers and tools can understand it. Enables data interoperability across platforms.
@@ -105,7 +105,7 @@ An organization that gives money to support open source development (e.g., Sover
 **Registry Operator**
 A person or organization that runs a registry—a database that tracks specific information about projects. Examples: Credit registry (who contributes), Usage registry (who uses it).
 
-For **credit registries**, the operator can be the OSS project itself, a generic third-party platform (e.g., GitHub Sponsors), or a SaaS provider. In all cases the project endorses the registry by listing it in `creditRegistries` — this endorsement is what gives the data authority. The sign-off process varies: some projects simply point at an existing platform URL; others (like Drupal) define a formal process for reviewing and approving credits.
+For **contribution credit registries**, the operator can be the OSS project itself, a generic third-party platform (e.g., GitHub Sponsors), or a SaaS provider. In all cases the project endorses the registry by listing it in `contributionCreditRegistries` — this endorsement is what gives the data authority. The sign-off process varies: some projects simply point at an existing platform URL; others (like Drupal) define a formal process for reviewing and approving contribution credits.
 
 For **usage registries**, the operator is typically an independent organization (a national catalog, a sector registry) and has no endorsement relationship with the projects it tracks — deploying organizations declare their own usage.
 
@@ -122,7 +122,7 @@ A system where multiple independent nodes (countries, organizations, registries)
 **Registry**
 A database or service that tracks specific information about projects:
 
-- **Credit Registry**: Tracks who contributes and how much
+- **Contribution Credit Registry**: Tracks who contributes and how much
 - **Usage Registry**: Tracks which organizations use which software
 - **Assessment Registry**: Publishes results of compliance or sovereignty assessments conducted by regional authorities (e.g., ZenDiS Sovereignty Check results from Germany, DPI validation results from India). See [Assessment Registry API](PROPOSAL.md#assessment-registry-api-proposed).
 - **Package Registry**: Hosts downloadable packages (npm, PyPI, Maven, etc.)

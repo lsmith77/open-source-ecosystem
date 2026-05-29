@@ -22,7 +22,7 @@ Why each actor in this ecosystem benefits from the proposed integrated infrastru
 - **Win public sector contracts** — procurement offices increasingly evaluate vendor expertise before awarding contracts. Standardized credit registries with verifiable trust models make your open source contributions a transparent, auditable competitive advantage in tenders—not just self-reported claims.
 - **Access a growing market** — EU public sector IT spending is hundreds of billions annually. Digital sovereignty mandates are steering more of it toward open source solutions with proven, visible vendor ecosystems. Registries and decentralized trust networks make that ecosystem visible and trustworthy.
 - **Level the playing field** — small vendors with strong contributions become visible across multiple registries alongside large incumbents. Credit data speaks louder than brand recognition, and decentralized registries prevent any single organization from controlling who can participate.
-- **Protect your investment in contributions** — in well-designed credit registries like Drupal's, credits attributed through your contributors remain with your organization even after individual contributors change employers. Your track record reflects cumulative investment, not current headcount. Multiple registries prevent vendor control of a single platform and the associated loss of your data.
+- **Protect your investment in contributions** — in well-designed contribution credit registries like Drupal's, contribution credits attributed through your contributors remain with your organization even after individual contributors change employers. Your track record reflects cumulative investment, not current headcount. Multiple registries prevent vendor control of a single platform and the associated loss of your data.
 - **Participate in transparent usage networks** — deploying organizations voluntarily declare their usage through decentralized registries, creating visibility into installed bases without depending on proprietary market research or control by a central authority.
 - **Take advantage of the legislative momentum** — Switzerland's EMBAG, APELL's procurement criteria proposals, and EuroStack's "Buy Open Source Act" are all moving toward requiring verified upstream contributions in tenders. Vendors with participation in standardized credit registries and usage networks are positioned for this future; those without this infrastructure will need to adapt quickly.
 - **Position as a CRA-recognized steward** — credit registries provide the verifiable contribution track record that demonstrates "sustained support" (the defining criterion for the [CRA steward role](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source)), and `supplyChain` provides the security compliance evidence. Vendors who establish both before the market settles will be natural candidates for formal steward roles — and the procurement preference that will follow.
@@ -90,10 +90,10 @@ The European frameworks are reusable blueprints. The same metadata layer that ma
 
 ---
 
-## Credit Registry
+## Contribution Credit Registry
 
 - **Become procurement infrastructure** — public sector buyers increasingly need vendor expertise data. A standardized API makes your registry part of every EU-wide catalog, not an isolated silo.
-- **Build on proven infrastructure** — Drupal's open-source [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is ticket-system-agnostic and API-ready. New registries can adopt it rather than building credit tracking from scratch.
+- **Build on proven infrastructure** — Drupal's open-source [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is ticket-system-agnostic and API-ready. New registries can adopt it rather than building contribution credit tracking from scratch.
 - **Gain project endorsement** — when projects list your registry in their metadata, it's a public signal of trust that raises your credibility with consumers of your data.
 - **Scale without gatekeeping** — any registry can join the ecosystem by publishing a standard manifest. No central authority decides who participates.
 

@@ -169,7 +169,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 
 - **Nobody covers this today.** This is the biggest gap. Drupal's system works because it's centralized — the [credit system](https://www.drupal.org/drupalorg/contribution-credit) tracks contributions per-issue and rolls up to marketplace rankings.
 - **What's needed:** A way for projects to point to external credit registries that track vendor/contributor data. The ecosyste.ms [funds leaderboard proposal](https://github.com/ecosyste-ms/funds/issues/236) and the [Open Source Pledge integration discussion](https://github.com/opensourcepledge/opensourcepledge.com/issues/418) are working toward this from the funding side.
-- **Possible approach:** Extend publiccode.yml with a `creditRegistries` section — project-endorsed pointers to external systems (Drupal-style credit APIs, ecosyste.ms, forge stats) where the dynamic credit data actually lives.
+- **Possible approach:** Extend publiccode.yml with a `contributionCreditRegistries` section — project-endorsed pointers to external systems (Drupal-style credit APIs, ecosyste.ms, forge stats) where the dynamic credit data actually lives.
 
 ### Use Case 3: Supply chain steering and gap identification
 
@@ -198,7 +198,7 @@ These frameworks strengthen the case for publiccode.yml extensions: sovereignty 
 **But extend it with:**
 
 1. **Faceted taxonomy** (from OSS Taxonomy) replacing or supplementing the flat `categories` list — enabling "CMS that's also a CRM" queries
-2. **Credit registry discovery** — a `creditRegistries` section pointing to external systems (Drupal-style credit APIs, ecosyste.ms) where vendor/contributor data lives, endorsed by the project
+2. **Credit registry discovery** — a `contributionCreditRegistries` section pointing to external systems (Drupal-style credit APIs, ecosyste.ms) where vendor/contributor data lives, endorsed by the project
 3. **Supply chain references** — fields pointing to SBOM locations, OpenSSF Scorecard results, and REUSE compliance status
 4. **A companion Registry Discovery Standard** — decentralized usage registries where procurement offices declare what they deploy, discoverable by crawlers without per-project configuration, enabling the reuse badge system to scale beyond openCode.de
 5. **Deprecation of temporal fields** — remove `softwareVersion`, `releaseDate`, and `dependsOn[].versionMin/versionMax` from the spec, keeping only slow-changing, human-authored data that cannot be reliably obtained from forge APIs or package registries

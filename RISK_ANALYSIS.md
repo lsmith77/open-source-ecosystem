@@ -23,7 +23,7 @@ The name signals "government software." Mainstream open source projects (React, 
 
 ### A2. Chicken-and-egg problem for registries
 
-Credit and usage registries need projects to have publiccode.yml files to index. Projects need registries to exist before the `creditRegistries` field is useful. Neither side moves first.
+Credit and usage registries need projects to have publiccode.yml files to index. Projects need registries to exist before the `contributionCreditRegistries` field is useful. Neither side moves first.
 
 - **Likelihood:** High — this is a classic "chicken-and-egg" problem in platform building
 - **Impact:** High — the entire registry architecture remains theoretical without critical mass
@@ -55,7 +55,7 @@ Controlled vocabularies for `domain`, `function`, `role`, `layer`, and `audience
 
 ### T3. Registry API Interoperability Failures
 
-The Credit Registry API and Usage Registry API are outlined but not fully specified. Different implementations will interpret the spec differently, causing data integration failures: different semantics for total credits, incompatible page navigation, mismatched trust model definitions, or unexpected field formats.
+The Contribution Credit Registry API and Usage Registry API are outlined but not fully specified. Different implementations will interpret the spec differently, causing data integration failures: different semantics for total contribution credits, incompatible page navigation, mismatched trust model definitions, or unexpected field formats.
 
 - **Likelihood:** High — API interoperability across independent implementers is notoriously difficult.
 - **Impact:** High — if crawlers can't reliably aggregate data from multiple registries, the entire federated architecture fails.
@@ -117,7 +117,7 @@ The proposal's value proposition depends heavily on procurement policies that ac
 
 Even if credit data is accurate (see S1 for data integrity), procurement regulations may misuse it. If regulations require or favor vendors with high credit scores, vendors may optimize for credit metrics rather than actual software quality. Procurement becomes a game of credit accumulation rather than demonstrated capability. This risk is about the **policy interpretation layer** — how procurement frameworks consume credit data — distinct from S1's concern about whether the underlying data can be trusted.
 
-- **Likelihood:** Medium — regulations tend to simplify complex signals into simple checkboxes. However, Drupal's credit system has operated for years with procurement-relevant credits without becoming pure gaming. Its process (maintainer sign-off, usage-weighted credits, organizational attribution, tiered marketplace) is sophisticated enough to resist gaming. Because this process is open source, other projects can adopt proven safeguards rather than designing them from scratch.
+- **Likelihood:** Medium — regulations tend to simplify complex signals into simple checkboxes. However, Drupal's contribution credit system has operated for years with procurement-relevant contribution credits without becoming pure gaming. Its process (maintainer sign-off, usage-weighted contribution credits, organizational attribution, tiered marketplace) is sophisticated enough to resist gaming. Because this process is open source, other projects can adopt proven safeguards rather than designing them from scratch.
 - **Impact:** High — distorts the open source contribution ecosystem and may disadvantage smaller vendors who do high-quality but less frequent work
 - **Mitigation:** Credit data should be presented as one input among many in procurement evaluation, not as a scoring system. The proposal should explicitly warn against reducing credit data to single numeric scores in procurement frameworks. Registries should expose contribution type (code, security, documentation) to allow qualitative assessment rather than simple numeric ranking.
 

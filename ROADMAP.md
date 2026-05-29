@@ -120,9 +120,9 @@ Accepted `classification` improvement. Updated schema validator and migration to
 
 ---
 
-## Phase 3: Credit System Pilot with Drupal
+## Phase 3: Contribution Credit System Pilot with Drupal
 
-**Goal:** Prove the credit registry architecture works using Drupal's existing credit system as the first conforming registry.
+**Goal:** Prove the contribution credit registry architecture works using Drupal's existing contribution credit system as the first conforming registry.
 
 ### Why Drupal First
 
@@ -132,17 +132,17 @@ Accepted `classification` improvement. Updated schema validator and migration to
 
 ### Actions
 
-1. **Define the Credit Registry API v0.1** by mapping it to Drupal's existing API endpoints. The Drupal community validates whether the abstraction captures their system accurately.
-2. **Build a Credit Registry API adapter for Drupal.org** — a thin layer that translates Drupal's existing contribution data into the standardized format.
-3. **Add `creditRegistries` to Drupal's publiccode.yml** (or equivalent metadata) — Drupal endorses its own credit system via the new field.
-4. **Implement credit data aggregation in crawlers** — follow `creditRegistries` links and display vendor credit data alongside project metadata.
-5. **Engage a second credit registry** (e.g., ecosyste.ms) to implement the Credit Registry API for contribution/funding data, demonstrating multi-registry aggregation.
-6. **Run a procurement pilot with credit data.** Work with a procurement office to use credit registry data in an actual tender evaluation — scoring vendors by verified upstream contributions as the [OSBA criteria](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) and [APELL](https://apell.info/) propose. Document the process and outcomes as a replicable case study.
-7. **Evaluate Drupal's `contribution_records` module for reuse.** The module is [open source and ticket-system-agnostic](https://git.drupalcode.org/project/contribution_records). Assess what it would take to package it as a standalone credit system that other OSS projects can adopt — either self-hosted or as a SaaS. Identify gaps (e.g., non-Drupal issue tracker integrations, Credit Registry API conformance) and estimate the effort to close them.
+1. **Define the Contribution Credit Registry API v0.1** by mapping it to Drupal's existing API endpoints. The Drupal community validates whether the abstraction captures their system accurately.
+2. **Build a Contribution Credit Registry API adapter for Drupal.org** — a thin layer that translates Drupal's existing contribution data into the standardized format.
+3. **Add `contributionCreditRegistries` to Drupal's publiccode.yml** (or equivalent metadata) — Drupal endorses its own contribution credit system via the new field.
+4. **Implement contribution credit data aggregation in crawlers** — follow `contributionCreditRegistries` links and display vendor contribution credit data alongside project metadata.
+5. **Engage a second contribution credit registry** (e.g., ecosyste.ms) to implement the Contribution Credit Registry API for contribution/funding data, demonstrating multi-registry aggregation.
+6. **Run a procurement pilot with contribution credit data.** Work with a procurement office to use contribution credit registry data in an actual tender evaluation — scoring vendors by verified upstream contributions as the [OSBA criteria](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) and [APELL](https://apell.info/) propose. Document the process and outcomes as a replicable case study.
+7. **Evaluate Drupal's `contribution_records` module for reuse.** The module is [open source and ticket-system-agnostic](https://git.drupalcode.org/project/contribution_records). Assess what it would take to package it as a standalone contribution credit system that other OSS projects can adopt — either self-hosted or as a SaaS. Identify gaps (e.g., non-Drupal issue tracker integrations, Contribution Credit Registry API conformance) and estimate the effort to close them.
 
 ### Deliverable
 
-An assessment of `contribution_records` reusability with a concrete plan for packaging it for other projects. Two operational credit registries (Drupal.org and at least one more larger OSS project) conforming to a published API spec with `creditRegistries` in its publiccode.yml.
+An assessment of `contribution_records` reusability with a concrete plan for packaging it for other projects. Two operational contribution credit registries (Drupal.org and at least one more larger OSS project) conforming to a published API spec with `contributionCreditRegistries` in its publiccode.yml.
 
 ---
 
@@ -150,7 +150,7 @@ An assessment of `contribution_records` reusability with a concrete plan for pac
 
 **Goal:** Formalize the Registry Discovery Standard so that usage registries (openCode.de, Developers Italia) become discoverable by any crawler.
 
-### Why This Comes After Credits
+### Why This Comes After Contribution Credits
 
 - The credit system pilot (Phase 3) validates the registry API pattern. The usage registry API follows the same architectural model.
 - openCode.de's badge system already functions as a usage registry — it just needs a standardized API and manifest.
@@ -246,7 +246,7 @@ The phases are ordered to:
 1. **Solve governance first** (Phase 0) — nothing moves without this.
 2. **Ship the easiest win** (Phase 1: supply chain) — builds credibility, requires no new infrastructure, aligns with Sovereign Tech Agency interests.
 3. **Deliver procurement value early** (Phase 2: classification) — gives procurement offices a reason to care, gives OSBA a reason to champion.
-4. **Prove the hardest piece with an existing system** (Phase 3: credits via Drupal) — avoids the chicken-and-egg problem by retrofitting a standardized API onto something that already works.
+4. **Prove the hardest piece with an existing system** (Phase 3: contribution credits via Drupal) — avoids the chicken-and-egg problem by retrofitting a standardized API onto something that already works.
 5. **Formalize what's already happening** (Phase 4: registry discovery) — openCode.de is already a usage registry; the standard just makes it interoperable.
 6. **Scale once the pattern is proven** (Phase 5) — branding and global expansion only make sense after the core architecture works.
 

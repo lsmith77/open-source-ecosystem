@@ -9,14 +9,14 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 - [Actors and Relationships](#actors-and-relationships)
 - [Improvement 1: Faceted Classification](#improvement-1-faceted-classification-replacing-flat-categories)
 - [Improvement 2: Supply Chain References](#improvement-2-supply-chain-references)
-- [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-credit-system-discovery)
+- [Improvement 3: Vendor Contribution Credit System Discovery](#improvement-3-vendor-contribution-credit-system-discovery)
 - [Improvement 4: Deprecate `usedBy`](#improvement-4-deprecate-usedby)
 - [Improvement 5: Deprecate Temporal Fields](#improvement-5-deprecate-temporal-fields)
 - [Improvement 6: Package Distribution References](#improvement-6-package-distribution-references)
 - [Improvement 7: Sanctioned Mirror Declarations](#improvement-7-sanctioned-mirror-declarations)
 - [Full Example](#full-example)
 - **Companion specifications:**
-  - [Credit Registry API](#credit-registry-api-rough-outline)
+  - [Contribution Credit Registry API](#contribution-credit-registry-api-rough-outline)
   - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api), [Organization-Level Usage Declarations](#organization-level-usage-declarations), and [Project-Level Funding Declarations](#project-level-funding-declarations))
   - [Assessment Registry API](#assessment-registry-api-proposed)
 - **Improvements awaiting consensus:**
@@ -57,7 +57,7 @@ While this proposal is motivated by EU policy contexts (CRA, NIS2, CAIDA), the u
 
 - **Decentralized discovery**: Registries do not require centralized authority. Any country, organization, or coalition can operate registries using the Registry Discovery Standard.
 - **Standardized APIs**: A country implementing its own procurement requirements (US lock-in mitigation, Japan data residency rules, India DPI validation) can use the same API contracts to aggregate data from independent registries.
-- **Reusable methodologies**: The Credit Registry trust model, faceted classification schema, and supply chain reference taxonomy are blueprints that can be adapted for any jurisdiction's risk profile.
+- **Reusable methodologies**: The Contribution Credit Registry trust model, faceted classification schema, and supply chain reference taxonomy are blueprints that can be adapted for any jurisdiction's risk profile.
 - **No central gatekeeper**: publiccode.yml remains decentralized. Each region can define its own classification facets, trust models, and policy mappings while using the same underlying YAML schema.
 
 ---
@@ -73,7 +73,7 @@ Across the EU and globally, a consistent gap exists between open source policy a
 - Visibility into supply chain health, security, and sustainability
 - Data-driven funding and policy decisions
 
-Catalogs, registries, and standards like publiccode.yml, SBOM, and credit/usage registries are the essential infrastructure that operationalizes these laws. Without them, policy remains aspirational and difficult to enforce or measure.
+Catalogs, registries, and standards like publiccode.yml, SBOM, and contribution credit/usage registries are the essential infrastructure that operationalizes these laws. Without them, policy remains aspirational and difficult to enforce or measure.
 
 This is also the mechanism for changing procurement behavior in practice: a data-driven evidence layer makes it easier and safer for procurement officers to deviate from incumbent proprietary defaults, because decisions can be justified through auditable criteria rather than relationship-based precedent.
 
@@ -122,7 +122,7 @@ This process is further detailed in the ROADMAP.md Phase 0 section and is critic
 
 The [OSBA's selection criteria for sustainable procurement of open source software](https://osb-alliance.de/publikationen/veroeffentlichungen/selection-criteria-for-the-sustainable-procurement-of-open-source-software) proposes key criteria that procurement offices should evaluate. The improvements provide the data infrastructure to make each criterion machine-verifiable:
 
-1. **Relationship with software community.** The `creditRegistries` field (Improvement 3) provides verifiable evidence of a vendor's upstream contributions — not self-reported claims, but project-endorsed credit data.
+1. **Relationship with software community.** The `contributionCreditRegistries` field (Improvement 3) provides verifiable evidence of a vendor's upstream contributions — not self-reported claims, but project-endorsed credit data.
 2. **Upstream publication of modifications.** Credit registries track contribution types (code, security, documentation). Procurement offices can verify that a vendor pushes patches upstream rather than maintaining proprietary forks.
 3. **High-quality Level 3 support.** The `maintenance` section (already in publiccode.yml) combined with credit data shows whether a vendor employs core developers or has contractual relationships with maintainers.
 4. **Supply chain security.** The `supplyChain` section (Improvement 2) provides direct links to SBOMs, security policies, and compliance status — exactly what the Cyber Resilience Act and SBOM documentation requirements demand.
@@ -166,7 +166,7 @@ Open source infrastructure has no direct business model through license fees —
 The proposed infrastructure provides the necessary foundation:
 
 - **Usage registries** make organizational consumption visible — enabling data-driven procurement decisions and, critically, enabling **ecosystem funds** like the [Open Source Endowment (OSE)](https://endowment.dev/) and the Sovereign Tech Fund to allocate resources based on measurable adoption and ecosystem impact rather than anecdote.
-- **Credit registries** create a traceable chain from organizational benefit to ecosystem stewardship: vendors demonstrate value through auditable upstream contribution, giving them an ROI case for maintenance investment.
+- **Contribution credit registries** create a traceable chain from organizational benefit to ecosystem stewardship: vendors demonstrate value through auditable upstream contribution, giving them an ROI case for maintenance investment.
 - **Supply chain references** (SBOMs, Scorecard, security policies) reduce compliance verification costs for organizations with formal audit obligations.
 - **Faceted classification** enables efficient filtering across the available open source landscape.
 
@@ -188,7 +188,7 @@ The ecosystem this proposal addresses brings together different actors, each wit
 | **Federal Authority / Funder**        | Allocates money, influences policy, identifies ecosystem gaps. Makes data-driven funding decisions based on usage and impact metrics.               | Sovereign Tech Fund, CISA, digital sovereignty offices, Open Source Endowment (OSE) |
 | **Ecosystem Fund / Allocation Agent** | Uses usage registries and credit data to allocate resources to underfunded but critical projects based on measurable adoption and ecosystem impact. | Open Source Endowment fund distribution model, Sovereign Tech Agency Fund           |
 | **Policy Maker / Legislator**         | Writes laws and regulations that mandate or encourage open source. Needs metadata to make compliance verifiable.                                    | National parliaments, EU Commission                                                 |
-| **Credit Registry**                   | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                                          | Drupal.org Marketplace, ecosyste.ms funding platforms                               |
+| **Contribution Credit Registry**      | Tracks contributions to projects and creates vendor reputation data. Endorsed by projects.                                                          | Drupal.org Marketplace, ecosyste.ms funding platforms                               |
 | **Usage Registry**                    | Tracks which organizations deploy which software. Independent from projects.                                                                        | Developers Italia, EU OSS Catalogue                                                 |
 | **Software Catalog / Crawler**        | Aggregates metadata into searchable indexes for procurement and policy.                                                                             | EU OSS Catalogue, Developers Italia                                                 |
 
@@ -206,14 +206,14 @@ The architecture depends on each piece of data being asserted by the actor who a
  │    - What the software is (classification, description)     │
  │    - How it's maintained (contacts, contractors)            │
  │    - Where to find supply chain data (SBOM, scorecard)      │
- │    - Which credit registries the project endorses           │
+ │    - Which contribution credit registries the project endorses │
  └──────────────────────────┬──────────────────────────────────┘
                             │
-                            │ creditRegistries
+                            │ contributionCreditRegistries
                             ▼
               ┌────────────────────────┐        ┌────────────────────────────┐
-              │   Credit Registries    │        │    Usage Registries        │
-              │                        │        │                            │
+              │ Contribution Credit     │        │    Usage Registries        │
+              │ Registries             │        │                            │
               │  Asserted by:          │        │  Asserted by:              │
               │   Registry, endorsed   │        │   Deploying organizations, │
               │   by project           │        │   verified by registry     │
@@ -235,7 +235,7 @@ The architecture depends on each piece of data being asserted by the actor who a
                            │                              │
                            │  Aggregates:                 │
                            │   - publiccode.yml data      │
-                           │   - Credit data              │
+                           │   - Contribution credit data │
                            │   - Usage/adoption data      │
                            │                              │
                            │  Serves:                     │
@@ -245,19 +245,19 @@ The architecture depends on each piece of data being asserted by the actor who a
                            └──────────────────────────────┘
 ```
 
-### Why Credit and Usage Are Architecturally Different
+### Why Contribution Credits and Usage Are Architecturally Different
 
 A critical distinction: **who has authority over the data**.
 
-|                                  | Credit registries                                                            | Usage registries                                                        |
+|                                  | Contribution credit registries                                               | Usage registries                                                        |
 | -------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | **What's tracked**               | Who contributes to projects and how much                                     | Which organizations deploy projects                                     |
 | **Who knows this?**              | The project maintainers                                                      | The deploying organizations                                             |
 | **Listed in publiccode.yml?**    | Yes — as endorsements                                                        | No — the project doesn't control this data                              |
-| **How crawlers find registries** | From publiccode.yml `creditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
+| **How crawlers find registries** | From publiccode.yml `contributionCreditRegistries` field and Registry Discovery Standard | From Registry Discovery Standard only                                   |
 | **Data entry mechanism**         | Central registry maintains the data                                          | Direct declarations from deploying organizations and automated crawling |
 
-| **Example** | Drupal.org credits showing which vendors employ core contributors | Developers Italia showing which Italian municipalities use Nextcloud |
+| **Example** | Drupal.org contribution credits showing which vendors employ core contributors | Developers Italia showing which Italian municipalities use Nextcloud |
 
 This separation keeps each actor in control of the claims they can actually back up.
 
@@ -571,37 +571,37 @@ This keeps the standard compact while still allowing catalogs and procurement to
 
 ---
 
-## Improvement 3: Vendor Credit System Discovery
+## Improvement 3: Vendor Contribution Credit System Discovery
 
-The vendor/contributor credit data itself is too dynamic to live in a git-committed file. Instead, publiccode.yml points to one or more **credit registries** — external databases that track who contributes to the project and in what capacity.
+The vendor/contributor contribution credit data itself is too dynamic to live in a git-committed file. Instead, publiccode.yml points to one or more **contribution credit registries** — external databases that track who contributes to the project and in what capacity.
 
-Projects vary widely in how they track contributions. Drupal operates the most mature example: a [weighted credit system](https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking) backed by an [open-source, ticket-system-agnostic module](https://git.drupalcode.org/project/contribution_records) with an API — infrastructure that could in principle be adopted by other projects or operated as a SaaS. Other projects may prefer simpler approaches: GitHub Sponsors lists, or mapping code contributions to vendors through contributor employer declarations — but these capture only funding or commits, missing the contributors who sustain a project through testing, UX design, documentation, community organization, event work, or issue triage. The most complete credit registries recognize this full spectrum; a registry that credits only financial sponsors or commit authors gives a systematically incomplete picture of who actually keeps a project alive. This proposal standardizes only the **read interface** for credit data (the [Credit Registry API](#credit-registry-api-rough-outline)), not the methodology for earning or weighting credits — that is a per-project decision beyond the scope of this proposal.
+Projects vary widely in how they track contributions. Drupal operates the most mature example: a [weighted contribution credit system](https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking) backed by an [open-source, ticket-system-agnostic module](https://git.drupalcode.org/project/contribution_records) with an API — infrastructure that could in principle be adopted by other projects or operated as a SaaS. Other projects may prefer simpler approaches: GitHub Sponsors lists, or mapping code contributions to vendors through contributor employer declarations — but these capture only funding or commits, missing the contributors who sustain a project through testing, UX design, documentation, community organization, event work, or issue triage. The most complete contribution credit registries recognize this full spectrum; a registry that awards contribution credits only to financial sponsors or commit authors gives a systematically incomplete picture of who actually keeps a project alive. This proposal standardizes only the **read interface** for contribution credit data (the [Contribution Credit Registry API](#contribution-credit-registry-api-rough-outline)), not the methodology for earning or weighting credits — that is a per-project decision beyond the scope of this proposal.
 
-### Who Operates a Credit Registry?
+### Who Operates a Contribution Credit Registry?
 
-A credit registry can be operated by the project itself, by a generic third-party platform, or by a SaaS provider. What matters is that the OSS project **endorses** it — by listing it in `creditRegistries`, the project signals "we consider this data authoritative for our contributors."
+A contribution credit registry can be operated by the project itself, by a generic third-party platform, or by a SaaS provider. What matters is that the OSS project **endorses** it — by listing it in `contributionCreditRegistries`, the project signals "we consider this data authoritative for our contributors."
 
 | Operator                         | Example                                                                                                                      | Sign-off requirement                                                                                 |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **The project itself**           | Drupal.org Marketplace, a self-hosted `contribution_records` instance                                                        | Project defines its own process for reviewing and approving credits                                  |
+| **The project itself**           | Drupal.org Marketplace, a self-hosted `contribution_records` instance                                                        | Project defines its own process for reviewing and approving contribution credits                     |
 | **Generic third-party platform** | GitHub Sponsors                                                                                                              | Pointing at the GitHub Sponsors URL is sufficient; no additional setup required                      |
 | **SaaS / shared installation**   | A hosted `contribution_records` instance configured per-project, or a common credit platform that multiple projects opt into | Depends on what the platform offers; may range from fully automated to requiring maintainer sign-off |
 
-The required depth of involvement scales with the registry's sophistication, but the spectrum is not flat — project sign-off is the goal, not just one option among equals. A project that points at a GitHub Sponsors page is endorsing a third-party platform's data without reviewing the underlying attribution: it is a low-friction starting point, not the intended end state. The ideal is for the project to take active responsibility for credit: deciding what contribution types count (code, testing, design, organization, documentation, etc.), reviewing whether the data accurately reflects who sustains the project, and defining a process for sign-off. Projects that invest in this — whether through a custom registry, a SaaS platform with maintainer review, or a formal credit policy — produce data that is meaningfully more trustworthy for procurement decisions and fairer to the full range of contributors.
+The required depth of involvement scales with the registry's sophistication, but the spectrum is not flat — project sign-off is the goal, not just one option among equals. A project that points at a GitHub Sponsors page is endorsing a third-party platform's data without reviewing the underlying attribution: it is a low-friction starting point, not the intended end state. The ideal is for the project to take active responsibility for contribution credits: deciding what contribution types count (code, testing, design, organization, documentation, etc.), reviewing whether the data accurately reflects who sustains the project, and defining a process for sign-off. Projects that invest in this — whether through a custom registry, a SaaS platform with maintainer review, or a formal contribution credit policy — produce data that is meaningfully more trustworthy for procurement decisions and fairer to the full range of contributors.
 
 ### Schema
 
 ```yaml
 # Pointers to external systems that track vendor/contributor
-# credits for this project. Each entry identifies a registry
-# and this project's identifier within that registry.
-creditRegistries:
+# contribution credits for this project. Each entry identifies a
+# registry and this project's identifier within that registry.
+contributionCreditRegistries:
   - # Human-readable name of the registry
     name: Drupal.org Marketplace
-    # URL to this project's credit/contribution page in the registry
+    # URL to this project's contribution credit page in the registry
     url: https://www.drupal.org/project/drupal/credit
-    # API endpoint conforming to the Credit Registry API spec
-    # (see "Credit Registry API" section below)
+    # API endpoint conforming to the Contribution Credit Registry API spec
+    # (see "Contribution Credit Registry API" section below)
     apiUrl: https://www.drupal.org/api/v1/credits/project/drupal
     # Type of registry — helps crawlers understand what data
     # to expect
@@ -620,7 +620,7 @@ creditRegistries:
 
 ### What This Enables
 
-1. **Procurement officers** can follow the `creditRegistries` links to see which vendors actively contribute to the software they're evaluating — similar to checking the [Drupal Marketplace](https://www.drupal.org/drupalorg/docs/marketplace) before hiring an agency.
+1. **Procurement officers** can follow the `contributionCreditRegistries` links to see which vendors actively contribute to the software they're evaluating — similar to checking the [Drupal Marketplace](https://www.drupal.org/drupalorg/docs/marketplace) before hiring an agency.
 2. **Crawlers** (EU OSS Catalogue, Developers Italia) can aggregate credit data across registries to build composite vendor profiles.
 3. **Projects** control which registries they recognize by listing them in their publiccode.yml — this is a form of endorsement by the project maintainers.
 
@@ -706,7 +706,7 @@ These are slow-changing, human-maintained fields. They don't become stale betwee
 
 **`contractors[]` as the minimal inline credit registry.** The `usedBy` field (deprecated in Improvement 4) and `contractors[]` might look similar — both list external entities inline. But `usedBy` listed something externally observable (which organizations deploy the software), making the inline declaration redundant. `contractors[]` lists a support relationship that only the project can declare.
 
-Structurally, `contractors[]` is the inline, project-asserted minimal form of a credit registry entry. A contractor is simply an entity with a `support-contract` relationship to the project — equivalent to a credit registry entry with `roles: ["support-contract"]`. For projects that do not operate or endorse a credit registry, `contractors[]` is the appropriate lightweight mechanism. For projects that do have a credit registry, support contractors should be listed there (with `roles: ["support-contract"]`) and `contractors[]` may be omitted or used as a convenience mirror. The Credit Registry API includes `support-contract` as a valid role type alongside `code`, `maintainer`, `funding`, and others (see [Credit Registry API](#credit-registry-api-rough-outline)).
+Structurally, `contractors[]` is the inline, project-asserted minimal form of a contribution credit registry entry. A contractor is simply an entity with a `support-contract` relationship to the project — equivalent to a contribution credit registry entry with `roles: ["support-contract"]`. For projects that do not operate or endorse a contribution credit registry, `contractors[]` is the appropriate lightweight mechanism. For projects that do have a contribution credit registry, support contractors should be listed there (with `roles: ["support-contract"]`) and `contractors[]` may be omitted or used as a convenience mirror. The Contribution Credit Registry API includes `support-contract` as a valid role type alongside `code`, `maintainer`, `funding`, and others (see [Contribution Credit Registry API](#contribution-credit-registry-api-rough-outline)).
 
 Only `contractors[].until` is deprecated because contract expiry dates create a false impression of maintenance status while being essentially unmaintained in practice. For organizations that need to document which vendor holds their support contract for a specific deployment — for example, to satisfy DORA Article 28 register requirements — that information belongs in the deploying organization's `software[].contractors[]` entry in `.well-known/publiccode-usage.json`, not in the project's metadata file.
 
@@ -996,7 +996,7 @@ supports:
     remediationRoadmap: https://forge.example.org/owner/medusa-cms/milestone/42
 
 # ===== NEW: Credit registry discovery =====
-creditRegistries:
+contributionCreditRegistries:
   - name: MedusaCMS Vendor Directory
     url: https://medusa-cms.example.org/vendors
     apiUrl: https://medusa-cms.example.org/api/v1/credits
@@ -1016,16 +1016,16 @@ usedBy:
 
 ---
 
-## Credit Registry API (Rough Outline)
+## Contribution Credit Registry API (Rough Outline)
 
-This is a **separate specification** from publiccode.yml. It defines the API that credit registries (referenced from `creditRegistries[].apiUrl`) must implement so that crawlers can aggregate vendor/contributor data across registries.
+This is a **separate specification** from publiccode.yml. It defines the API that contribution credit registries (referenced from `contributionCreditRegistries[].apiUrl`) must implement so that crawlers can aggregate vendor/contributor data across registries.
 
 ### Design Principles
 
-1. **Read-only public API.** The write side (how credits are recorded) is registry-specific. Only the read side is standardized.
+1. **Read-only public API.** The write side (how contribution credits are recorded) is registry-specific. Only the read side is standardized.
 2. **Project-centric queries.** Given a project identifier (repository URL), return all credited organizations and individuals.
-3. **Time-windowed.** Credits are meaningful in context of recency. A company that contributed heavily 5 years ago but not since is different from one actively contributing.
-4. **Inspired by Drupal's Contribution Records system.** Drupal tracks contributions per-issue, links them to users and organizations, and exposes them via [JSON:API endpoints](https://www.drupal.org/drupalorg/docs/apis/rest-and-other-apis) (`contribution-records-by-organization`, `contribution-records-by-user`). The underlying [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is open source and architecturally ticket-system-agnostic — it could be adopted by other projects or operated as a SaaS for projects that want a proven credit system without building one from scratch.
+3. **Time-windowed.** Contribution credits are meaningful in context of recency. A company that contributed heavily 5 years ago but not since is different from one actively contributing.
+4. **Inspired by Drupal's Contribution Records system.** Drupal tracks contributions per-issue, links them to users and organizations, and exposes them via [JSON:API endpoints](https://www.drupal.org/drupalorg/docs/apis/rest-and-other-apis) (`contribution-records-by-organization`, `contribution-records-by-user`). The underlying [`contribution_records` module](https://git.drupalcode.org/project/contribution_records) is open source and architecturally ticket-system-agnostic — it could be adopted by other projects or operated as a SaaS for projects that want a proven contribution credit system without building one from scratch.
 
 ### Endpoints
 
@@ -1043,20 +1043,20 @@ The response identifies the project and registry, then lists credited entities w
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `entity.type`           | `organization` or `individual`                                                                                                                                                               |
 | `entity.identifier`     | Stable identifier — URL, ROR ID, Wikidata QID, LEI, etc. See [Entity Identity](#entity-identity) for recommended schemes and how verification trust should be carried through API responses. |
-| `summary.totalCredits`  | All-time credit count (registry-defined unit)                                                                                                                                                |
-| `summary.periodCredits` | Credits in the requested time window                                                                                                                                                         |
+| `summary.totalCredits`  | All-time contribution credit count (registry-defined unit)                                                                                                                                   |
+| `summary.periodCredits` | Contribution credits in the requested time window                                                                                                                                            |
 | `summary.roles`         | Types of contributions: `code`, `documentation`, `security`, `translation`, `maintainer`, `funding`, `triage`, `design`, `support-contract`                                                  |
 | `ranking.position`      | Rank among all credited entities for this project                                                                                                                                            |
 | `ranking.tier`          | Registry-defined tier (e.g., `platinum`, `gold`, `silver` — or Drupal's `premium`, `certified`, `contributing`)                                                                              |
 
 #### `GET /organizations/{org-identifier}/credits`
 
-Inverse query: given an organization, return all projects they have credits in. This lets procurement officers look up a vendor and see their full portfolio of contributions.
+Inverse query: given an organization, return all projects they have contribution credits in. This lets procurement officers look up a vendor and see their full portfolio of contributions.
 
 ### What This Doesn't Standardize (Intentionally)
 
-- **How credits are earned.** Each project/registry defines its own contribution tracking. Drupal's system weights issue credits by project usage (more users = more credit per issue), adds credits for case studies, event sponsorships, organizational membership, and sponsored contributor roles. Other projects might simply count commits, reviews, or funding — or use GitHub Sponsors as a proxy for organizational investment. The API reports the _result_, not the methodology.
-- **Attribution policies.** Registries differ in how credits follow people and organizations over time. In Drupal's system, credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employers — a critical property for procurement stability, since it means a vendor's track record reflects cumulative investment rather than current headcount. Other registries may re-attribute credits when contributors move. The API exposes credit totals and time windows; the attribution policy is registry-specific.
+- **How contribution credits are earned.** Each project/registry defines its own contribution tracking. Drupal's system weights issue credits by project usage (more users = more credit per issue), adds credits for case studies, event sponsorships, organizational membership, and sponsored contributor roles. Other projects might simply count commits, reviews, or funding — or use GitHub Sponsors as a proxy for organizational investment. The API reports the _result_, not the methodology.
+- **Attribution policies.** Registries differ in how contribution credits follow people and organizations over time. In Drupal's system, contribution credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employers — a critical property for procurement stability, since it means a vendor's track record reflects cumulative investment rather than current headcount. Other registries may re-attribute credits when contributors move. The API exposes credit totals and time windows; the attribution policy is registry-specific.
 - **The trust model.** Some registries verify contributions via code review sign-off (high trust). Others use self-reporting (low trust). The `trustModel` field lets consumers assess credibility.
 - **Tier definitions.** What "platinum" means varies by registry. This is like credit rating agencies — the scale is per-agency, but the API format is standard.
 
@@ -1106,7 +1106,7 @@ The manifest describes the registry's identity, operator, capabilities, API loca
 
 | Field                 | Purpose                                                                                                                                               |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `capabilities`        | What the registry tracks: `usage` (who uses what), `credits` (who contributes what), or both                                                          |
+| `capabilities`        | What the registry tracks: `usage` (who uses what), `contribution-credits` (who contributes what), or both                                             |
 | `trustModel`          | How the registry verifies claims: `verified-domain`, `signed-attestation`, `self-reported`                                                            |
 | `api.conformsTo`      | Which standardized API specs the registry implements (see below)                                                                                      |
 | `scope.jurisdictions` | Which countries/regions the registry covers (ISO 3166-1)                                                                                              |
@@ -1239,12 +1239,12 @@ For organizations with many deployments across internal and public-facing domain
 
 Usage registries aggregate declaration data from multiple complementary sources: `.well-known` crawling (domain control = identity verification), direct declaration via registry UI/API, per-deployment aggregation, and bulk import from internal scanning tools.
 
-### How Credit Registries Relate
+### How Contribution Credit Registries Relate
 
-Credit registries (listed in publiccode.yml's `creditRegistries`) **can also** publish a registry manifest and appear in the central directory. This means:
+Contribution credit registries (listed in publiccode.yml's `contributionCreditRegistries`) **can also** publish a registry manifest and appear in the central directory. This means:
 
-- A crawler building a **vendor intelligence dashboard** can discover all credit registries, then for each project, check both the project's endorsed registries (from publiccode.yml) and any additional registries found via the directory.
-- The project's `creditRegistries` listing serves as an **endorsement signal** — "we consider this data authoritative" — but the registry is still independently discoverable by crawlers who want a broader view.
+- A crawler building a **vendor intelligence dashboard** can discover all contribution credit registries, then for each project, check both the project's endorsed registries (from publiccode.yml) and any additional registries found via the directory.
+- The project's `contributionCreditRegistries` listing serves as an **endorsement signal** — "we consider this data authoritative" — but the registry is still independently discoverable by crawlers who want a broader view.
 
 ### Trust Models
 
@@ -1301,7 +1301,7 @@ This maps onto the existing trust model:
 
 The trust information established at each layer — entity identity, sector verification, domain control — is only useful if it reaches the procurement decision-maker. Catalog UIs that surface this data can offer trust-aware filters; catalogs that discard it cannot. This is a capability question, not a compliance obligation: no law requires a catalog to offer these filters, but catalogs that do give procurement officers a meaningfully richer decision environment.
 
-Concretely, the Usage Registry API's `/software/{url}/adopters` response and the Credit Registry API's `/projects/{url}/credits` response may include, per entity:
+Concretely, the Usage Registry API's `/software/{url}/adopters` response and the Contribution Credit Registry API's `/projects/{url}/credits` response may include, per entity:
 
 - The organization's stable identifier (and scheme), if one was provided
 - The trust model used to verify their identity (`verified-domain`, `signed-attestation`, `self-reported`)
@@ -1313,7 +1313,7 @@ This enables catalog UIs to offer filters such as "show only government-verified
 
 1. **Any organization can start a usage registry** for its jurisdiction or sector without needing buy-in from every project.
 2. **Crawlers discover registries, not projects.** The EU OSS Catalogue crawler checks the central directory, fetches all registry manifests, then queries each registry's API. No per-project configuration needed.
-3. **Projects remain in control of credit endorsement** via `creditRegistries` in publiccode.yml, while usage data flows independently.
+3. **Projects remain in control of contribution credit endorsement** via `contributionCreditRegistries` in publiccode.yml, while usage data flows independently.
 4. **The Developers Italia adoption model scales globally.** Developers Italia is one registry among many. A German equivalent, a Brazilian equivalent, or a sector-specific registry (e.g., healthcare) can all join the ecosystem by publishing a manifest and conforming to the API.
 5. **Deploying organizations can declare usage without intermediaries.** By publishing `/.well-known/publiccode-usage.json` on their domain, organizations assert usage with their domain as proof of identity — no registry account required. Registries crawl these files as one intake mechanism alongside direct declarations.
 6. **Deployment processes become the source of truth.** When open source projects integrate usage declaration updates into their deployment documentation, the `.well-known` file stays current with actual deployments. Retirement is explicitly signaled, giving the ecosystem a deprecation mechanism that manual registries lack.
@@ -1592,7 +1592,7 @@ Without a machine-readable way to declare official mirrors, catalogs cannot dist
 
 ```yaml
 # Canonical identity anchor — used as the primary key across all
-# ecosystem components (usage registries, credit registries, SBOMs).
+# ecosystem components (usage registries, contribution credit registries, SBOMs).
 url: https://forge.example.org/owner/project
 
 # Previous canonical URLs, in chronological order (oldest first).

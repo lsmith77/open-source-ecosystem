@@ -36,7 +36,7 @@ Phase 2: DATA COLLECTION
 Phase 3: ANALYSIS
   Input:  Collected source material + user-defined evaluation criteria
   Method: AI synthesis with human-specified framing (procurement, supply
-          chain, vendor credits, usage declarations)
+          chain, vendor contribution credits, usage declarations)
   Output: Comparative evaluation (RESEARCH.md)
 
 Phase 4: PROPOSAL DEVELOPMENT
@@ -117,19 +117,20 @@ Phase 11: CREDIT SYSTEM REFERENCE ARCHITECTURE (2026-02-12)
           system as inspiration but lacked detail on: (1) the
           contribution_records module being open-source, ticket-system-
           agnostic, and API-ready — reusable by other projects or as a
-          SaaS, (2) the range of credit system complexity across
-          projects (from Drupal's weighted system to GitHub Sponsors),
-          (3) the credit stickiness property (credits stay with vendor
-          after contributor changes employer), (4) an explicit scope
-          boundary that specifying credit system details is beyond this
-          proposal. AI fetched both URLs, distilled findings into
-          PROPOSAL.md (Extension 3 intro, Credit Registry API design
-          principles and scope boundary), PITCH.md (vendor and credit
-          registry sections), and this methodology document.
-  Output: Enhanced Extension 3 and Credit Registry API sections in
+          SaaS, (2) the range of contribution credit system complexity
+          across projects (from Drupal's weighted system to GitHub Sponsors),
+          (3) the contribution credit stickiness property (contribution
+          credits stay with vendor after contributor changes employer),
+          (4) an explicit scope boundary that specifying contribution credit
+          system details is beyond this proposal. AI fetched both URLs,
+          distilled findings into PROPOSAL.md (Extension 3 intro,
+          Contribution Credit Registry API design principles and scope
+          boundary), PITCH.md (vendor and contribution credit registry
+          sections), and this methodology document.
+  Output: Enhanced Extension 3 and Contribution Credit Registry API sections in
           PROPOSAL.md with reference architecture details and explicit
           scope boundary. New pitch points in PITCH.md for vendors
-          (credit stickiness) and credit registries (reusable
+          (contribution credit stickiness) and contribution credit registries (reusable
           infrastructure). Updated this methodology document.
 
 Phase 10: PUBLIC PROCUREMENT POLICY INTEGRATION (2026-02-11)
@@ -550,7 +551,7 @@ He proposed that publiccode.yml should exclude fields that become outdated quick
 - **Classification** — project categorization unavailable elsewhere
 - **Contacts and maintenance** — support contacts and arrangements
 - **Legal** — license and copyright declarations
-- **Registry pointers** — links to credits, supply chains, and SBOMs
+- **Registry pointers** — links to contribution credits, supply chains, and SBOMs
 
 **Human input (prompt 1):**
 
@@ -630,7 +631,7 @@ Additional context discovered via web search: PMPC campaign details (200+ orgs, 
 The AI synthesized findings across all sources and identified:
 
 - The PMPC principle creates demand for the extensions: once governments commit to open source, they need the discovery/evaluation infrastructure this proposal provides
-- The OSBA's four procurement criteria map directly to specific extensions (creditRegistries → criterion 1 and 2, maintenance + credits → criterion 3, supplyChain → criterion 4)
+- The OSBA's four procurement criteria map directly to specific extensions (contributionCreditRegistries → criterion 1 and 2, maintenance + contribution credits → criterion 3, supplyChain → criterion 4)
 - Switzerland's EMBAG demonstrates that legislation works but reveals a gap: mandating release is not sufficient without procurement infrastructure
 - APELL and EuroStack (mentioned in the Dries article) are advancing EU-level policy that needs this metadata as evidence infrastructure
 
@@ -643,28 +644,28 @@ The human directed that APELL and EuroStack be listed as separate allies (not co
 
 The AI identified that "Policy Maker / Legislator" is a distinct actor from "Federal Authority / Funder" — legislators craft laws and procurement regulations (EMBAG, Buy Open Source Act), while funders allocate money (Sovereign Tech Fund, CISA). The AI added the new actor to PROPOSAL.md and a corresponding pitch section to PITCH.md.
 
-### Phase 11: Credit System Reference Architecture (2026-02-12)
+### Phase 11: Contribution Credit System Reference Architecture (2026-02-12)
 
 **Human input (prompt 1):**
-The human identified that the proposal referenced Drupal's credit system as inspiration but lacked important details. They provided two URLs and the following context:
+The human identified that the proposal referenced Drupal's contribution credit system as inspiration but lacked important details. They provided two URLs and the following context:
 
 - Drupal's `contribution_records` module is architecturally ticket-system-agnostic and has an API — it could be adopted by other OSS projects or operated as a SaaS
-- Drupal has documented their rating system in detail (credit weights, contribution types, marketplace ranking)
+- Drupal has documented their rating system in detail (contribution credit weights, contribution types, marketplace ranking)
 - Some projects might prefer simpler metrics (GitHub Sponsors, code contributor mapping)
-- A critical feature of Drupal's credit system is that credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employer
-- Specifying the details of a credit system is beyond the scope of this proposal
+- A critical feature of Drupal's contribution credit system is that contribution credits attributed to a vendor through a contributor remain with that vendor even after the contributor changes employer
+- Specifying the details of a contribution credit system is beyond the scope of this proposal
 
-#### Sources investigated — Credit system reference architecture
+#### Sources investigated — Contribution credit system reference architecture
 
-| URL                                                                                                | Purpose                           | Notes                                                                                   |
-| -------------------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------- |
-| https://git.drupalcode.org/project/contribution_records                                            | contribution_records module       | Open-source, 361 commits, ticket-system-agnostic                                        |
-| https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking | Credit weight and ranking details | Issue credits scaled by project usage, case studies, org membership, event sponsorships |
+| URL                                                                                                | Purpose                                        | Notes                                                                                                           |
+| -------------------------------------------------------------------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| https://git.drupalcode.org/project/contribution_records                                            | contribution_records module                    | Open-source, 361 commits, ticket-system-agnostic                                                                |
+| https://www.drupal.org/drupalorg/docs/marketplace/contribution-credit-weight-and-impact-on-ranking | Contribution credit weight and ranking details | Issue contribution credits scaled by project usage, case studies, org membership, event sponsorships |
 
 The AI distilled the critical aspects into three documents:
 
-- **PROPOSAL.md:** Added a new paragraph in Extension 3 intro on the spectrum of credit system complexity (from Drupal's weighted system to GitHub Sponsors), with an explicit scope boundary. Enhanced Credit Registry API Design Principle 4 with the `contribution_records` module's reusability. Added new "Attribution policies" bullet in "What This Doesn't Standardize" covering credit stickiness.
-- **PITCH.md:** Added "Protect your investment in contributions" (credit stickiness) to Vendor pitch. Added "Build on proven infrastructure" (reusable `contribution_records` module) to Credit Registry pitch.
+- **PROPOSAL.md:** Added a new paragraph in Extension 3 intro on the spectrum of contribution credit system complexity (from Drupal's weighted system to GitHub Sponsors), with an explicit scope boundary. Enhanced Contribution Credit Registry API Design Principle 4 with the `contribution_records` module's reusability. Added new "Attribution policies" bullet in "What This Doesn't Standardize" covering contribution credit stickiness.
+- **PITCH.md:** Added "Protect your investment in contributions" (contribution credit stickiness) to Vendor pitch. Added "Build on proven infrastructure" (reusable `contribution_records` module) to Contribution Credit Registry pitch.
 - **METHODOLOGY.md:** This phase entry and new sources.
 
 Documents updated:
@@ -838,17 +839,17 @@ Key decisions made by the human during the process:
 
 1. **Candidate disambiguation.** The initial prompt listed "publicode.yml" (one c). AI search identified this as likely meaning "publiccode.yml" (two c's) and separately identified Publicodes (French rules engine) as a different project. Human confirmed the intended candidate was publiccode.yml.
 
-2. **Evaluation framing.** The four use cases (procurement discovery, vendor credits, supply chain, usage declarations) were defined by the human. The AI did not add or remove evaluation dimensions.
+2. **Evaluation framing.** The four use cases (procurement discovery, vendor contribution credits, supply chain, usage declarations) were defined by the human. The AI did not add or remove evaluation dimensions.
 
 3. **Recommendation direction.** The conclusion to build on publiccode.yml was reached by the AI based on evidence of adoption and institutional backing. The human reviewed and accepted this conclusion.
 
-4. **Proposal scope.** The human directed which extensions to develop (faceted classification, SBOM, scorecard, credit registries, usage registries, JSON-LD) and specified the boundary between in-scope (schema pointers) and out-of-scope (credit data itself, usage data itself). The human specifically directed that credit and usage data are "too much in flux" for git-committed files.
+4. **Proposal scope.** The human directed which extensions to develop (faceted classification, SBOM, scorecard, contribution credit registries, usage registries, JSON-LD) and specified the boundary between in-scope (schema pointers) and out-of-scope (contribution credit data itself, usage data itself). The human specifically directed that contribution credit and usage data are "too much in flux" for git-committed files.
 
 5. **File structure.** The human directed that the proposal be a separate file (PROPOSAL.md) rather than appended to RESEARCH.md.
 
 6. **API outlines.** The Credit Registry API and Usage Registry API rough outlines were developed by the AI based on the Drupal Contribution Records system as a reference architecture, with human direction on scope boundaries.
 
-7. **Removal of `usageRegistries` from publiccode.yml.** The initial AI draft included a `usageRegistries` field in publiccode.yml, mirroring `creditRegistries`. The human identified a fundamental asymmetry: projects have authority over credit endorsement (they know who contributes) but no authority over usage tracking (they don't control who uses them). Listing usage registries in a project file creates false gatekeeping. The AI then redesigned the architecture: usage registries are now fully decentralized, discovered via a companion Registry Discovery Standard rather than listed per-project. Credit registries remain in publiccode.yml because project endorsement is meaningful there.
+7. **Removal of `usageRegistries` from publiccode.yml.** The initial AI draft included a `usageRegistries` field in publiccode.yml, mirroring `contributionCreditRegistries`. The human identified a fundamental asymmetry: projects have authority over credit endorsement (they know who contributes) but no authority over usage tracking (they don't control who uses them). Listing usage registries in a project file creates false gatekeeping. The AI then redesigned the architecture: usage registries are now fully decentralized, discovered via a companion Registry Discovery Standard rather than listed per-project. Credit registries remain in publiccode.yml because project endorsement is meaningful there.
 
 8. **Addition of goal 5 (security and compliance assessment).** The human asked the AI to identify missing goals. The AI proposed "security and compliance assessment" as distinct from the existing "supply chain steering" goal — the former serves procurement officers evaluating specific software, the latter serves funding authorities steering ecosystem investment. The human accepted and directed the AI to update both RESEARCH.md and PROPOSAL.md. The AI determined that no new schema fields were needed (Extension 2 already covered the technical mechanism) and limited changes to narrative framing: the Procurement Office actor description and a new "What This Enables" section for Extension 2.
 
