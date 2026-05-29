@@ -59,9 +59,8 @@ Every step toward this vision has value on its own terms. If some components of 
 5. Temporal field deprecation (cleaner and more trustworthy data)
 6. Package distribution references (npm, PyPI, Maven, etc.)
 7. Sanctioned mirror declarations (handling forge migration and mirrors)
-9. Platform lock-in declaration (architectural vendor dependency visibility)
 
-_(Improvement 8: CRA Steward Declaration is designed but deferred pending CRA regulatory guidance. See [PROPOSAL.md](PROPOSAL.md#improvement-8-cra-steward-declaration-deferred).)_
+_(Improvements 8–9 are planned: Improvement 8 (CRA Steward Declaration) is designed but deferred pending CRA regulatory guidance. Improvement 9 (Platform Lock-in Declaration) is proposed and seeking community input. See [PROPOSAL.md](PROPOSAL.md) for details.)_
 
 **Companion specifications:**
 

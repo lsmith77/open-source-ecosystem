@@ -19,10 +19,9 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
   - [Credit Registry API](#credit-registry-api-rough-outline)
   - [Registry Discovery Standard](#registry-discovery-standard-rough-outline) (includes [Usage Registry API](#usage-registry-api), [Organization-Level Usage Declarations](#organization-level-usage-declarations), and [Project-Level Funding Declarations](#project-level-funding-declarations))
   - [Assessment Registry API](#assessment-registry-api-proposed)
-- **Deferred improvements (pending regulatory guidance):**
-  - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred)
-- **Proposed improvements (pending community input):**
-  - [Improvement 9: Platform Lock-in Declaration](#improvement-9-platform-lock-in-declaration-proposed)
+- **Improvements awaiting consensus:**
+  - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred) (deferred pending CRA regulatory guidance)
+  - [Improvement 9: Platform Lock-in Declaration](#improvement-9-platform-lock-in-declaration-proposed) (proposed, seeking community input)
 
 ---
 
@@ -1423,9 +1422,11 @@ Projects can publish both: fundingjson.org for donors and accountability; `publi
 
 ## Assessment Registry API _(Proposed)_
 
-**Status**: Identified as gap for operationalizing Sovereignty Checks and regional compliance assessments globally; needs community input on design and trust model.
+**Status**: Identified as gap for operationalizing Sovereignty Checks and regional compliance assessments globally; proposed for OpenSSF Supply Chain Integrity Working Group governance.
 
-This is a **separate specification** from publiccode.yml. It defines the API that assessment registries (regional Sovereignty Checks, compliance assessments, etc.) publish so that catalogs can aggregate assessment findings alongside publiccode.yml metadata.
+**Governance recommendation:** This specification aligns with the OpenSSF Supply Chain Integrity WG's mission ("help individuals and organizations assess and improve the security of end-to-end supply chains"). The WG already maintains GUAC (supply chain analysis), SLSA (provenance), and gittuf (integrity)—all complementary to assessment registry discovery and aggregation. Moving this to OpenSSF would benefit from their existing infrastructure, community, and alignment with GUAC/SLSA tooling.
+
+**Scope:** This is a **separate specification** from publiccode.yml. It defines the API that assessment registries (regional Sovereignty Checks, compliance assessments, etc.) publish so that catalogs can aggregate assessment findings alongside publiccode.yml metadata.
 
 ### Design Rationale
 
@@ -1479,11 +1480,18 @@ Assessment registries publish standardized assessment results:
 
 **1. Dispute Resolution**: Assessment results can indicate `DISPUTE` status when assessment findings conflict with project claims in publiccode.yml. This maintains the separation of concerns—the project's claim remains in publiccode.yml, but the assessment registry flags the disagreement with evidence.
 
-**2. Confidence Scoring**: Assessments can include confidence levels (0-1) so catalogs can highlight high-confidence findings vs. preliminary assessments.
+**2. Trust Levels**: Assessments include a trust model (`verified-domain`, `signed-attestation`, `self-reported`) so catalogs can weight findings based on verification rigor:
 
-**3. Recommendation Loop**: Assessment findings can include recommendations (e.g., "Project should update publiccode.yml to declare AWS RDS dependency"), creating a feedback loop for project improvement.
+- **`verified-domain`:** Assessor domain control verified via DNS. Organization sector verified via domain-suffix matching against known public sector list (.gov, .edu, .ac.uk). **MEDIUM trust.**
+- **`signed-attestation`:** Organization signs assessment result with a key in a public trust store (eIDAS, institutional CA, etc.). **HIGH trust.**
+- **`self-reported`:** No verification. **LOW trust.**
+- **Catalog behavior:** Display trust breakdown to procurement officers (e.g., "2/5 assessors rate FAIL: 1 verified-domain + 4 self-reported"). Allow filtering by minimum trust threshold.
 
-**4. Status Vocabulary**: Standardized status values:
+**3. Confidence Scoring**: Assessments can include confidence levels (0-1) so catalogs can highlight high-confidence findings vs. preliminary assessments.
+
+**4. Recommendation Loop**: Assessment findings can include recommendations (e.g., "Project should update publiccode.yml to declare AWS RDS dependency"), creating a feedback loop for project improvement.
+
+**5. Status Vocabulary**: Standardized status values:
 
 - `PASS` — Project meets the assessment criterion
 - `FAIL` — Project does not meet the criterion
@@ -1567,8 +1575,8 @@ Returns all assessment frameworks known to catalogs for filtering and discovery.
 1. Should Assessment Registries be centralized (one global registry of all assessments) or federated (each assessor publishes independently and catalogs aggregate)?
 2. How do catalogs discover Assessment Registry URLs? Via Registry Discovery Standard manifest, or separate mechanism?
 3. Should projects be able to embed assessment results in publiccode.yml (like `supplyChain` links to SBOMs), or should catalogs discover them only via Assessment Registry queries?
-4. How should disputes be resolved? Should Assessment Registries support comment/response mechanisms, or should they remain unidirectional (assessor publishes, projects respond separately)?
-5. Should there be a governance body reviewing assessment frameworks for quality/bias, or should all frameworks be equally discoverable?
+4. How should disputes be resolved? Should Assessment Registries support comment/response mechanisms, or should projects respond separately in their own publiccode.yml?
+5. What operational metrics should Assessment Registries track to enable audit trails and feed back into trust model weighting (e.g., historical accuracy of assessor findings)?
 
 ---
 
@@ -1725,4 +1733,3 @@ requiredPlatforms:
 1. Should this field live in `supplyChain` (where platform vendor information semantically belongs) or as a separate `platformDependencies` section at the top level?
 2. How specific should "vendor" names be? (e.g., "AWS", "Amazon Web Services", "AWS RDS", "Amazon Aurora")
 3. Should there be a controlled vocabulary of common platform vendors and lock-in features, or is free-text acceptable?
-4. How should projects track when a required proprietary feature becomes available in an open-source equivalent, triggering a change from `lockIn: true` to `lockIn: false`?
