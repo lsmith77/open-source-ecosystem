@@ -21,6 +21,9 @@ This document tracks EU legislative initiatives relevant to this proposal and ex
 | [European Competitiveness Fund](#european-competitiveness-fund)                                                                                 | Proposal [COM(2025) 16 final](https://commission.europa.eu/publications/european-competitiveness-fund_en), under negotiation                | Procurement as "integrated financial toolbox" for technological sovereignty; InvestEU de-risking      | Registry infrastructure operationalizes ECF's sovereignty procurement objectives                 |
 | [Council Conclusions on European Competitiveness in the Digital Decade](#council-conclusions-on-european-competitiveness-in-the-digital-decade) | [Adopted 2025 (ST‑16430‑2025‑INIT)](https://data.consilium.europa.eu/doc/document/ST-16430-2025-INIT/en/pdf)                                | Open standards, open source, interoperability to reduce vendor lock-in; strategic procurement for R&I | Provides political mandate for the metadata infrastructure this proposal delivers                |
 | [Digital Decade Policy Programme](#digital-decade-policy-programme)                                                                             | [In force (Regulation (EU) 2022/2481)](https://digital-strategy.ec.europa.eu/en/policies/digital-decade-policy-programme); targets for 2030 | All key public services online by 2030; public administration digital transformation                  | Usage registries + sovereignty metrics track whether digitalization builds or deepens dependency |
+| [EU Open Source Strategy](#eu-open-source-strategy)                                                                                             | Adopted 2020 ([C(2020) 7149 final](https://commission.europa.eu/system/files/2023-02/en_ec_open_source_strategy_2020-2023.pdf)); successor **Open Source Strategy adopted 3 June 2026** in the [tech sovereignty package](#european-technological-sovereignty-package-3-june-2026) | Commission code sharing/reuse, contribute-upstream, OSPO; 2026 strategy adds public-administration adoption | publiccode.yml + registries operationalize the "share", "contribute" and "stay in control" principles |
+| [ICT Supply Chain Security Toolbox](#ict-supply-chain-security-toolbox)                                                                         | Adopted by NIS Cooperation Group [13 Feb 2026](https://digital-strategy.ec.europa.eu/en/news/ict-supply-chain-security-eu-adopts-toolbox-mitigate-risks); non-binding | Critical-supplier assessment; multi-vendor strategies; reducing high-risk-supplier dependency        | Registry data makes supplier diversity + dependency assessment measurable for OSS                |
+| [Digital Markets Act (DMA)](#digital-markets-act-dma)                                                                                           | In force Nov 2022; applicable May 2023 ([Reg. (EU) 2022/1925](https://digital-markets-act.ec.europa.eu/about-dma_en))                       | Gatekeeper interoperability, data portability, anti-self-preferencing                                | Same anti-lock-in objective at the procurement layer; registries surface contestable alternatives |
 
 ---
 
@@ -82,6 +85,33 @@ The proposal addresses this on two sides:
 
 ---
 
+## ICT Supply Chain Security Toolbox
+
+**Reference:** [EU adopts a toolbox to mitigate risks](https://digital-strategy.ec.europa.eu/en/news/ict-supply-chain-security-eu-adopts-toolbox-mitigate-risks) · [Toolbox library entry](https://digital-strategy.ec.europa.eu/en/library/toolbox-improve-ict-supply-chain-security)
+**Status:** Adopted by the **NIS Cooperation Group on 13 February 2026**, developed by Member States with the Commission and ENISA, following the 2022 Council Conclusions on ICT supply chain security. Horizontal, common, and **non-binding**. A review by the NIS Cooperation Group is scheduled after one year.
+
+### What it does
+
+A common, non-binding approach to identify, assess, and mitigate the cybersecurity risks of ICT supply chains. Built on an **all-hazards, actor-agnostic** approach, it defines key concepts, outlines risk scenarios, and recommends mitigation measures:
+
+- A framework for the **assessment of critical suppliers**
+- Promotion of **multi-vendor strategies**
+- **Overcoming dependencies on high-risk suppliers**
+
+It operationalizes the coordinated supply chain risk assessments foreseen by NIS2, and is complemented by the **trusted ICT supply chain framework** in the revised Cybersecurity Act (20 January 2026), which targets non-technical risks such as foreign interference.
+
+### How this proposal relates
+
+The toolbox names the *goals* — supplier diversity, reduced dependency on any single high-risk supplier — but, like the rest of the regulatory landscape, provides no mechanism to measure them for open source software:
+
+- **Multi-vendor strategies:** For OSS, the relevant "supplier diversity" is upstream maintainer diversity. The [credit registry](PROPOSAL.md#improvement-3-credit-registries) reveals whether a project has multiple independent organizations contributing and offering support — the structural test for whether a multi-vendor strategy is even possible for a given component.
+- **Critical-supplier assessment:** The [`supplyChain` references](PROPOSAL.md#improvement-2-supply-chain-references) (SBOM, OpenSSF Scorecard, security policy, vulnerability disclosure) provide machine-readable evidence for assessing a critical OSS supplier from a single entry point.
+- **Reducing high-risk-supplier dependency:** Verified upstream contribution data distinguishes genuinely multi-party-maintained OSS from a project nominally open source but de-facto controlled by a single non-EU entity — the day-1 / day-2 sovereignty distinction in the [Carrez framing](#the-european-preference-tension-with-open-source).
+
+**Key insight:** Being non-binding and actor-agnostic, the toolbox depends on voluntary, verifiable signals to be actionable — yet offers no way to measure supplier diversity for the open source components that pervade every ICT supply chain. Credit and usage registries are that measurement layer, and for OSS the diversity that matters is upstream, where only verified contribution data exposes it.
+
+---
+
 ## Interoperable Europe Act
 
 **Reference:** [Regulation (EU) 2024/903](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202400903)
@@ -112,6 +142,43 @@ Specific connections:
 - **Registry Discovery Standard:** The `/.well-known/publiccode-registry.json` mechanism enables crawlers operated by the Interoperable Europe Portal to discover new registries automatically, without manual onboarding.
 
 **Key insight:** The Interoperable Europe Act creates an _existing, active_ legal obligation for EU public bodies to assess and share open source. This proposal improves the infrastructure that already serves this obligation. The EU OSS Catalogue team is a natural first institutional partner.
+
+---
+
+## EU Open Source Strategy
+
+**Reference:** [Open Source Software Strategy 2020–2023](https://commission.europa.eu/about/departments-and-executive-agencies/digital-services/open-source-software-strategy_en) · Commission Decision [C(2020) 7149 final](https://commission.europa.eu/system/files/2023-02/en_ec_open_source_strategy_2020-2023.pdf), 21 October 2020
+**Status:** Adopted 21 October 2020 under the theme **"Think Open."** The 2020–2023 term has ended, but the **EC Open Source Programme Office (OSPO)** and its publishing/reuse practices continue. A 2025 Call for Evidence on **Open-Source Digital Ecosystems** signalled a successor, **delivered 3 June 2026 as a new Open Source Strategy** — one pillar of the [European technological sovereignty package](#european-technological-sovereignty-package-3-june-2026) ([IP/26/1187](https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1187)). Its stated goals: **scale up open source alternatives in priority areas**, **invest in skills, start-ups and digital infrastructure**, and **support greater use of open source in public administrations**.
+
+> **Scope note:** This is the Commission's *internal* strategy — how the Commission produces and consumes open source — distinct from the [Interoperable Europe Act](#interoperable-europe-act), which places reuse obligations on *all* EU public bodies. But it established the template (publiccode, OSPO, contribute-upstream) the Act later generalized, making it the conceptual "why" behind much of this proposal.
+
+### What it does
+
+The strategy commits the Commission to encourage and leverage the collaborative power of open source, guided by **six principles**:
+
+- **Think open** — favour open source in evaluations and culture
+- **Transform** — work transparently and collaboratively
+- **Share** — publish the Commission's own source code for reuse
+- **Contribute** — contribute back to the communities the Commission depends on
+- **Secure** — actively secure the open source software in use
+- **Stay in control** — preserve digital autonomy and avoid lock-in
+
+It establishes the **Open Source Programme Office** to coordinate implementation, and underpins concrete moves such as the EUPL license and the Commission's code-publishing rules.
+
+### How this proposal relates
+
+Each of the strategy's principles maps to a concrete metadata mechanism — the strategy states the behavior, this proposal makes it auditable:
+
+| Principle        | Proposal mechanism                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| **Share**        | publiccode.yml + [faceted classification](PROPOSAL.md#improvement-1-faceted-classification) make shared code discoverable, not just published |
+| **Contribute**   | [Credit registries](PROPOSAL.md#improvement-3-credit-registries) make upstream contribution verifiable rather than asserted |
+| **Secure**       | [`supplyChain` references](PROPOSAL.md#improvement-2-supply-chain-references) (SBOM, Scorecard, security policy) operationalize the secure principle and tie to CRA steward obligations |
+| **Stay in control** | Usage + credit registries measure whether a dependency rests on healthy multi-party OSS or a single vendor — the digital-autonomy question |
+
+The OSPO is also a natural early institutional consumer of this metadata: an office whose mandate is to track what the Commission uses, shares, and contributes to needs exactly the discovery and contribution data the proposal standardizes.
+
+**Key insight:** The EU Open Source Strategy is the principled "why"; this proposal is the measurement "how." Its commitments to *share*, *contribute*, *secure*, and *stay in control* are behaviors that remain unverifiable without standardized discovery, contribution, and supply chain metadata. Registries turn the strategy's principles into auditable signals.
 
 ---
 
@@ -282,6 +349,32 @@ The Data Act's relevance is structural rather than direct:
 
 ---
 
+## Digital Markets Act (DMA)
+
+**Reference:** [digital-markets-act.ec.europa.eu/about-dma_en](https://digital-markets-act.ec.europa.eu/about-dma_en) · Regulation (EU) 2022/1925
+**Status:** Regulation (EU) 2022/1925, in force 1 November 2022, applicable from 2 May 2023. Gatekeepers designated; obligations actively enforced, with fines up to 10% of global turnover (20% for repeat infringements).
+
+### What it does
+
+The DMA imposes ex-ante obligations on **"gatekeepers"** — large platforms providing **"core platform services"** (online search, app stores, operating systems, browsers, messaging, social networks, etc.) that meet quantitative thresholds. Obligations most relevant here aim squarely at reducing lock-in:
+
+- Enable **third-party interoperability** with gatekeeper services in specified situations
+- Provide business users **access to the data they generate** and end users **data portability**
+- Allow users to **uninstall pre-installed apps** and change defaults
+- Prohibit **self-preferencing** in ranking and blocking links to external offers
+
+### How this proposal relates
+
+The DMA's relevance is structural and parallel — analogous to the [EU Data Act](#eu-data-act):
+
+- **Same objective, different layer.** The DMA attacks lock-in at the *gatekeeper-platform* layer through interoperability and portability mandates; this proposal attacks it at the *software-procurement* layer. Both serve the vendor-lock-in reduction goal made an inter-institutional baseline by the [Council Conclusions](#council-conclusions-on-european-competitiveness-in-the-digital-decade).
+- **Interoperability favours open implementations.** As with the Data Act, mandated interoperability and portability advantage open source and open standards, whose interfaces are inherently open.
+- **The proposal reaches where the DMA cannot.** The DMA binds only a small set of *designated* gatekeepers, ex ante — nothing for a procurement office choosing software in the long tail. Usage and credit registries surface whether a given option has independent, multi-vendor support for software entirely outside the DMA's scope.
+
+**Key insight:** The DMA forces contestability onto a handful of designated gatekeepers; it does nothing for lock-in in the broader software stack. Registries extend the same anti-lock-in logic into procurement, complementing the DMA rather than overlapping with it.
+
+---
+
 ## European Health Data Space (EHDS)
 
 **Reference:** [health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en](https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en)
@@ -336,6 +429,24 @@ EUCS conformity assessment at Substantial and High levels requires evidence of t
 
 The following are not yet legislative instruments but shape the drafting and political context of the laws above.
 
+### European Technological Sovereignty Package (3 June 2026)
+
+**Reference:** [Commission proposes tech sovereignty package, IP/26/1187](https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1187) · [Strengthening Europe's tech sovereignty (news)](https://commission.europa.eu/news-and-media/news/strengthening-europes-tech-sovereignty-2026-06-03_en)
+**Status:** Presented by the Commission on **3 June 2026**. A coordinated package — two legislative proposals plus two strategy/roadmap instruments — to strengthen EU capacity in semiconductors, AI, cloud and open source.
+
+#### What it bundles
+
+| Component | Type | Relevance here |
+| --------- | ---- | -------------- |
+| **Chips Act 2.0** | Legislative proposal | Secures the semiconductor base for Europe's AI ambition; infrastructure layer, outside this proposal's scope |
+| **[Cloud and AI Development Act (CADA)](#cada--cloud-and-ai-development-act)** | Legislative proposal | Four cloud sovereignty tiers + common EU procurement framework; Tier 4 reaches into the software supply chain |
+| **[Open Source Strategy (2026)](#eu-open-source-strategy)** | Strategy | Successor to the 2020 "Think Open" strategy; scale up OSS alternatives, skills, infrastructure, public-administration adoption |
+| **Strategic Roadmap for Digitalisation and AI in Energy** | Roadmap | Energy-system digitalisation and sustainable digitalisation; tangential |
+
+#### Why it matters for this proposal
+
+The package converts two items this document had tracked as *pending* into live instruments: CADA becomes a formal legislative proposal, and the long-signalled successor to the 2020 Open Source Strategy is delivered. Both are framed around **digital autonomy and avoiding a vendor "kill switch"** — the same day-1/day-2 sovereignty concern in the [Carrez framing](#the-european-preference-tension-with-open-source) that motivates the credit registry. It gives this proposal's metadata infrastructure two named hooks: [CADA](#cada--cloud-and-ai-development-act)'s sovereignty-tier conformity evidence and procurement framework, and the [2026 Open Source Strategy](#eu-open-source-strategy)'s public-administration adoption goal.
+
 ### EU Competitiveness Compass and Draghi Report
 
 The **Draghi Report** ("The future of European competitiveness," September 2024) and the **EU Competitiveness Compass** (January 2025) are the Commission's strategic framework driving several of the laws above.
@@ -372,11 +483,25 @@ The credit registry approach is structurally more GPA-compatible than a national
 
 ### CADA — Cloud and AI Development Act
 
-**Status:** Public consultation completed mid-2025. No formal legislative proposal as of early 2026.
+**Reference:** [Cloud and AI Development Act](https://digital-strategy.ec.europa.eu/en/policies/cloud-and-ai-development-act)
+**Status:** **Legislative proposal adopted 3 June 2026** as a pillar of the [European technological sovereignty package](#european-technological-sovereignty-package-3-june-2026) ([IP/26/1187](https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1187)). Public consultation completed mid-2025; the Commission's **AI Continent Action Plan** (February 2025) established CADA as the vehicle for building European cloud and AI infrastructure capacity.
 
-The Commission's **AI Continent Action Plan** (February 2025) established CADA as the vehicle for building European cloud and AI infrastructure capacity. If CADA includes open source AI development provisions, the supply chain documentation and discovery infrastructure proposed here becomes directly relevant to AI model governance — extending the scope of this proposal's applicability.
+#### What it does (proposed)
 
-**Scope boundary:** This proposal operates at the software and metadata layer — publiccode.yml, credit registries, usage declarations, supply chain references. It does not address cloud infrastructure sovereignty (i.e., where software physically runs, under whose legal jurisdiction, and on whose hardware). Even with widespread open source software adoption enabled by this proposal, dependency on non-EU hyperscaler infrastructure persists unless addressed separately at the infrastructure layer. CADA is the natural vehicle for that complementary requirement; the two layers are independent and both necessary for full digital sovereignty.
+- **Four cloud sovereignty tiers:** assurance levels by how far a provider's operations (services, supply chains, data handling, facilities) remain within EU jurisdiction — rising from (1) EU-located infrastructure, through (2) third-country independence with supply chain transparency and (3) EU ownership/control plus personnel criteria, to (4) **full transparency and control over the software supply chain with no third-country interference**.
+- **Data centre capacity:** at least **triple the EU's capacity within 5–7 years**, via simplified permitting and improved access to energy, land, water and financing.
+- **Common procurement framework:** a common EU-level framework for public administrations to leverage their joint purchasing power.
+- **Open source for resilience:** provisions promoting open source solutions as a resilience measure.
+
+#### How this proposal relates
+
+CADA closes part of the gap this document repeatedly flags — but only at the infrastructure layer, and only if the sovereignty tiers can be evidenced. Three direct connections:
+
+- **Tier 4 is a software-supply-chain claim.** "Full transparency and control over the software supply chain with no third-country interference" is exactly the property the [`supplyChain` references](PROPOSAL.md#improvement-2-supply-chain-references) (SBOM, security policy, Scorecard) and the [credit registry](PROPOSAL.md#improvement-3-credit-registries) make machine-verifiable. A conformity assessment against the higher CADA tiers needs the upstream-maintenance and supply-chain evidence registries supply — the same day-1/day-2 sovereignty test in the [Carrez framing](#the-european-preference-tension-with-open-source).
+- **The common procurement framework needs measurable criteria.** A joint EU procurement framework for public administrations runs into the same wall as the [Public Procurement Act](#public-procurement-act): non-price and sovereignty criteria collapse to price unless they are auditable. The five procurement leverage points in that section apply here directly.
+- **Open source for resilience must be discoverable to be chosen.** CADA's promotion of open source as a resilience measure presupposes that resilient, multi-vendor-supported alternatives can be found and compared — the function of [faceted classification](PROPOSAL.md#improvement-1-faceted-classification) and usage/credit registries.
+
+**Scope boundary:** This proposal operates at the software and metadata layer — publiccode.yml, credit registries, usage declarations, supply chain references. It does not address cloud infrastructure sovereignty (i.e., where software physically runs, under whose legal jurisdiction, and on whose hardware). Even with widespread open source software adoption enabled by this proposal, dependency on non-EU hyperscaler infrastructure persists unless addressed separately at the infrastructure layer. CADA is the natural vehicle for that complementary requirement; the two layers are independent and both necessary for full digital sovereignty — and CADA's higher sovereignty tiers reach back into the software supply chain, where this proposal's metadata is the evidence base.
 
 ### Digital Omnibus — EU Digital Simplification Package
 
@@ -464,7 +589,7 @@ Specifically, the Open Future procurement brief identifies a direct dependency: 
 
 Several observations apply across all initiatives covered in this document:
 
-**The infrastructure gap is the common thread.** CRA creates steward obligations but no discovery mechanism. NIS2 requires supply chain assessment but no standard metadata format. DORA mandates a register of ICT contracts but has no mechanism for open source components with no formal contract. The AI Act requires Annex XII documentation to flow through value chains but defines no standard format. The Interoperable Europe Act requires reuse assessment but discovery is incomplete. The Procurement Act will introduce non-price criteria but lacks measurement tools. EHDS requires EHR certification evidence. This proposal addresses the same underlying infrastructure gap across all contexts simultaneously.
+**The infrastructure gap is the common thread.** CRA creates steward obligations but no discovery mechanism. NIS2 requires supply chain assessment but no standard metadata format. DORA mandates a register of ICT contracts but has no mechanism for open source components with no formal contract. The AI Act requires Annex XII documentation to flow through value chains but defines no standard format. The Interoperable Europe Act requires reuse assessment but discovery is incomplete. The Procurement Act will introduce non-price criteria but lacks measurement tools. EHDS requires EHR certification evidence. The ICT Supply Chain Security Toolbox recommends multi-vendor strategies and reduced high-risk-supplier dependency but offers no way to measure supplier diversity for open source. The EU Open Source Strategy commits the Commission to "share" and "contribute" but those behaviors are unverifiable without contribution and usage data. This proposal addresses the same underlying infrastructure gap across all contexts simultaneously.
 
 **The "European origin" criterion requires a technical answer, not a legal one.** The Competitiveness Compass, the Public Procurement Act's European preference, and industry submissions to the Call for Evidence all converge on the same unsolved problem: how to define "European" for software in a way that is auditable and non-gameable. But the question is also conceptually ill-formed unless it is applied _upstream_: open source software is a non-discriminatory global commons by license, so "European" cannot be a property of the released artifact — it can only be a property of who produces and governs it. The credit registry (Improvement 3) — verified, project-endorsed contribution data tied to EU-registered entities — is the only technically credible answer currently proposed, and it answers the right version of the question (see [European preference tension](#the-european-preference-tension-with-open-source) above).
 
