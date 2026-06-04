@@ -72,7 +72,7 @@ The second layer emerges **when procurement does reach open source**: inadequate
 
 - **Turn principles into enforceable criteria** — "Public Money, Public Code" and digital sovereignty mandates need verifiable compliance mechanisms. This metadata makes "prioritize open source" auditable rather than aspirational.
 - **Build on proven legislative models** — Switzerland's EMBAG demonstrates that mandating open source release works. The proposed extensions answer the next question: how do procurement offices actually find, evaluate, and maintain the software the law requires them to prefer?
-- **Strengthen European digital sovereignty** — the EU CSF's SOV-5 (supply chain) and SOV-6 (open source) objectives require exactly the transparency this metadata provides. Standardized credit and classification data turns sovereignty scores from self-assessments into evidence-based evaluations.
+- **Strengthen European digital sovereignty** — the EU CSF's SOV-5 (supply chain) and SOV-6 (open source) objectives require exactly the transparency this metadata provides. Standardized credit and classification data gives jurisdictions the evidence base to ground their own sovereignty evaluations in data rather than self-assessment.
 - **Create a level playing field for European vendors** — procurement criteria based on verified upstream contributions (as APELL and EuroStack propose) reward companies that invest in open source, rather than incumbents who simply resell it.
 - **Operationalize CRA and NIS2 in the open source context** — the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) requires stewards to document security practices and handle vulnerabilities; the [NIS2 Directive](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive) requires critical-sector organizations to assess software supply chains. Both directives need an evidence layer to move from legal text to operational practice. The `supplyChain` references and usage declaration mechanism proposed here provide exactly that layer for the open source ecosystem — without creating new reporting bureaucracy.
 
@@ -101,8 +101,8 @@ The European frameworks are reusable blueprints. The same metadata layer that ma
 
 ## Usage Registry
 
-- **Become the authoritative source for your jurisdiction or sector** — Governments need a verifiable inventory of deployed software. A standardized registry API makes your data consumable by every catalog and policy analysis tool in the ecosystem.
-- **Enable evidence-based policy** — Usage data drives reuse badges, sovereignty scores, and funding allocation. Without registries, policymakers act on anecdotes instead of evidence.
+- **Become the aggregation point for your jurisdiction or sector** — Governments need a verifiable inventory of deployed software. A standardized registry API makes your data consumable by every catalog and policy analysis tool in the ecosystem.
+- **Enable evidence-based policy** — Usage data feeds the reuse badges, sovereignty scores, and funding decisions that policymakers build on top of it. Without registries, policymakers act on anecdotes instead of evidence.
 - **Federate without fragmenting** — Each country, sector, or city can operate its own registry while using a common API standard. This means national data sovereignty combined with international interoperability.
 
 ---

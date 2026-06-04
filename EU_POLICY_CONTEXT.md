@@ -224,7 +224,7 @@ SMEs with deep open source expertise are invisible to procurement offices that r
 
 #### 4. "Public Money, Public Code" enforcement
 
-An Open Source First mandate (as proposed by EuroStack and FSFE) would be unenforceable without discovery and audit infrastructure. The **usage declaration standard** (`.well-known/publiccode-usage.json`) is the natural compliance mechanism: public bodies could be required to publish their software stack, making policy enforcement auditable. Faceted classification and supply chain references make evaluation of open source alternatives feasible for procurement officers who currently lack tools for it.
+An Open Source First mandate (as proposed by EuroStack and FSFE) would be unenforceable without discovery and audit infrastructure. The **usage declaration standard** (`.well-known/publiccode-usage.json`) is the natural compliance mechanism for such a mandate: public bodies that publish their software stack make policy enforcement auditable. Faceted classification and supply chain references make evaluation of open source alternatives feasible for procurement officers who currently lack tools for it.
 
 #### 5. Software reuse as a measurable criterion
 

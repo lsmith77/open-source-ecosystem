@@ -55,7 +55,7 @@ Every step toward this vision has value on its own terms. If some components of 
 1. Faceted classification (multi-dimensional discovery)
 2. Supply chain references (SBOMs, policies, security evidence)
 3. Credit system discovery (vendor and contributor visibility)
-4. Usage tracking via external registries (verified decentralized adoption signals)
+4. Usage tracking via external registries (trust-model-tagged decentralized adoption signals)
 5. Temporal field deprecation (cleaner and more trustworthy data)
 6. Package distribution references (npm, PyPI, Maven, etc.)
 7. Sanctioned mirror declarations (handling forge migration and mirrors)
