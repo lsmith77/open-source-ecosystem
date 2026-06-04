@@ -22,6 +22,7 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 - **Improvements awaiting consensus:**
   - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred) (deferred pending CRA regulatory guidance)
   - [Improvement 9: Platform Lock-in Declaration](#improvement-9-platform-lock-in-declaration-proposed) (proposed, seeking community input)
+  - [Future Work: Linked Data Representation](#future-work-linked-data-representation-deferred) (deferred)
 
 ---
 
@@ -33,21 +34,19 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 
 3. **Only include data the project controls.** A project can endorse which credit registries track its contributors (the project knows who contributes). A project cannot endorse usage registries (the project doesn't control who uses it). Usage data belongs entirely outside the file.
 
-4. **All publiccode.yml metadata are project assertions.** Fields in publiccode.yml are statements made by the project or its maintainers. Validation, verification, and trust scoring may be added by catalogs, registries, or other consumers, but those layers sit on top of the published metadata rather than changing its meaning in the file itself.
+4. **Capture lookup keys, not facts held elsewhere.** Where an authoritative source already holds a fact — a vendor's jurisdiction and corporate identity in GLEIF/LEI and business registries, a project's commit history in its forge — the metadata stores a stable, resolvable identifier (the `identifier`/`uri` fields on stewards, contractors, project organisations, and credit-registry entries), not a copy; consumers resolve the current fact from the source. This keeps the file small, avoids stale self-asserted copies, and lets sovereignty and critical-supplier assessments (CADA cloud tiers, NIS2 supply-chain review) draw on publiccode.yml without it becoming a registry of company data. Corollary: where such assessments matter, prefer an identifier that resolves to the needed fact — an LEI resolves to a jurisdiction; a bare domain URL does not.
 
-5. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
+5. **All publiccode.yml metadata are project assertions.** Fields in publiccode.yml are statements made by the project or its maintainers. Validation, verification, and trust scoring may be added by catalogs, registries, or other consumers, but those layers sit on top of the published metadata rather than changing its meaning in the file itself.
 
-6. **All external systems use standardized APIs.** This allows catalogs (EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
+6. **Decentralized discovery: registries find projects, not vice versa.** Usage registries discover projects by reading their publiccode.yml `url` field. The Registry Discovery Standard (described below) makes registries themselves discoverable and crawlable.
 
-7. **Classification uses multiple dimensions.** Replace flat category lists with faceted classification (domain, function, role, layer, audience). This enables richer discovery: "show me healthcare CRMs that run as standalone web applications."
+7. **All external systems use standardized APIs.** This allows catalogs (EU OSS Catalogue, Developers Italia) to aggregate data from any registry that conforms to the standard, rather than building custom integrations.
 
 8. **Companion standards inherit publiccode.yml's vocabulary.** All companion specifications — usage declarations, registry APIs, discovery manifests — reuse publiccode.yml's existing field names and controlled vocabularies wherever the concepts overlap. When a companion standard addresses the same concept from a different perspective (for example, a deploying organization declaring its use case rather than a project author declaring capabilities), we reuse the same field name with an explicit note about who is making the assertion. This avoids creating new names for the same concept. publiccode.yml is the established standard; everything else is built on top of it.
 
 9. **No new legal obligations.** This proposal provides infrastructure to make existing legal obligations — under the CRA, NIS2, EMBAG, and similar frameworks — easier to demonstrate and verify. It does not add new requirements beyond what those laws already impose. Every field and mechanism described here is either optional or a technical way to meet obligations that already exist in law. Participation is voluntary at every level; higher trust levels unlock richer catalog filters but carry no legal requirements.
 
-10. **Duplicate/conflicting metadata.** Catalogs and aggregators should detect and clearly present duplicate or conflicting publiccode.yml files for the same open source project, notify users, and provide a process for maintainers to resolve such conflicts.
-
-11. **Future: linked data representation (deferred).** The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity. The `url` field and any sanctioned mirrors (see [Improvement 7](#improvement-7-sanctioned-mirror-declarations)) are already dereferenceable identifiers suitable as `schema:sameAs` targets in news article entity markup — enabling any project with a publiccode.yml to be referenced from external sources without requiring a Wikidata entry. Wikidata QIDs, where they exist, are complementary aliases the catalog aggregates; they are enrichments, not prerequisites for visibility.
+10. **Data and collection method, not interpretation.** This proposal standardizes _what_ is captured and _how_ it is collected so that trust, sovereignty, and procurement assessments are possible — it does not define the metrics, thresholds, weights, or rules for those assessments. Where it touches trust (the `trustModel` field on registries, project sign-off on contribution-credit data, identifier schemes that resolve to verifiable facts), it does so only to make the collected data credible enough to assess; the assessment itself belongs to catalogs, registries, and consumers. Methodologies for earning, weighting, or scoring — contribution credits, sovereignty tiers, accessibility ratings — are out of scope and remain per-consumer or per-jurisdiction decisions.
 
 ---
 
@@ -109,6 +108,8 @@ The success of this proposal depends on broad stakeholder engagement and robust 
 6. **Ongoing Governance:** Define a clear process for future changes, dispute resolution, and onboarding of new stakeholders. Ensure governance remains transparent, inclusive, and adaptable as the ecosystem evolves.
 
 This process is further detailed in the ROADMAP.md Phase 0 section and is critical for legitimacy, adoption, and long-term sustainability.
+
+**Handling duplicate and conflicting metadata.** Catalogs and aggregators should detect and clearly present duplicate or conflicting publiccode.yml files for the same open source project, notify users, and provide a process for maintainers to resolve such conflicts.
 
 | Procurement need                | Improvement                                                                                                                  | What it enables                                                                                                     |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -1735,3 +1736,9 @@ requiredPlatforms:
 1. Should this field live in `supplyChain` (where platform vendor information semantically belongs) or as a separate `platformDependencies` section at the top level?
 2. How specific should "vendor" names be? (e.g., "AWS", "Amazon Web Services", "AWS RDS", "Amazon Aurora")
 3. Should there be a controlled vocabulary of common platform vendors and lock-in features, or is free-text acceptable?
+
+---
+
+## Future Work: Linked Data Representation _(Deferred)_
+
+The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity. The `url` field and any sanctioned mirrors (see [Improvement 7](#improvement-7-sanctioned-mirror-declarations)) are already dereferenceable identifiers suitable as `schema:sameAs` targets in news article entity markup — enabling any project with a publiccode.yml to be referenced from external sources without requiring a Wikidata entry. Wikidata QIDs, where they exist, are complementary aliases the catalog aggregates; they are enrichments, not prerequisites for visibility.

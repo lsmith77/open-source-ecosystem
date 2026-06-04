@@ -26,6 +26,13 @@ The PROPOSAL.md is the core document. All other document exist to support this d
 
 Before writing a URL into any document, fetch it and confirm it returns a non-error response. A URL that cannot be verified must not be added. If the canonical source is a large PDF or otherwise unfetchable or omit the link and note it as unverified.
 
+## Design Principles
+
+The [Design Principles](PROPOSAL.md#design-principles) are the backbone of the proposal. Check every new or changed field, mechanism, or companion standard against them; if a change conflicts, rework it or make a documented case for revising the principle.
+
+- **The list holds only genuine principles** — cross-cutting design rules. Spec details belong in the relevant Improvement, operational requirements in governance/catalog sections, deferred features in Future Work. Prefer fewer, sharper principles.
+- **Keep numbered cross-references in sync** (e.g. "Design Principle 4") when reordering, adding, or removing a principle.
+
 ## Document Conventions
 
 - All documents use GitHub-flavoured Markdown.
