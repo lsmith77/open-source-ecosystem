@@ -372,7 +372,7 @@ Faceted classification asks more of maintainers than the current flat `categorie
 1. **AI-assisted tooling.** The [publiccode.yml editor](https://github.com/italia/publiccode-editor) could offer an AI-powered classification assistant that reads the repository README and description, proposes classification values, and lets the maintainer confirm or adjust. This lowers the burden from "fill in six fields from scratch" to "review and accept suggestions."
 2. **Crawler-assisted enrichment.** Catalog crawlers (the EU OSS Catalogue, Developers Italia) can derive classification from existing metadata — README keywords, package registry tags, GitHub topics — and store it at the catalog layer without requiring the maintainer to maintain it in the file. This keeps the file minimal while making faceted search available to catalog users.
 
-Both approaches respect the principle that maintainers should only be asked to author data that genuinely requires their judgment.
+Both approaches respect the principle that maintainers should only be asked to author data that genuinely requires their judgment. (For the concrete tooling — preconfigured editor URLs, crawler-to-editor handoff, and the broader tooling gaps — see [TOOLING.md](TOOLING.md).)
 
 ---
 
