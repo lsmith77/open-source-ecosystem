@@ -16,6 +16,7 @@ The PROPOSAL.md is the core document. All other document exist to support this d
 | `ROADMAP.md`           | Phased implementation plan; ally map; sequencing rationale                                                                                                   |
 | `RISK_ANALYSIS.md`     | Risk register across adoption, technical, governance, political, and economic dimensions                                                                     |
 | `DATA_FLOW.md`         | Mermaid architecture diagram showing how data flows between ecosystem components                                                                             |
+| `TOOLING.md`           | Catalog of the publiccode.yml tooling ecosystem, gaps, and OSS building blocks (existing tools, adjacent data sources, and the new/adapted tools the proposal needs) |
 | `GLOSSARY.md`          | Definitions of key terms, acronyms, and concepts used across all documents                                                                                   |
 | `METHODOLOGY.md`       | Research provenance log — AI tool usage, phases, prompts, sources evaluated. Update this document whenever doing deep research prompts                       |
 | `AGENTS.md`            | This file                                                                                                                                                    |
