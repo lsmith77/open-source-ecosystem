@@ -161,8 +161,8 @@ The U.S. federal agency responsible for critical infrastructure security. Funds 
 **Sovereign Tech Fund**
 A German funding program supporting critical open source infrastructure, with focus on security and sustainability.
 
-**EU Cloud Sovereignty Framework**
-A European Commission framework for assessing whether cloud services meet EU data protection, security, and digital sovereignty requirements. Explicitly encourages open source.
+**EU Cloud Sovereignty Framework (CSF / SEAL)**
+A European Commission framework (DG DIGIT, CSF v1.2.1, October 2025) for assessing whether cloud services meet EU data protection, security, and digital sovereignty requirements. It scores providers across **8 Sovereignty Objectives (SOV-1…SOV-8)** on a **5-level scale (SEAL-0…SEAL-4)**, combining a per-objective Minimum Assurance Level (rejection threshold) with a weighted Sovereignty Score (award criterion). CADA codifies it as the "four-level Cloud and AI Sovereignty Framework." Explicitly encourages open source. See [EU_POLICY_CONTEXT.md → CADA](EU_POLICY_CONTEXT.md#the-operational-machinery-cloud-sovereignty-framework-csfseal).
 
 ---
 
