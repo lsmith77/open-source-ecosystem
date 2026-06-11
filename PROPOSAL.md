@@ -355,6 +355,8 @@ Procurement officers need to answer questions like:
 
 With faceted classification, an officer can query across multiple dimensions simultaneously. With flat categories, they can only search one dimension at a time and manually filter the rest. The OSS Taxonomy's six dimensions (domain, role, function, layer, audience, technology) enable rich combinatorial discovery.
 
+**AI openness (forward-looking).** As AI systems enter public-sector catalogues, "open source" stops being a single licence question. The [Open Source AI Definition (OSAID 1.0)](https://opensource.org/ai) and the G7 "Vision on AI openness" (May 2026) distinguish graded states — *Weights Available*, *Open Weights*, and *Open Source AI with Open Data* (the "three opens": open code, open weights, open data). Rather than overloading the licence field, this distinction fits the `tags` namespace convention as an `ai-openness:` facet (e.g. `ai-openness:open-weights`, `ai-openness:open-data`), so procurement can filter on it without conflating model openness with the project's software licence.
+
 ### Vocabulary Governance
 
 The controlled vocabularies for `domain`, `function`, `role`, `layer`, and `audience` should be maintained as a separate, versioned artifact (like the current [categories list](https://yml.publiccode.tools/categories-list.html)) with:
@@ -1442,6 +1444,8 @@ Regional authorities conducting Sovereignty Checks (ZenDiS Sovereignty Check in 
 3. Assessment results are decentralized—each region operates its own registry without centralized gatekeeping
 4. Catalogs aggregate assessment data without custom integration per assessment framework
 
+The EU's **[Cloud Sovereignty Framework (CSF/SEAL)](EU_POLICY_CONTEXT.md#the-operational-machinery-cloud-sovereignty-framework-csfseal)** — 8 Sovereignty Objectives (SOV-1…SOV-8) rated on the SEAL-0…SEAL-4 scale, which CADA codifies as its "four-level Cloud and AI Sovereignty Framework" — is a concrete, high-stakes instance of exactly this pattern. In registry terms it is simply another named assessment framework alongside the national Sovereignty Checks above, and the same schema carries it. The CSF Implementation Guidance flags the **per-tender self-assessment burden** as its main adoption blocker; an assessment registry is the shared evaluation infrastructure that answers it (see point 6, "Assess once, reuse everywhere," under _What This Enables_ below).
+
 ### Schema
 
 Assessment registries publish standardized assessment results:
@@ -1574,6 +1578,7 @@ Returns all assessment frameworks known to catalogs for filtering and discovery.
 3. **Transparent Disagreement**: Projects and assessors can address disputes through the registry rather than silently conflicting.
 4. **Trust Building**: Over time, catalogs track which assessment frameworks are reliable, which projects have high dispute rates, and which assessors have high confidence scores.
 5. **Cross-Regional Learning**: Procurement offices across jurisdictions see which assessment criteria matter, enabling harmonization or informed divergence based on local policy.
+6. **Assess once, reuse everywhere**: The dominant cost of sovereignty frameworks like the EU CSF/SEAL is that each contracting authority re-runs the assessment per tender. Publishing an assessment once to a registry — with trust model, validity window, and per-criterion evidence — lets every other contracting authority reuse it instead of repeating it, directly addressing the self-assessment burden the CSF Implementation Guidance identifies as its main adoption blocker.
 
 ### Design Questions for Community
 
