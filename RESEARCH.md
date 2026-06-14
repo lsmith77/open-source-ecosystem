@@ -156,6 +156,32 @@ A growing number of initiatives assess digital sovereignty at the organization, 
 
 These frameworks strengthen the case for publiccode.yml extensions: sovereignty assessors need machine-readable project metadata (licenses, SBOMs, open standard compliance, dependency transparency) to automate their evaluations. The proposed `supplyChain` section and faceted `classification` directly feed this need.
 
+### OpenCatalogi (Netherlands / VNG Common Ground)
+
+[OpenCatalogi](https://github.com/OpenCatalogi) is a federated software catalog for Dutch municipalities, part of the VNG "Common Ground" information landscape (product owner: City of Rotterdam; built by Conduction; open governance across participating municipalities). It is one of the few **publiccode.yml-based catalogs actually in production**, alongside Developers Italia and openCode.de — a useful working reference for the decentralized metadata-exchange model this proposal advocates.
+
+**How it uses publiccode.yml**
+
+- It assumes every publication lives in a public repository with a `publiccode.yaml` at its root; that file is the unit of indexing.
+- Discovery is GitHub-search-driven: a repository becomes findable once GitHub has indexed it (e.g. a `repo:org/repo publiccode` search), after which OpenCatalogi crawls it.
+- Its [publiccode-action](https://github.com/OpenCatalogi/publiccode-action) auto-generates and maintains the `publiccode.yaml` from repository metadata (name, description) and, on every push to `main`, bumps `softwareVersion`/`releaseDate` and fires a "federalize" event to the OpenCatalogi API to trigger re-indexing. It is a more advanced version of [Italy's publiccode-softwareversion-check-action](https://github.com/italia/publiccode-softwareversion-check-action).
+
+**How the publiccode → API translation works**
+
+The [api repository](https://github.com/OpenCatalogi/api) defines an OpenAPI spec (`OAS.yaml`) aligned with the Dutch NL API strategy and the Common Ground gateway pattern. Each top-level `publiccode.yml` becomes a **`Component`** resource; the schema set is `Component`, `Application` (applicationSuite), `Catalogi`, `Organisation`, `Repository`, `Contractor`, `Contact`, `Dependency`, and `Rating`, exposed at `/components`, `/organizations`, `/applications`, `/catalogi`, and `/repositories`. In effect, publiccode's YAML keys are mapped near-1:1 to JSON object properties and served as a crawlable REST API — the same "publish structured data, let any tool crawl it" pattern this proposal describes, but realized as a national gateway rather than a generic standard.
+
+**Where it overlaps with — and diverges from — this proposal**
+
+OpenCatalogi has already extended publiccode in ways that mirror several proposal themes; the *differences* are the instructive part. Its `Component` schema documents these extensions explicitly:
+
+- **Classification / layering.** Through an `nl` country-specific extension (CSE) it adds Common Ground `layerType` (interface/integration/data/service/process) and GEMMA reference-architecture fields (`bedrijfsfuncties`, `bedrijfsservices`, `applicatiefunctie`, `referentieComponenten`, `upl`). This is conceptually parallel to the faceted classification this proposal recommends — but baked in as a national CSE tied to Dutch municipal vocabulary, rather than a generic, reusable facet vocabulary (OSS Taxonomy). It is a concrete example of exactly the CSE proliferation the publiccode maintainers are reconsidering (see §1).
+- **Reused / added fields.** It revives publiccode's *deprecated* `inputType`/`outputType` (as `inputTypes`/`outputTypes` MIME lists), adds `type` enums (`Api`, `Schema`, `Data`), and adds an `applicationId` (forge repository id) — divergences from the upstream spec direction.
+- **Temporal fields (direct contrast).** This proposal recommends **deprecating** `softwareVersion`/`releaseDate` because committed version data goes stale (see §1 and Recommendation 5). OpenCatalogi instead leans into them and automates their upkeep via the action. The automation is a reasonable mitigation of staleness, but it still treats the repo file as the source of truth for data that forge and package APIs already hold authoritatively — the tension this proposal is trying to resolve.
+- **Usage-data location.** It records adopters both in publiccode's `usedBy` and in an `nl.commonground.intendedOrganisations` list — i.e. inside the project's own file. This proposal argues usage declarations don't belong in the project's publiccode (the project has no authority over who deploys it) and instead need decentralized usage registries (see Use Case 4) — a deliberate architectural difference.
+- **Ratings (complementary, not contradictory).** OpenCatalogi embeds a `Rating` object on each `Component` and computes a documentation-completeness score (0–24; presence of files and publiccode fields, weighted by publication type) that orders results in its frontend. This proposal deliberately **does not define metrics** — but that is precisely so consumers and third parties can layer their own on top, whether by aggregating signals or via crowd-sourced ratings. OpenCatalogi's rating is a real-world instance of that layer: a consumer-side metric computed *over* the metadata, not imposed *by* the standard. The absence of metrics in this proposal should not be read as a position that none should exist — only that defining and weighting them belongs to the assessors and consumers who publish them, not to the base standard.
+
+**Takeaway:** OpenCatalogi validates the federated-publiccode model and demonstrates real demand for classification, adopter, and rating layers — while its CSE-heavy, file-as-source-of-truth choices illustrate the specific problems (CSE proliferation, temporal staleness, usage-data ownership) this proposal aims to avoid.
+
 ---
 
 ## Gap Analysis by Use Case
