@@ -200,7 +200,7 @@ EU OSS Catalogue consuming the full extension set. At least one non-EU country a
 
 ## Additional Key Players Needed
 
-Players not yet in the coalition but necessary for the proposal to succeed. (Players with existing relationships are listed in [Confirmed or Likely Allies](#confirmed-or-likely-allies) above.)
+Players not yet in the coalition but necessary for the proposal to succeed. (Players with existing relationships are listed in [Who We Know](#who-we-know) above.)
 
 ### Essential (without them, the proposal stalls)
 

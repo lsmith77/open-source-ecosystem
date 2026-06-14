@@ -79,7 +79,7 @@ The proposal addresses this on two sides:
 
 1. **At adoption time:** The `supplyChain` references (SBOM, security policy, Scorecard) allow a deploying organization to fetch structured evidence from a single metadata entry point, rather than manually hunting across project websites, GitHub repositories, and external databases.
 
-2. **At inventory time:** The [organization-level usage declaration](PROPOSAL.md#organization-level-usage-declarations-publiccode-usagejson) (`.well-known/publiccode-usage.json`) gives organizations a standard format to maintain a declared software stack. This serves as a natural audit trail for supply chain risk management obligations and supports internal NIS2 compliance documentation.
+2. **At inventory time:** The [organization-level usage declaration](PROPOSAL.md#organization-level-usage-declarations) (`.well-known/publiccode-usage.json`) gives organizations a standard format to maintain a declared software stack. This serves as a natural audit trail for supply chain risk management obligations and supports internal NIS2 compliance documentation.
 
 **Key insight:** NIS2 creates legal demand for exactly the supply chain visibility this proposal provides. Registries that aggregate this data could serve as compliance infrastructure for regulated sectors.
 

@@ -119,7 +119,7 @@ _You're evaluating whether open source is right for your organization._
 
 - [PITCH.md → Procurement Office](PITCH.md#procurement-office)
 - [RESEARCH.md → publiccode.yml strengths](RESEARCH.md#1-publiccodeyml)
-- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source)
+- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source-global-and-regional)
 
 **Deep dive (40 min):**
 
@@ -153,8 +153,8 @@ _You deliver expertise around specific open source projects._
 **Quick path (12-15 min):**
 
 - [PITCH.md → Vendor/Service Provider](PITCH.md#vendor--service-provider)
-- [PROPOSAL.md → Improvement 3: Vendor Credit System Discovery](PROPOSAL.md#improvement-3-vendor-credit-system-discovery)
-- [ROADMAP.md → Phase 3](ROADMAP.md#phase-3-credit-system-pilot-with-drupal)
+- [PROPOSAL.md → Improvement 3: Vendor Credit System Discovery](PROPOSAL.md#improvement-3-vendor-contribution-credit-system-discovery)
+- [ROADMAP.md → Phase 3](ROADMAP.md#phase-3-contribution-credit-system-pilot-with-drupal)
 
 **Deep dive (35 min):**
 
@@ -171,7 +171,7 @@ _You're drafting open source procurement requirements or digital sovereignty man
 
 - [EU_POLICY_CONTEXT.md](EU_POLICY_CONTEXT.md)
 - [PITCH.md → Policy Maker/Legislator](PITCH.md#policy-maker--legislator)
-- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source)
+- [PROPOSAL.md → Policy Context](PROPOSAL.md#policy-context-public-procurement-and-open-source-global-and-regional)
 
 **Deep dive (70 min):**
 

@@ -26,8 +26,8 @@ We examined five metadata standards and specifications that could potentially se
 | [publiccode.yml](#1-publiccodeyml)                         | YAML            | Active, EU-adopted        | Public sector software metadata        |
 | [OSS Taxonomy](#2-oss-taxonomy-andrew-nesbitt--ecosystems) | YAML vocabulary | Early stage               | Faceted classification for OSS         |
 | [CodeMeta](#3-codemeta)                                    | JSON-LD         | Active, academic adoption | Research software citation/metadata    |
-| [gov-codejson](#4-gov-codejson-dsacms--codegov-lineage)    | JSON            | Active, U.S.-specific     | U.S. federal agency software inventory |
-| [contribute.json](#5-contributejson-mozilla)               | JSON            | Decommissioned (2024)     | Contribution onboarding metadata       |
+| [gov-codejson](#4-gov-codejson-us-federal-government)    | JSON            | Active, U.S.-specific     | U.S. federal agency software inventory |
+| [contribute.json](#5-contributejson-mozilla--archived)               | JSON            | Decommissioned (2024)     | Contribution onboarding metadata       |
 
 ---
 

@@ -5,7 +5,7 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 ## Contents
 
 - [Design Principles](#design-principles)
-- [Policy Context: Public Procurement and Open Source](#policy-context-public-procurement-and-open-source)
+- [Policy Context: Public Procurement and Open Source](#policy-context-public-procurement-and-open-source-global-and-regional)
 - [Actors and Relationships](#actors-and-relationships)
 - [Improvement 1: Faceted Classification](#improvement-1-faceted-classification-replacing-flat-categories)
 - [Improvement 2: Supply Chain References](#improvement-2-supply-chain-references)
@@ -115,7 +115,7 @@ This process is further detailed in the ROADMAP.md Phase 0 section and is critic
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **Finding software that fits**  | [Improvement 1: Faceted Classification](#improvement-1-faceted-classification-replacing-flat-categories)                     | Multi-dimensional discovery: "CRM for healthcare, web-based" instead of keyword guessing                            |
 | **Assessing security posture**  | [Improvement 2: Supply Chain References](#improvement-2-supply-chain-references)                                             | One-click access to SBOMs, OpenSSF Scorecards, REUSE compliance, vulnerability disclosure policies                  |
-| **Evaluating vendor expertise** | [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-credit-system-discovery)                               | Verifiable contribution data — who actually maintains the software, not just who claims to                          |
+| **Evaluating vendor expertise** | [Improvement 3: Vendor Credit System Discovery](#improvement-3-vendor-contribution-credit-system-discovery)                               | Verifiable contribution data — who actually maintains the software, not just who claims to                          |
 | **Checking peer adoption**      | [Improvement 4](#improvement-4-deprecate-usedby) + [Registry Discovery Standard](#registry-discovery-standard-rough-outline) | Which peer organizations already deploy this software, verified by domain control                                   |
 | **Trusting the metadata**       | [Improvement 5: Deprecate Temporal Fields](#improvement-5-deprecate-temporal-fields)                                         | Only slow-changing, human-authored data — eliminating the stale version numbers that erode trust in the entire file |
 
@@ -561,7 +561,7 @@ This keeps the standard compact while still allowing catalogs and procurement to
 3. **Automated trust signals.** Crawlers (EU OSS Catalogue, Developers Italia) can fetch scorecard scores and REUSE status via the referenced URLs, enabling badges and filters like "show me only projects with an OpenSSF score above 7" or "only REUSE-compliant projects."
 4. **CRA and NIS2 compliance evidence.** For projects operating under the [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/policies/cra-open-source) as an open-source software steward, the `supplyChain` fields make the required security artifacts — cybersecurity policy, SBOM, vulnerability disclosure process — machine-discoverable without additional reporting overhead. For [NIS2](https://digital-strategy.ec.europa.eu/en/policies/nis2-directive)-covered deploying organizations, the same references satisfy supply chain risk assessment obligations for OSS components in their stack.
 
-   The [OpenSSF OSPS Baseline](https://baseline.openssf.org/) makes this mapping concrete: it defines tiered security controls (maturity levels 1–3) that explicitly cross-reference CRA, NIS2, DORA, SLSA, SSDF, NIST 800-161, and BSI TR-03185-2. The [OSPS Baseline Scanner](https://github.com/ossf/security-baseline) reads `security-insights.yml` to assess compliance. The `supplyChain` fields map directly to specific OSPS controls:
+   The [OpenSSF OSPS Baseline](https://baseline.openssf.org/) makes this mapping concrete: it defines tiered security controls (maturity levels 1–3) that explicitly cross-reference CRA, NIS2, DORA, SLSA, SSDF, NIST 800-161, and BSI TR-03185-2. The [OSPS Baseline scanner](https://github.com/ossf/pvtr-github-repo-scanner) reads `security-insights.yml` to assess compliance against the [OSPS Baseline](https://github.com/ossf/security-baseline) controls. The `supplyChain` fields map directly to specific OSPS controls:
 
    | `supplyChain` field   | OSPS control                                                     | Regulatory mapping   |
    | --------------------- | ---------------------------------------------------------------- | -------------------- |
@@ -639,7 +639,7 @@ The current `usedBy` field is a simple list of organization names maintained by 
 - **It's high-friction** — organizations must ask projects to update their file
 - **It's always stale** — organizations adopt and retire software without notifying projects
 
-As described in [Actors and Relationships](#actors-and-relationships), usage data is asserted by deploying organizations, not by projects. The project has no authority over who uses it. Usage tracking therefore lives entirely outside publiccode.yml, in decentralized [usage registries](#registry-discovery-standard) that index projects by their `url` field. This aligns with [publiccodeyml PR #187](https://github.com/publiccodeyml/publiccode.yml/pull/187), which proposes deprecating `usedBy` in the spec itself, with usage data moving to the catalog-api layer.
+As described in [Actors and Relationships](#actors-and-relationships), usage data is asserted by deploying organizations, not by projects. The project has no authority over who uses it. Usage tracking therefore lives entirely outside publiccode.yml, in decentralized [usage registries](#registry-discovery-standard-rough-outline) that index projects by their `url` field. This aligns with [publiccodeyml PR #187](https://github.com/publiccodeyml/publiccode.yml/pull/187), which proposes deprecating `usedBy` in the spec itself, with usage data moving to the catalog-api layer.
 
 ### Schema Change
 
