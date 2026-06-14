@@ -95,11 +95,15 @@ Usage registries and `.well-known/publiccode-usage.json` files expose which orga
 
 ### G1. Governance structure and community capacity
 
-The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization. Since 2021, a formal [governance charter](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/charter.md) has defined the project's decision-making structure, roles, and responsibilities. While this provides a lightweight but explicit governance framework, the active maintainer community remains small relative to the spec's institutional adoption (EU mandate).
+The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization. Since 2021, a formal [governance charter](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/charter.md) and a documented [proposal-and-voting procedure](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/procedure-proposing-changes-and-voting.md) define the decision-making structure. The decisive detail for this proposal: **voting is restricted to public servants on a Steering Committee with one seat per country — currently three (France, Italy, the Netherlands)**, and the maintainer merges a change once the Committee has reached consensus. Decisions on the Standard therefore rest with the Committee; the maintainers implement them, and the broader community (including this proposal's coalition) contributes by drafting and piloting.
 
-- **Likelihood:** Medium — the governance charter clarifies processes and responsibilities, but its lightweight nature may not provide mechanisms for resolving severe internal disagreements or deadlocks among maintainers.
-- **Impact:** High — without sufficient maintainer engagement, substantial improvements may remain proposals indefinitely, especially if they require coordinated updates to the spec and tooling ecosystem.
-- **Mitigation:** Proposals should be brought to the publiccodeyml maintainers with a clear champion and, ideally, institutional backing (e.g., a working group). Offering to co-maintain improvements and provide implementation support (tooling, migration scripts, validator updates) reduces the burden on existing maintainers. All changes must be reflected in the tooling ecosystem (see [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)), so PRs should bundle spec and tooling updates. The governance charter provides a path for onboarding new maintainers or working groups if institutional interest is sustained.
+- **Likelihood:** Medium — the procedure is clear, but the default voting threshold is unanimity (with a documented fallback: ≥50% approval → a discussion period of at least 90 days → a 75% revote), and the spec is maintained by a small community relative to its adoption. A significant scope increase needs time and broad agreement to pass.
+- **Impact:** High — substantial improvements may remain proposals for a long time if the Committee is not engaged early, especially where they require coordinated spec + tooling updates.
+- **Mitigation:**
+  1. **Engage the Steering Committee and maintainers early.** Bring the improvements to the FR/IT/NL Committee members and the maintainers well before any vote, so they are understood and shaped collaboratively. Developers Italia, as co-creators and the Italian seat-holder, are a natural first contact.
+  2. **Introduce changes incrementally.** Break the scope increase into smaller, individually-motivated proposals rather than one large change, making each easier to review and agree on.
+  3. **Stay in the minor-version lane.** Keep every change additive or a deprecation-with-fallback so it ships as a minor version; breaking changes are gated to at most once every two years and require ≥6 months of prior deprecation.
+  4. **Bundle spec + tooling.** All changes must be reflected in the tooling ecosystem (see [issue #256](https://github.com/publiccodeyml/publiccode.yml/issues/256)); offering co-maintenance, validators, and migration scripts reduces the burden on the maintainer who implements Committee decisions.
 
 ---
 
@@ -165,7 +169,7 @@ Credit and usage registries require hosting, maintenance, moderation, and API in
 
 Below a summary of risks that combine High likelihood with High impact and define the critical path:
 
-1. **G1** (governance buy-in) is the single prerequisite — nothing advances without maintainer approval.
+1. **G1** (spec governance) is the single prerequisite — changes to the Standard require approval from the FR/IT/NL Steering Committee, where the default threshold is unanimity.
 2. **A1** and **A2** (branding and bootstrapping) constrain reach.
 3. **A5** (temporal staleness) is empirically observable now.
 4. **T3** (API interoperability) and **S1** (credit gaming) require registry-level countermeasures that cannot be solved at the schema level.

@@ -31,11 +31,18 @@ This roadmap assumes we can activate these existing relationships. Conversations
 | **CHAOSS**                                      | Community Health Analytics—defines metrics for open source project health. Work on contribution attribution.                                                             | Direct contact                                   |
 | **FSFE (Free Software Foundation Europe)**      | Run the "Public Money? Public Code!" campaign (200+ organizations backing it). Maintain REUSE standard (already integrated into openCode.de). European advocacy network. | Emerging connection                              |
 | **Accessibility competence centers**            | Public-sector accessibility expertise; direct insight into barrier-free procurement constraints and verification practice.                                               | New outreach target                              |
-| **publiccode.yml maintainers**                  | Control the specification. Any extension must receive their approval.                                                                                                    | Acquaintance; first contact needed               |
+| **publiccode.yml maintainers**                  | Implement and merge spec changes once the Steering Committee has approved them ([charter](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/charter.md)).                                                    | Acquaintance; first contact needed               |
+| **Steering Committee (FR / IT / NL)**           | Vote on changes to the Standard — one public servant per country (currently France, Italy, the Netherlands), per the publiccode.yml charter.              | First contact needed               |
 
-### Critical Prerequisite: Spec Maintainer Buy-in
+### Critical Prerequisite: Spec Governance Engagement
 
-Risk G1 (small spec governance community) is the single highest-priority blocker. The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization with a small maintainer community relative to its institutional adoption. The proposed improvements represent a significant scope increase.
+Risk G1 (small spec governance community) is the single highest-priority blocker. The publiccode.yml spec is maintained by the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) GitHub organization, governed by a [charter](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/charter.md) and a documented [proposal-and-voting procedure](https://github.com/publiccodeyml/publiccode.yml/blob/main/governance/procedure-proposing-changes-and-voting.md). The proposed improvements represent a significant scope increase.
+
+Decisions on the Standard are made by the Steering Committee and implemented by the maintainers. Anyone may open a PR, but voting is restricted to public servants on the Steering Committee — one seat per country (currently France, Italy, and the Netherlands). The maintainer (@bfabio) merges a change once the Committee has reached consensus. Engaging both the maintainers and the Committee early — so a proposal is well understood before it comes to a vote — is what this phase is about.
+
+The voting thresholds reward incremental, well-socialised changes. The default is unanimity over a two-week PR vote, with a documented fallback for proposals that fall short (≥50% approval → a discussion period of at least 90 days → a revote at 75% approval). Since the spec is maintained by a small community relative to its adoption (risk G1), a large scope increase is best introduced as smaller, individually-motivated changes brought forward with the Committee's input from the start.
+
+**Backward-compatibility is a deliberate governance fit.** Under the procedure, breaking changes can ship at most once every two years and only after ≥6 months of prior deprecation; minor changes and deprecations ship as ordinary minor versions. Every improvement in this roadmap is additive or a deprecation (keeping fields as fallbacks), so the whole programme stays in the minor-version lane and avoids the two-year breaking-change gate.
 
 ---
 
@@ -45,24 +52,22 @@ Risk G1 (small spec governance community) is the single highest-priority blocker
 
 ### Actions
 
-1. **Secure publiccode.yml maintainer buy-in.** Through the existing acquaintance with publiccode.yml maintainers (the [publiccodeyml](https://github.com/publiccodeyml/publiccode.yml) org), determine:
-   - What is the process for proposing v1.0 improvements?
-   - What capacity exists to review and absorb the proposed scope increase?
-   - Is Developers Italia still actively involved in spec governance?
-   - What support (co-maintenance, tooling, migration scripts) would make the improvements acceptable?
+1. **Engage the Steering Committee and maintainers early.** The governance process is documented (charter + proposal-and-voting procedure); use it to understand how and when to bring the improvements forward.
 
-2. **Form a working group** with academic, vendor, procurement, and registry operator perspectives — plus at least one publiccode.yml maintainer as spec liaison.
+2. **Work with the maintainers.** The maintainer (@bfabio) implements Committee decisions and merges PRs; offer co-maintenance, tooling, and migration scripts to lower the burden of absorbing the scope increase.
 
-3. **Engage Developers Italia early.** They co-created publiccode.yml and operate the Italian catalog. Without them, any v1.0 proposal lacks legitimacy.
+3. **Form a working group** with academic, vendor, procurement, and registry operator perspectives — plus at least one publiccode.yml maintainer as spec liaison. The working group informs and drafts the proposals.
 
-4. **Engage the OSS Taxonomy author.** The faceted classification proposal directly builds on the [OSS Taxonomy](https://nesbitt.io/2025/11/29/oss-taxonomy.html) work, and ecosyste.ms brings data infrastructure as a potential credit registry.
+4. **Engage Developers Italia early.** They co-created publiccode.yml and hold the Italian Steering Committee seat, making them an essential early partner for any v1.0 proposal.
 
-5. **Engage procurement policy stakeholders.** Position the proposed improvements as the data infrastructure that procurement policy initiatives (APELL, EuroStack, FSFE's Public Money? Public Code!) need. The improvements answer the practical "how do you actually procure open source?" question that follows from policy adoption.
-6. **Engage accessibility stakeholders early.** Include public-sector accessibility competence centers and catalog operators in the working group conversation so that a11y declarations are designed as usable procurement evidence from day one.
+5. **Engage the OSS Taxonomy author.** The faceted classification proposal directly builds on the [OSS Taxonomy](https://nesbitt.io/2025/11/29/oss-taxonomy.html) work, and ecosyste.ms brings data infrastructure as a potential credit registry.
+
+6. **Engage procurement policy stakeholders.** Position the proposed improvements as the data infrastructure that procurement policy initiatives (APELL, EuroStack, FSFE's Public Money? Public Code!) need. The improvements answer the practical "how do you actually procure open source?" question that follows from policy adoption.
+7. **Engage accessibility stakeholders early.** Include public-sector accessibility competence centers and catalog operators in the working group conversation so that a11y declarations are designed as usable procurement evidence from day one.
 
 ### Deliverable
 
-A published working group charter with institutional commitments and at least one publiccode.yml maintainer. A clear understanding of the governance path for proposed improvements. A mapping of active procurement policy initiatives to the improvements they require.
+A published working group charter with institutional commitments, including at least one publiccode.yml maintainer and early engagement with the Steering Committee. A shared understanding of the governance path for the proposed improvements. A mapping of active procurement policy initiatives to the improvements they require.
 
 ---
 
