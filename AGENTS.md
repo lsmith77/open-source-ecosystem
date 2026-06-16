@@ -41,3 +41,5 @@ The [Design Principles](PROPOSAL.md#design-principles) are the backbone of the p
 - Stakeholder organisations (lobby groups, industry coalitions) belong in `ROADMAP.md` as allies, not in `EU_POLICY_CONTEXT.md`.
 - `PROPOSAL.md` must remain self-contained; cross-references to other documents are welcome but the proposal must be readable without them.
 - Record all research phases in `METHODOLOGY.md` following the established phase format.
+- Avoid hard counts in prose ("both", "the two seams", "23 issues", "all three") — they go stale when items are added or removed and create needless git-history churn. Refer to items by name/title instead, and let lists speak for themselves. Intrinsic counts that name a fixed concept (e.g. "two faces of one status") are fine.
+- Reference tickets/issues by **title** and, once filed, by their real issue number — don't invent a parallel synthetic ID scheme (Issue A/B/C, T1–T5) that has to be kept in sync.
