@@ -18,6 +18,7 @@ The PROPOSAL.md is the core document. All other document exist to support this d
 | `DATA_FLOW.md`         | Mermaid architecture diagram showing how data flows between ecosystem components                                                                             |
 | `TOOLING.md`           | Catalog of the publiccode.yml tooling ecosystem, gaps, and OSS building blocks (existing tools, adjacent data sources, and the new/adapted tools the proposal needs) |
 | `GLOSSARY.md`          | Definitions of key terms, acronyms, and concepts used across all documents                                                                                   |
+| `FUTURE_WORK.md`       | Exploratory directions not part of the proposal (deferred, no committed design). Deferred Improvements with concrete schema stay in `PROPOSAL.md`.            |
 | `METHODOLOGY.md`       | Research provenance log — AI tool usage, phases, prompts, sources evaluated. Update this document whenever doing deep research prompts                       |
 | `AGENTS.md`            | This file                                                                                                                                                    |
 
@@ -43,3 +44,4 @@ The [Design Principles](PROPOSAL.md#design-principles) are the backbone of the p
 - Record all research phases in `METHODOLOGY.md` following the established phase format.
 - Avoid hard counts in prose ("both", "the two seams", "23 issues", "all three") — they go stale when items are added or removed and create needless git-history churn. Refer to items by name/title instead, and let lists speak for themselves. Intrinsic counts that name a fixed concept (e.g. "two faces of one status") are fine.
 - Reference tickets/issues by **title** and, once filed, by their real issue number — don't invent a parallel synthetic ID scheme (Issue A/B/C, T1–T5) that has to be kept in sync.
+- Tag open questions that need a specific external review **inline, in context** with a single faceted marker `> ⚠️ OPEN[<facet>]: <question>` (collect with `grep -rn 'OPEN\['`). Add a facet only for a genuine external-review handoff (e.g. `legal`); do **not** create topic markers (SECURITY/INFRASTRUCTURE/A11Y) — topic coverage belongs in the relevant section, not in a parallel tagging system.

@@ -22,7 +22,9 @@ A concrete proposal for evolving publiccode.yml with several backward-compatible
 - **Improvements awaiting consensus:**
   - [Improvement 8: CRA Steward Declaration](#improvement-8-cra-steward-declaration-deferred) (deferred pending CRA regulatory guidance)
   - [Improvement 9: Platform Lock-in Declaration](#improvement-9-platform-lock-in-declaration-proposed) (proposed, seeking community input)
-  - [Future Work: Linked Data Representation](#future-work-linked-data-representation-deferred) (deferred)
+- **Future work** (exploratory, see [`FUTURE_WORK.md`](FUTURE_WORK.md)):
+  - [Linked Data Representation](FUTURE_WORK.md#linked-data-representation-deferred) (deferred)
+  - [Project Presentation Profile](FUTURE_WORK.md#project-presentation-profile-deferred) (deferred)
 
 ---
 
@@ -1748,6 +1750,6 @@ requiredPlatforms:
 
 ---
 
-## Future Work: Linked Data Representation _(Deferred)_
+## Future Work
 
-The linked-data ecosystem (CodeMeta, schema.org, Software Heritage) could work with publiccode.yml through [YAML-LD](https://www.w3.org/community/reports/json-ld/CG-FINAL-yaml-ld-20231206/). Crawlers could create linked data from plain YAML by applying a standard context. However, this feature is deferred to reduce complexity. The `url` field and any sanctioned mirrors (see [Improvement 7](#improvement-7-sanctioned-mirror-declarations)) are already dereferenceable identifiers suitable as `schema:sameAs` targets in news article entity markup — enabling any project with a publiccode.yml to be referenced from external sources without requiring a Wikidata entry. Wikidata QIDs, where they exist, are complementary aliases the catalog aggregates; they are enrichments, not prerequisites for visibility.
+Exploratory directions that are not part of this proposal are tracked separately in [`FUTURE_WORK.md`](FUTURE_WORK.md): Linked Data Representation and a Project Presentation Profile.
